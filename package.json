@@ -2,6 +2,7 @@
   "name": "my-app",
   "version": "0.1.0",
   "private": true,
+  "main": "index.js",
   "dependencies": {
     "express": "^4.17.1",
     "node-sass": "^4.12.0",

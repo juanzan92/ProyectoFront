@@ -1,0 +1,9 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+        nodejs: 8
+    commands:
+      - npm install
+      - npm run-script build
+      - aws s3 sync build s3://s-market-static-front --delete
