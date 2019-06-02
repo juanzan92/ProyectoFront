@@ -4,6 +4,6 @@ phases:
     runtime-versions:
         nodejs: 8
     commands:
-    - npm install
-    - npm run build
-    - aws s3 sync dist s3://s-market-static-front --delete
+      - npm install
+      - npm run-script build
+      - aws s3 sync build s3://s-market-static-front --delete
