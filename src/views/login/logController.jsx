@@ -21,6 +21,11 @@ callBACK = () => {
     console.log(ragnar.makePOC())
 }
 
+cognitoPOC = () =>{
+    //la idea es que metas un JSON con los datos de form
+    ragnar.makeCognitoPOC("test");
+}
+
 render(){
     return(
         <>
@@ -30,7 +35,7 @@ render(){
             <h1>
                 hola bro
             </h1>
-            <div className="btn btn-success" onClick={() =>this.callBACK()}></div>
+            <div className="btn btn-success" onClick={() =>this.cognitoPOC()}> Conectar a cognito</div>
             <Login/>
         </div>
         </>
