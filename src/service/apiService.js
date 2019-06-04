@@ -3,10 +3,11 @@ const urlBack = "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/poc/se
 
 class Ragnar {
 
-    makePOC = () => {
+    makePOC(){
         console.log("hola")
         const devolver = fetch(urlBack)
             .then(response => {
+                
                 return response.json();
             }, null)
             .then(myJson => {
@@ -15,6 +16,8 @@ class Ragnar {
             }, null);
         return devolver;
     }
+
+    
 
 }
 
