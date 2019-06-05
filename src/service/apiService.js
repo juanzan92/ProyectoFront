@@ -1,30 +1,23 @@
-//url constantes para pegarles
-const urlBack = "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/poc/service";
-const urlCognito = "";
 
 
-//headers
-const token = "";
-const idCognitoServer = "";
-
+// la clase Ragnar hace de servicio central de la app
 
 class Ragnar {
 
-    makePOC(){
+    async makePOC(url){
         console.log("hola")
-        const devolver = fetch(urlBack)
-            .then(response => {
-                
-                return response.json();
-            }, null)
-            .then(myJson => {
-                console.log(myJson)
-                return  myJson;
-            }, null);
-        return devolver;
+        try {
+            const response = await fetch(url)
+            console.log(response)
+            const json = await response.json()
+            return json
+        } catch (error) {
+            console.log('Error:', error)
+            return {}
+        }
     }
 
-    makeCognitoPOC(dataIN){
+    makeCognitoPOC(dataIN, urlCognito){
         
         console.log("haciendo req a Cognito")
         fetch(urlCognito, {

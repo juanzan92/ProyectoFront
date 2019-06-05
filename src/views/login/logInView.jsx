@@ -1,5 +1,9 @@
 import React from 'react';
-import Footer from '../../components/Footer';
+
+//componentes
+import SingIn from '../../components/SingIn';
+//wraper de componentes
+import wraper from  '../../components/Wrapper';
 
 class Login extends React.Component {
 
@@ -7,11 +11,11 @@ class Login extends React.Component {
 
         return (
            <>
-           <Footer/>
+           <SingIn/>
            </>
         )
     };
 
 }
 
-export default Login;
+export default wraper(Login);
