@@ -4,7 +4,8 @@ import React from 'react';
 import Footer from '../../components/Footer';
 import NavBar from '../../components/NavBar';
 import TopBar from '../../components/TopBar';
-
+import { Auth } from 'aws-amplify';
+import { async } from 'q';
 import wrapper from '../../components/Wrapper';
 //servicio
 const Ragnar = require('../../service/apiService');
@@ -24,9 +25,25 @@ class index extends React.Component {
     })
   }
 
+
+async testApiCall() {
+  Auth.signUp({
+    username:"testuser",
+    password:"password123",
+    attributes: {
+        email: "gabrielneil7@gmail.com"
+    },
+    validationData: []  //optional
+    })
+    .then(data => console.log(data))
+    .catch(err => console.log(err));
+  //return API.get('testApiCall', '/guestbook');
+};
+
   render() {
     return (
       <div>
+        <div className="btn btn-success" onClick={this.testApiCall}> aca</div>
         {/* Body*/}
         {/* Off-Canvas Category Menu*/}
         <div className="offcanvas-container" id="shop-categories">

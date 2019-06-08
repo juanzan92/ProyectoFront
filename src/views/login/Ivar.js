@@ -3,6 +3,8 @@
 //imports
 import Ragnar from '../../service/apiService';
 import { async } from 'q';
+import Amplify from 'aws-amplify';
+import config from '../../config';
 
 //instancia service
 const ragnar = new Ragnar();
@@ -26,6 +28,7 @@ export function makePOCBack() {
 //podes utilizar async antes de la funcion o .then() en el fetch
 //estoy probando ambos metodos
 export async function authCognito(data) {
+    
 
     const res = ragnar.makeCognitoPOC(data, urlCognito);
 }
