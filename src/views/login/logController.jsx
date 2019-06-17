@@ -6,13 +6,16 @@ import * as Ivar from './Ivar';
 
 //Componentes
 import Login from './logInView';
+import SignIn from '../../components/SignIn';
+import SignUp from '../../components/SignUp';
 
 
 class loginController extends React.Component {
    constructor(props){
     super(props)
     this.state={
-        isLogin : false // Estado que define si el muestro spinner o no
+        isLogin : true , // Estado que define si le muestro o no spinner,
+       
     }
    }
 
@@ -21,12 +24,22 @@ class loginController extends React.Component {
         Ivar.authCognito()
     }
 
+    changeState(){
+        this.setState={
+            isLogin:true
+        }
+    }
+
     render() {
 
         return (
             <>
                 <div>
-                    <Login />
+                    ?isLogin
+                    {/*<SignIn props={"isLoading:true"}/>*/}
+                    <SignUp/>
+                    :
+                    
                 </div>
             </>
         )
