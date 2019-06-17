@@ -1,7 +1,8 @@
 import React from 'react';
 
 //componentes
-import SingIn from '../../components/SingIn';
+import SignIn from '../../components/SignIn';
+import SignUp from '../../components/SignUp';
 //wraper de componentes
 import wraper from  '../../components/Wrapper';
 
@@ -11,7 +12,7 @@ class Login extends React.Component {
 
         return (
            <>
-           <SingIn/>
+           <SignIn/>
            </>
         )
     };
