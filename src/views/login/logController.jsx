@@ -5,14 +5,18 @@ import React from 'react';
 import * as Ivar from './Ivar';
 
 //Componentes
-import Login from './logInView';
+
+import SignIn from '../../components/SignIn';
+import SignUp from '../../components/SignUp';
 
 
-class loginController extends React.Component {
+class logController extends React.Component {
    constructor(props){
     super(props)
+
     this.state={
-        isLogin : false // Estado que define si el muestro spinner o no
+        isLogin : true , // Estado que define si le muestro o no spinner,
+       
     }
    }
 
@@ -21,12 +25,37 @@ class loginController extends React.Component {
         Ivar.authCognito()
     }
 
+    myCallback = (dataFromChild) => {
+      if (dataFromChild.email != "" ){
+          this.setState={
+              isLogin:false 
+      }
+        //signIn es la funcion de gabo. paso atributos de frm por parametros
+        //la funcion de gabo 
+        //if  signIn(dataFromChild.user, dataFromChild.pass )
+        //{
+        //    set
+        //}
+    }
+
+
+    changeState() = {
+        //this.setState={
+            isLogin:true
+        }
+    }
+
     render() {
 
         return (
             <>
                 <div>
-                    <Login />
+                    ?isLogin
+                    {/*<SignIn props={"isLoading:true"}/>*/}
+                    <SignIn callbackFromParent={this.myCallback}/>
+                    :
+                    <SignUp />
+                    
                 </div>
             </>
         )
@@ -34,4 +63,4 @@ class loginController extends React.Component {
 
 }
 
-export default loginController;
+export default logController;
