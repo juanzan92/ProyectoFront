@@ -1,5 +1,10 @@
 import React from 'react';
-import Footer from '../../components/Footer';
+
+//componentes
+import SignIn from '../../components/SignIn';
+import SignUp from '../../components/SignUp';
+//wraper de componentes
+import wraper from  '../../components/Wrapper';
 
 class Login extends React.Component {
 
@@ -7,11 +12,11 @@ class Login extends React.Component {
 
         return (
            <>
-           <Footer/>
+           <SignIn/>
            </>
         )
     };
 
 }
 
-export default Login;
+export default wraper(Login);

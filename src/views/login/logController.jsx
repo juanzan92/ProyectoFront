@@ -1,47 +1,50 @@
 
 
-import React from   'react';
+import React from 'react';
+//import clinte
+import * as Ivar from './Ivar';
+
+//Componentes
 import Login from './logInView';
-import Ragnar from '../../service/apiService';
-const ragnar =new Ragnar()
-
-
-
+import SignIn from '../../components/SignIn';
+import SignUp from '../../components/SignUp';
 
 
 class loginController extends React.Component {
+   constructor(props){
+    super(props)
+    this.state={
+        isLogin : true , // Estado que define si le muestro o no spinner,
+       
+    }
+   }
 
-loggearGiladas(){
-    console.log("hoasodoasodoaosdas");
+    cognitoPOC = () => {
+        //la idea es que metas un JSON con los datos de form
+        Ivar.authCognito()
+    }
+
+    changeState(){
+        this.setState={
+            isLogin:true
+        }
+    }
+
+    render() {
+
+        return (
+            <>
+                <div>
+                    ?isLogin
+                    {/*<SignIn props={"isLoading:true"}/>*/}
+                    <SignUp/>
+                    :
+                    
+                </div>
+            </>
+        )
+    }
 
 }
 
-callBACK = () => {
-
-    console.log(ragnar.makePOC())
-}
-
-cognitoPOC = () =>{
-    //la idea es que metas un JSON con los datos de form
-    ragnar.makeCognitoPOC("test");
-}
-
-render(){
-    return(
-        <>
-        <div>
-
-        {this.loggearGiladas()}
-            <h1>
-                hola bro
-            </h1>
-            <div className="btn btn-success" onClick={() =>this.cognitoPOC()}> Conectar a cognito</div>
-            <Login/>
-        </div>
-        </>
-    )
-}
-
-}
-
-export default loginController ;
+export default loginController;
