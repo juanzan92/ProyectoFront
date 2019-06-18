@@ -81,43 +81,45 @@ class logController extends React.Component {
           this.setState={
               isLogin:false 
       }
+    }
+  }
         //signIn es la funcion de gabo. paso atributos de frm por parametros
         //la funcion de gabo 
         //if  signIn(dataFromChild.user, dataFromChild.pass )
         //{
         //    set
         //}
-    }
+   
 
 
-    changeState() = {
+    //changeState() = {
         //this.setState={
-            isLogin:true
-        }
-    }
+            //isLogin:true
+        //}
+    //}
 
     render() {
 
         return (
-            <>
-                <div>
-                <div className="btn btn-success" onClick={this.signUp('testuser', 'password123', 'gabrielneil7@gmail.com')}> signUp</div>
-        <div className="btn btn-success" onClick={this.signIn('testuser', 'password123')}> signIn</div>
-        <div className="btn btn-success" onClick={this.signOut}> signOut</div>
-        <div className="btn btn-success" onClick={this.changePassword('password123', 'password111')}> changePassword</div>
-        <div className="btn btn-success" onClick={this.forgotPassword('testuser')}> forgotPassword</div>
-        <div className="btn btn-success" onClick={this.verifyCurrentUserAttribute}> verifyCurrentUserAttribute</div>
-
-                    ?isLogin
-                    {/*<SignIn props={"isLoading:true"}/>*/}
-                    <SignUp/>
-                    :
-                    
-                </div>
+        <>
+        <div>
+            <div className="btn btn-success" onClick={this.signUp('testuser2', 'password111', 'lucasjdr_97@hotmail.com')}> signUp</div>
+            <div className="btn btn-success" onClick={this.signIn('testuser2', 'password123')}> signIn</div>
+            <div className="btn btn-success" onClick={this.signOut}> signOut</div>
+            <div className="btn btn-success" onClick={this.changePassword('password123', 'password111')}> changePassword</div>
+            <div className="btn btn-success" onClick={this.forgotPassword('carlos')}> forgotPassword</div>
+            <div className="btn btn-success" onClick={this.verifyCurrentUserAttribute}> verifyCurrentUserAttribute</div>
+        </div>
+        
+        {/*?isLogin*/}
+        {/*<SignIn props={"isLoading:true"}/>*/}
+        <SignUp/>
+        :
+                  
+                
             </>
         )
-    }
-
-}
+    };
+};
 
 export default logController;
