@@ -17,8 +17,7 @@ class logController extends React.Component {
 
     this.state={
         isLogin : true , // Estado que define si le muestro o no spinner,
-       
-    }
+       }
    }
 
    async signUp(user, password, email) {
@@ -113,7 +112,7 @@ class logController extends React.Component {
         
         {/*?isLogin*/}
         {/*<SignIn props={"isLoading:true"}/>*/}
-        <SignUp/>
+        <SignIn />
         :
                   
                 
