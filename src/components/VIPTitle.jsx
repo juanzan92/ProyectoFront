@@ -44,19 +44,19 @@ render(){
 
     return(
 
-        <div class="page-title">
-        <div class="container">
-          <div class="column">
+        <div className="page-title">
+        <div className="container">
+          <div className="column">
             <h1>Single Product</h1>
           </div>
-          <div class="column">
-            <ul class="breadcrumbs">
+          <div className="column">
+            <ul className="breadcrumbs">
               <li><a href="/index">Home</a>
               </li>
-              <li class="separator">&nbsp;</li>
+              <li className="separator">&nbsp;</li>
               <li><a href="shop-grid-ls.html">Shop</a>
               </li>
-              <li class="separator">&nbsp;</li>
+              <li className="separator">&nbsp;</li>
               <li>Single Product</li>
             </ul>
           </div>
