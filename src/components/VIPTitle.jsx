@@ -47,7 +47,7 @@ render(){
         <div className="page-title">
         <div className="container">
           <div className="column">
-            <h1>Single Product</h1>
+            <h1>Oportunidades</h1>
           </div>
           <div className="column">
             <ul className="breadcrumbs">
@@ -57,7 +57,7 @@ render(){
               <li><a href="shop-grid-ls.html">Shop</a>
               </li>
               <li className="separator">&nbsp;</li>
-              <li>Single Product</li>
+              <li>Oportunidad</li>
             </ul>
           </div>
         </div>
