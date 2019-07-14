@@ -4,7 +4,7 @@ import React from 'react';
 import Footer from '../../components/Footer';
 import NavBar from '../../components/NavBar';
 import TopBar from '../../components/TopBar';
-
+import { async } from 'q';
 import wrapper from '../../components/Wrapper';
 //servicio
 const Ragnar = require('../../service/apiService');
@@ -23,6 +23,7 @@ class index extends React.Component {
       poc: data
     })
   }
+
 
   render() {
     return (
@@ -611,8 +612,8 @@ class index extends React.Component {
         {/* Backdrop*/}
         <div className="site-backdrop" />
         {/* JavaScript (jQuery) libraries, plugins and custom scripts*/}
-        
-        
+
+
       </div>
     );
   }

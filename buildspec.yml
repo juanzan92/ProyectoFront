@@ -6,4 +6,8 @@ phases:
     commands:
       - npm install
       - npm run-script build
+      #s-market-static-front es el bucket donde Code Build desplega el front
+      #primero ejecuta los comandos indicados aquí
+      #Code Build interpreta este archivo, ejecuta los comandos que se le indican y despliega en instancia AWS
+      
       - aws s3 sync build s3://s-market-static-front --delete
