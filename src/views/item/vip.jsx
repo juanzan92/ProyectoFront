@@ -143,7 +143,7 @@ class VIP extends React.Component {
         }
         return (
             <>
-                <VIPTitle />
+                <VIPTitle prop1={item.name}/>
                 <div className="container padding-bottom-3x mb-1 inline">
                     {/*galeria del producto */}
                     <div className="row">
@@ -225,8 +225,7 @@ class VIP extends React.Component {
                             </div>
                             <div className="padding-bottom-1x mb-2">
                                 <span className="text-medium">Categoria:&nbsp;</span>
-                                <a className="navi-link" href="/home">Zapatillas de Hombres,</a>
-                                <a className="navi-link" href="/home"> Deportivas</a>
+                                <a className="navi-link" href="/home">{item.category}</a>
                             </div>
 
                             <hr className="mb-3" />

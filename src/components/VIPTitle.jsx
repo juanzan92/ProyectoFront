@@ -57,7 +57,7 @@ render(){
               <li><a href="shop-grid-ls.html">Shop</a>
               </li>
               <li className="separator">&nbsp;</li>
-              <li>Oportunidad</li>
+              <li>{this.prop1}</li>
             </ul>
           </div>
         </div>
