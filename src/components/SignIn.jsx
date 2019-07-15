@@ -1,17 +1,19 @@
 import React from "react";
-
+import logController from "../views/login/logController"
 import wrapper from './Wrapper';
 
 
 class SignIn extends React.Component {
 
+  
   constructor(props){
     super(props);
 
     this.state = {
-      email: '',
+      username: '',
       password: '',
-      remember_me: null
+      remember_me: false,
+      tieneCuenta: true
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -39,9 +41,12 @@ class SignIn extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault();
+    //event.preventDefault();
     //const data = new FormData(event.target);
     //this.props.callbackFromParent(data);
+    console.log(this.state)
+    this.props.signoIn(this.state.username, this.state.password);
+
   }
   
   render() {
@@ -78,8 +83,8 @@ class SignIn extends React.Component {
 
                   <div class="form-group input-group">
                   <span class="input-group-addon"><i class="icon-mail"></i></span>
-                    <input name="email" class="form-control" type="email" placeholder="Email" 
-                        value={this.state.email} 
+                    <input name="username" class="form-control" type="text" placeholder="Email" 
+                        value={this.state.username} 
                         onChange={this.handleChange} 
                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                         required/>
@@ -96,13 +101,13 @@ class SignIn extends React.Component {
 
                   
                   <div class="d-flex flex-wrap justify-content-between padding-bottom-1x">
+
                     <div class="custom-control custom-checkbox">
-                      <input name="remember_me" class="custom-control-input" type="checkbox"
-                          checked={this.state.remember_me}
-                          onChange={this.handleChecked}
-                          
-                          />
-                      <label class="custom-control-label" for="remember_me">Remember me</label>
+                        <input name="remember_me" type="checkbox"
+                              value={this.state.remember_me}
+                              onChange={this.handleChange}
+                              />
+                        <label for="remember_me">Remember me</label>
                     </div>
 
                     <a class="navi-link" href="account-password-recovery.html">Aca componente recovery pw</a>
@@ -126,6 +131,14 @@ class SignIn extends React.Component {
           </div>
             </>
         )
+
+                /*<div className="btn btn-success" onClick={this.signUp('testuser2', 'password111', 'lucasjdr_97@hotmail.com')}> signUp</div>
+        <div className="btn btn-success" onClick={this.signIn('testuser2', 'password123')}> signIn</div>
+        <div className="btn btn-success" onClick={this.signOut}> signOut</div>
+        <div className="btn btn-success" onClick={this.changePassword('password123', 'password111')}> changePassword</div>
+        <div className="btn btn-success" onClick={this.forgotPassword('carlos')}> forgotPassword</div>
+        <div className="btn btn-success" onClick={this.verifyCurrentUserAttribute}> verifyCurrentUserAttribute</div>*/
+
     };
 };
 

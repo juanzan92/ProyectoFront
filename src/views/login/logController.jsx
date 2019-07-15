@@ -17,8 +17,14 @@ class logController extends React.Component {
 
     this.state={
         isLogin : true , // Estado que define si le muestro o no spinner,
+        email: '',
+        password: '',
        }
+      
+       this.signIn = this.signIn.bind(this);
+       //this.handleClick = this.handleClick.bind(this);
    }
+
 
    async signUp(user, password, email) {
     Auth.signUp({
@@ -34,6 +40,7 @@ class logController extends React.Component {
   };
 
   async signIn(user, password) {
+    console.log(user, password)
     try {
       await Auth.signIn(user, password);
       console.log(Auth.currentAuthenticatedUser());
@@ -76,7 +83,7 @@ class logController extends React.Component {
     }
 
     myCallback = (dataFromChild) => {
-      if (dataFromChild.email != "" ){
+      if (dataFromChild.email !== "" ){
           this.setState={
               isLogin:false 
       }
@@ -97,26 +104,35 @@ class logController extends React.Component {
         //}
     //}
 
+    /*
+              <div className="btn btn-success" onClick={this.signOut}> signOut</div>
+              <div className="btn btn-success" onClick={this.changePassword('password123', 'password111')}> changePassword</div>
+              <div className="btn btn-success" onClick={this.forgotPassword('carlos')}> forgotPassword</div>
+              <div className="btn btn-success" onClick={this.verifyCurrentUserAttribute}> verifyCurrentUserAttribute</div>
+              <div className="btn btn-success" onClick={this.signIn('testuser2', 'password123')}> signIn</div>
+              <div className="btn btn-success" onClick={this.signUp('test_cognito', 'admin123', 'lucasjdelrio@hotmail.com')}> signUp</div>
+
+              */
+
     render() {
 
         return (
         <>
-        <div>
-            <div className="btn btn-success" onClick={this.signUp('testuser2', 'password111', 'lucasjdr_97@hotmail.com')}> signUp</div>
-            <div className="btn btn-success" onClick={this.signIn('testuser2', 'password123')}> signIn</div>
-            <div className="btn btn-success" onClick={this.signOut}> signOut</div>
-            <div className="btn btn-success" onClick={this.changePassword('password123', 'password111')}> changePassword</div>
-            <div className="btn btn-success" onClick={this.forgotPassword('carlos')}> forgotPassword</div>
-            <div className="btn btn-success" onClick={this.verifyCurrentUserAttribute}> verifyCurrentUserAttribute</div>
-        </div>
+          <div>
+              
+          </div>
+          
+          {/*?isLogin*/}
+          {/*<SignIn props={"isLoading:true"}/>
         
-        {/*?isLogin*/}
-        {/*<SignIn props={"isLoading:true"}/>*/}
-        <SignIn />
-        :
-                  
+          <SignIn signoIn={()=>this.signIn()}/>
+          
+        */} 
+          
+        
+          <SignIn signoIn={()=>this.signIn()}/>
                 
-            </>
+        </>
         )
     };
 };
