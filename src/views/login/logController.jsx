@@ -17,8 +17,14 @@ class logController extends React.Component {
 
     this.state={
         isLogin : true , // Estado que define si le muestro o no spinner,
+        email: '',
+        password: '',
        }
+      
+       this.signIn = this.signIn.bind(this);
+       //this.handleClick = this.handleClick.bind(this);
    }
+
 
    async signUp(user, password, email) {
     Auth.signUp({
@@ -34,6 +40,7 @@ class logController extends React.Component {
   };
 
   async signIn(user, password) {
+    console.log(user, password)
     try {
       await Auth.signIn(user, password);
       console.log(Auth.currentAuthenticatedUser());
@@ -76,7 +83,7 @@ class logController extends React.Component {
     }
 
     myCallback = (dataFromChild) => {
-      if (dataFromChild.email != "" ){
+      if (dataFromChild.email !== "" ){
           this.setState={
               isLogin:false 
       }
@@ -101,13 +108,21 @@ class logController extends React.Component {
 
         return (
         <>
-        {/*?isLogin*/}
-        {/*<SignIn props={"isLoading:true"}/>*/}
-        <SignIn />
-        :
-                  
+          <div>
+              
+          </div>
+          
+          {/*?isLogin*/}
+          {/*<SignIn props={"isLoading:true"}/>
+        
+          <SignIn signoIn={()=>this.signIn()}/>
+          
+        */} 
+          
+        
+          <SignIn signoIn={()=>this.signIn()}/>
                 
-            </>
+        </>
         )
     };
 };
