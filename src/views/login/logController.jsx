@@ -101,15 +101,6 @@ class logController extends React.Component {
 
         return (
         <>
-        <div>
-            <div className="btn btn-success" onClick={this.signUp('testuser2', 'password111', 'lucasjdr_97@hotmail.com')}> signUp</div>
-            <div className="btn btn-success" onClick={this.signIn('testuser2', 'password123')}> signIn</div>
-            <div className="btn btn-success" onClick={this.signOut}> signOut</div>
-            <div className="btn btn-success" onClick={this.changePassword('password123', 'password111')}> changePassword</div>
-            <div className="btn btn-success" onClick={this.forgotPassword('carlos')}> forgotPassword</div>
-            <div className="btn btn-success" onClick={this.verifyCurrentUserAttribute}> verifyCurrentUserAttribute</div>
-        </div>
-        
         {/*?isLogin*/}
         {/*<SignIn props={"isLoading:true"}/>*/}
         <SignIn />
