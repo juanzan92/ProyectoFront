@@ -12,21 +12,18 @@ import { Auth } from 'aws-amplify';
 
 
 class logController extends React.Component {
-   constructor(props){
+  constructor(props) {
     super(props)
 
-    this.state={
-        isLogin : true , // Estado que define si le muestro o no spinner,
-        email: '',
-        password: '',
-       }
-      
-       this.signIn = this.signIn.bind(this);
-       //this.handleClick = this.handleClick.bind(this);
-   }
+    this.state = {
+      isUser: true,
+      email: '',
+      password: '',
+    }
+  }
 
 
-   async signUp(user, password, email) {
+  async signUp(user, password, email) {
     Auth.signUp({
       username: user, //parametrizar
       password: password,
@@ -44,14 +41,14 @@ class logController extends React.Component {
     try {
       await Auth.signIn(user, password);
       console.log(Auth.currentAuthenticatedUser());
-   } catch (e) {
-     alert(e.message);
-   }
-   };
+    } catch (e) {
+      alert(e.message);
+    }
+  };
 
   async signOut() {
     Auth.currentSession()
-    .catch(err => console.log(err));
+      .catch(err => console.log(err));
   };
 
   async changePassword(oldPassword, newPassword) {
@@ -67,7 +64,6 @@ class logController extends React.Component {
       .catch(err => console.log(err));
   };
 
-
   async verifyCurrentUserAttribute() {//recuperar cuenta
     Auth.verifyCurrentUserAttribute('email')
       .then(() => {
@@ -77,54 +73,26 @@ class logController extends React.Component {
       });
   };
 
-    cognitoPOC = () => {
-        //la idea es que metas un JSON con los datos de form
-        Ivar.authCognito()
-    }
+  render() {
+    return (
+      <>
+        <div className="btn btn-success" onClick={() => this.signUp('philipe', 'coutinho123', 'nupecaco@maxmail.in')}> signUp</div>
+        <div className="btn btn-success" onClick={() => this.signIn('testuser2', 'password123')}> signIn</div>
+        <div className="btn btn-success" onClick={() => this.signOut}> signOut</div>
+        <div className="btn btn-success" onClick={() => this.changePassword('password123', 'password111')}> changePassword</div>
+        <div className="btn btn-success" onClick={() => this.forgotPassword('carlos')}> forgotPassword</div>
+        <div className="btn btn-success" onClick={() => this.verifyCurrentUserAttribute}> verifyCurrentUserAttribute</div>
 
-    myCallback = (dataFromChild) => {
-      if (dataFromChild.email !== "" ){
-          this.setState={
-              isLogin:false 
-      }
-    }
-  }
-        //signIn es la funcion de gabo. paso atributos de frm por parametros
-        //la funcion de gabo 
-        //if  signIn(dataFromChild.user, dataFromChild.pass )
-        //{
-        //    set
-        //}
-   
-
-
-    //changeState() = {
-        //this.setState={
-            //isLogin:true
-        //}
-    //}
-
-    render() {
-
-        return (
-        <>
-          <div>
-              
-          </div>
-          
-          {/*?isLogin*/}
-          {/*<SignIn props={"isLoading:true"}/>
-        
-          <SignIn signoIn={()=>this.signIn()}/>
-          
-        */} 
-          
-        
-          <SignIn signoIn={()=>this.signIn()}/>
-                
-        </>
-        )
-    };
+        {
+          !this.state.isUser ? (
+            <SignIn />
+          ) : (
+              <SignUp />
+            )
+        }
+      </>
+    )
+  };
 };
 
 export default logController;
