@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 class CheckoutTitle extends React.Component {
 
   render() {
@@ -25,8 +24,3 @@ class CheckoutTitle extends React.Component {
 }
 
 export default CheckoutTitle
-
-
-
-
-

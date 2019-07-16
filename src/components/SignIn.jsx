@@ -82,7 +82,6 @@ class SignIn extends React.Component {
                   required />
               </div>
 
-
               <div className="form-group input-group">
                 <span className="input-group-addon"><i className="icon-lock"></i></span>
                 <input name="password" className="form-control" type="password" placeholder="Password"
@@ -90,7 +89,6 @@ class SignIn extends React.Component {
                   onChange={this.handleChange}
                   required />
               </div>
-
 
               <div className="d-flex flex-wrap justify-content-between padding-bottom-1x">
 
@@ -102,16 +100,15 @@ class SignIn extends React.Component {
                   <label htmlFor="remember_me">Remember me</label>
                 </div>
 
-                <a className="navi-link" href="account-password-recovery.html">Aca componente recovery pw</a>
+                <a className="navi-link" href="account-password-recovery.html">¿Olvidaste tu contraseña?</a>
               </div>
 
-              <br />
               <span>{JSON.stringify(this.state)}</span>
               <br />
 
               <div className="text-center text-sm-center">
                 <button className="btn btn-primary margin-bottom-none" type="submit"
-                  onClick={() => this.signIn(this.username, this.password)}>Ingresá</button>
+                  onClick={() => this.signIn(this.state.username, this.state.password)}>Ingresá</button>
 
                 <button className="btn btn-primary margin-bottom-none" type=""
                   onClick={() => window.alert(this.state.username + ', ' + this.state.password)}>Registrate</button>

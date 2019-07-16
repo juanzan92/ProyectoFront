@@ -13,15 +13,14 @@ class SignUp extends React.Component {
       userNombres: '',
       userApellidos: '',
       userDni: '',
-      userPhone: null,
+      userPhone: '',
       userAddCalle: '',
-      userAddNum: null,
-      userAddCp: null,
+      userAddNum: '',
+      userAddCp: '',
       userEmail: '',
       userEmailConf: '',
       userPw: '',
       userPwConf: '',
-      pressed: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -51,15 +50,11 @@ class SignUp extends React.Component {
     });
   }
 
-
   handleSubmit(event) {
     this.signUp(this.state.userName, this.state.userPw, this.state.userEmail);
   }
 
-
   render() {
-
-
     return (
       <>
         <div className="row padding-top-3x padding-bottom-3x">
@@ -75,10 +70,10 @@ class SignUp extends React.Component {
             <div className="col-sm-6">
                 <div className="form-group input-group">
                   <label htmlFor="select-rol">Registrarme como:</label>
-                  <select className="form-control" name="userRol"
+                  <select className="form-control" name="userRol" 
                       value={this.state.userRol} 
                       onChange={this.handleChange}>
-                    <option selected value="0">Consumer</option>
+                    <option value="0">Consumer</option>
                     <option value="1">Vendor</option>
                   </select>
                 </div>
@@ -202,11 +197,9 @@ class SignUp extends React.Component {
 
             </form>
           </div>
-
           <br/>
               <label>{JSON.stringify(this.state)}</label>
           <br/>
-
         </div>
       </>
     )

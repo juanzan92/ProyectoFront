@@ -1,4 +1,3 @@
-
 import React from 'react';
 import './App.scss';
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -8,8 +7,6 @@ import Login from './views/login/logController';
 import CheckoutController from './views/checkout/checkoutController';
 import vip from './views/item/vip';
 import splash from './views/splash/splash';
-
-
 
 function App() {
   return (
