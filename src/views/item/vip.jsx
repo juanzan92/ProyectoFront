@@ -1,13 +1,9 @@
-
+//imports
 import React from 'react';
-
-
 import wraper from '../../components/Wrapper';
 import VIPTitle from '../../components/VIPTitle';
 import VIPItem from '../../components/VIPItem';
 import { METHODS } from 'http';
-
-
 
 class VIP extends React.Component {
     constructor(params) {

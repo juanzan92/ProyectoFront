@@ -6,36 +6,30 @@ import CreditCard from 'react-credit-cards';
 
 var mercadopago = require("mercadopago");
 
-
-
 class CheckoutPayment extends React.Component {
-    
-    constructor(props){
+
+    constructor(props) {
         super(props);
-        this.state={
-            cardNumber:""
+        this.state = {
+            cardNumber: ""
         }
         this.handleInputChange = this.handleInputChange.bind(this);
-
-        
     }
-
 
     handleInputChange(event) {
         const target = event.target;
-        const value = target.value ;
+        const value = target.value;
         const name = target.name;
-    
+
         this.setState({
-          [name]: value
+            [name]: value
         });
-      }
+    }
 
 
     render() {
         this.props.props2()
         return (
-                
             <>
 
                 <div className="container padding-bottom-3x mb-2">
@@ -54,7 +48,7 @@ class CheckoutPayment extends React.Component {
                                             </li>
                                             <li>
                                                 <label for="cardNumber">Credit card number:</label>
-                                                <input type="text"  id="cardNumber" name="cardNumber" value={this.state.cardNumber} data-checkout="cardNumber" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" onChange={this.handleInputChange} />
+                                                <input type="text" id="cardNumber" name="cardNumber" value={this.state.cardNumber} data-checkout="cardNumber" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" onChange={this.handleInputChange} />
                                             </li>
                                             <li>
                                                 <label for="securityCode">Security code:</label>
@@ -82,17 +76,17 @@ class CheckoutPayment extends React.Component {
                                             </li>
                                         </ul>
                                         <input type="hidden" name="paymentMethodId" />
-                                        <button type="submit"  value="Pay!" />
+                                        <button type="submit" value="Pay!" />
                                     </fieldset>
                                 </form>
-                            <CreditCard
-                            number={this.state.cardNumber}
-                            name={"hasdhhasd"}
-                            expiry={"sawe"}
-                            cvc={123}
-                            focused={"yes"}
-                            
-                            />
+                                <CreditCard
+                                    number={this.state.cardNumber}
+                                    name={"hasdhhasd"}
+                                    expiry={"sawe"}
+                                    cvc={123}
+                                    focused={"yes"}
+
+                                />
 
                             </div>
                             <div className="col-xl-3 col-lg-4">
@@ -127,14 +121,8 @@ class CheckoutPayment extends React.Component {
                     </div>
                 </div>
             </>
-
         )
     }
 }
-
-
-
-
-
 
 export default CheckoutPayment
