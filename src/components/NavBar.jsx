@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Redirect} from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 
 
 
@@ -9,19 +9,59 @@ import { Redirect} from 'react-router-dom';
 
 class NavBar extends React.Component {
     state = {
-        redirect: false
-      }
-      setRedirect = () => {
+        redirect: false,
+        isLogged: false,
+    }
+
+    componentDidMount() {
+
+
+    }
+    setRedirect = () => {
         this.setState({
-          redirect: true
+            redirect: true
         })
-      }
-      renderRedirect = () => {
+    }
+    renderRedirect = () => {
         if (this.state.redirect) {
-          return <Redirect to='/login' />
+            return <Redirect to='/login' />
         }
-      }
+    }
+
+
+
+
+
     render() {
+        const isLogged = this.state
+        let btnNavBar;
+        if (!isLogged) {
+            btnNavBar =
+                <div className="account"><a href="account-orders.html" /><i className="icon-head" />
+                    <ul className="toolbar-dropdown">
+                        <li className="sub-menu-user">
+                            <div className="user-ava"><img src="/img/account/user-ava-sm.jpg" alt="Daniel Adams" />
+                            </div>
+                            <div className="user-info">
+                                <h6 className="user-name">Daniel Adams</h6><span className="text-xs text-muted">290 Reward points</span>
+                            </div>
+                        </li>
+                        <li><a href="account-profile.html">My Profile</a></li>
+                        <li><a href="account-orders.html">Orders List</a></li>
+                        <li><a href="account-wishlist.html">Wishlist</a></li>
+                        <li className="sub-menu-separator" />
+                        <li><a href="#"> <i className="icon-unlock" />Logout</a></li>
+                    </ul>
+                </div>
+
+        } else {
+            btnNavBar =
+                <div className="btn btn-primary p" href="/login">
+                    <a className="w-100" href="/login" />
+                    <i className="icon-unlock" />LOG IN</div>
+
+        }
+
         return (
             <>
                 <header className="navbar navbar-sticky">
@@ -222,33 +262,18 @@ class NavBar extends React.Component {
                     <div className="toolbar">
                         <div className="inner">
                             <div className="tools">
-                                <div className="search"><i className="icon-search" /></div>
-                                <div className="account"><a href="account-orders.html" /><i className="icon-head" />
-                                    <ul className="toolbar-dropdown">
-                                        <li className="sub-menu-user">
-                                            <div className="user-ava"><img src="/img/account/user-ava-sm.jpg" alt="Daniel Adams" />
-                                            </div>
-                                            <div className="user-info">
-                                                <h6 className="user-name">Daniel Adams</h6><span className="text-xs text-muted">290 Reward points</span>
-                                            </div>
-                                        </li>
-                                        <li><a href="account-profile.html">My Profile</a></li>
-                                        <li><a href="account-orders.html">Orders List</a></li>
-                                        <li><a href="account-wishlist.html">Wishlist</a></li>
-                                        <li className="sub-menu-separator" />
-                                        <li><a href="#"> <i className="icon-unlock" />Logout</a></li>
-                                    </ul>
+                                {btnNavBar}
+                                <div className="search">
+                                    <i className="icon-search" />
                                 </div>
-                                <div className="btn btn-primary" href="/login"><a className="w-100" href="/login" /><i className="icon-bag" />LOG IN</div>
                             </div>
                         </div>
                     </div>
                 </header>
-
             </>
         )
-
     }
 }
+
 
 export default NavBar 
