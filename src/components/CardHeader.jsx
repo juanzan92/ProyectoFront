@@ -16,26 +16,26 @@ class CardHF extends React.Component {
 
         if(this.props.btn){
 
-            return <a class="btn btn-primary" href={this.props.href}>{this.props.button}</a>
+            return <a className="btn btn-primary" href={this.props.href}>{this.props.button}</a>
         }
     }
     spinner(){
         if(this.props.spinner)
-        return <Spinner class=""/>
+        return <Spinner className=""/>
     }
 
     render(){
 
         return(
-            <div class="card text-center">
-              <div class="card-header"><span class="text-lg">{this.props.header}</span></div>
-              <div class="card-body">
-                <h3 class="card-title">{this.props.title}</h3>
-                <p class="card-text">{this.props.body}</p>
+            <div className="card text-center">
+              <div className="card-header"><span className="text-lg">{this.props.header}</span></div>
+              <div className="card-body">
+                <h3 className="card-title">{this.props.title}</h3>
+                <p className="card-text">{this.props.body}</p>
                 { this.hayBoton()}
                 { this.spinner()}
               </div>
-              <div class="card-footer text-muted">{this.props.footer}</div>
+              <div className="card-footer text-muted">{this.props.footer}</div>
             </div>
         )
     }
