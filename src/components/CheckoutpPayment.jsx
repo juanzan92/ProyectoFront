@@ -1,13 +1,9 @@
 import React from 'react';
 import CreditCard from 'react-credit-cards';
 
-
-//componentes
-
 var mercadopago = require("mercadopago");
 
 class CheckoutPayment extends React.Component {
-
     constructor(props) {
         super(props);
         this.state = {
@@ -26,12 +22,10 @@ class CheckoutPayment extends React.Component {
         });
     }
 
-
     render() {
         this.props.props2()
         return (
             <>
-
                 <div className="container padding-bottom-3x mb-2">
                     <div className="row">
                         <div className="col-xl-9 col-lg-8">
@@ -85,7 +79,6 @@ class CheckoutPayment extends React.Component {
                                     expiry={"sawe"}
                                     cvc={123}
                                     focused={"yes"}
-
                                 />
 
                             </div>

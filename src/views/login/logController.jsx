@@ -1,15 +1,8 @@
-
-
 import React from 'react';
-//import clinte
 import * as Ivar from './Ivar';
-
-//Componentes
-
 import SignIn from '../../components/SignIn';
 import SignUp from '../../components/SignUp';
 import { Auth } from 'aws-amplify';
-
 
 class logController extends React.Component {
   constructor(props) {
@@ -22,15 +15,14 @@ class logController extends React.Component {
     }
   }
 
-
   async signUp(user, password, email) {
     Auth.signUp({
-      username: user, //parametrizar
+      username: user,
       password: password,
       attributes: {
         email: email
       },
-      validationData: []  //optional
+      validationData: []
     })
       .then(data => console.log(data))
       .catch(err => console.log(err));
@@ -64,7 +56,7 @@ class logController extends React.Component {
       .catch(err => console.log(err));
   };
 
-  async verifyCurrentUserAttribute() {//recuperar cuenta
+  async verifyCurrentUserAttribute() {
     Auth.verifyCurrentUserAttribute('email')
       .then(() => {
         console.log('a verification mail is sent');
@@ -76,14 +68,13 @@ class logController extends React.Component {
   render() {
     return (
       <>
-        <div className="btn btn-success" onClick={() => this.signUp('philipe', 'coutinho123', 'nupecaco@maxmail.in')}> signUp</div>
-        <div className="btn btn-success" onClick={() => this.signIn('testean2', 'password123')}> signIn</div>
+        <div className="btn btn-success" onClick={() => this.signUp('yorio', 'yorio123', 'cojezalifu@cloud-mail.net')}> signUp</div>
+        <div className="btn btn-success" onClick={() => this.signIn('yorio', 'yorio123')}> signIn</div>
         <div className="btn btn-success" onClick={() => this.signOut}> signOut</div>
         <div className="btn btn-success" onClick={() => this.changePassword('password123', 'password111')}> changePassword</div>
         <div className="btn btn-success" onClick={() => this.forgotPassword('carlos')}> forgotPassword</div>
         <div className="btn btn-success" onClick={() => this.verifyCurrentUserAttribute}> verifyCurrentUserAttribute</div>
-
-        {
+        { 
           this.state.isUser ? (
             <SignIn />
           ) : (

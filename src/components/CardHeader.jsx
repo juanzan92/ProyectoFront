@@ -1,7 +1,6 @@
 import React from 'react';
 import Spinner from './Spinner'
 
-
 class CardHF extends React.Component {
     constructor(props){
         super(props)
@@ -13,7 +12,6 @@ class CardHF extends React.Component {
     }
     
     hayBoton(){
-
         if(this.props.btn){
 
             return <a className="btn btn-primary" href={this.props.href}>{this.props.button}</a>
@@ -25,7 +23,6 @@ class CardHF extends React.Component {
     }
 
     render(){
-
         return(
             <div className="card text-center">
               <div className="card-header"><span className="text-lg">{this.props.header}</span></div>
@@ -40,4 +37,5 @@ class CardHF extends React.Component {
         )
     }
 }
+
 export default CardHF

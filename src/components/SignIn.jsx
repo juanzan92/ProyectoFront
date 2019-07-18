@@ -3,6 +3,7 @@ import logController from "../views/login/logController"
 import wrapper from './Wrapper';
 import { Auth } from 'aws-amplify';
 import SignUp from './SignUp';
+import {Link} from 'react-router-dom';
 
 class SignIn extends React.Component {
 
@@ -47,36 +48,42 @@ class SignIn extends React.Component {
   render() {
     return (
       <>
-        <div className="row padding-top-3x padding-bottom-3x">
-          <div className="col-md-3" />
-          <div className="col-md-6">
+        <div className="page-title">
+          <div className="container">
+              <div className="column">
+                  <h1>Ingresar</h1>
+              </div>
+              <div className="column">
+                  <ul className="breadcrumbs">
+                      <li>
+                          <Link to='/'>
+                              <span className="navi-link"/>Home
+                          </Link>
+                      </li>
+                      <li className="separator">&nbsp;</li>
+                      <li>
+                          <Link to='/signup'>
+                              <span className="navi-link"/>Registrarme
+                          </Link>
+                      </li>
+                      <li className="separator">&nbsp;</li>
+                      <li>Ingresar</li>
+                  </ul>
+              </div>
+            </div>
+        </div>
+
+        <div className="row padding-bottom-3x mb-2">
+          <div className="col-md-4" />
+          <div className="col-md-4">
 
             <form className="login-box">
 
-              <div className="row margin-bottom-1x">
-
-                <div className="col-xl-4 col-md-6 col-sm-4">
-                  <a className="btn btn-sm btn-block facebook-btn" href="#">
-                    <i className="socicon-facebook"></i>
-                    &nbsp;Facebook login</a>
-                </div>
-                <div className="col-xl-4 col-md-6 col-sm-4">
-                  <a className="btn btn-sm btn-block twitter-btn" href="#">
-                    <i className="socicon-twitter"></i>
-                    &nbsp;Twitter login</a>
-                </div>
-                <div className="col-xl-4 col-md-6 col-sm-4">
-                  <a className="btn btn-sm btn-block google-btn" href="#">
-                    <i className="socicon-googleplus"></i>
-                    &nbsp;Google+ login</a>
-                </div>
-              </div>
-
-              <h4 className="margin-bottom-1x">Ingresá con tu usuario o e-mail</h4>
+              <h4 className="margin-bottom-1x">Ingresá con tu usuario</h4>
 
               <div className="form-group input-group">
                 <span className="input-group-addon"><i className="icon-mail"></i></span>
-                <input name="username" className="form-control" type="text" placeholder="Email"
+                <input name="username" className="form-control" type="text" placeholder="Usuario"
                   value={this.state.username}
                   onChange={this.handleChange}
                   required />
@@ -84,7 +91,7 @@ class SignIn extends React.Component {
 
               <div className="form-group input-group">
                 <span className="input-group-addon"><i className="icon-lock"></i></span>
-                <input name="password" className="form-control" type="password" placeholder="Password"
+                <input name="password" className="form-control" type="password" placeholder="Contraseña"
                   value={this.state.password}
                   onChange={this.handleChange}
                   required />
@@ -96,22 +103,22 @@ class SignIn extends React.Component {
                   <input name="remember_me" type="checkbox"
                     value={this.state.remember_me}
                     onChange={this.handleChange}
-                  />
-                  <label htmlFor="remember_me">Remember me</label>
+                  /> Remember me
                 </div>
-
-                <a className="navi-link" href="account-password-recovery.html">¿Olvidaste tu contraseña?</a>
+                <div> 
+                  <Link to='/forgot-password'>
+                  <span className="navi-link"/>¿Olvidaste tu contraseña?
+                  </Link>
+                </div>
               </div>
-
-              <span>{JSON.stringify(this.state)}</span>
-              <br />
 
               <div className="text-center text-sm-center">
                 <button className="btn btn-primary margin-bottom-none" type="submit"
-                  onClick={() => this.signIn(this.state.username, this.state.password)}>Ingresá</button>
+                  onClick={() => this.signIn(this.state.username, this.state.password)}>INGRESÁ</button>
 
-                <button className="btn btn-primary margin-bottom-none" type=""
-                  onClick={() => window.alert(this.state.username + ', ' + this.state.password)}>Registrate</button>
+                <Link to='/signup'>
+                <button className="btn btn-primary margin-bottom-none">CREAR CUENTA</button>
+                </Link>
               </div>
 
             </form>
