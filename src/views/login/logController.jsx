@@ -68,12 +68,6 @@ class logController extends React.Component {
   render() {
     return (
       <>
-        <div className="btn btn-success" onClick={() => this.signUp('yorio', 'yorio123', 'cojezalifu@cloud-mail.net')}> signUp</div>
-        <div className="btn btn-success" onClick={() => this.signIn('yorio', 'yorio123')}> signIn</div>
-        <div className="btn btn-success" onClick={() => this.signOut}> signOut</div>
-        <div className="btn btn-success" onClick={() => this.changePassword('password123', 'password111')}> changePassword</div>
-        <div className="btn btn-success" onClick={() => this.forgotPassword('carlos')}> forgotPassword</div>
-        <div className="btn btn-success" onClick={() => this.verifyCurrentUserAttribute}> verifyCurrentUserAttribute</div>
         { 
           this.state.isUser ? (
             <SignIn />

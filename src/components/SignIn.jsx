@@ -103,7 +103,7 @@ class SignIn extends React.Component {
                   <input name="remember_me" type="checkbox"
                     value={this.state.remember_me}
                     onChange={this.handleChange}
-                  /> Remember me
+                  />Recuérdame
                 </div>
                 <div> 
                   <Link to='/forgot-password'>

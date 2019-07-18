@@ -9,7 +9,7 @@ class SignUp extends React.Component {
     super(props)
 
     this.state = {
-      userRol: 0,
+      userRol: 'consumer',
       userName: '',
       userNombres: '',
       userApellidos: '',
@@ -105,8 +105,8 @@ class SignUp extends React.Component {
                     <select className="form-control" name="userRol" 
                         value={this.state.userRol} 
                         onChange={this.handleChange}>
-                      <option value="0">Consumer</option>
-                      <option value="1">Vendor</option>
+                      <option value="consumer">Consumer</option>
+                      <option value="vendor">Vendor</option>
                     </select>
                   </div>
               </div>
