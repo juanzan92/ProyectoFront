@@ -73,7 +73,9 @@ class ForgotPassword extends React.Component{
                                             <input className="form-control" type="text" name="username" id="username"
                                                 value={this.state.username}
                                                 onChange={this.handleChange}
-                                                required />
+                                                pattern="^[a-z0-9_-]{3,20}"
+                                                title="Longitud de 3-15 caracteres. No admite caracteres especiales."
+                                                required/>
                                             <small className="form-text text-muted">Enviaremos el enlace a la dirección de correo electrónico asociada a tu cuenta.</small>
                                         </div>
                                     </div>

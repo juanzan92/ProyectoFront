@@ -13,7 +13,7 @@ class SignIn extends React.Component {
     this.state = {
       username: '',
       password: '',
-      remember_me: false
+      remember_me: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,9 +30,18 @@ class SignIn extends React.Component {
     }
   };
 
+  assignInputValue(target){
+    if (target.type === 'checkbox') {
+      return target.checked;
+    }
+    if (target.type === 'text') {
+      return target.value.toLowerCase();
+    }
+  }
+
   handleChange(event) {
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = this.assignInputValue(target);
     const name = target.name;
 
     this.setState({
@@ -45,6 +54,50 @@ class SignIn extends React.Component {
     window.alert(this.state)
   }
 
+   validate(name, email, password) {
+    // we are going to store errors for all fields
+    // in a signle array
+    const errors = [];
+  
+    if (this.state.username.length === 0) {
+      errors.push("Name can't be empty");
+    }
+  
+    if (email.length < 5) {
+      errors.push("Email should be at least 5 charcters long");
+    }
+    if (email.split("").filter(x => x === "@").length !== 1) {
+      errors.push("Email should contain a @");
+    }
+    if (email.indexOf(".") === -1) {
+      errors.push("Email should contain at least one dot");
+    }
+  
+    if (this.state.password.length < 8) {
+      errors.push("Password should be at least 6 characters long");
+    }
+
+    if (this.state.password.indexOf(".") === -1) {
+      errors.push("Password should be at least 6 characters long");
+    }
+    return errors;
+  }
+
+  /*
+    handleSubmit = (e) => {
+    const value1 = ...;
+    const value2 = ...;
+
+    const errors = validate(value1, value2, ...);
+    const hasErrors = ...;
+    if (hasErrors) {
+      // do something with errors
+      return;
+    }
+
+    // send the form...
+  };
+  */
   render() {
     return (
       <>
@@ -79,14 +132,16 @@ class SignIn extends React.Component {
 
             <form className="login-box">
 
-              <h4 className="margin-bottom-1x">Ingresá con tu usuario</h4>
+              <h4 className="margin-bottom-1x">Ingresar a tu cuenta</h4>
 
               <div className="form-group input-group">
                 <span className="input-group-addon"><i className="icon-mail"></i></span>
                 <input name="username" className="form-control" type="text" placeholder="Usuario"
                   value={this.state.username}
                   onChange={this.handleChange}
-                  required />
+                  pattern="^[a-z0-9_-]{3,20}"
+                  title="Longitud de 3-15 caracteres. No admite caracteres especiales."
+                  required/>
               </div>
 
               <div className="form-group input-group">
@@ -94,6 +149,8 @@ class SignIn extends React.Component {
                 <input name="password" className="form-control" type="password" placeholder="Contraseña"
                   value={this.state.password}
                   onChange={this.handleChange}
+                  pattern="(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z]).{8,}"
+                  title="Debe contener 8 o más caracteres. Incluir al menos un número, una letra mayúscula, y una letra minúscula."
                   required />
               </div>
 

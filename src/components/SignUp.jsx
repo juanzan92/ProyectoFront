@@ -22,6 +22,7 @@ class SignUp extends React.Component {
       userEmailConf: '',
       userPw: '',
       userPwConf: '',
+      tycChecked: false,
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -41,17 +42,30 @@ class SignUp extends React.Component {
       .catch(err => console.log(err));
   };
 
-  handleChange(event) {
+  assignInputValue(target){
+    if (target.type === 'checkbox') {
+      return target.checked;
+    }
+    if (target.type === 'text' && target.name!='userName') {
+      return target.value.toUpperCase();
+    }
+    else {
+      return target.value.toLowerCase();
+    }
+  }
+
+  handleChange(event) { 
     const target = event.target;
-    const value = target.type === 'checkbox' ? target.checked : target.value;
+    const value = this.assignInputValue(target);
     const name = target.name;
 
     this.setState({
-      [name]: value 
+      [name]: value
     });
   }
 
   handleSubmit(event) {
+    
     this.signUp(this.state.userName, this.state.userPw, this.state.userEmail);
   }
 
@@ -116,15 +130,19 @@ class SignUp extends React.Component {
                     <input className="form-control" type="text" name="userName"  
                     value={this.state.userName} 
                     onChange={this.handleChange} 
+                    pattern="^[a-z0-9_-]{3,20}"
+                    title="Longitud de 3-15 caracteres. No admite caracteres especiales."
                     required/>
                   </div>
               </div>
               <div className="col-sm-6">
                   <div className="form-group input-group">
                     <label htmlFor="reg-fn">Nombres*</label>
-                    <input className="form-control" type="text" name="userNombres" 
+                    <input className="form-control" type="text" name="userNombres"
                         value={this.state.userNombres} 
                         onChange={this.handleChange} 
+                        pattern="[A-ZÑ]{3,40}"
+                        title="Únicamente texto. Longitud de 3-40 caracteres."
                         required/>
                   </div>
               </div>
@@ -134,6 +152,8 @@ class SignUp extends React.Component {
                     <input className="form-control" type="text" name="userApellidos"  
                         value={this.state.userApellidos} 
                         onChange={this.handleChange} 
+                        pattern="[A-ZÑ]{3,40}"
+                        title="Únicamente texto. Longitud de 3-40 caracteres."
                         required/>
                   </div>
               </div>
@@ -143,7 +163,8 @@ class SignUp extends React.Component {
                     <input className="form-control" type="text" name="userDni"  
                         value={this.state.userDni} 
                         onChange={this.handleChange} 
-                        pattern="[0-9]{8}"
+                        pattern="[0-9]{7,8}"
+                        title="Numérico. 7 u 8 caracteres."
                         required/>
                   </div>
               </div>
@@ -153,6 +174,8 @@ class SignUp extends React.Component {
                     <input className="form-control" type="text" name="userPhone"
                         value={this.state.userPhone} 
                         onChange={this.handleChange} 
+                        pattern="^(?:(?:00)?+549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$"
+                        title="Incluir código de área en todo caso. Se admite opcionalmente prefijo internacional (+54) y nacional (15)."
                         required/>
                   </div>
               </div>
@@ -162,6 +185,8 @@ class SignUp extends React.Component {
                     <input className="form-control" type="text" name="userAddCalle"  
                         value={this.state.userAddCalle} 
                         onChange={this.handleChange} 
+                        pattern="[A-Z]{3,40}"
+                        title="Únicamente texto. Longitud de 3-40 caracteres."
                         required/>
                   </div>
               </div>
@@ -171,6 +196,8 @@ class SignUp extends React.Component {
                     <input className="form-control" type="text" name="userAddNum" 
                         value={this.state.userAddNum} 
                         onChange={this.handleChange} 
+                        pattern="[0-9]{1,4}"
+                        title="Numérico. Longitud de 1-4 caracteres."
                         required/>
                   </div>
               </div>
@@ -180,6 +207,8 @@ class SignUp extends React.Component {
                     <input className="form-control" type="text" name="userAddCp"  
                         value={this.state.userAddCp} 
                         onChange={this.handleChange} 
+                        pattern="[0-9]{4}"
+                        title="Numérico. Longitud de 4 caracteres."
                         required/>
                   </div>
               </div>
@@ -195,8 +224,8 @@ class SignUp extends React.Component {
               </div>
               <div className="col-sm-6">
                   <div className="form-group input-group">
-                    <label htmlFor="reg-phone">Confirmar E-mail*</label>
-                    <input className="form-control" type="text" name="userEmailConf"  
+                    <label htmlFor="reg-phone">Confirmar e-mail*</label>
+                    <input className="form-control" type="email" name="userEmailConf"  
                         value={this.state.userEmailConf} 
                         onChange={this.handleChange} 
                         pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
@@ -206,20 +235,31 @@ class SignUp extends React.Component {
               <div className="col-sm-6">
                   <div className="form-group input-group">
                     <label htmlFor="reg-pass">Constraseña*</label>
-                    <input className="form-control" type="password" name="userPw" placeholder="Password" 
+                    <input className="form-control" type="password" name="userPw" 
                         value={this.state.userPw} 
-                        onChange={this.handleChange} 
+                        onChange={this.handleChange}
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        title="Debe contener 8 o más caracteres. Incluir al menos un número, una letra mayúscula, y una letra minúscula."
                         required/>
                   </div>
               </div>
               <div className="col-sm-6">
                   <div className="form-group input-group">
-                    <label htmlFor="reg-pass-confirm">Confirmar Constraseña*</label>
-                    <input className="form-control" type="password" name="userPwConf" placeholder="Password" 
+                    <label htmlFor="reg-pass-confirm">Confirmar constraseña*</label>
+                    <input className="form-control" type="password" name="userPwConf"  
                         value={this.state.userPwConf} 
                         onChange={this.handleChange} 
+                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
+                        title="Debe contener 8 o más caracteres. Incluir al menos un número, una letra mayúscula, y una letra minúscula."
                         required/>
                   </div>
+              </div>
+              <div className="custom-control custom-checkbox">
+                  <input name="tycChecked" type="checkbox"
+                    value={this.state.tycChecked}
+                    onChange={this.handleChange}
+                    required
+                  />Acepto términos y condiciones.
               </div>
               <div className="col-12 text-center text-sm-right">
                   <button className="btn btn-primary margin-bottom-none" type="submit"
@@ -227,6 +267,7 @@ class SignUp extends React.Component {
               </div>
             </form>
           </div>
+          <label>{JSON.stringify(this.state)}</label>
         </div>
       </>
     )
