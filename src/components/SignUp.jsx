@@ -27,19 +27,35 @@ class SignUp extends React.Component {
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.routeChange = this.routeChange.bind(this);
+
+  }
+ 
+  routeChange() {
+    let path = `/`;
+    this.props.history.push(path);
   }
   
-  async signUp(user, password, email) {
+  async signUp(user, password, email, role, userNombres, userApellidos, userDni, 
+    userPhone, userCalle, userNum, userCp) {
+
     Auth.signUp({
       username: user, 
       password: password,
       attributes: {
-        email: email
+        nickname: user,
+        email: email,
+        name: userNombres,
+        given_name: userApellidos,
+        address: userCalle,
+        'custom:role': role,
+        'custom:phone': userPhone,
+        'custom:dni': userDni
       },
       validationData: []
-    })
-      .then(data => console.log(data))
-      .catch(err => console.log(err));
+    }) 
+      .then()
+      .catch(e => console.log(e));
   };
 
   assignInputValue(target){
@@ -234,23 +250,23 @@ class SignUp extends React.Component {
               </div>
               <div className="col-sm-6">
                   <div className="form-group input-group">
-                    <label htmlFor="reg-pass">Constraseña*</label>
+                    <label htmlFor="reg-pass">Contraseña*</label>
                     <input className="form-control" type="password" name="userPw" 
                         value={this.state.userPw} 
                         onChange={this.handleChange}
-                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                        title="Debe contener 8 o más caracteres. Incluir al menos un número, una letra mayúscula, y una letra minúscula."
+                        pattern="(?=.*\d)(?=.*[a-z]).{8,}"
+                        title="Debe contener 8 o más caracteres. Incluir al menos un número y una letra minúscula."
                         required/>
                   </div>
               </div>
               <div className="col-sm-6">
                   <div className="form-group input-group">
-                    <label htmlFor="reg-pass-confirm">Confirmar constraseña*</label>
+                    <label htmlFor="reg-pass-confirm">Confirmar contraseña*</label>
                     <input className="form-control" type="password" name="userPwConf"  
                         value={this.state.userPwConf} 
                         onChange={this.handleChange} 
-                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
-                        title="Debe contener 8 o más caracteres. Incluir al menos un número, una letra mayúscula, y una letra minúscula."
+                        pattern="(?=.*\d)(?=.*[a-z]).{8,}"
+                        title="Debe contener 8 o más caracteres. Incluir al menos un número y una letra minúscula."
                         required/>
                   </div>
               </div>
@@ -263,7 +279,10 @@ class SignUp extends React.Component {
               </div>
               <div className="col-12 text-center text-sm-right">
                   <button className="btn btn-primary margin-bottom-none" type="submit"
-                    onClick={() => this.signUp(this.state.userName, this.state.userPw, this.state.userEmail)}>Registrate</button>
+                    onClick={() => this.signUp(this.state.userName, this.state.userPw, 
+                    this.state.userEmail, this.state.userRol, this.state.userNombres, 
+                    this.state.userApellidos, this.state.userDni, this.state.userPhone,
+                    this.state.userAddCalle, this.state.userAddNum, this.state.userAddCp)}>Registrate</button>
               </div>
             </form>
           </div>
