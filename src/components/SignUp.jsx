@@ -54,7 +54,31 @@ class SignUp extends React.Component {
       },
       validationData: []
     }) 
-      .then()
+      .then(function(){
+      
+        if(role == 'vendor'){
+          var body = {
+            username: user,
+            user_role: role,
+            email: email,
+            first_name : userNombres,
+            last_name : userApellidos
+          }
+
+          fetch(`http://localhost:8080/account/users/create_user` , {
+            headers: {
+              'Content-Type': 'application/json'
+            },
+            method: 'POST',
+            body:JSON.stringify(body)
+        }).then(
+            function () {
+              window.location = `https://auth.mercadopago.com.ar/authorization?client_id=5912969040584293&response_type=code&platform_id=mp&redirect_uri=http%3A%2F%2Flocalhost:3000/splash?user_id=${user}`;
+            }).catch(function (e) {
+                console.log(e)
+            })
+        }
+      })
       .catch(e => console.log(e));
   };
 

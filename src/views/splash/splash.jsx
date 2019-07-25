@@ -4,10 +4,6 @@ import CardHF from '../../components/CardHeader';
 
 class Splash extends React.Component {
 
-    redirectToHome() {
-        window.location.href = "/"
-    }
-
     render() {
         return (
             <>
@@ -15,8 +11,8 @@ class Splash extends React.Component {
                 <div className="row center">
                     <div className="container center pt-50px">
                         <CardHF
-                            header="Estamos Redirigiendo"
-                            title="Cuando tu pagina esta lista seras redirigo automaticamente"
+                            header="Estamos registrando tu autorización"
+                            title="Espera unos segundos y serás redirigo automaticamente"
                             body=""
                             spinner={true}
                         />
@@ -58,13 +54,15 @@ class Splash extends React.Component {
 
     sendCode() {
         const authCode = this.getUrlVars()["code"];
+        const userId = this.getUrlVars()["user_id"];
+
         console.log(authCode);
 
-        fetch('http://localhost:8080/mp/users/marketplace_auth?code=' + authCode, {
+        fetch(`http://localhost:8080/mp/users/marketplace_auth?user_id=${userId}&code=${authCode}` , {
             method: 'POST'
         }).then(
             function () {
-                this.redirectToHome();
+                window.location.href = "/"
             }).catch(function (e) {
                 console.log(e)
             })
