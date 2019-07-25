@@ -86,12 +86,26 @@ class SignUp extends React.Component {
     if (target.type === 'checkbox') {
       return target.checked;
     }
-    if (target.type === 'text' && target.name!='userName') {
-      return target.value.toUpperCase();
+    if (target.type === 'email'){
+      if (target.name!='userEmail') {
+        document.getElementById('userEmailConf').pattern = this.state.userEmail;
+      }
+      return target.value.toLowerCase(); 
     }
-    else {
+    if (target.type === 'password'){
+      if (target.name!='userPw') {
+        document.getElementById('userPwConf').pattern = this.state.userPw;
+      }
+      return target.value; 
+    }
+    if (target.type === 'text'){
+      if (target.name!='userName') {
+        return target.value.toUpperCase();
+      }
       return target.value.toLowerCase();
     }
+
+
   }
 
   handleChange(event) { 
@@ -171,7 +185,7 @@ class SignUp extends React.Component {
                     value={this.state.userName} 
                     onChange={this.handleChange} 
                     pattern="^[a-z0-9_-]{3,20}"
-                    title="Longitud de 3-15 caracteres. No admite caracteres especiales."
+                    title="Longitud de 3-15 caracteres. No admite espacios ni caracteres especiales."
                     required/>
                   </div>
               </div>
@@ -181,7 +195,7 @@ class SignUp extends React.Component {
                     <input className="form-control" type="text" name="userNombres"
                         value={this.state.userNombres} 
                         onChange={this.handleChange} 
-                        pattern="[A-ZÑ]{3,40}"
+                        pattern="[A-ZÑ\s]{3,40}"
                         title="Únicamente texto. Longitud de 3-40 caracteres."
                         required/>
                   </div>
@@ -192,7 +206,7 @@ class SignUp extends React.Component {
                     <input className="form-control" type="text" name="userApellidos"  
                         value={this.state.userApellidos} 
                         onChange={this.handleChange} 
-                        pattern="[A-ZÑ]{3,40}"
+                        pattern="[A-ZÑ\s]{3,40}"
                         title="Únicamente texto. Longitud de 3-40 caracteres."
                         required/>
                   </div>
@@ -225,7 +239,7 @@ class SignUp extends React.Component {
                     <input className="form-control" type="text" name="userAddCalle"  
                         value={this.state.userAddCalle} 
                         onChange={this.handleChange} 
-                        pattern="[A-Z]{3,40}"
+                        pattern="[A-ZÑ\s]{3,40}"
                         title="Únicamente texto. Longitud de 3-40 caracteres."
                         required/>
                   </div>
@@ -265,10 +279,10 @@ class SignUp extends React.Component {
               <div className="col-sm-6">
                   <div className="form-group input-group">
                     <label htmlFor="reg-phone">Confirmar e-mail*</label>
-                    <input className="form-control" type="email" name="userEmailConf"  
+                    <input className="form-control" type="email" name="userEmailConf" id="userEmailConf" 
                         value={this.state.userEmailConf} 
                         onChange={this.handleChange} 
-                        pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
+                        title="Las cuentas de correo deben coincidir."
                         required/>
               </div>
               </div>
@@ -279,18 +293,17 @@ class SignUp extends React.Component {
                         value={this.state.userPw} 
                         onChange={this.handleChange}
                         pattern="(?=.*\d)(?=.*[a-z]).{8,}"
-                        title="Debe contener 8 o más caracteres. Incluir al menos un número y una letra minúscula."
+                        title="Longitud mínima de 8 caracteres. Incluir al menos una letra minúscula y un número."
                         required/>
                   </div>
               </div>
               <div className="col-sm-6">
                   <div className="form-group input-group">
-                    <label htmlFor="reg-pass-confirm">Confirmar contraseña*</label>
-                    <input className="form-control" type="password" name="userPwConf"  
+                    <label htmlFor="reg-pass-confirm">Confirmar constraseña*</label>
+                    <input className="form-control" type="password" name="userPwConf" id="userPwConf"  
                         value={this.state.userPwConf} 
                         onChange={this.handleChange} 
-                        pattern="(?=.*\d)(?=.*[a-z]).{8,}"
-                        title="Debe contener 8 o más caracteres. Incluir al menos un número y una letra minúscula."
+                        title="Las contraseñas deben coincidir."
                         required/>
                   </div>
               </div>
@@ -310,7 +323,6 @@ class SignUp extends React.Component {
               </div>
             </form>
           </div>
-          <label>{JSON.stringify(this.state)}</label>
         </div>
       </>
     )
