@@ -45,12 +45,12 @@ class ItemMainSlider extends React.Component {
                   {item.title}
                 </div>
                 <div className="h2 text-body text-normal mb-4 pb-1">
-                  Oferta <span className="text-bold">${item.atualPrice}</span>
+                  Oferta <span className="text-bold">${item.actualPrice}</span>
                 </div>
               </div>
               <a
                 className="btn btn-primary scale-up delay-1"
-                href={"/vip/" + item.id}
+                href={"/vip/" + item.itemId}
               >
                 Comprar Ahora
               </a>

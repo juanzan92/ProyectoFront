@@ -62,9 +62,8 @@ class index extends React.Component {
         {/* Off-Canvas Wrapper*/}
         <div className="offcanvas-wrapper">
           {/* Page Content*/}
-
           {/* Main Slider*/}
-          <MainSlider mainSlider={this.mainSliderItems}/>
+          <MainSlider mainSlider={this.state.mainSliderItems}/>
           {/* Top Categories*/}
           <section className="container padding-top-3x">
             <h3 className="text-center mb-30">Top Categories</h3>
