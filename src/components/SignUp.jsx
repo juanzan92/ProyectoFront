@@ -54,9 +54,7 @@ class SignUp extends React.Component {
       },
       validationData: []
     }) 
-      .then(function(){
-      
-        if(role == 'vendor'){
+      .then( function(){
           var body = {
             username: user,
             user_role: role,
@@ -73,11 +71,10 @@ class SignUp extends React.Component {
             body:JSON.stringify(body)
         }).then(
             function () {
-              window.location = `https://auth.mercadopago.com.ar/authorization?client_id=5912969040584293&response_type=code&platform_id=mp&redirect_uri=http%3A%2F%2Flocalhost:3000/splash?user_id=${user}`;
+              role == 'vendor' ? window.location = `https://auth.mercadopago.com.ar/authorization?client_id=5912969040584293&response_type=code&platform_id=mp&redirect_uri=http%3A%2F%2Flocalhost:3000/splash?user_id=${user}` :   window.location.href = "/";
             }).catch(function (e) {
                 console.log(e)
             })
-        }
       })
       .catch(e => console.log(e));
   };
