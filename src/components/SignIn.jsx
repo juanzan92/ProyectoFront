@@ -34,9 +34,7 @@ class SignIn extends React.Component {
     if (target.type === 'checkbox') {
       return target.checked;
     }
-    if (target.type === 'text') {
       return target.value.toLowerCase();
-    }
   }
 
   handleChange(event) {
@@ -83,21 +81,6 @@ class SignIn extends React.Component {
     return errors;
   }
 
-  /*
-    handleSubmit = (e) => {
-    const value1 = ...;
-    const value2 = ...;
-
-    const errors = validate(value1, value2, ...);
-    const hasErrors = ...;
-    if (hasErrors) {
-      // do something with errors
-      return;
-    }
-
-    // send the form...
-  };
-  */
   render() {
     return (
       <>
@@ -136,11 +119,10 @@ class SignIn extends React.Component {
 
               <div className="form-group input-group">
                 <span className="input-group-addon"><i className="icon-mail"></i></span>
-                <input name="username" className="form-control" type="text" placeholder="Usuario"
+                <input name="username" className="form-control" type="text" placeholder="Correo"
                   value={this.state.username}
                   onChange={this.handleChange}
-                  pattern="^[a-z0-9_-]{3,20}"
-                  title="Longitud de 3-15 caracteres. No admite caracteres especiales."
+                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                   required/>
               </div>
 
@@ -149,8 +131,6 @@ class SignIn extends React.Component {
                 <input name="password" className="form-control" type="password" placeholder="Contraseña"
                   value={this.state.password}
                   onChange={this.handleChange}
-                  pattern="(?=.*\d)(?=.*[a-zA-Z])(?=.*[A-Z]).{8,}"
-                  title="Debe contener 8 o más caracteres. Incluir al menos un número, una letra mayúscula, y una letra minúscula."
                   required />
               </div>
 
