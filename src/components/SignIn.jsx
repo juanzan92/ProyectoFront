@@ -21,12 +21,11 @@ class SignIn extends React.Component {
   }
 
   async signIn(user, password) {
-    console.log(user, password)
     try {
       await Auth.signIn(user, password);
-      console.log(Auth.currentAuthenticatedUser());
-    } catch (e) {
-      alert(e.message);
+      window.location.href = "/";
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -48,8 +47,8 @@ class SignIn extends React.Component {
   }
 
   handleSubmit(event) {
+    event.preventDefault()
     this.signIn(this.state.username, this.state.password);
-    window.alert(this.state)
   }
 
    validate(name, email, password) {
@@ -113,16 +112,15 @@ class SignIn extends React.Component {
           <div className="col-md-4" />
           <div className="col-md-4">
 
-            <form className="login-box">
+            <form className="login-box" onSubmit={this.handleSubmit}>
 
               <h4 className="margin-bottom-1x">Ingresar a tu cuenta</h4>
 
               <div className="form-group input-group">
                 <span className="input-group-addon"><i className="icon-mail"></i></span>
-                <input name="username" className="form-control" type="text" placeholder="Correo"
+                <input name="username" className="form-control" type="text" placeholder="Usuario o Correo"
                   value={this.state.username}
                   onChange={this.handleChange}
-                  pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
                   required/>
               </div>
 
@@ -150,8 +148,7 @@ class SignIn extends React.Component {
               </div>
 
               <div className="text-center text-sm-center">
-                <button className="btn btn-primary margin-bottom-none" type="submit"
-                  onClick={() => this.signIn(this.state.username, this.state.password)}>INGRESÁ</button>
+                <button className="btn btn-primary margin-bottom-none" type="submit">INGRESÁ</button>
 
                 <Link to='/signup'>
                 <button className="btn btn-primary margin-bottom-none">CREAR CUENTA</button>
