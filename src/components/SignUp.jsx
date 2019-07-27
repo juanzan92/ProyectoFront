@@ -21,22 +21,14 @@ class SignUp extends React.Component {
       userEmail: '',
       userEmailConf: '',
       userPw: '',
-      userPwConf: '',
-      tycChecked: false,
+      userPwConf: ''
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.routeChange = this.routeChange.bind(this);
-
   }
  
-  routeChange() {
-    let path = `/`;
-    this.props.history.push(path);
-  }
-  
-  async signUp(user, password, email, role, userNombres, userApellidos, userDni, 
+  signUp(user, password, email, role, userNombres, userApellidos, userDni, 
     userPhone, userCalle, userNum, userCp) {
 
     Auth.signUp({
@@ -53,8 +45,7 @@ class SignUp extends React.Component {
         'custom:dni': userDni
       },
       validationData: []
-    }) 
-      .then( function(){
+    }).then( function(){
           var body = {
             username: user,
             user_role: role,
@@ -80,9 +71,6 @@ class SignUp extends React.Component {
   };
 
   assignInputValue(target){
-    if (target.type === 'checkbox') {
-      return target.checked;
-    }
     if (target.type === 'email'){
       if (target.name!='userEmail') {
         document.getElementById('userEmailConf').pattern = this.state.userEmail;
@@ -101,8 +89,6 @@ class SignUp extends React.Component {
       }
       return target.value.toLowerCase();
     }
-
-
   }
 
   handleChange(event) { 
@@ -303,13 +289,6 @@ class SignUp extends React.Component {
                         title="Las contraseñas deben coincidir."
                         required/>
                   </div>
-              </div>
-              <div className="custom-control custom-checkbox">
-                  <input name="tycChecked" type="checkbox"
-                    value={this.state.tycChecked}
-                    onChange={this.handleChange}
-                    required
-                  />Acepto términos y condiciones.
               </div>
               <div className="col-12 text-center text-sm-right">
                   <button className="btn btn-primary margin-bottom-none" type="submit"
