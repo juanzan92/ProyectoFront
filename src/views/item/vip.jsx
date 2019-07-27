@@ -41,7 +41,7 @@ class VIP extends React.Component {
 
   buscarItemTest() {
     const url =
-      "https://kusmq1it9k.execute-api.us-east-1.amazonaws.com/prod/items/40ab93fb-8794-4697-86d1-1c232d66d554/itemId";
+      "https://kusmq1it9k.execute-api.us-east-1.amazonaws.com/prod/items/";
     fetch(url, {
       method: "GET",
       headers: {
@@ -55,7 +55,7 @@ class VIP extends React.Component {
       .then(myJson => {
         console.log(myJson);
         this.setState({
-          item: myJson,
+          item: myJson[0],
           isLoading: false
         });
       })
