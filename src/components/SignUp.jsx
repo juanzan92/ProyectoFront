@@ -89,6 +89,10 @@ class SignUp extends React.Component {
       }
       return target.value.toLowerCase();
     }
+
+    if(target.type === 'select-one'){
+      return target.value.toLowerCase();
+    }
   }
 
   handleChange(event) { 
@@ -127,7 +131,9 @@ class SignUp extends React.Component {
                       <li className="separator">&nbsp;</li>
                       <li>
                           <Link to='/signin'>
+                              <button className="btn btn-primary">
                               <span className="navi-link"/>Ingresar
+                                </button>
                           </Link>
                       </li>
                       <li className="separator">&nbsp;</li>
