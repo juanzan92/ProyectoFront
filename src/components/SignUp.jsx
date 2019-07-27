@@ -28,11 +28,10 @@ class SignUp extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
  
-  signUp(user, password, email, role, userNombres, userApellidos, userDni, 
+  signUp(user, password, email, role, userNombres, userApellidos, userDni,
     userPhone, userCalle, userNum, userCp) {
-
     Auth.signUp({
-      username: user, 
+      username: user,
       password: password,
       attributes: {
         nickname: user,
@@ -45,29 +44,30 @@ class SignUp extends React.Component {
         'custom:dni': userDni
       },
       validationData: []
-    }).then( function(){
-          var body = {
-            username: user,
-            user_role: role,
-            email: email,
-            first_name : userNombres,
-            last_name : userApellidos
-          }
+    }).then(function () {
+      var body = {
+        username: user,
+        user_role: role,
+        email: email,
+        first_name: userNombres,
+        last_name: userApellidos
+      }
 
-          fetch(`http://localhost:8080/account/users/create_user` , {
-            headers: {
-              'Content-Type': 'application/json'
-            },
-            method: 'POST',
-            body:JSON.stringify(body)
-        }).then(
-            function () {
-              role == 'vendor' ? window.location = `https://auth.mercadopago.com.ar/authorization?client_id=5912969040584293&response_type=code&platform_id=mp&redirect_uri=http%3A%2F%2Flocalhost:3000/splash?user_id=${user}` :   window.location.href = "/";
-            }).catch(function (e) {
-                console.log(e)
-            })
-      })
-      .catch(e => console.log(e));
+      fetch(`http://localhost:8080/account/users/create_user`, {
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        method: 'POST',
+        body: JSON.stringify(body)
+      }).then(function () {
+        if (role == 'vendor') {
+          window.location = `https://auth.mercadopago.com.ar/authorization?client_id=5912969040584293&response_type=code&platform_id=mp&redirect_uri=http%3A%2F%2Flocalhost:3000/splash?user_id=${user}`
+        } else {
+          window.location.href = "/";
+        }
+      }
+      ).catch(e => console.log(e))
+    }).catch(e => console.log(e))
   };
 
   assignInputValue(target){
@@ -102,8 +102,11 @@ class SignUp extends React.Component {
   }
 
   handleSubmit(event) {
-    
-    this.signUp(this.state.userName, this.state.userPw, this.state.userEmail);
+    event.preventDefault()
+    this.signUp(this.state.userName, this.state.userPw, 
+      this.state.userEmail, this.state.userRol, this.state.userNombres, 
+      this.state.userApellidos, this.state.userDni, this.state.userPhone,
+      this.state.userAddCalle, this.state.userAddNum, this.state.userAddCp)
   }
 
   render() {
@@ -149,7 +152,7 @@ class SignUp extends React.Component {
                 <span>Unite. Colaborá. Ahorrá.</span>
               </div>
             </div>
-            <form className="row margin-top-1x">
+            <form className="row margin-top-1x" onSubmit={this.handleSubmit}>
               <div className="col-sm-6">
                   <div className="form-group input-group">
                     <label htmlFor="select-rol">Registrarme como:</label>
@@ -211,7 +214,7 @@ class SignUp extends React.Component {
                     <input className="form-control" type="text" name="userPhone"
                         value={this.state.userPhone} 
                         onChange={this.handleChange} 
-                        pattern="^(?:(?:00)?+549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$"
+                        /* pattern="^(?:(?:00)?+549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$"  TODO está mal el regex*/
                         title="Incluir código de área en todo caso. Se admite opcionalmente prefijo internacional (+54) y nacional (15)."
                         required/>
                   </div>
@@ -291,11 +294,7 @@ class SignUp extends React.Component {
                   </div>
               </div>
               <div className="col-12 text-center text-sm-right">
-                  <button className="btn btn-primary margin-bottom-none" type="submit"
-                    onClick={() => this.signUp(this.state.userName, this.state.userPw, 
-                    this.state.userEmail, this.state.userRol, this.state.userNombres, 
-                    this.state.userApellidos, this.state.userDni, this.state.userPhone,
-                    this.state.userAddCalle, this.state.userAddNum, this.state.userAddCp)}>Registrate</button>
+                  <button className="btn btn-primary margin-bottom-none" type="submit">Registrate</button>
               </div>
             </form>
           </div>
