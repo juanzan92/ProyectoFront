@@ -1,10 +1,6 @@
 import React from "react";
 import CreditCard from "react-credit-cards";
 
-//componentes
-
-var mercadopago = require("mercadopago");
-
 class CheckoutPayment extends React.Component {
   constructor(props) {
     super(props);
@@ -34,15 +30,18 @@ class CheckoutPayment extends React.Component {
               <div className="checkout-steps">
                 <a href="checkout-review.html">4. Resumen</a>
                 <a className="active" href="checkout-payment.html">
-                  <span className="angle" />3. Pago
+                  <span className="angle" />
+                  3. Pago
                 </a>
                 <a className="completed" href="checkout-shipping.html">
                   <span className="step-indicator icon-circle-check" />
-                  <span className="angle" />2. Envio
+                  <span className="angle" />
+                  2. Envio
                 </a>
                 <a className="completed" href="checkout-address.html">
                   <span className="step-indicator icon-circle-check" />
-                  <span className="angle" />1. Direccion
+                  <span className="angle" />
+                  1. Direccion
                 </a>
               </div>
               <h4>Pago</h4>

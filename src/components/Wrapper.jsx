@@ -21,7 +21,6 @@ export default function wrapper(WrappedComponent) {
 
     fetchCategories() {
       const url =
-        "https://cors-anywhere.herokuapp.com/" +
         "https://kusmq1it9k.execute-api.us-east-1.amazonaws.com/prod/categories/";
       fetch(url, {
         method: "GET",
@@ -30,7 +29,6 @@ export default function wrapper(WrappedComponent) {
         }
       })
         .then(response => {
-          console.log(response);
           return response.json();
         })
         .then(myJson => {
@@ -47,10 +45,16 @@ export default function wrapper(WrappedComponent) {
       return (
         <div>
           <TopBar />
-          <OffCanvasMenu categories={this.state.categories} />
-          <NavBar />
-          <WrappedComponent {...this.props} />
-          <Footer />
+          <OffCanvasMenu
+            categories={this.state.categories}
+            key={"off-canvas-menu"}
+          />
+          <NavBar key={"nav-bar"} />
+          <WrappedComponent
+            {...this.props}
+            categories={this.state.categories}
+          />
+          <Footer key={"footer"} />
         </div>
       );
     }

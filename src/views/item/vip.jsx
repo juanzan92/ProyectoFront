@@ -2,13 +2,8 @@ import React from "react";
 
 import wraper from "../../components/Wrapper";
 import VIPTitle from "../../components/Item/VIPTitle";
-import VIPItem from "../../components/Item/VIPItem";
-import { METHODS } from "http";
 
 class VIP extends React.Component {
-  constructor(params) {
-    super(params);
-  }
   state = {
     item: {
       id: null,
@@ -41,7 +36,7 @@ class VIP extends React.Component {
 
   buscarItemTest() {
     const url =
-      "https://kusmq1it9k.execute-api.us-east-1.amazonaws.com/prod/items/";
+      "https://kusmq1it9k.execute-api.us-east-1.amazonaws.com/prod/items/142/item_id";
     fetch(url, {
       method: "GET",
       headers: {
@@ -72,30 +67,7 @@ class VIP extends React.Component {
     });
   }
 
-  pagarTest() {
-    const preferences = null;
-    const url = "http://localhost:8080/mp/preferences/create"; //url backend
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        item_id: "1234",
-        user_id: "675",
-        quantity: "1"
-      })
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(preference => {
-        console.log(preference);
-        window.location.href = preference.redirect_url;
-      });
-  }
   pagar() {
-    const preferences = null;
     const url = "http://localhost:8080/mp/preferences/create"; //url backend
     fetch(url, {
       method: "POST",
