@@ -122,35 +122,33 @@ class SignUp extends React.Component {
                   <h1>Registrarme</h1>
               </div>
               <div className="column">
-                  <ul className="breadcrumbs">
-                      <li>
-                          <Link to='/'>
+                  <ul className="breadcrumbs">	               
+                      <li>	                      
+                          <Link to='/'>	                       
                               <span className="navi-link"/>Home
-                          </Link>
-                      </li>
-                      <li className="separator">&nbsp;</li>
-                      <li>
-                          <Link to='/signin'>
-                              <button className="btn btn-primary">
-                              <span className="navi-link"/>Ingresar
-                                </button>
-                          </Link>
-                      </li>
-                      <li className="separator">&nbsp;</li>
-                      <li>Registrarme</li>
-                  </ul>
-              </div>
+                          </Link>	                
+                      </li>	                      
+                      <li className="separator">&nbsp;</li>	            
+                      <li>	                      
+                          <Link to='/signin'>	                          
+                              <span className="navi-link"/>Ingresar	                              
+                          </Link>	                          
+                      </li>	                      
+                      <li className="separator">&nbsp;</li>	                      
+                      <li>Registrarme</li>	                      
+                  </ul>	                  
+              </div>	              
             </div>
         </div>
         <div className="row padding-bottom-2x mb-2">
           <div className="col-md-3"/>
-          <div className="login-box col-md-6">
+            <div className="login-box col-md-6">
             <div className="padding-top-3x hidden-md-up" />
             <div>
               <div className="col-md-6">
-                <h4 className="">Ya eres miembro?</h4>
+                <h4 className="">Ya sos miembro?</h4>
                 <Link to='/signin'>
-                      <span/>Ingresar
+                  <div className="btn btn-primary p"><i className="icon-unlock"/> INGRESAR</div>
                 </Link>
               </div>
               <div className="col-md-6">
@@ -165,8 +163,8 @@ class SignUp extends React.Component {
                     <select className="form-control" name="userRol" 
                         value={this.state.userRol} 
                         onChange={this.handleChange}>
-                      <option value="consumer">Consumer</option>
-                      <option value="vendor">Vendor</option>
+                      <option value="consumer">Consumidor</option>
+                      <option value="vendor">Oferente</option>
                     </select>
                   </div>
               </div>
@@ -220,7 +218,7 @@ class SignUp extends React.Component {
                     <input className="form-control" type="text" name="userPhone"
                         value={this.state.userPhone} 
                         onChange={this.handleChange} 
-                        /* pattern="^(?:(?:00)?+549?)?0?(?:11|[2368]\d)(?:(?=\d{0,2}15)\d{2})??\d{8}$"  TODO está mal el regex*/
+                        pattern="[0-9]{10}"
                         title="Incluir código de área en todo caso. Se admite opcionalmente prefijo internacional (+54) y nacional (15)."
                         required/>
                   </div>

@@ -51,35 +51,6 @@ class SignIn extends React.Component {
     this.signIn(this.state.username, this.state.password);
   }
 
-   validate(name, email, password) {
-    // we are going to store errors for all fields
-    // in a signle array
-    const errors = [];
-  
-    if (this.state.username.length === 0) {
-      errors.push("Name can't be empty");
-    }
-  
-    if (email.length < 5) {
-      errors.push("Email should be at least 5 charcters long");
-    }
-    if (email.split("").filter(x => x === "@").length !== 1) {
-      errors.push("Email should contain a @");
-    }
-    if (email.indexOf(".") === -1) {
-      errors.push("Email should contain at least one dot");
-    }
-  
-    if (this.state.password.length < 8) {
-      errors.push("Password should be at least 6 characters long");
-    }
-
-    if (this.state.password.indexOf(".") === -1) {
-      errors.push("Password should be at least 6 characters long");
-    }
-    return errors;
-  }
-
   render() {
     return (
       <>
@@ -151,7 +122,7 @@ class SignIn extends React.Component {
                 <button className="btn btn-primary margin-bottom-none" type="submit">INGRESÁ</button>
 
                 <Link to='/signup'>
-                <button className="btn btn-primary margin-bottom-none">CREAR CUENTA</button>
+                <button className="btn btn-primary margin-bottom-none" type="submit">CREAR CUENTA</button>
                 </Link>
               </div>
 

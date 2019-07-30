@@ -9,7 +9,6 @@ class ForgotPassword extends React.Component{
         this.state = {
             username: '',
         };
-
         this.handleChange = this.handleChange.bind(this);
     }
 
@@ -26,6 +25,11 @@ class ForgotPassword extends React.Component{
         this.setState({
           [name]: value
         });
+    }
+
+    handleSubmit(event) {
+        event.preventDefault()
+        this.this.forgotPassword(this.state.username);
     }
 
     render(){
@@ -66,7 +70,7 @@ class ForgotPassword extends React.Component{
                                     <li><span className="text-primary text-medium">2. </span>Te enviaremos un enlace a la cuenta de correo asociada.</li>
                                     <li><span className="text-primary text-medium">3. </span>Utiliza el enlace para restablecer tu contraseña.</li>
                                 </ol>
-                                <form className="card mt-4">
+                                <form className="card mt-4" onSubmit={this.handleSubmit}>
                                     <div className="card-body">
                                         <div className="form-group">
                                             <label htmlFor="username">Ingrese su nombre de usuario</label>
@@ -80,8 +84,7 @@ class ForgotPassword extends React.Component{
                                         </div>
                                     </div>
                                     <div className="card-footer">
-                                        <button className="btn btn-primary margin-bottom-none" type="submit"
-                                        onClick={() => this.forgotPassword(this.state.username)}>RECUPERAR CONTRASEÑA</button>
+                                        <button className="btn btn-primary margin-bottom-none" type="submit">RECUPERAR CONTRASEÑA</button>
                                     </div>
                                 </form>
                             </div>
