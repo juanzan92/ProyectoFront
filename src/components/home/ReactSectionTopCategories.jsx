@@ -1,7 +1,6 @@
 import React from "react";
 import ReactA from "../utils/ReactA";
 import ReactH3 from "../utils/H3";
-import ReactDiv from "../utils/Reactdiv";
 import ReactCard from "../utils/ReactCard";
 
 class ReactSectionTopCategories extends React.Component {
