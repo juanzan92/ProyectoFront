@@ -1,22 +1,9 @@
-
-
 import React from 'react';
-
-//componentes
-
-//wraper de componentes
-
-
-
 
 class CheckoutTitle extends React.Component {
 
-
-
   render() {
-
     return (
-
       <div className="page-title">
         <div className="container">
           <div className="column">
@@ -37,8 +24,3 @@ class CheckoutTitle extends React.Component {
 }
 
 export default CheckoutTitle
-
-
-
-
-

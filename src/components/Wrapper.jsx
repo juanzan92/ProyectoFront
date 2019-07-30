@@ -5,8 +5,6 @@ import Footer from './Footer';
 import TopBar from './TopBar';
 
 export default function wrapper(WrappedComponent) {
-
-
     return class extends React.Component {
         render() {
             return (
