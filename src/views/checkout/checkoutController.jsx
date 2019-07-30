@@ -1,10 +1,15 @@
 /* eslint-disable no-undef */
-import React from "react";
-
+import React from 'react';
 //wraper de componentes
-import wraper from "../../components/Wrapper";
-import CheckoutTitle from "../../components/Checkout/CheckoutTitle";
-import CheckoutPayment from "../../components/Checkout/CheckoutpPayment";
+import wraper from '../../components/Wrapper';
+import CheckoutTitle from '../../components/CheckoutTitle';
+import CheckoutPayment from '../../components/CheckoutpPayment';
+
+//constantes
+const public_key = "TEST-ff8e2031-644c-44e8-8050-e1d672968663";
+const accessToken = "TEST-3537488836146761-070819-bad33424ca9a56142dc278a55cc6f76f-10229773";
+const client_id = "3537488836146761";
+const client_secret = "KljbBJaCYRBcwCUZKdZbj5jSdF8Up7gi";
 
 class CheckoutController extends React.Component {
   constructor(props) {
@@ -48,7 +53,7 @@ class CheckoutController extends React.Component {
         }
       }, 100);
     }
-  }
+  };
 
   setPaymentMethodInfo(status, response) {
     if (status === 200) {
@@ -71,7 +76,7 @@ class CheckoutController extends React.Component {
     }
   }
 
-  // aca va un event lisen no se como
+  // aca va un event lisen no se como 
   doPay(event) {
     event.preventDefault();
     if (!doSubmit) {
@@ -96,12 +101,12 @@ class CheckoutController extends React.Component {
       doSubmit = true;
       form.submit();
     }
-  }
+  };
 
   manejarPago() {
-    console.log("llegue");
+    console.log("llegue")
   }
-
+  
   render() {
     return (
       <>

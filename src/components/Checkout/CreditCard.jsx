@@ -1,8 +1,5 @@
 import React from 'React';
 
-
-
-
 class CreditCard extends React.Component {
 
     state = {
@@ -16,7 +13,6 @@ class CreditCard extends React.Component {
 
     }
 
-
     handleChange = (e) => {
         if (["name", "age"].includes(e.target.className) ) {
           let cats = [...this.state.cats]
@@ -28,8 +24,6 @@ class CreditCard extends React.Component {
       }
 
       handleSubmit = (e) => { e.preventDefault() }
-
-
 
     render() {
         return (

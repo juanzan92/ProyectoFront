@@ -1,11 +1,5 @@
-
-import React from 'react';
-import { Redirect } from 'react-router-dom';
-
-
-
-
-
+import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
 
 class NavBar extends React.Component {
     state = {
@@ -14,23 +8,7 @@ class NavBar extends React.Component {
     }
 
     componentDidMount() {
-
-
     }
-    setRedirect = () => {
-        this.setState({
-            redirect: true
-        })
-    }
-    renderRedirect = () => {
-        if (this.state.redirect) {
-            return <Redirect to='/login' />
-        }
-    }
-
-
-
-
 
     render() {
         const isLogged = this.state
@@ -56,10 +34,9 @@ class NavBar extends React.Component {
 
         } else {
             btnNavBar =
-                <div className="btn btn-primary p" href="/login">
-                    <a className="w-100" href="/login" />
-                    <i className="icon-unlock" />LOG IN</div>
-
+                <Link to='/signin'>
+                <div className="btn btn-primary p"><i className="icon-unlock"/> INGRESAR</div>
+                </Link>
         }
 
         return (

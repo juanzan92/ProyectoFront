@@ -1,13 +1,6 @@
 import React from 'react';
 
-
-
-
-
-
-
 class VIPTitle extends React.Component {
-
 
 constructor(props){
     super(props)
@@ -19,8 +12,6 @@ state = {
     isLoading: true,
     isError: false,
 };
-
-
 
 fetchItem = () => {
     const idItem = this.props.match.params.idItem;
@@ -39,11 +30,7 @@ fetchItem = () => {
         });
 }
 render(){
-
-
-
     return(
-
         <div className="page-title">
         <div className="container">
           <div className="column">
@@ -63,9 +50,7 @@ render(){
         </div>
       </div>
     )
-
 }
-
 }
 
 export default VIPTitle

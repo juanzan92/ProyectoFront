@@ -11,9 +11,7 @@ class ItemPage extends Component {
         const { isLoading, isError, item } = this.state;
         return (
             <>
-
             </>
-            
         );
     }
 }
