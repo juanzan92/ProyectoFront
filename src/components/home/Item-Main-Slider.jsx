@@ -50,7 +50,7 @@ class ItemMainSlider extends React.Component {
               </div>
               <a
                 className="btn btn-primary scale-up delay-1"
-                href={"/vip/" + item.itemId}
+                href={"/vip/" + item.item_id}
               >
                 Comprar Ahora
               </a>
