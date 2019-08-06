@@ -9,6 +9,17 @@ import splash from './views/splash/splash';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import ForgotPassword from './components/ForgotPassword';
+//import { Auth } from 'aws-amplify';
+//import awsmobile from './aws-exports';
+//Amplify.configure(awsmobile);
+import { withAuthenticator } from 'aws-amplify-react';
+import Amplify from 'aws-amplify';
+import awsmobile from './aws-exports';
+// Get the aws resources configuration parameters
+//import awsconfig from './aws-exports'; // if you are using Amplify CLI
+
+Amplify.configure(awsmobile);
+
 
 function App() {
   return (
@@ -24,4 +35,5 @@ function App() {
   );
 }
 
-export default App;
+export default withAuthenticator(App, true);
+//export default App;

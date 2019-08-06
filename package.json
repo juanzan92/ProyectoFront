@@ -5,6 +5,7 @@
   "main": "index.js",
   "dependencies": {
     "aws-amplify": "^1.1.28",
+    "aws-amplify-react": "^2.3.12",
     "express": "^4.17.1",
     "mercadopago": "^1.0.24",
     "node-sass": "^4.12.0",

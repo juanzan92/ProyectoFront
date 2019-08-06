@@ -67,15 +67,7 @@ class logController extends React.Component {
 
   render() {
     return (
-      <>
-        { 
-          this.state.isUser ? (
-            <SignIn />
-          ) : (
-              <SignUp />
-            )
-        }
-      </>
+      <label>HELLO WORLD</label>
     )
   };
 };

@@ -60,7 +60,7 @@ class SignUp extends React.Component {
         method: 'POST',
         body: JSON.stringify(body)
       }).then(function () {
-        if (role == 'vendor') {
+        if (role === 'vendor') {
           window.location = `https://auth.mercadopago.com.ar/authorization?client_id=5912969040584293&response_type=code&platform_id=mp&redirect_uri=http%3A%2F%2Flocalhost:3000/splash?user_id=${user}`
         } else {
           window.location.href = "/";
@@ -72,19 +72,19 @@ class SignUp extends React.Component {
 
   assignInputValue(target){
     if (target.type === 'email'){
-      if (target.name!='userEmail') {
+      if (target.name!=='userEmail') {
         document.getElementById('userEmailConf').pattern = this.state.userEmail;
       }
       return target.value.toLowerCase(); 
     }
     if (target.type === 'password'){
-      if (target.name!='userPw') {
+      if (target.name!=='userPw') {
         document.getElementById('userPwConf').pattern = this.state.userPw;
       }
       return target.value; 
     }
     if (target.type === 'text'){
-      if (target.name!='userName') {
+      if (target.name!=='userName') {
         return target.value.toUpperCase();
       }
       return target.value.toLowerCase();
