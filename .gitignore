@@ -3,6 +3,8 @@ package-lock.json
 .DS_Store
 .idea/
 build/
+.vscode/
+package-lock.json
 
 # Logs
 logs
