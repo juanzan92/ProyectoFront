@@ -22,8 +22,9 @@ class index extends React.Component {
   }
 
   componentDidMount() {
-    this.buscarItemTest();
-    this.fetchCategories();
+    this.buscarItemMainSlider();
+    this.buscarItemHurryUp();
+    this.buscarItemCarrouselBottom();
   }
 
   fetchCategories() {
@@ -44,9 +45,9 @@ class index extends React.Component {
       .catch(e => console.log(e));
   }
 
-  buscarItemTest() {
+  buscarItemMainSlider() {
     const url =
-      "https://kusmq1it9k.execute-api.us-east-1.amazonaws.com/prod/items/";
+      "http://localhost:8080/catalog/items/home/carrousel_main/search";
     fetch(url, {
       method: "GET",
       headers: {
@@ -58,38 +59,52 @@ class index extends React.Component {
       })
       .then(myJson => {
         console.log(myJson);
-        this.getMainSlidersItems(myJson);
-        this.getFeatureItem(myJson);
-        this.getFeatureProduct(myJson);
         this.setState({
+          featureItem: myJson,
           isLoading: false
         });
       });
   }
 
-  getFeatureItem(json) {
-    this.setState({
-      featureItem: json.find(item => item.tags.includes("feature_home"))
-    });
-  }
-  getFeatureProduct(json) {
-    this.setState({
-      featureItem: json.find(item => item.tags.includes("feature_product"))
-    });
+  buscarItemCarrouselBottom() {
+    const url =
+      "http://localhost:8080/catalog/items/home/carrousel_bottom/search";
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(myJson => {
+        console.log(myJson);
+        this.setState({
+          featureProducs: myJson,
+          isLoading: false
+        });
+      });
   }
 
-  getMainSlidersItems(json) {
-    this.setState({
-      mainSliderItems: json.filter(item => item.tags.includes("main_slider"))
-    });
-  }
-
-  getTopCategories(json) {
-    this.setState({
-      topCategories: json.filter(category =>
-        category.tags.includes("top_category")
-      )
-    });
+  buscarItemHurryUp() {
+    const url = "http://localhost:8080/catalog/items/home/hurry_up/search";
+    fetch(url, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+      .then(response => {
+        return response.json();
+      })
+      .then(myJson => {
+        console.log(myJson);
+        this.setState({
+          featureItem: myJson,
+          isLoading: false
+        });
+      });
   }
 
   render() {
