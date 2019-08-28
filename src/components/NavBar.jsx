@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 import { Auth } from "aws-amplify";
-//import App from '../App';
 
 class NavBar extends Component {
   constructor(props) {
@@ -9,7 +8,8 @@ class NavBar extends Component {
 
     this.state = {
       isAuthenticated: false,
-      isAuthenticating: true
+      isAuthenticating: true,
+      activeUser: this.currentActiveUser()
     };
   }
   async componentDidMount() {
@@ -37,15 +37,77 @@ class NavBar extends Component {
     window.location.href = "/signin";
   };
 
+  currentActiveUser() {
+    Auth.currentAuthenticatedUser({})
+      .then(user => {
+        this.setState({
+          activeUser: user.username.toUpperCase()
+        });
+        console.log(JSON.stringify(this.state.activeUser));
+      })
+      .catch(err => console.log(err));
+  }
+
   render() {
+    const childProps = {
+      isAuthenticated: this.state.isAuthenticated,
+      userHasAuthenticated: this.userHasAuthenticated
+    };
+
+    console.log(Auth.currentAuthenticatedUser());
+
     const isLogged = this.state.isAuthenticated;
     let btnNavBar;
     if (isLogged) {
       btnNavBar = (
         <>
-          <div>
-            <div className="btn btn-primary p" onClick={this.handleLogout}>
-              LOGOUT
+          <div className="row">
+            <span className="col-md-5 mb-3 padding-top-1x">
+              {"HOLA, " + this.state.activeUser}
+            </span>
+            <div className="col-md-2 mt-2">
+              <div className="account">
+                <a href="/" />
+                <i className="icon-head" />
+                <ul className="toolbar-dropdown">
+                  <li className="sub-menu-user">
+                    <div className="user-ava">
+                      <img
+                        src="img/account/user-ava-sm.jpg"
+                        alt="Daniel Adams"
+                      />
+                    </div>
+                    <div className="user-info">
+                      <h6 className="user-name">Daniel Adams</h6>
+                      <span className="text-xs text-muted">
+                        290 Reward points
+                      </span>
+                    </div>
+                  </li>
+                  <li>
+                    <a href="account-profile.html">My Profile</a>
+                  </li>
+                  <li>
+                    <a href="account-orders.html">Orders List</a>
+                  </li>
+                  <li>
+                    <a href="account-wishlist.html">Wishlist</a>
+                  </li>
+                  <li className="sub-menu-separator" />
+                  <li>
+                    <a href="/">
+                      {" "}
+                      <i className="icon-unlock" />
+                      Logout
+                    </a>
+                  </li>
+                </ul>
+              </div>
+            </div>
+            <div className="col-md-2 align-middle">
+              <div className="btn btn-primary p" onClick={this.handleLogout}>
+                LOGOUT
+              </div>
             </div>
           </div>
         </>
@@ -85,7 +147,7 @@ class NavBar extends Component {
               />
               {/* Site Logo*/}
               <a className="site-logo" href="/">
-                <img src="./img/logo-smarket.png" alt="Smarket" />
+                <img src="/img/logo/logo-smarket-favico.png" alt="Smarket" />
               </a>
             </div>
           </div>
@@ -99,22 +161,22 @@ class NavBar extends Component {
               </li>
               <li>
                 <a href="/">
-                  <span>Shop</span>
+                  <span>Hurry up!</span>
                 </a>
               </li>
               <li className="has-megamenu">
                 <a href="/">
-                  <span>Mega Menu</span>
+                  <span>Categorias</span>
                 </a>
               </li>
               <li>
                 <a href="/">
-                  <span>Account</span>
+                  <span>Quienes somos</span>
                 </a>
               </li>
               <li>
                 <a href="/">
-                  <span>Blog</span>
+                  <span>FAQ</span>
                 </a>
               </li>
             </ul>

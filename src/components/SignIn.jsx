@@ -1,19 +1,18 @@
 import React from "react";
-import logController from "../views/login/logController"
-import wrapper from './Wrapper';
-import { Auth } from 'aws-amplify';
-import SignUp from './SignUp';
-import {Link} from 'react-router-dom';
+import wrapper from "./Wrapper";
+import { Auth } from "aws-amplify";
+import SignUp from "./SignUp";
+import { Link } from "react-router-dom";
 
 class SignIn extends React.Component {
-
   constructor(props) {
     super(props);
 
     this.state = {
-      username: '',
-      password: '',
-      remember_me: false,
+      isLoading: false,
+      username: "",
+      password: "",
+      remember_me: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -23,17 +22,21 @@ class SignIn extends React.Component {
   async signIn(user, password) {
     try {
       await Auth.signIn(user, password);
+      //this.props.userHasAuthenticated(true);
       window.location.href = "/";
     } catch (error) {
+      alert(error.message);
+      this.setState({ isLoading: false });
       console.error(error);
+      console.log(error);
     }
-  };
+  }
 
-  assignInputValue(target){
-    if (target.type === 'checkbox') {
+  assignInputValue(target) {
+    if (target.type === "checkbox") {
       return target.checked;
     }
-      return target.value.toLowerCase();
+    return target.value.toLowerCase();
   }
 
   handleChange(event) {
@@ -47,7 +50,8 @@ class SignIn extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault()
+    event.preventDefault();
+    this.setState({ isLoading: true });
     this.signIn(this.state.username, this.state.password);
   }
 
@@ -56,82 +60,108 @@ class SignIn extends React.Component {
       <>
         <div className="page-title">
           <div className="container">
-              <div className="column">
-                  <h1>Ingresar</h1>
-              </div>
-              <div className="column">
-                  <ul className="breadcrumbs">
-                      <li>
-                          <Link to='/'>
-                              <span className="navi-link"/>Home
-                          </Link>
-                      </li>
-                      <li className="separator">&nbsp;</li>
-                      <li>
-                          <Link to='/signup'>
-                              <span className="navi-link"/>Registrarme
-                          </Link>
-                      </li>
-                      <li className="separator">&nbsp;</li>
-                      <li>Ingresar</li>
-                  </ul>
-              </div>
+            <div className="column">
+              <h1>Ingresar</h1>
             </div>
+            <div className="column">
+              <ul className="breadcrumbs">
+                <li>
+                  <Link to="/">
+                    <span className="navi-link" />
+                    Home
+                  </Link>
+                </li>
+                <li className="separator">&nbsp;</li>
+                <li>
+                  <Link to="/signup">
+                    <span className="navi-link" />
+                    Registrarme
+                  </Link>
+                </li>
+                <li className="separator">&nbsp;</li>
+                <li>Ingresar</li>
+              </ul>
+            </div>
+          </div>
         </div>
 
         <div className="row padding-bottom-3x mb-2">
           <div className="col-md-4" />
           <div className="col-md-4">
-
             <form className="login-box" onSubmit={this.handleSubmit}>
-
               <h4 className="margin-bottom-1x">Ingresar a tu cuenta</h4>
 
               <div className="form-group input-group">
-                <span className="input-group-addon"><i className="icon-mail"></i></span>
-                <input name="username" className="form-control" type="text" placeholder="Usuario o Correo"
+                <span className="input-group-addon">
+                  <i className="icon-mail" />
+                </span>
+                <input
+                  name="username"
+                  className="form-control"
+                  type="text"
+                  placeholder="Usuario o Correo"
                   value={this.state.username}
                   onChange={this.handleChange}
-                  required/>
+                  required
+                />
               </div>
 
               <div className="form-group input-group">
-                <span className="input-group-addon"><i className="icon-lock"></i></span>
-                <input name="password" className="form-control" type="password" placeholder="Contraseña"
+                <span className="input-group-addon">
+                  <i className="icon-lock" />
+                </span>
+                <input
+                  name="password"
+                  className="form-control"
+                  type="password"
+                  placeholder="Contraseña"
                   value={this.state.password}
                   onChange={this.handleChange}
-                  required />
+                  required
+                />
               </div>
 
               <div className="d-flex flex-wrap justify-content-between padding-bottom-1x">
-
                 <div className="custom-control custom-checkbox">
-                  <input name="remember_me" type="checkbox"
+                  <input
+                    name="remember_me"
+                    type="checkbox"
                     value={this.state.remember_me}
                     onChange={this.handleChange}
-                  />Recuérdame
+                  />
+                  Recuérdame
                 </div>
-                <div> 
-                  <Link to='/forgot-password'>
-                  <span className="navi-link"/>¿Olvidaste tu contraseña?
+                <div>
+                  <Link to="/forgot-password">
+                    <span className="navi-link" />
+                    ¿Olvidaste tu contraseña?
                   </Link>
                 </div>
               </div>
 
               <div className="text-center text-sm-center">
-                <button className="btn btn-primary margin-bottom-none" type="submit">INGRESÁ</button>
+                <button
+                  className="btn btn-primary margin-bottom-none"
+                  type="submit"
+                >
+                  INGRESÁ
+                </button>
 
-                <Link to='/signup'>
-                <button className="btn btn-primary margin-bottom-none" type="submit">CREAR CUENTA</button>
+                <Link to="/signup">
+                  <button
+                    className="btn btn-primary margin-bottom-none"
+                    type="submit"
+                  >
+                    CREAR CUENTA
+                  </button>
                 </Link>
               </div>
-
             </form>
           </div>
         </div>
       </>
-    )
-  };
-};
+    );
+  }
+}
 
 export default wrapper(SignIn);
