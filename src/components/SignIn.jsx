@@ -22,7 +22,6 @@ class SignIn extends React.Component {
   async signIn(user, password) {
     try {
       await Auth.signIn(user, password);
-      //this.props.userHasAuthenticated(true);
       window.location.href = "/";
     } catch (error) {
       alert(error.message);

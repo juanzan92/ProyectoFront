@@ -27,7 +27,7 @@ class SignUp extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
- 
+
   signUp(user, password, email, role, userNombres, userApellidos, userDni,
     userPhone, userCalle, userNum, userCp) {
     Auth.signUp({
@@ -62,8 +62,6 @@ class SignUp extends React.Component {
       }).then(function () {
         if (role === 'vendor') {
           window.location = `https://auth.mercadopago.com.ar/authorization?client_id=5912969040584293&response_type=code&platform_id=mp&redirect_uri=http%3A%2F%2Flocalhost:3000/splash?user_id=${user}`
-        } else {
-          window.location.href = "/";
         }
       }
       ).catch(e => console.log(e))
@@ -110,7 +108,13 @@ class SignUp extends React.Component {
     this.signUp(this.state.userName, this.state.userPw, 
       this.state.userEmail, this.state.userRol, this.state.userNombres, 
       this.state.userApellidos, this.state.userDni, this.state.userPhone,
-      this.state.userAddCalle, this.state.userAddNum, this.state.userAddCp)
+      this.state.userAddCalle, this.state.userAddNum, this.state.userAddCp);
+      var confirm = window.confirm("Se ha enviado un enlace de verificación a su casilla de correo.\n¡Confirme su usuario e inicie sesión!");
+      if (confirm == true) {
+        window.location.href = "/signin";
+      } else {
+        window.location.href = "/";
+      }
   }
 
   render() {
@@ -163,7 +167,7 @@ class SignUp extends React.Component {
                     <select className="form-control" name="userRol" 
                         value={this.state.userRol} 
                         onChange={this.handleChange}>
-                      <option value="consumer">Consumidor</option>
+                      <option value="consumer">Colaborador</option>
                       <option value="vendor">Oferente</option>
                     </select>
                   </div>

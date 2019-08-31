@@ -32,9 +32,8 @@ class NavBar extends Component {
 
   handleLogout = async event => {
     await Auth.signOut();
-
     this.userHasAuthenticated(false);
-    window.location.href = "/signin";
+    window.location.href = "/";
   };
 
   currentActiveUser() {
@@ -62,10 +61,7 @@ class NavBar extends Component {
       btnNavBar = (
         <>
           <div className="row">
-            <span className="col-md-5 mb-3 padding-top-1x">
-              {"HOLA, " + this.state.activeUser}
-            </span>
-            <div className="col-md-2 mt-2">
+            <div className="col-md-3 mt-2">
               <div className="account">
                 <a href="/" />
                 <i className="icon-head" />
@@ -78,28 +74,21 @@ class NavBar extends Component {
                       />
                     </div>
                     <div className="user-info">
-                      <h6 className="user-name">Daniel Adams</h6>
+                      <h6 className="user-name">{this.state.activeUser}</h6>
                       <span className="text-xs text-muted">
-                        290 Reward points
+                        Colaborador
                       </span>
                     </div>
                   </li>
                   <li>
-                    <a href="account-profile.html">My Profile</a>
-                  </li>
-                  <li>
-                    <a href="account-orders.html">Orders List</a>
-                  </li>
-                  <li>
-                    <a href="account-wishlist.html">Wishlist</a>
+                    <a href="/account">Mi Cuenta</a>
                   </li>
                   <li className="sub-menu-separator" />
                   <li>
-                    <a href="/">
-                      {" "}
-                      <i className="icon-unlock" />
-                      Logout
-                    </a>
+                    <a href="/account/orders">Suscripciones</a>
+                  </li>
+                  <li>
+                    <a href="/account/wishlist">Favoritos</a>
                   </li>
                 </ul>
               </div>
