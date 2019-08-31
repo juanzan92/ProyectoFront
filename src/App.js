@@ -5,9 +5,9 @@ import Home from "./views/home/home";
 import CheckoutController from "./views/checkout/checkoutController";
 import vip from "./views/item/vip";
 import splash from "./views/splash/splash";
-import SignUp from "./components/SignUp";
-import SignIn from "./components/SignIn";
-import ForgotPassword from "./components/ForgotPassword";
+import SignUp from "./components/LogIn/SignUp";
+import SignIn from "./components/LogIn/SignIn";
+import ForgotPassword from "./components/LogIn/ForgotPassword";
 import { Auth } from "aws-amplify";
 
 class App extends Component {
