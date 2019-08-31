@@ -5,6 +5,7 @@ import AccountTitle from "../../components/account/AccountTitle";
 import { Auth } from "aws-amplify";
 import UserCard from "../../components/account/UserCard";
 import SuscriptionTable from "../../components/account/SuscriptionTable";
+import wrapper from "../../components/Wrapper";
 
 class UserAccount extends React.Component {
   constructor(props) {
@@ -23,9 +24,12 @@ class UserAccount extends React.Component {
       });
     });
   }
+
   componentDidMount() {
-    localStorage.getItem();
-    //const userId = this.props.match.params.userId;
+    if (this.state.isLoading) {
+      localStorage.getItem();
+      //const userId = this.props.match.params.userId;
+    }
   }
 
   fetchOrders() {
@@ -34,7 +38,7 @@ class UserAccount extends React.Component {
       method: "GET",
       body: {
         index_name: "username",
-        search_pattern: `${state.user.username}`
+        search_pattern: `${this.state.user.username}`
       },
       headers: {
         "Content-Type": "application/json"
@@ -52,23 +56,30 @@ class UserAccount extends React.Component {
   }
 
   getFullname() {
-    return `${user.name} ${user.given_name}`;
+    return `${this.state.user.name} ${this.state.user.given_name}`;
   }
 
   render() {
     const { user, orders } = this.state;
-
-    return (
-      <>
-        <AccountTitle />
-        <div class="container padding-bottom-3x mb-2">
-          <div class="row">
-            <UserCard props={user} props2={orders} />
-            <SuscriptionTable props={orders} />
+    if (user) {
+      return (
+        <>
+          <AccountTitle />
+          <div class="container padding-bottom-3x mb-2">
+            <div class="row">
+              <UserCard props={user} props2={orders} />
+              <SuscriptionTable props={orders} />
+            </div>
           </div>
+        </>
+      );
+    } else {
+      return (
+        <div class="spinner-border text-info m-2" role="status">
+          <span class="sr-only">Loading...</span>
         </div>
-      </>
-    );
+      );
+    }
   }
 }
 

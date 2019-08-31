@@ -4,7 +4,7 @@ import Wrapper from "../../components/Wrapper";
 class Suscription extends React.Component {
   constructor(props) {
     super(props);
-    state = {
+    this.state = {
       suscription: null,
       isLoading: true
     };

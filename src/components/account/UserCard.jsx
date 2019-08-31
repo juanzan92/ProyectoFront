@@ -2,23 +2,21 @@ import React from "react";
 import NavUser from "./NavUser";
 
 class UserCard extends React.Component {
-constructor(props){
-    state = {
-        user: this.props.user,
-        orders: this.props2.orders
-    }
-}
+  constructor(props) {
+    this.state = {
+      user: this.props.user,
+      orders: this.props2.orders
+    };
+  }
 
-componentDidMount(){
-
-}
-
+  componentDidMount() {}
 
   render() {
-      const {user} = this.state
-      const img ;
+    const { user } = this.state;
+    const img = NaN;
+    const { selected } = this.props.selected;
     if (user.picture) {
-        img = user.picture
+      img = user.picture;
     }
     return (
       <div class="col-lg-4">
@@ -28,12 +26,10 @@ componentDidMount(){
             style={{
               backgroundImage: `${img}`
             }}
-          >
-        
-          </div>
+          ></div>
           <div class="user-info">
             <div class="user-avatar">
-              <a class="edit-avatar" onClick={() => window.location.reload() }/>
+              <a class="edit-avatar" onClick={() => window.location.reload()} />
               <img src="img/account/user-ava.jpg" alt="User" />
             </div>
             <div class="user-data">
@@ -41,7 +37,7 @@ componentDidMount(){
             </div>
           </div>
         </aside>
-        <NavUser prop={orders}/>
+        <NavUser prop={this.state.orders} selected={selected} />
       </div>
     );
   }

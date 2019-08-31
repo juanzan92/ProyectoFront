@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 class SuscriptionTable extends React.Component {
   getStatus(suscripcion) {
@@ -9,6 +10,25 @@ class SuscriptionTable extends React.Component {
     } else {
       return <span class="text-info">En Progreso</span>;
     }
+  }
+
+  buildRow(suscripcion) {
+    return (
+      <tr>
+        <td>
+          <Link to={`/suscription/${suscripcion.item_id}`}>
+            <a class="text-medium navi-link" href="#">
+              {suscripcion.item_id}
+            </a>
+          </Link>
+        </td>
+        <td>{suscripcion.date_created}</td>
+        <td>{this.getStatus(suscripcion)}</td>
+        <td>
+          <span class="text-medium">&#36;{suscripcion.total_amount}</span>
+        </td>
+      </tr>
+    );
   }
 
   render() {
@@ -29,22 +49,7 @@ class SuscriptionTable extends React.Component {
               </thead>
               <tbody>
                 {orders.map(suscripcion => {
-                  <tr>
-                    <td>
-                      <Link to={`/suscription/${suscripcion.item_id}`}>
-                        <a class="text-medium navi-link" href="#">
-                          {suscripcion.item_id}
-                        </a>
-                      </Link>
-                    </td>
-                    <td>{suscripcion.date_created}</td>
-                    <td>{this.getStatus(suscripcion)}</td>
-                    <td>
-                      <span class="text-medium">
-                        &#36;{suscripcion.total_amount}
-                      </span>
-                    </td>
-                  </tr>;
+                  this.buildRow(suscripcion);
                 })}
               </tbody>
             </table>

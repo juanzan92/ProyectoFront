@@ -10,6 +10,7 @@ import SignIn from "./components/LogIn/SignIn";
 import ForgotPassword from "./components/LogIn/ForgotPassword";
 import notFound from "./views/notFound";
 import account from "./views/account/account";
+import Suscription from "./views/suscription/suscription";
 
 function App() {
   return (
@@ -24,8 +25,6 @@ function App() {
         <Route path="/splash" component={splash} />
         <Route path="/account" component={account} />
 
-        <Route exact path="/category/:idCategory" component={Category} />
-        <Route exact path="/item/:idItem" component={Item} />
         <Route
           exact
           path="/suscripcion/:suscripction_id"
