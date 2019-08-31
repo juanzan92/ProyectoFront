@@ -20,8 +20,7 @@ export default function wrapper(WrappedComponent) {
     }
 
     fetchCategories() {
-      const url =
-        "https://kusmq1it9k.execute-api.us-east-1.amazonaws.com/prod/categories/";
+      const url = "https://localhost:8080/catalog/categories/get_all";
       fetch(url, {
         method: "GET",
         headers: {

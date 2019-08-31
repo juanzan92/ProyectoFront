@@ -28,8 +28,7 @@ class index extends React.Component {
   }
 
   fetchCategories() {
-    const url =
-      "https://kusmq1it9k.execute-api.us-east-1.amazonaws.com/prod/categories/";
+    const url = "https://localhost:8080/catalog/categories";
     fetch(url, {
       method: "GET",
       headers: {
@@ -39,9 +38,7 @@ class index extends React.Component {
       .then(response => {
         return response.json();
       })
-      .then(myJson => {
-        this.getTopCategories(myJson);
-      })
+      .then(myJson => {})
       .catch(e => console.log(e));
   }
 
@@ -60,7 +57,7 @@ class index extends React.Component {
       .then(myJson => {
         console.log(myJson);
         this.setState({
-          featureItem: myJson,
+          mainSlider: myJson,
           isLoading: false
         });
       });
@@ -99,9 +96,8 @@ class index extends React.Component {
         return response.json();
       })
       .then(myJson => {
-        console.log(myJson);
         this.setState({
-          featureItem: myJson,
+          featureItem: myJson[0],
           isLoading: false
         });
       });
