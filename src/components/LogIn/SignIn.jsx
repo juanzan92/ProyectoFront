@@ -1,5 +1,4 @@
 import React from "react";
-import logController from "../../views/login/logController";
 import wrapper from "../Wrapper";
 import { Auth } from "aws-amplify";
 import SignUp from "./SignUp";
@@ -10,6 +9,7 @@ class SignIn extends React.Component {
     super(props);
 
     this.state = {
+      isLoading: false,
       username: "",
       password: "",
       remember_me: false
@@ -24,7 +24,10 @@ class SignIn extends React.Component {
       await Auth.signIn(user, password);
       window.location.href = "/";
     } catch (error) {
+      alert(error.message);
+      this.setState({ isLoading: false });
       console.error(error);
+      console.log(error);
     }
   }
 
@@ -47,6 +50,7 @@ class SignIn extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    this.setState({ isLoading: true });
     this.signIn(this.state.username, this.state.password);
   }
 
