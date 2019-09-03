@@ -16,7 +16,10 @@ class ItemMainSlider extends React.Component {
   }
 
   getLogo(marca) {
-    return logos.find(logo => logo === marca);
+    if(marca==="Motorola")
+    return logos[0].Motorola;
+
+    return logos[0].Converse;
   }
 
   calcularBarraProgreso() {
@@ -37,7 +40,7 @@ class ItemMainSlider extends React.Component {
               <div className="from-bottom">
                 <img
                   className="d-inline-block mb-4"
-                  src={this.getLogo("Converse")}
+                  src={this.getLogo("Motorola")}
                   style={{ width: "125px" }}
                   alt=""
                 />

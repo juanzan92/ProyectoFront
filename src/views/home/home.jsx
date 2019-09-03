@@ -55,9 +55,8 @@ class index extends React.Component {
   }
 
   buscarItemMainSlider() {
-    const url =
-      "http://localhost:8080/catalog/items/home/carrousel_main/search";
-    fetch(url, {
+    const url ="http://localhost:8080/catalog/items/home/carrousel_main/search";
+        fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
