@@ -20,7 +20,7 @@ export default function wrapper(WrappedComponent) {
     }
 
     fetchCategories() {
-      const url = "https://localhost:8080/catalog/categories/get_all";
+      const url = "http://localhost:8080/catalog/categories/get_all";
       fetch(url, {
         method: "GET",
         headers: {

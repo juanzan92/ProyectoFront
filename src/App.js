@@ -12,29 +12,34 @@ import notFound from "./views/notFound";
 import account from "./views/account/account";
 import Suscription from "./views/suscription/suscription";
 
-function App() {
-  return (
-    <Router>
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route exact path="/checkout" component={CheckoutController} />
-        <Route exact path="/signin" component={SignIn} />
-        <Route exact path="/signup" component={SignUp} />
-        <Route exact path="/forgot-password" component={ForgotPassword} />
-        <Route exact path="/vip" component={vip} />
-        <Route path="/splash" component={splash} />
-        <Route path="/account" component={account} />
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+  render() {
+    return (
+      <Router>
+        <Switch>
+          <Route exact path="/" component={Home} />
+          <Route exact path="/checkout" component={CheckoutController} />
+          <Route exact path="/signin" component={SignIn} />
+          <Route exact path="/signup" component={SignUp} />
+          <Route exact path="/forgot-password" component={ForgotPassword} />
+          <Route exact path="/vip/:item_id" component={vip} />
+          <Route path="/splash" component={splash} />
 
-        <Route
-          exact
-          path="/suscripcion/:suscripction_id"
-          component={Suscription}
-        />
+          <Route
+            exact
+            path="/suscripcion/:suscripction_id"
+            component={Suscription}
+          />
 
-        <Route path="" component={notFound} />
-      </Switch>
-    </Router>
-  );
+          <Route path="*" component={notFound} />
+        </Switch>
+      </Router>
+    );
+  }
 }
 
 export default App;

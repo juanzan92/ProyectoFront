@@ -25,10 +25,11 @@ class index extends React.Component {
     this.buscarItemMainSlider();
     this.buscarItemHurryUp();
     this.buscarItemCarrouselBottom();
+    this.fetchCategories();
   }
 
   fetchCategories() {
-    const url = "https://localhost:8080/catalog/categories";
+    const url = "http://localhost:8080/catalog/categories/get_all";
     fetch(url, {
       method: "GET",
       headers: {
@@ -38,8 +39,19 @@ class index extends React.Component {
       .then(response => {
         return response.json();
       })
-      .then(myJson => {})
+      .then(myJson => {
+        this.filterTopCategories(myJson);
+      })
       .catch(e => console.log(e));
+  }
+
+  filterTopCategories(json) {
+    json.filter(category => category.tags.includes("top_category"));
+    json.pop();
+    json.pop();
+    this.setState({
+      topCategories: json
+    });
   }
 
   buscarItemMainSlider() {
@@ -57,7 +69,7 @@ class index extends React.Component {
       .then(myJson => {
         console.log(myJson);
         this.setState({
-          mainSlider: myJson,
+          mainSliderItems: myJson,
           isLoading: false
         });
       });

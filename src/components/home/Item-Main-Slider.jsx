@@ -37,7 +37,7 @@ class ItemMainSlider extends React.Component {
               <div className="from-bottom">
                 <img
                   className="d-inline-block mb-4"
-                  src={this.getLogo(item.attributes[0].value)}
+                  src={this.getLogo("Converse")}
                   style={{ width: "125px" }}
                   alt=""
                 />
@@ -45,7 +45,7 @@ class ItemMainSlider extends React.Component {
                   {item.title}
                 </div>
                 <div className="h2 text-body text-normal mb-4 pb-1">
-                  Oferta <span className="text-bold">${item.actualPrice}</span>
+                  Oferta <span className="text-bold">${item.price}</span>
                 </div>
               </div>
               <a
