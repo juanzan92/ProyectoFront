@@ -27,6 +27,7 @@ class App extends Component {
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/vip/:item_id" component={vip} />
+          <Route exact path="/account" component={account}/>
           <Route path="/splash" component={splash} />
 
           <Route

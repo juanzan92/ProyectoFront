@@ -21,7 +21,7 @@ class VIPTitle extends React.Component {
           <div className="column">
             <ul className="breadcrumbs">
               <li>
-                <a href="/index">Home</a>
+                <a href="/">Home</a>
               </li>
               <li className="separator">&nbsp;</li>
               <li>

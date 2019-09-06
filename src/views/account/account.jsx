@@ -12,7 +12,7 @@ class UserAccount extends React.Component {
     super(props);
     this.state = {
       isLoading: false,
-      user: this.getUsuario(),
+      user: "",
       orders: []
     };
   }
@@ -20,30 +20,29 @@ class UserAccount extends React.Component {
   getUsuario() {
     Auth.currentAuthenticatedUser({}).then(user1 => {
       this.setState({
-        user: user1
+        user: user1.attributes
       });
     });
   }
 
   componentDidMount() {
+    this.getUsuario();
     if (this.state.isLoading) {
-      localStorage.getItem();
-      //const userId = this.props.match.params.userId;
+    }
+  }
+
+  componentDidUpdate() {
+    if (this.state.user != "") {
+      this.fetchOrders();
+    }
+    if (this.state.orders != []) {
+      localStorage.setItem("orders", this.state.orders.join(","));
     }
   }
 
   fetchOrders() {
-    const url = `http://localhost:8080/subscriptions/`;
-    fetch(url, {
-      method: "GET",
-      body: {
-        index_name: "username",
-        search_pattern: `${this.state.user.username}`
-      },
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
+    const url = `http://localhost:8080/subscriptions/search?index_name=username&search_pattern=${this.state.user.nickname}`;
+    fetch(url)
       .then(response => {
         return response.json();
       })
@@ -55,20 +54,16 @@ class UserAccount extends React.Component {
       .catch(e => console.log(e));
   }
 
-  getFullname() {
-    return `${this.state.user.name} ${this.state.user.given_name}`;
-  }
-
   render() {
     const { user, orders } = this.state;
-    if (user) {
+    if (user && orders != orders.length > 0) {
       return (
         <>
           <AccountTitle />
           <div class="container padding-bottom-3x mb-2">
             <div class="row">
-              <UserCard props={user} props2={orders} />
-              <SuscriptionTable props={orders} />
+              <UserCard user={user} orders={orders} selected="suscripciones" />
+              <SuscriptionTable ordenes={orders} />
             </div>
           </div>
         </>

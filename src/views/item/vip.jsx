@@ -1,8 +1,11 @@
 import React from "react";
 
+import "./vip.scss";
+
 import wraper from "../../components/Wrapper";
 import VIPTitle from "../../components/Item/VIPTitle";
 import Review from "../../components/vip/Review";
+
 
 class VIP extends React.Component {
   constructor(props) {
@@ -33,9 +36,9 @@ class VIP extends React.Component {
 
   buscarItemTest() {
     const { item_id } = this.props.match.params;
-    const url = `http://localhost:8080/catalog/items/${item_id}`;
+    const url = `http://localhost:8080/catalog/items?item_id=${item_id}`;
     fetch(url, {
-      method: "GET",
+      method: "GET"
     })
       .then(response => {
         console.log(response);
@@ -44,7 +47,7 @@ class VIP extends React.Component {
       .then(myJson => {
         console.log(myJson);
         this.setState({
-          item: myJson[0],
+          item: myJson,
           isLoading: false
         });
       })
@@ -54,7 +57,7 @@ class VIP extends React.Component {
   }
 
   calcularBarraProgreso() {
-    var initialQuantity = this.state.item.initialStock;
+    var initialQuantity = this.state.item.initial_stock;
     var actualQuantity = this.state.item.stock;
     this.setState({
       progress: (actualQuantity * 100) / initialQuantity
@@ -89,6 +92,19 @@ class VIP extends React.Component {
     let res = picData[picIndex];
     picIndex = picIndex + 1;
     return res;
+  }
+
+  getReviews() {
+    if (false) {
+      return (
+        <div className="tab-pane fade" id="reviews" role="tabpanel">
+          {/**review */}
+          {this.reviews.map(review => (
+            <Review key={review.id} prop={review} />
+          ))}
+        </div>
+      );
+    }
   }
 
   render() {
@@ -128,7 +144,7 @@ class VIP extends React.Component {
                     {item.pictures.map(picture => (
                       <div className="gallery-item" data-hash={picture.index}>
                         <a href={picture.src} data-size="1000x667">
-                          <img src={picture.src} alt="Product" />
+                          <img src={"../" + picture.src} alt="Product" />
                         </a>
                       </div>
                     ))}
@@ -137,7 +153,7 @@ class VIP extends React.Component {
                     {item.thumbnails.map(thumb => (
                       <li className="active">
                         <a href={thumb.index}>
-                          <img src={thumb} alt="Product" />
+                          <img src={"../" + thumb} alt="Product" />
                         </a>
                       </li>
                     ))}
@@ -146,7 +162,7 @@ class VIP extends React.Component {
               </div>
               {/*info de producto */}
               <div className="col-md-6">
-                <div className="padding-top-2x mt-2 hidden-md-up" />
+                <div className="padding-top-2x mt-2 hidden-md-up"></div>
                 <h2 className="padding-top-1x text-normal">{item.name}</h2>
                 <span className="h2 d-block">
                   &nbsp; &#36;{item.actualPrice}
@@ -226,7 +242,7 @@ class VIP extends React.Component {
                       data-toggle="tooltip"
                       title="Whishlist"
                     >
-                      <i className="icon-heart" />
+                      <i className="icon-heart"></i>
                     </button>
                     <div
                       className="btn btn-lg btn-secondary"
@@ -251,7 +267,16 @@ class VIP extends React.Component {
                         Description
                       </a>
                     </li>
-                    
+                    <li className="nav-item">
+                      <a
+                        className="nav-link"
+                        href="#reviews"
+                        data-toggle="tab"
+                        role="tab"
+                      >
+                        Reviews (3)
+                      </a>
+                    </li>
                   </ul>
                   <div className="tab-content">
                     <div
@@ -283,100 +308,7 @@ class VIP extends React.Component {
                         </div>
                       </div>
                     </div>
-                    <div className="tab-pane fade" id="reviews" role="tabpanel">
-                      {/**review */}
-                      <div className="comment">
-                        <div className="comment-body">
-                          <div className="comment-header d-flex flex-wrap justify-content-between">
-                            <h4 className="comment-title">
-                              Average quality for the price
-                            </h4>
-                            <div className="mb-2">
-                              <div className="rating-stars">
-                                <i className="icon-star filled" />
-                                <i className="icon-star filled" />
-                                <i className="icon-star filled" />
-                                <i className="icon-star" />
-                                <i className="icon-star" />
-                              </div>
-                            </div>
-                          </div>
-                          <p className="comment-text">
-                            At vero eos et accusamus et iusto odio dignissimos
-                            ducimus qui blanditiis praesentium voluptatum
-                            deleniti atque corrupti quos dolores et quas
-                            molestias excepturi sint occaecati cupiditate non
-                            provident, similique sunt in culpa qui officia
-                            deserunt mollitia animi, id est laborum et dolorum
-                            fuga.
-                          </p>
-                          <div className="comment-footer">
-                            <span className="comment-meta">Francis Burton</span>
-                          </div>
-                        </div>
-                      </div>
-                      {/**review */}
-                      <div className="comment">
-                        <div className="comment-body">
-                          <div className="comment-header d-flex flex-wrap justify-content-between">
-                            <h4 className="comment-title">
-                              My husband love his new...
-                            </h4>
-                            <div className="mb-2">
-                              <div className="rating-stars">
-                                <i className="icon-star filled" />
-                                <i className="icon-star filled" />
-                                <i className="icon-star filled" />
-                                <i className="icon-star filled" />
-                                <i className="icon-star filled" />
-                              </div>
-                            </div>
-                          </div>
-                          <p className="comment-text">
-                            Lorem ipsum dolor sit amet, consectetur adipiscing
-                            elit, sed do eiusmod tempor incididunt ut labore et
-                            dolore magna aliqua. Ut enim ad minim veniam, quis
-                            nostrud exercitation ullamco laboris nisi ut aliquip
-                            ex ea commodo consequat.
-                          </p>
-                          <div className="comment-footer">
-                            <span className="comment-meta">Maggie Scott</span>
-                          </div>
-                        </div>
-                      </div>
-                      {/**review */}
-                      <div className="comment">
-                        <div className="comment-body">
-                          <div className="comment-header d-flex flex-wrap justify-content-between">
-                            <h4 className="comment-title">
-                              Soft, comfortable, quite durable...
-                            </h4>
-                            <div className="mb-2">
-                              <div className="rating-stars">
-                                <i className="icon-star filled" />
-                                <i className="icon-star filled" />
-                                <i className="icon-star filled" />
-                                <i className="icon-star filled" />
-                                <i className="icon-star" />
-                              </div>
-                            </div>
-                          </div>
-                          <p className="comment-text">
-                            Sed ut perspiciatis unde omnis iste natus error sit
-                            voluptatem accusantium doloremque laudantium, totam
-                            rem aperiam, eaque ipsa quae ab illo inventore
-                            veritatis et quasi architecto beatae vitae dicta
-                            sunt explicabo. Nemo enim ipsam voluptatem quia
-                            voluptas sit aspernatur aut odit aut fugit, sed quia
-                            consequuntur magni dolores eos qui ratione
-                            voluptatem sequi nesciunt.
-                          </p>
-                          <div className="comment-footer">
-                            <span className="comment-meta">Jacob Hammond</span>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
+                    {this.getReviews()}
                   </div>
                 </div>
               </div>

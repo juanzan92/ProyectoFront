@@ -24,7 +24,7 @@ class Footer extends React.Component {
                   </ul>
                   <p>
                     <a className="navi-link-light" href="#">
-                      support@unishop.com
+                      support@smarket.com
                     </a>
                   </p>
                   <a
@@ -89,7 +89,7 @@ class Footer extends React.Component {
                       <a href="#">Careers</a>
                     </li>
                     <li>
-                      <a href="#">About Unishop</a>
+                      <a href="#">About smarket</a>
                     </li>
                     <li>
                       <a href="#">Our Story</a>

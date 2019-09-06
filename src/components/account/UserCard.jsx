@@ -3,18 +3,23 @@ import NavUser from "./NavUser";
 
 class UserCard extends React.Component {
   constructor(props) {
+    super(props);
     this.state = {
       user: this.props.user,
-      orders: this.props2.orders
+      orders: this.props.orders,
+      selected: this.props.selected
     };
   }
 
   componentDidMount() {}
 
+  getFullname() {
+    return `${this.state.user.name} ${this.state.user.given_name}`;
+  }
   render() {
     const { user } = this.state;
     const img = NaN;
-    const { selected } = this.props.selected;
+
     if (user.picture) {
       img = user.picture;
     }
@@ -37,7 +42,7 @@ class UserCard extends React.Component {
             </div>
           </div>
         </aside>
-        <NavUser prop={this.state.orders} selected={selected} />
+        <NavUser orders={this.state.orders} selected={this.state.selected} />
       </div>
     );
   }

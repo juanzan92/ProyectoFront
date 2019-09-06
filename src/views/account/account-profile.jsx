@@ -6,6 +6,33 @@ import AccountProfileForm from "../../components/account/account-form";
 import AccountTitle from "../../components/account/AccountTitle";
 
 class AccountProfile extends React.Component {
+  state = {
+    user:"",
+    orders:[]
+  }
+
+  getUsuario() {
+    Auth.currentAuthenticatedUser({}).then(user1 => {
+      this.setState({
+        user: user1.attributes
+      });
+    });
+  }
+
+
+  componentDidMount(){
+    this.getUsuario()
+    this.getOrders()
+  }
+
+  getOrders(){
+    const ordenLocalStorage  = localStorage.getItem("orders").split(',')
+
+    this.setState({
+      orders: ordenLocalStorage
+    })
+  }
+
   render() {
     return (
       <>
