@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 class NavUser extends React.Component {
   isSelected(btn) {
@@ -18,26 +19,30 @@ class NavUser extends React.Component {
           class={
             "list-group-item with-badge " + this.isSelected("suscripciones")
           }
-          href="account-orders.html"
-        >
+          href="account-orders.html">
           <i className="icon-bag" />
           Suscripciones
           <span className="badge badge-primary badge-pill">
             {orders.length}
           </span>
         </a>
-        <a class={"list-group-item " + this.isSelected("mi cuenta")} href="">
+
+        <Link
+          to="/account-profile"
+          class={"list-group-item " + this.isSelected("mi cuenta")}>
           <i className="icon-head" />
           Mi cuenta
-        </a>
-        <a class={"list-group-item " + this.isSelected("direcciones")} href="">
+        </Link>
+
+        <a
+          class={"list-group-item " + this.isSelected("direcciones")}
+          href="/account-directions">
           <i className="icon-map" />
           Direcciones
         </a>
         <a
           class={"list-group-item with-badge " + this.isSelected("favoritos")}
-          href=""
-        >
+          href="/account-favs">
           <i className="icon-heart" />
           Favoritos
           <span className="badge badge-primary badge-pill">3</span>

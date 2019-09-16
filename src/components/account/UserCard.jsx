@@ -16,10 +16,10 @@ class UserCard extends React.Component {
   getFullname() {
     return `${this.state.user.name} ${this.state.user.given_name}`;
   }
+
   render() {
     const { user } = this.state;
     const img = NaN;
-
     if (user.picture) {
       img = user.picture;
     }

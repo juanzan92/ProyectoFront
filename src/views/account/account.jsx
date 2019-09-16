@@ -6,6 +6,7 @@ import { Auth } from "aws-amplify";
 import UserCard from "../../components/account/UserCard";
 import SuscriptionTable from "../../components/account/SuscriptionTable";
 import wrapper from "../../components/Wrapper";
+const Context = React.createContext();
 
 class UserAccount extends React.Component {
   constructor(props) {
@@ -32,9 +33,10 @@ class UserAccount extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.user != "") {
+    if (this.state.user != "" && this.state.orders.length == 0) {
       this.fetchOrders();
     }
+
     if (this.state.orders != []) {
       localStorage.setItem("orders", this.state.orders.join(","));
     }
@@ -56,9 +58,10 @@ class UserAccount extends React.Component {
 
   render() {
     const { user, orders } = this.state;
+    const selected = "suscripciones";
     if (user && orders != orders.length > 0) {
       return (
-        <>
+        <Context.Provider value={selected}>
           <AccountTitle />
           <div class="container padding-bottom-3x mb-2">
             <div class="row">
@@ -66,11 +69,11 @@ class UserAccount extends React.Component {
               <SuscriptionTable ordenes={orders} />
             </div>
           </div>
-        </>
+        </Context.Provider>
       );
     } else {
       return (
-        <div class="spinner-border text-info m-2" role="status">
+        <div class="spinner-border text-info m-2 center" role="status">
           <span class="sr-only">Loading...</span>
         </div>
       );
@@ -78,4 +81,5 @@ class UserAccount extends React.Component {
   }
 }
 
+export const ContextSelected = Context;
 export default wrapper(UserAccount);

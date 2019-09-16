@@ -1,12 +1,15 @@
 import React from "react";
 import Wrapper from "../../components/Wrapper";
+import SubscriptionTitle from "../../components/subcription/SubscriptionTitle";
+import TrackingBar from "../../components/utils/TrackingBar";
 
 class Suscription extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       suscription: null,
-      isLoading: true
+      isLoading: true,
+      subscription_id: this.props.match.params.subscription_id
     };
   }
 
@@ -14,17 +17,14 @@ class Suscription extends React.Component {
     this.fetchSuscription();
   }
 
-  fetchSuscription(props) {
-    const suscripction_id = this.props.match.suscripction_id;
+  fetchSuscription() {
+    const { subscription_id } = this.state;
 
-    const url = "http://localhost:8080//subscriptions/search";
+    const url = `http://localhost:8080/subscriptions/search?subscription_id=${subscription_id}`;
     fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
-      },
-      body: {
-        subscription_id: `${suscripction_id}`
       }
     })
       .then(response => {
@@ -43,7 +43,12 @@ class Suscription extends React.Component {
     {
     }
 
-    return <></>;
+    return (
+      <>
+        <SubscriptionTitle subscription_id={this.state.subscription_id} />
+        <TrackingBar />
+      </>
+    );
   }
 }
 

@@ -1,4 +1,5 @@
 import React from "react";
+import { Auth } from "aws-amplify";
 
 class AccountProfileForm extends React.Component {
   constructor(props) {
@@ -7,7 +8,6 @@ class AccountProfileForm extends React.Component {
       user: this.getUsuario()
     };
 
-    
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
@@ -20,13 +20,11 @@ class AccountProfileForm extends React.Component {
     });
   }
 
-  handleSubmit(event){
+  handleSubmit(event) {
     event.preventDefault();
-    modifyUser()
   }
 
-
-  handleChange(event) { 
+  handleChange(event) {
     const target = event.target;
     const value = this.assignInputValue(target);
     const name = target.name;
@@ -36,28 +34,24 @@ class AccountProfileForm extends React.Component {
     });
   }
 
-  modifyUser(){
-    const {user} = this.state;
-    const url = ""
-    fetch(url,{
-      method:"POST"
-    }
-      
-    )
+  modifyUser() {
+    const { user } = this.state;
+    const url = "";
+    fetch(url, {
+      method: "POST"
+    });
   }
 
   render() {
     const { user } = this.state;
-    if(user){
-      window.location.href ="/"
-    }
-    else{
-
+    if (user) {
+      window.location.href = "/";
+    } else {
       return (
         <>
           <div class="col-lg-8">
             <div class="padding-top-2x mt-2 hidden-lg-up"></div>
-            <form class="row" onSubmit={()=>this.handleSubmit()}>
+            <form class="row" onSubmit={() => this.handleSubmit()}>
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="account-fn">Nombres</label>
@@ -109,12 +103,18 @@ class AccountProfileForm extends React.Component {
               <div class="col-md-6">
                 <div class="form-group">
                   <label for="account-pass">Nueva Contraseña</label>
-                  <input class="form-control" type="password" id="account-pass" />
+                  <input
+                    class="form-control"
+                    type="password"
+                    id="account-pass"
+                  />
                 </div>
               </div>
               <div class="col-md-6">
                 <div class="form-group">
-                  <label for="account-confirm-pass">Confirmar Contraserña</label>
+                  <label for="account-confirm-pass">
+                    Confirmar Contraserña
+                  </label>
                   <input
                     class="form-control"
                     type="password"
@@ -155,7 +155,6 @@ class AccountProfileForm extends React.Component {
         </>
       );
     }
-    
   }
 }
 

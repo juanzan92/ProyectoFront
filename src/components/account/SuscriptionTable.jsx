@@ -2,69 +2,96 @@ import React from "react";
 import { Link } from "react-router-dom";
 
 class SuscriptionTable extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      orders: []
+    };
+
+    this.getStatus = this.getStatus.bind(this);
+    this.buildRow = this.buildRow.bind(this);
+    this.buildTable = this.buildTable.bind(this);
+  }
+
+  componentDidMount() {
+    this.setState({
+      orders: this.props.ordenes
+    });
+  }
+
   getStatus(suscripcion) {
-    if (suscripcion.suscription_status === "cancel") {
-      return <span class="text-danger">Cancelado</span>;
-    } else if (suscripcion.suscription_status === "finish") {
-      return <span class="text-success">Finalizado</span>;
+    if (suscripcion.subscription_status === "CANCELLED") {
+      return <span className="text-danger">Cancelado</span>;
+    } else if (suscripcion.subscription_status === "FINISHED") {
+      return <span className="text-success">Finalizado</span>;
     } else {
-      return <span class="text-info">En Progreso</span>;
+      return <span className="text-info">En Progreso</span>;
     }
   }
 
   buildRow(suscripcion) {
+    const status = this.getStatus(suscripcion);
+    const date = new Date(suscripcion.date_created);
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const days = date.getDay();
+    const fecha = days + "/" + month + "/" + year;
     return (
       <tr>
         <td>
-          <Link to={`/suscription/${suscripcion.subscription_id}`}>
-            <a class="text-medium navi-link" href="#">
-              {suscripcion.item_id}
+          <Link to={`/subscripcion/${suscripcion.subscription_id}`}>
+            <a className="text-medium navi-link">
+              {suscripcion.subscription_id}
             </a>
           </Link>
         </td>
-        <td>{suscripcion.date_created}</td>
-        <td>{this.getStatus(suscripcion)}</td>
+        <td>{fecha}</td>
+        <td>{status}</td>
         <td>
-          <span class="text-medium">&#36;{suscripcion.paid_amount}</span>
+          <span className="text-medium">&#36;{suscripcion.paid_amount}</span>
         </td>
       </tr>
     );
   }
 
+  buildTable(orders) {
+    const rows = orders.map(sus => this.buildRow(sus));
+    return (
+      <div className="col-lg-8">
+        <div className="padding-top-2x mt-2 hidden-lg-up" />
+        <div className="table-responsive">
+          <table className="table table-hover margin-bottom-none">
+            <thead>
+              <tr>
+                <th>Suscripcion #</th>
+                <th>Fecha de Compra</th>
+                <th>Estado</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+            <tbody>{rows}</tbody>
+          </table>
+        </div>
+        <div className="text-right">
+          <a className="btn btn-link-primary margin-bottom-none" href="#">
+            <i className="icon-download" />
+            &nbsp;Detalles
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   render() {
-    const orders = this.props.ordenes;
-
-    if (orders) {
+    const { orders } = this.state;
+    if (orders.length > 0) {
+      const table = this.buildTable(orders);
+      return <>{table}</>;
+    } else {
       return (
-        <>
-          <div class="col-lg-8">
-            <div class="padding-top-2x mt-2 hidden-lg-up" />
-            <div class="table-responsive">
-              <table class="table table-hover margin-bottom-none">
-                <thead>
-                  <tr>
-                    <th>Suscripcion #</th>
-                    <th>Fecha de Compra</th>
-                    <th>Estado</th>
-                    <th>Total</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {orders.map(suscripcion => {
-                    this.buildRow(suscripcion);
-                  })}
-                </tbody>
-              </table>
-            </div>
-
-            <div class="text-right">
-              <a class="btn btn-link-primary margin-bottom-none" href="#">
-                <i class="icon-download" />
-                &nbsp;Detalles
-              </a>
-            </div>
-          </div>
-        </>
+        <div class="spinner-center text-info m-2" role="status">
+          <span class="sr-only">Loading...</span>
+        </div>
       );
     }
   }
