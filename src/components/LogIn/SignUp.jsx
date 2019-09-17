@@ -71,8 +71,7 @@ class SignUp extends React.Component {
       })
       .catch(e => console.log(e));
   }
-
-  assignInputValue(target){
+assignInputValue(target){
     if (target.type === 'email'){
       if (target.name!=='userEmail') {
         document.getElementById('userEmailConf').pattern = this.state.userEmail;
@@ -108,7 +107,7 @@ class SignUp extends React.Component {
   }
 
   handleSubmit(event) {
-    event.preventDefault()
+    event.preventDefault();
     this.signUp(this.state.userName, this.state.userPw, 
       this.state.userEmail, this.state.userRol, this.state.userNombres, 
       this.state.userApellidos, this.state.userDni, this.state.userPhone,
@@ -120,6 +119,7 @@ class SignUp extends React.Component {
         window.location.href = "/";
       }
   }
+  
 
   render() {
     return (
@@ -148,10 +148,8 @@ class SignUp extends React.Component {
               </div>	              
             </div>
         </div>
-        <div className="row padding-bottom-2x mb-2">
-          <div className="col-md-3"/>
-            <div className="login-box col-md-6">
-            <div className="padding-top-3x hidden-md-up" />
+        <div className="row padding-top-0.5x padding-bottom-2x">
+            <div className="login-box col-md-6 offset-3">
             <div>
               <div className="col-md-6">
                 <h4 className="">Ya sos miembro?</h4>

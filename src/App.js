@@ -8,7 +8,8 @@ import splash from "./views/splash/splash";
 import SignUp from "./components/LogIn/SignUp";
 import SignIn from "./components/LogIn/SignIn";
 import ForgotPassword from "./components/LogIn/ForgotPassword";
-import { Auth } from "aws-amplify";
+import FileUpload from "./components/Vendor/FileUpload";
+import Timer from "./components/utils/Timer";
 
 class App extends Component {
   constructor(props) {
@@ -25,6 +26,7 @@ class App extends Component {
         <Route exact path="/forgot-password" component={ForgotPassword} />
         <Route exact path="/vip" component={vip} />
         <Route path="/splash" component={splash} />
+        <Route path="/fileupload" component={FileUpload} />
       </Router>
     );
   }
