@@ -10,7 +10,7 @@ import SignIn from "./components/LogIn/SignIn";
 import ForgotPassword from "./components/LogIn/ForgotPassword";
 import notFound from "./views/notFound";
 import Account from "./views/account/account";
-import Suscription from "./views/suscription/suscription";
+import Subscription from "./views/suscription/subscription";
 import AccountProfile from "./views/account/account-profile";
 
 class App extends Component {
@@ -28,13 +28,13 @@ class App extends Component {
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/vip/:item_id" component={vip} />
+          <Route exact path="/account-profile" component={AccountProfile} />
           <Route exact path="/account" component={Account} />
 
-          <Route exact path="/account-profile" component={AccountProfile} />
           <Route
             exact
             path="/subscripcion/:subscription_id"
-            component={Suscription}
+            component={Subscription}
           />
 
           <Route path="/splash" component={splash} />

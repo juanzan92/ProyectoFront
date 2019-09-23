@@ -27,15 +27,22 @@ class AccountProfile extends React.Component {
 
   componentDidUpdate() {
     if (this.state.user !== "" && this.state.orders.length == 0) {
-      this.getOrders();
+      this.fetchOrders();
     }
   }
 
-  getOrders() {
-    const ordenLocalStorage = localStorage.getItem("orders").split(",");
-    this.setState({
-      orders: ordenLocalStorage
-    });
+  fetchOrders() {
+    const url = `http://localhost:8080/subscriptions/search?index_name=username&search_pattern=${this.state.user.nickname}`;
+    fetch(url)
+      .then(response => {
+        return response.json();
+      })
+      .then(myJson => {
+        this.setState({
+          orders: myJson
+        });
+      })
+      .catch(e => console.log(e));
   }
 
   render() {
@@ -49,9 +56,10 @@ class AccountProfile extends React.Component {
               orders={this.state.orders}
               selected={"mi_cuenta"}
             />
-            <AccountProfileForm />
+            <AccountProfileForm user={this.state.user} />
           </div>
         </div>
+        <div class="iziToast-wrapper iziToast-wrapper-topRight"></div>
         <DangerAlert />
       </>
     );

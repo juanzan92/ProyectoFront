@@ -1,13 +1,15 @@
 import React from "react";
-import "./tracking.scss";
+//import "./tracking.scss";
 
 class TrackingBar extends React.Component {
+  renderTrack(track) {}
+
   render() {
     const { tracks } = this.props;
     return (
       <div class="container padding-bottom-3x mb-1">
         <div class="card mb-3">
-          <div class="p-4 text-center text-white text-lg bg-dark rounded-top .tracking-bar">
+          <div class="p-4 text-center text-white text-lg bg-dark rounded-top tracking-bar">
             <span class="text-uppercase">Tracking Order No - </span>
             <span class="text-medium">34VB5540K83</span>
           </div>
@@ -71,3 +73,5 @@ class TrackingBar extends React.Component {
     );
   }
 }
+
+export default TrackingBar;
