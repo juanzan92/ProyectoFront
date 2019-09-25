@@ -6,7 +6,7 @@ class DangerAlert extends React.Component {
     return (
       <>
         <button
-          class="btn btn-outline-secondary"
+          className="btn btn-outline-secondary"
           data-toast
           data-toast-position="topCenter"
           data-toast-icon="icon-clock"
@@ -15,28 +15,28 @@ class DangerAlert extends React.Component {
           Default Top Center
         </button>
         <div
-          class="toast position-fixed top-center"
+          className="toast position-fixed top-center"
           id="toast-top-center"
           role="alert"
           aria-live="assertive"
           aria-atomic="true"
           data-autohide="true"
           data-delay="2000">
-          <div class="toast-header">
+          <div className="toast-header">
             <div
-              class="d-inline-block align-middle bg-primary rounded mr-2"
+              className="d-inline-block align-middle bg-primary rounded mr-2"
               style={{ width: "25px;", height: "25px;" }}></div>
-            <strong class="mr-auto">Bootstrap</strong>
+            <strong className="mr-auto">Bootstrap</strong>
             <small>11 mins ago</small>
             <button
-              class="ml-2 close"
+              className="ml-2 close"
               type="button"
               data-dismiss="toast"
               aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="toast-body">Hello, world! This is a toast message.</div>
+          <div className="toast-body">Hello, world! This is a toast message.</div>
         </div>
       </>
     );

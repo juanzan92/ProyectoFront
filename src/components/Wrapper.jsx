@@ -20,7 +20,8 @@ export default function wrapper(WrappedComponent) {
     }
 
     fetchCategories() {
-      const url = "http://localhost:8080/catalog/categories/get_all";
+      const url =
+        "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/categories/get_all";
       fetch(url, {
         method: "GET",
         headers: {

@@ -29,26 +29,22 @@ class Footer extends React.Component {
                   </p>
                   <a
                     className="social-button shape-circle sb-facebook sb-light-skin"
-                    href="#"
-                  >
+                    href="#">
                     <i className="socicon-facebook" />
                   </a>
                   <a
                     className="social-button shape-circle sb-twitter sb-light-skin"
-                    href="#"
-                  >
+                    href="#">
                     <i className="socicon-twitter" />
                   </a>
                   <a
                     className="social-button shape-circle sb-instagram sb-light-skin"
-                    href="#"
-                  >
+                    href="#">
                     <i className="socicon-instagram" />
                   </a>
                   <a
                     className="social-button shape-circle sb-google-plus sb-light-skin"
-                    href="#"
-                  >
+                    href="#">
                     <i className="socicon-googleplus" />
                   </a>
                 </section>
@@ -59,22 +55,19 @@ class Footer extends React.Component {
                   <h3 className="widget-title">Our Mobile App</h3>
                   <a
                     className="market-button apple-button mb-light-skin"
-                    href="#"
-                  >
+                    href="#">
                     <span className="mb-subtitle">Download on the</span>
                     <span className="mb-title">App Store</span>
                   </a>
                   <a
                     className="market-button google-button mb-light-skin"
-                    href="#"
-                  >
+                    href="#">
                     <span className="mb-subtitle">Download on the</span>
                     <span className="mb-title">Google Play</span>
                   </a>
                   <a
                     className="market-button windows-button mb-light-skin"
-                    href="#"
-                  >
+                    href="#">
                     <span className="mb-subtitle">Download on the</span>
                     <span className="mb-title">Windows Store</span>
                   </a>
@@ -135,7 +128,7 @@ class Footer extends React.Component {
               <div className="col-md-7 padding-bottom-1x">
                 {/* Payment Methods*/}
                 <div className="margin-bottom-1x" style={{ maxWidth: "615px" }}>
-                  <img src="img/payment_methods.png" alt="Payment Methods" />
+                  <img src="/img/payment_methods.png" alt="Payment Methods" />
                 </div>
               </div>
               <div className="col-md-5 padding-bottom-1x">
@@ -146,8 +139,7 @@ class Footer extends React.Component {
                   action="//rokaux.us12.list-manage.com/subscribe/post?u=c7103e2c981361a6639545bd5&amp;id=1194bb7544"
                   method="post"
                   target="_blank"
-                  noValidate
-                >
+                  noValidate>
                   <div className="clearfix">
                     <div className="input-group input-light">
                       <input
@@ -163,8 +155,7 @@ class Footer extends React.Component {
                     {/* real people should not fill this in and expect good things - do not remove this or risk form bot signups*/}
                     <div
                       style={{ position: "absolute", left: "-5000px" }}
-                      aria-hidden="true"
-                    >
+                      aria-hidden="true">
                       <input
                         type="text"
                         name="b_c7103e2c981361a6639545bd5_1194bb7544"

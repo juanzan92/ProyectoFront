@@ -24,20 +24,20 @@ class UserCard extends React.Component {
       img = user.picture;
     }
     return (
-      <div class="col-lg-4">
-        <aside class="user-info-wrapper">
+      <div className="col-lg-4">
+        <aside className="user-info-wrapper">
           <div
-            class="user-cover"
+            className="user-cover"
             style={{
               backgroundImage: `${img}`
             }}
           ></div>
-          <div class="user-info">
-            <div class="user-avatar">
-              <a class="edit-avatar" onClick={() => window.location.reload()} />
+          <div className="user-info">
+            <div className="user-avatar">
+              <a className="edit-avatar" onClick={() => window.location.reload()} />
               <img src="img/account/user-ava.jpg" alt="User" />
             </div>
-            <div class="user-data">
+            <div className="user-data">
               <h4>{this.getFullname()}</h4>
             </div>
           </div>

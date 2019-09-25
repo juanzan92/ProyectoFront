@@ -16,6 +16,15 @@ class AccountProfileForm extends React.Component {
     event.preventDefault();
     const btn = document.getElementById("submit-btn");
     btn.disabled = true;
+
+    
+    let user =  await Auth.currentAuthenticatedUser();
+    let result = await Auth.updateUserAttributes(user,{
+      'emal': this.state.user.email,
+      'custom:pone': this.state.user.phone
+    })
+
+    console.log(result)
   }
 
   assignInputValue(target) {
@@ -50,14 +59,6 @@ class AccountProfileForm extends React.Component {
 
     this.setState({
       [name]: value
-    });
-  }
-
-  modifyUser() {
-    const { user } = this.state;
-    const url = "";
-    fetch(url, {
-      method: "POST"
     });
   }
 
@@ -110,7 +111,7 @@ class AccountProfileForm extends React.Component {
                   onChange={this.handleChange}
                   pattern="[0-9]{7,8}"
                   title="Numérico. 7 u 8 caracteres."
-                  required
+                  disabled
                 />
               </div>
             </div>
@@ -124,7 +125,7 @@ class AccountProfileForm extends React.Component {
                   value={user.email}
                   onChange={this.handleChange}
                   pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
-                  disabled
+                  required
                 />
               </div>
             </div>
@@ -137,7 +138,7 @@ class AccountProfileForm extends React.Component {
                   id="account-phone"
                   value={user.phone}
                   onChange={this.handleChange}
-                  required
+
                 />
               </div>
             </div>
@@ -187,7 +188,7 @@ class AccountProfileForm extends React.Component {
                   data-toast-type="success"
                   data-toast-icon="icon-circle-check"
                   data-toast-title="Success!"
-                  data-toast-message="Your profile updated successfuly.">
+                  data-toast-message="Tu Perfil fue actualizado con éxito">
                   Modificar Perfil
                 </button>
               </div>

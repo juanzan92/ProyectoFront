@@ -32,8 +32,8 @@ class MainSlider extends React.Component {
       );
     } else {
       return (
-        <div class="spinner-border text-info m-2" role="status">
-          <span class="sr-only">Loading...</span>
+        <div className="spinner-border text-info m-2" role="status">
+          <span className="sr-only">Loading...</span>
         </div>
       );
     }

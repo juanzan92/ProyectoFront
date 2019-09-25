@@ -13,7 +13,7 @@ class SubscriptionTitle extends React.Component {
           <div className="column">
             <ul className="breadcrumbs">
               <li>
-                <a href="/">Suscripcion</a>
+                <a href="/account">Suscripciones</a>
               </li>
               <li className="separator">&nbsp;</li>
               <li>

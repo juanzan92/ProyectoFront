@@ -64,7 +64,7 @@ class SignUp extends React.Component {
           last_name: userApellidos
         };
 
-        fetch(`http://localhost:8080/account/users`, {
+        fetch(`http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/account/users`, {
           headers: {
             "Content-Type": "application/json"
           },

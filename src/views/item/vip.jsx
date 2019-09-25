@@ -36,7 +36,7 @@ class VIP extends React.Component {
 
   buscarItemTest() {
     const { item_id } = this.props.match.params;
-    const url = `http://localhost:8080/catalog/items?item_id=${item_id}`;
+    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items?item_id=${item_id}`;
     fetch(url, {
       method: "GET"
     })
@@ -65,7 +65,7 @@ class VIP extends React.Component {
   }
 
   pagar() {
-    const url = "http://localhost:8080/mp/preferences/create"; //url backend
+    const url = "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/mp/preferences/create"; //url backend
     fetch(url, {
       method: "POST",
       headers: {

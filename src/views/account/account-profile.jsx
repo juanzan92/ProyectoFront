@@ -32,7 +32,7 @@ class AccountProfile extends React.Component {
   }
 
   fetchOrders() {
-    const url = `http://localhost:8080/subscriptions/search?index_name=username&search_pattern=${this.state.user.nickname}`;
+    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/subscriptions/search?index_name=username&search_pattern=${this.state.user.nickname}`;
     fetch(url)
       .then(response => {
         return response.json();
@@ -49,8 +49,8 @@ class AccountProfile extends React.Component {
     return (
       <>
         <AccountTitle />
-        <div class="container padding-bottom-3x mb-2">
-          <div class="row">
+        <div className="container padding-bottom-3x mb-2">
+          <div className="row">
             <UserCard
               user={this.state.user}
               orders={this.state.orders}
@@ -59,7 +59,7 @@ class AccountProfile extends React.Component {
             <AccountProfileForm user={this.state.user} />
           </div>
         </div>
-        <div class="iziToast-wrapper iziToast-wrapper-topRight"></div>
+        <div className="iziToast-wrapper iziToast-wrapper-topRight"></div>
         <DangerAlert />
       </>
     );

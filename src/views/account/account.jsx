@@ -43,7 +43,7 @@ class UserAccount extends React.Component {
   }
 
   fetchOrders() {
-    const url = `http://localhost:8080/subscriptions/search?index_name=username&search_pattern=${this.state.user.nickname}`;
+    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/subscriptions/search?index_name=username&search_pattern=${this.state.user.nickname}`;
     fetch(url)
       .then(response => {
         return response.json();
@@ -60,21 +60,43 @@ class UserAccount extends React.Component {
     const { user, orders } = this.state;
     const selected = "suscripciones";
     if (user && orders != orders.length > 0) {
-      return (
-        <Context.Provider value={selected}>
-          <AccountTitle />
-          <div class="container padding-bottom-3x mb-2">
-            <div class="row">
-              <UserCard user={user} orders={orders} selected="suscripciones" />
-              <SuscriptionTable ordenes={orders} />
+      if (user.role === "consumer") {
+        return (
+          <Context.Provider value={selected}>
+            <AccountTitle />
+            <div className="container padding-bottom-3x mb-2">
+              <div className="row">
+                <UserCard
+                  user={user}
+                  orders={orders}
+                  selected="suscripciones"
+                />
+                <SuscriptionTable ordenes={orders} />
+              </div>
             </div>
-          </div>
-        </Context.Provider>
-      );
+          </Context.Provider>
+        );
+      } else {
+        return (
+          <Context.Provider value={selected}>
+            <AccountTitle />
+            <div className="container padding-bottom-3x mb-2">
+              <div className="row">
+                <UserCard
+                  user={user}
+                  orders={orders}
+                  selected="suscripciones"
+                />
+                <SuscriptionTable ordenes={orders} />
+              </div>
+            </div>
+          </Context.Provider>
+        );
+      }
     } else {
       return (
-        <div class="spinner-border text-info m-2 center" role="status">
-          <span class="sr-only">Loading...</span>
+        <div className="spinner-border text-info m-2 center" role="status">
+          <span className="sr-only">Loading...</span>
         </div>
       );
     }

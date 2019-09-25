@@ -29,7 +29,8 @@ class index extends React.Component {
   }
 
   fetchCategories() {
-    const url = "http://localhost:8080/catalog/categories/get_all";
+    const url =
+      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/categories/get_all";
     fetch(url, {
       method: "GET",
       headers: {
@@ -55,8 +56,9 @@ class index extends React.Component {
   }
 
   buscarItemMainSlider() {
-    const url ="http://localhost:8080/catalog/items/home/carrousel_main/search";
-        fetch(url, {
+    const url =
+      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items/home/carrousel_main/search";
+    fetch(url, {
       method: "GET",
       headers: {
         "Content-Type": "application/json"
@@ -76,7 +78,7 @@ class index extends React.Component {
 
   buscarItemCarrouselBottom() {
     const url =
-      "http://localhost:8080/catalog/items/home/carrousel_bottom/search";
+      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items/home/carrousel_bottom/search";
     fetch(url, {
       method: "GET",
       headers: {
@@ -96,7 +98,8 @@ class index extends React.Component {
   }
 
   buscarItemHurryUp() {
-    const url = "http://localhost:8080/catalog/items/home/hurry_up/search";
+    const url =
+      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items/home/hurry_up/search";
     fetch(url, {
       method: "GET",
       headers: {
@@ -113,6 +116,11 @@ class index extends React.Component {
         });
       });
   }
+  buildMainSlider() {
+    return (
+      <MainSlider mainSlider={this.state.mainSliderItems} key={"main_slider"} />
+    );
+  }
 
   render() {
     return (
@@ -122,10 +130,7 @@ class index extends React.Component {
         <div className="offcanvas-wrapper">
           {/* Page Content*/}
           {/* Main Slider*/}
-          <MainSlider
-            mainSlider={this.state.mainSliderItems}
-            key={"main_slider"}
-          />
+          {this.buildMainSlider()}
           {/* Top Categories*/}
           <ReactSectionTopCategories
             categories={this.state.topCategories}
@@ -148,8 +153,7 @@ class index extends React.Component {
               <h3 className="text-center mb-30 pb-2">Marcas Populares</h3>
               <div
                 className="owl-carousel"
-                data-owl-carousel='{ "nav": false, "dots": false, "loop": true, "autoplay": true, "autoplayTimeout": 4000, "responsive": {"0":{"items":2}, "470":{"items":3},"630":{"items":4},"991":{"items":5},"1200":{"items":6}} }'
-              >
+                data-owl-carousel='{ "nav": false, "dots": false, "loop": true, "autoplay": true, "autoplayTimeout": 4000, "responsive": {"0":{"items":2}, "470":{"items":3},"630":{"items":4},"991":{"items":5},"1200":{"items":6}} }'>
                 <img
                   className="d-block w-110 opacity-75 m-auto"
                   src="/img/brands/01.png"

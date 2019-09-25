@@ -3,6 +3,7 @@ import Wrapper from "../../components/Wrapper";
 import SubscriptionTitle from "../../components/subcription/SubscriptionTitle";
 import TrackingBar from "../../components/utils/TrackingBar";
 import SubscriptionDetail from "../../components/subcription/SubscriptionDetail";
+import AlertDanger from "../../components/utils/DangerAlert";
 
 class Subscription extends React.Component {
   constructor(props) {
@@ -27,7 +28,7 @@ class Subscription extends React.Component {
   fetchSuscription() {
     const { subscription_id } = this.state;
 
-    const url = `http://localhost:8080/subscriptions/search?subscription_id=${subscription_id}`;
+    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/subscriptions/search?subscription_id=${subscription_id}`;
     fetch(url, {
       method: "GET",
       headers: {
@@ -49,7 +50,7 @@ class Subscription extends React.Component {
   fetchTracking() {
     const { subscription_id } = this.state;
 
-    const url = `http://localhost:8080/tracks/search?track=${subscription_id}`;
+    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/tracks/search?track=${subscription_id}`;
     fetch(url, {
       method: "GET",
       headers: {
@@ -68,10 +69,20 @@ class Subscription extends React.Component {
   }
 
   render() {
+    const cancelled = false;
+    if (this.subscription.subscription_status === "CANCELLED") {
+      cancelled = true;
+    }
+
     return (
       <>
         <SubscriptionTitle subscription_id={this.state.subscription_id} />
-        <TrackingBar tracks={this.state.tracks} />
+        {cancelled ? (
+          <AlertDanger message={"Esta suscripción fue cancelada"} />
+        ) : (
+          <TrackingBar tracks={this.state.tracks} 
+          subscription_id={}/>
+        )}
         <SubscriptionDetail payment={this.state.subscription} />
       </>
     );

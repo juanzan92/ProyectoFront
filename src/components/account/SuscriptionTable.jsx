@@ -89,8 +89,8 @@ class SuscriptionTable extends React.Component {
       return <>{table}</>;
     } else {
       return (
-        <div class="spinner-center text-info m-2" role="status">
-          <span class="sr-only">Loading...</span>
+        <div className="spinner-center text-info m-2" role="status">
+          <span className="sr-only">Loading...</span>
         </div>
       );
     }
