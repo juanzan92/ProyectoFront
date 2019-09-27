@@ -38,7 +38,10 @@ class SignUp extends React.Component {
         email: email,
         name: userNombres,
         given_name: userApellidos,
-        address: userCalle,
+        address: {
+          street_address: userCalle + ' ' + userNum,
+          postal_code: userCp
+        },
         'custom:role': role,
         'custom:phone': userPhone,
         'custom:dni': userDni
@@ -50,7 +53,14 @@ class SignUp extends React.Component {
         user_role: role,
         email: email,
         first_name: userNombres,
-        last_name: userApellidos
+        last_name: userApellidos,
+        phone: userPhone,
+        dni: userDni,
+        address: {
+          address_name: userCalle,
+          address_number: userNum,
+          address_code: userCp
+        }
       }
       
         fetch(`http://localhost:8080/account/users`, {
