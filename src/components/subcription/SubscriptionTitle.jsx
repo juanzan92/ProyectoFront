@@ -1,34 +1,24 @@
 import React from "react";
 
-class VIPTitle extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  state = {
-    item: null,
-    isLoading: true,
-    isError: false
-  };
-
+class SubscriptionTitle extends React.Component {
   render() {
+    const { subscription_id } = this.props;
+
     return (
       <div className="page-title">
         <div className="container">
           <div className="column">
-            <h1>Oportunidades</h1>
+            <h1>Suscripcion</h1>
           </div>
           <div className="column">
             <ul className="breadcrumbs">
               <li>
-                <a href="/">Home</a>
+                <a href="/account">Suscripciones</a>
               </li>
               <li className="separator">&nbsp;</li>
               <li>
-                <a href="shop-grid-ls.html">Shop</a>
+                <span>{subscription_id}</span>
               </li>
-              <li className="separator">&nbsp;</li>
-              <li>{this.prop1}</li>
             </ul>
           </div>
         </div>
@@ -37,4 +27,4 @@ class VIPTitle extends React.Component {
   }
 }
 
-export default VIPTitle;
+export default SubscriptionTitle;

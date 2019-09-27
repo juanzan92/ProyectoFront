@@ -60,7 +60,7 @@ class Splash extends React.Component {
     console.log(authCode);
 
     fetch(
-      `http://localhost:8080/mp/users/marketplace_auth?user_id=${userId}&code=${authCode}`,
+      `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/mp/users/marketplace_auth?user_id=${userId}&code=${authCode}`,
       {
         method: "POST"
       }
