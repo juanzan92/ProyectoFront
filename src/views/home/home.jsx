@@ -116,11 +116,6 @@ class index extends React.Component {
         });
       });
   }
-  buildMainSlider() {
-    return (
-      <MainSlider mainSlider={this.state.mainSliderItems} key={"main_slider"} />
-    );
-  }
 
   render() {
     return (
@@ -130,7 +125,14 @@ class index extends React.Component {
         <div className="offcanvas-wrapper">
           {/* Page Content*/}
           {/* Main Slider*/}
-          {this.buildMainSlider()}
+          <section
+            className="hero-slider"
+            style={{ backgroundImage: "url(/img/hero-slider/main-bg.jpg)" }}>
+            <MainSlider
+              mainSlider={this.state.mainSliderItems}
+              key={"main_slider"}
+            />
+          </section>
           {/* Top Categories*/}
           <ReactSectionTopCategories
             categories={this.state.topCategories}

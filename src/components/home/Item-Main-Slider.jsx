@@ -16,9 +16,7 @@ class ItemMainSlider extends React.Component {
   }
 
   getLogo(marca) {
-    if(marca==="Motorola")
-    return logos[0].Motorola;
-
+    if (marca === "Motorola") return logos[0].Motorola;
     return logos[0].Converse;
   }
 
@@ -53,8 +51,7 @@ class ItemMainSlider extends React.Component {
               </div>
               <a
                 className="btn btn-primary scale-up delay-1"
-                href={"/vip/" + item.item_id}
-              >
+                href={"/vip/" + item.item_id}>
                 Comprar Ahora
               </a>
             </div>

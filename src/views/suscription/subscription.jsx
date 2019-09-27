@@ -11,8 +11,7 @@ class Subscription extends React.Component {
     this.state = {
       subscription: null,
       isLoading: true,
-      subscription_id: this.props.match.params.subscription_id,
-      tracks: ["1", "2", "3"]
+      subscription_id: this.props.match.params.subscription_id
     };
   }
 
@@ -20,15 +19,12 @@ class Subscription extends React.Component {
     this.fetchSuscription();
   }
 
-  componentDidUpdate() {
-    if (this.state.subscription != null) {
-      //  this.fetchTracking();
-    }
-  }
+  componentDidUpdate() {}
+
   fetchSuscription() {
     const { subscription_id } = this.state;
 
-    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/subscriptions/search?subscription_id=${subscription_id}`;
+    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/subscriptions/?subscription_id=${subscription_id}`;
     fetch(url, {
       method: "GET",
       headers: {
@@ -41,51 +37,36 @@ class Subscription extends React.Component {
       .then(myJson => {
         console.log(myJson);
         this.setState({
-          suscription: myJson,
+          subscription: myJson,
           isLoading: false
         });
       });
   }
 
-  fetchTracking() {
-    const { subscription_id } = this.state;
-
-    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/tracks/search?track=${subscription_id}`;
-    fetch(url, {
-      method: "GET",
-      headers: {
-        "Content-Type": "application/json"
-      }
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(myJson => {
-        console.log(myJson);
-        this.setState({
-          tracks: myJson
-        });
-      });
-  }
-
   render() {
-    const cancelled = false;
-    if (this.subscription.subscription_status === "CANCELLED") {
-      cancelled = true;
+    if (this.state.subscription != null) {
+      const { subscription } = this.state;
+      const cancelled = false;
+      return (
+        <>
+          <SubscriptionTitle subscription_id={subscription.subscription_id} />
+          <div className="container padding-bottom-3x mb-1">
+            {cancelled ? (
+              <AlertDanger message={"Esta suscripción fue cancelada"} />
+            ) : (
+              <TrackingBar subscription={subscription} />
+            )}
+            <SubscriptionDetail subscription={subscription} />
+          </div>
+        </>
+      );
+    } else {
+      return (
+        <div className="spinner-border text-info m-2 center" role="status">
+          <span className="sr-only">Loading...</span>
+        </div>
+      );
     }
-
-    return (
-      <>
-        <SubscriptionTitle subscription_id={this.state.subscription_id} />
-        {cancelled ? (
-          <AlertDanger message={"Esta suscripción fue cancelada"} />
-        ) : (
-          <TrackingBar tracks={this.state.tracks} 
-          subscription_id={}/>
-        )}
-        <SubscriptionDetail payment={this.state.subscription} />
-      </>
-    );
   }
 }
 

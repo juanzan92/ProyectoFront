@@ -6,37 +6,27 @@ class MainSlider extends React.Component {
     super(props);
     this.state = {
       items: "",
-      isLoading: true
+      isLoading: true,
+      mainSlider: NaN
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    setTimeout(this.setState({ isLoading: false }), 1000);
+  }
 
   render() {
     const { mainSlider } = this.props;
-    if (mainSlider) {
-      return (
-        <section
-          className="hero-slider"
-          style={{ backgroundImage: "url(/img/hero-slider/main-bg.jpg)" }}
-        >
-          <div
-            className="owl-carousel large-controls dots-inside"
-            data-owl-carousel='{ "nav": true, "dots": true, "loop": true, "autoplay": true, "autoplayTimeout": 7000 }'
-          >
-          {mainSlider.map(item => (
-              <ItemMainSlider key={item.id} item={item} />
-            ))}
-          </div>
-        </section>
-      );
-    } else {
-      return (
-        <div className="spinner-border text-info m-2" role="status">
-          <span className="sr-only">Loading...</span>
-        </div>
-      );
-    }
+
+    return (
+      <div
+        className="owl-carousel large-controls dots-inside"
+        data-owl-carousel='{ "nav": true, "dots": true, "loop": true, "autoplay": true, "autoplayTimeout": 7000 }'>
+        {mainSlider.map(item => {
+          return <ItemMainSlider key={item.item_id} item={item} />;
+        })}
+      </div>
+    );
   }
 }
 export default MainSlider;

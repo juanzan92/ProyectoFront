@@ -12,19 +12,18 @@ class AccountProfileForm extends React.Component {
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  handleSubmit(event) {
+  async handleSubmit(event) {
     event.preventDefault();
     const btn = document.getElementById("submit-btn");
     btn.disabled = true;
 
-    
-    let user =  await Auth.currentAuthenticatedUser();
-    let result = await Auth.updateUserAttributes(user,{
-      'emal': this.state.user.email,
-      'custom:pone': this.state.user.phone
-    })
+    let user = await Auth.currentAuthenticatedUser();
+    let result = await Auth.updateUserAttributes(user, {
+      emal: this.state.user.email,
+      "custom:pone": this.state.user.phone
+    });
 
-    console.log(result)
+    console.log(result);
   }
 
   assignInputValue(target) {
@@ -138,7 +137,6 @@ class AccountProfileForm extends React.Component {
                   id="account-phone"
                   value={user.phone}
                   onChange={this.handleChange}
-
                 />
               </div>
             </div>
