@@ -19,9 +19,6 @@ class index extends React.Component {
       featureItem: null,
       isLoading: true
     };
-  }
-
-  componentDidMount() {
     this.buscarItemMainSlider();
     this.buscarItemHurryUp();
     this.buscarItemCarrouselBottom();
@@ -127,7 +124,10 @@ class index extends React.Component {
           {/* Main Slider*/}
           <section
             className="hero-slider"
-            style={{ backgroundImage: "url(/img/hero-slider/main-bg.jpg)" }}>
+            style={{
+              backgroundImage: "url(/img/hero-slider/main-bg.jpg)",
+              padding: "0% 5% 0% 5%"
+            }}>
             <MainSlider
               mainSlider={this.state.mainSliderItems}
               key={"main_slider"}
