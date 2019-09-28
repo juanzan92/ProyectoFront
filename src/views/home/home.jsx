@@ -126,7 +126,7 @@ class index extends React.Component {
             className="hero-slider"
             style={{
               backgroundImage: "url(/img/hero-slider/main-bg.jpg)",
-              padding: "0% 5% 0% 5%"
+              padding: "2% 5% 2% 5%"
             }}>
             <MainSlider
               mainSlider={this.state.mainSliderItems}

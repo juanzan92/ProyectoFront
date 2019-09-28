@@ -5,13 +5,17 @@ import wrapper from "../../components/Wrapper";
 import AccountProfileForm from "../../components/account/AccountForm";
 import AccountTitle from "../../components/account/AccountTitle";
 import { Auth } from "aws-amplify";
-import DangerAlert from "../../components/utils/DangerAlert";
+import { Snackbar } from "@material-ui/core";
 
 class AccountProfile extends React.Component {
-  state = {
-    user: "",
-    orders: []
-  };
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: "",
+      orders: []
+    };
+    this.getUsuario();
+  }
 
   getUsuario() {
     Auth.currentAuthenticatedUser({}).then(user1 => {
@@ -21,9 +25,7 @@ class AccountProfile extends React.Component {
     });
   }
 
-  componentDidMount() {
-    this.getUsuario();
-  }
+  componentDidMount() {}
 
   componentDidUpdate() {
     if (this.state.user !== "" && this.state.orders.length == 0) {
@@ -46,23 +48,30 @@ class AccountProfile extends React.Component {
   }
 
   render() {
-    return (
-      <>
-        <AccountTitle />
-        <div className="container padding-bottom-3x mb-2">
-          <div className="row">
-            <UserCard
-              user={this.state.user}
-              orders={this.state.orders}
-              selected={"mi_cuenta"}
-            />
-            <AccountProfileForm user={this.state.user} />
+    if (this.state.orders.length > 0) {
+      return (
+        <>
+          <AccountTitle />
+          <div className="container padding-bottom-3x mb-2">
+            <div className="row">
+              <UserCard
+                user={this.state.user}
+                orders={this.state.orders}
+                selected={"mi_cuenta"}
+              />
+              {this.state.user && <AccountProfileForm user={this.state.user} />}
+            </div>
           </div>
+          <Snackbar></Snackbar>
+        </>
+      );
+    } else {
+      return (
+        <div className="spinner-center text-info m-2 center" role="status">
+          <span className="sr-only">Loading...</span>
         </div>
-        <div className="iziToast-wrapper iziToast-wrapper-topRight"></div>
-        <DangerAlert />
-      </>
-    );
+      );
+    }
   }
 }
 

@@ -25,6 +25,10 @@ class AccountProfileForm extends React.Component {
 
     console.log(result);
   }
+  componentDidMount() {
+    const { user } = this.props;
+    this.setState({ user: user });
+  }
 
   assignInputValue(target) {
     if (target.type === "email") {
@@ -106,7 +110,7 @@ class AccountProfileForm extends React.Component {
                   className="form-control"
                   type="text"
                   name="userDni"
-                  value={this.state.userDni}
+                  value={""}
                   onChange={this.handleChange}
                   pattern="[0-9]{7,8}"
                   title="Numérico. 7 u 8 caracteres."
@@ -135,7 +139,7 @@ class AccountProfileForm extends React.Component {
                   className="form-control"
                   type="text"
                   id="account-phone"
-                  value={user.phone}
+                  value={""}
                   onChange={this.handleChange}
                 />
               </div>
