@@ -5,6 +5,7 @@ import Home from "./views/home/home";
 import CheckoutController from "./views/checkout/checkoutController";
 import vip from "./views/item/vip";
 import splash from "./views/splash/splash";
+import splash_congrats from "./views/splash/splash_congrats";
 import SignUp from "./components/LogIn/SignUp";
 import SignIn from "./components/LogIn/SignIn";
 import ForgotPassword from "./components/LogIn/ForgotPassword";
@@ -38,6 +39,7 @@ class App extends Component {
           />
 
           <Route path="/splash" component={splash} />
+          <Route path="/splash_congrats" component={splash_congrats} />
           <Route path="*" component={notFound} />
         </Switch>
       </Router>
