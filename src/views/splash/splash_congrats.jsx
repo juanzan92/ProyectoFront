@@ -64,8 +64,11 @@ class Splash extends React.Component {
         method: "POST"
       }
     )
-      .then(function () {
-        window.location.href = "/";
+      .then(response => {
+        return response.json();
+      }
+      ).then(myJson => {
+        window.location.href = `/subscripcion/${myJson.suscription_id}`
       })
       .catch(function (e) {
         console.log(e);
