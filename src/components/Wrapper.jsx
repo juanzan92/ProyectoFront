@@ -29,7 +29,6 @@ export default function wrapper(WrappedComponent) {
         }
       })
         .then(response => {
-          if (response.code != 200) throw "Failed to load categories";
           return response.json();
         })
         .then(myJson => {

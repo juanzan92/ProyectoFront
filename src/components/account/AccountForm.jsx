@@ -5,7 +5,9 @@ class AccountProfileForm extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: this.props.user
+      user: this.props.user,
+      custom_phone: null,
+      custom_dni: null
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -19,15 +21,22 @@ class AccountProfileForm extends React.Component {
 
     let user = await Auth.currentAuthenticatedUser();
     let result = await Auth.updateUserAttributes(user, {
-      emal: this.state.user.email,
-      "custom:pone": this.state.user.phone
+      email: this.state.user.email,
+      "custom:pone": this.state.custom_phone,
+      "custom:dni": this.state.custom_dni
     });
 
     console.log(result);
   }
-  componentDidMount() {
+  async componentDidMount() {
     const { user } = this.props;
-    this.setState({ user: user });
+    const { any: phone, dni } = user;
+
+    this.setState({
+      user: user,
+      custom_dni: dni,
+      custom_phone: phone
+    });
   }
 
   assignInputValue(target) {
@@ -66,7 +75,7 @@ class AccountProfileForm extends React.Component {
   }
 
   render() {
-    let { user } = this.state;
+    let { user, custom_dni, custom_phone } = this.state;
 
     return (
       <>
@@ -110,7 +119,7 @@ class AccountProfileForm extends React.Component {
                   className="form-control"
                   type="text"
                   name="userDni"
-                  value={""}
+                  value={custom_dni}
                   onChange={this.handleChange}
                   pattern="[0-9]{7,8}"
                   title="Numérico. 7 u 8 caracteres."
@@ -139,7 +148,7 @@ class AccountProfileForm extends React.Component {
                   className="form-control"
                   type="text"
                   id="account-phone"
-                  value={""}
+                  value={custom_phone}
                   onChange={this.handleChange}
                 />
               </div>
