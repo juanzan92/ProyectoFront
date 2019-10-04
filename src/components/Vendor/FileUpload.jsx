@@ -16,8 +16,8 @@ class FileUpload extends React.Component {
       marca: '',
       modelo: '',
       color: '',
-      initial_stock: null,
-      initial_price: null,
+      initial_stock: -1,
+      initial_price: -1,
       description_short: '',
       description: '',
       files: null,
@@ -59,6 +59,11 @@ class FileUpload extends React.Component {
 
   changeDateFormat(inputDate){  // Expects yyyy-mm-dd
     var newdate = inputDate.split("-").reverse().join("/");
+    return newdate
+  }
+
+  changeDateFormat2(inputDate){  // Expects dd/mm/yyyy
+    var newdate = inputDate.split("/").reverse().join("-");
     return newdate
   }
 
@@ -168,6 +173,9 @@ class FileUpload extends React.Component {
         response => {
           console.log("Response File N°" + i);
           console.log(response);
+          console.log(response.url);
+          console.log(JSON.stringify(response));
+          console.log(JSON.stringify(response.url));
           
           //this.state.urlx.push(response.url());
           
@@ -186,10 +194,17 @@ class FileUpload extends React.Component {
           
           return response.json()
           */
-         
+
       })
       .catch(e => console.log(e))
     }
+  }
+
+	handleSubmit(event) {
+    event.preventDefault();
+    this.handleAttribChange(this.state.brand, this.state.model, this.state.colour);
+    console.log(JSON.stringify(this.state));
+    console.log(JSON.stringify(this.state.attributes))
   }
 
   render() {
@@ -313,7 +328,7 @@ class FileUpload extends React.Component {
                               placeholder="100"
                               pattern="[0-9]{1,5}"
                               title="Alfanumérico. Entre 2-5 caracteres."
-                              value={this.state.initial_stock}
+                              value={this.value}
                               onChange={this.handleChange} 
                               required/>
                         </div>
@@ -325,7 +340,7 @@ class FileUpload extends React.Component {
                               placeholder="$"
                               pattern="[0-9]+(\\.[0-9][0-9]?)?"
                               title="Numérico. Admite 2 decimales."
-                              value={this.state.initial_price}
+                              value={this.value}
                               onChange={this.handleChange}  
                               required/>
                         </div>
@@ -333,7 +348,8 @@ class FileUpload extends React.Component {
                     <div className="col-4">
                       <div className="form-group input-group">
                         <label className="col-12" htmlFor="date_finished">Fecha de Cierre</label>
-                        <input className="form-control" type="date" name="date_finished" 
+                        <input className="form-control" type="date" name="date_finished"
+                              value={this.value} 
                               onChange={this.handleChange}/>
                       </div>
                     </div>
@@ -360,11 +376,15 @@ class FileUpload extends React.Component {
                 </div>
 
                 <div className="form-group row">
-                    <label className="col-12" htmlFor="title">Imágenes</label>
-                    <div className="col-8 padding-left:5px">
-                        <input onChange={this.handleFileChange} ref={(ref) => { this.uploadInput = ref; }} type="file" multiple/>
-                    </div> 
+              <label className="col-2 col-form-label padding-top-1x" htmlFor="file-input">Imágenes</label>
+              <div className="col-10">
+                <div className="custom-file">
+                  <input className="padding-top-1x" onChange={this.handleFileChange} ref={(ref) => { this.uploadInput = ref; }} name="file-input" type="file" multiple/>
                 </div>
+              </div>
+            </div>
+
+                
 
                 <div className="form-group row">
                   <div className="col-8">
@@ -378,7 +398,7 @@ class FileUpload extends React.Component {
             <label>{JSON.stringify(this.state.files)}</label>
       </div>
       <div>
-        {JSON.stringify(this.state.urlx)}
+        {JSON.stringify(this.state)}
       </div>
       </>
     );
