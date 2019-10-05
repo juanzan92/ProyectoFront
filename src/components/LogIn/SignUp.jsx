@@ -48,23 +48,32 @@ class SignUp extends React.Component {
         email: email,
         name: userNombres,
         given_name: userApellidos,
-        address: userCalle,
-        "custom:role": role,
-        "custom:phone": userPhone,
-        "custom:dni": userDni
+        address: {
+          street_address: userCalle + ' ' + userNum,
+          postal_code: userCp
+        },
+        'custom:role': role,
+        'custom:phone': userPhone,
+        'custom:dni': userDni
       },
       validationData: []
-    })
-      .then(function() {
-        var body = {
-          username: user,
-          user_role: role,
-          email: email,
-          first_name: userNombres,
-          last_name: userApellidos
-        };
-
-        fetch(`http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/account/users`, {
+    }).then(function () {
+      var body = {
+        username: user,
+        user_role: role,
+        email: email,
+        first_name: userNombres,
+        last_name: userApellidos,
+        phone: userPhone,
+        dni: userDni,
+        address: {
+          address_name: userCalle,
+          address_number: userNum,
+          address_code: userCp
+        }
+      }
+      
+        fetch(`http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/account/users`, { //http://localhost:8080/account/users
           headers: {
             "Content-Type": "application/json"
           },
