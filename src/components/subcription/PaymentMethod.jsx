@@ -2,7 +2,7 @@ import React from "react";
 
 class PaymentMethod extends React.Component {
   render() {
-    const { payment } = this.props.subscription;
+    const { payment, date_created, total_amount } = this.props.subscription;
     const { id, totalPaidAmount, dateApproved } = payment[0];
     return (
       <>
@@ -13,10 +13,10 @@ class PaymentMethod extends React.Component {
           <div class="card-body">
             <p class="card-text" style={{ margin: "0 0 1px" }}>
               <i class="pe-7s-credit" style={{ fontSize: "large" }}></i> Pagaste
-              U$D {totalPaidAmount}
+              U$D {total_amount}
             </p>
             <p class="card-text" style={{ margin: "0 0 1px" }}>
-              El día {dateApproved}
+              El día {Date(date_created)}
             </p>
             <span class="text-muted">Número de transaccion: {id}</span>
           </div>

@@ -59,9 +59,16 @@ class TrackingBar extends React.Component {
           <div className="w-100 text-center py-1 px-2">
             <span className="text-medium">
               Estado:
-              <span style={{ fontWeight: "500", color: "green" }}>
-                {subscription_status}
-              </span>
+              {subscription_status == "FINISHED" && (
+                <span style={{ fontWeight: "500", color: "green" }}>
+                  {subscription_status}
+                </span>
+              )}
+              {subscription_status == "CANCELLED" && (
+                <span style={{ fontWeight: "500", color: "red" }}>
+                  {subscription_status}
+                </span>
+              )}
             </span>
           </div>
         </div>

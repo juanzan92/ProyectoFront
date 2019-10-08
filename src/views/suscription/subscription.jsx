@@ -4,6 +4,8 @@ import SubscriptionTitle from "../../components/subcription/SubscriptionTitle";
 import TrackingBar from "../../components/utils/TrackingBar";
 import SubscriptionDetail from "../../components/subcription/SubscriptionDetail";
 import AlertDanger from "../../components/utils/DangerAlert";
+import CancelModal from "../../components/utils/TemplateModal";
+import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 
 class Subscription extends React.Component {
   constructor(props) {
@@ -13,6 +15,8 @@ class Subscription extends React.Component {
       isLoading: true,
       subscription_id: this.props.match.params.subscription_id
     };
+
+    this.cancelSuscription = this.cancelSuscription.bind(this);
   }
 
   componentDidMount() {
@@ -43,6 +47,8 @@ class Subscription extends React.Component {
       });
   }
 
+  cancelSuscription() {}
+
   render() {
     if (this.state.subscription != null) {
       const { subscription } = this.state;
@@ -57,6 +63,27 @@ class Subscription extends React.Component {
               <TrackingBar subscription={subscription} />
             )}
             <SubscriptionDetail subscription={subscription} />
+            {(subscription.subscription_status != "CANCELLED" ||
+              subscription.subscription_status != "FINISHED") && (
+              <div className="card mb-3 col-lg-3">
+                <div className="d-inline-block" style={{ margin: "auto" }}>
+                  <h3 style={{ margin: "auto" }}>
+                    <WarningRoundedIcon>WarningRoundedIcon</WarningRoundedIcon>
+                    Cuidado
+                    <WarningRoundedIcon>WarningRoundedIcon</WarningRoundedIcon>
+                  </h3>
+                </div>
+
+                <CancelModal cancelSuscription={() => this.cancelSuscription} />
+                <button
+                  class="btn btn-outline-danger m-auto"
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#modalCentered">
+                  Cancelar suscripción
+                </button>
+              </div>
+            )}
           </div>
         </>
       );

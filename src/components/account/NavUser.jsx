@@ -19,7 +19,7 @@ class NavUser extends React.Component {
           class={
             "list-group-item with-badge " + this.isSelected("suscripciones")
           }
-          href="account-orders.html">
+          href="account">
           <i className="icon-bag" />
           Suscripciones
           <span className="badge badge-primary badge-pill">
