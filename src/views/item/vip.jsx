@@ -1,23 +1,32 @@
 import React from "react";
-
-import "./vip.scss";
-
 import wraper from "../../components/Wrapper";
 import VIPTitle from "../../components/Item/VIPTitle";
 import Review from "../../components/vip/Review";
-
+import ProductCard from "../../components/vip/ProductCard";
+import { Auth } from "aws-amplify";
 
 class VIP extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       item: "",
-      user: null,
+      reviews: [],
       isLoading: true,
       isError: false,
-      quantityToBuy: 0,
-      progress: 0
+      quantityToBuy: 1,
+      progress: 0,
+      redirect_url: "",
+      user: this.getUsuario()
     };
+
+    this.handleInputChange = this.handleInputChange.bind(this);
+    this.pagar = this.pagar.bind(this);
+  }
+
+  getUsuario() {
+    Auth.currentAuthenticatedUser({}).then(user1 => {
+      return user1.attributes;
+    });
   }
 
   componentDidMount() {
@@ -29,6 +38,9 @@ class VIP extends React.Component {
     const value = target.value;
     const name = target.name;
 
+    if (name === "quantityToBuy") {
+      this.getURLPago();
+    }
     this.setState({
       [name]: value
     });
@@ -53,6 +65,22 @@ class VIP extends React.Component {
       })
       .then(response => {
         this.calcularBarraProgreso();
+        this.buscarReviews();
+        this.getURLPago();
+      });
+  }
+
+  buscarReviews() {
+    const url =
+      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com//catalog/reviews/search?index_name=item_id&search_pattern=1234";
+    fetch(url)
+      .then(response => {
+        return response.json();
+      })
+      .then(myJson => {
+        this.setState({
+          reviews: myJson
+        });
       });
   }
 
@@ -64,26 +92,33 @@ class VIP extends React.Component {
     });
   }
 
-  pagar() {
-    const url = "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/mp/preferences/create"; //url backend
+  getURLPago() {
+    const url =
+      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/mp/preferences"; //url backend
     fetch(url, {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify({
-        item_id: this.state.item.id,
-        user_id: this.state.user.id,
-        quantity: this.state.quantityToBuy
+        item_id: this.state.item.item_id,
+        quantity: this.state.quantityToBuy,
+        consumer_username: "diegote"
       })
     })
       .then(response => {
         return response.json();
       })
-      .then(preference => {
-        console.log(preference);
-        window.location.href = preference.redirect_url;
+      .then(preferencia => {
+        this.setState({
+          redirect_url: preferencia.redirect_url
+        });
       });
+  }
+
+  pagar() {
+    const { redirect_url } = this.state;
+    window.location.href = redirect_url;
   }
 
   picIndex() {
@@ -95,102 +130,58 @@ class VIP extends React.Component {
   }
 
   getReviews() {
-    if (false) {
+    if (this.state.reviews.length > 0) {
       return (
-        <div className="tab-pane fade" id="reviews" role="tabpanel">
+        <>
           {/**review */}
-          {this.reviews.map(review => (
-            <Review key={review.id} prop={review} />
+          {this.state.reviews.map(review => (
+            <Review key={review.id} review={review} />
           ))}
-        </div>
+        </>
       );
     }
   }
 
   render() {
-    const item = this.state.item;
+    const { item } = this.state;
     let discount;
     const state = this.state;
 
-    if (item) {
-      if (item.inDiscount) {
-        discount = (
-          <span className="product-badge text-danger">
-            {item.actualPrice}% Off
-          </span>
-        );
-      }
+    if (item && state.reviews.length > 0) {
       return (
         <>
-          <VIPTitle prop1={item.name} />
+          <VIPTitle prop1={item.title} />
           <div className="container padding-bottom-3x mb-1 inline">
             {/*galeria del producto */}
             <div className="row">
               <div className="col-md-6">
-                <div className="product-gallery">
-                  {discount}
-                  <div className="gallery-wrapper">
-                    <div className="gallery-item video-btn text-center">
-                      <a
-                        href="#"
-                        data-toggle="tooltip"
-                        data-type="video"
-                        data-video='&lt;div className="wrapper"&gt;&lt;div className="video-wrapper"&gt;&lt;iframe className="pswp__video" width="960" height="640" src="//www.youtube.com/embed/B81qd2v6alw?rel=0" frameborder="0" allowfullscreen&gt;&lt;/iframe&gt;&lt;/div&gt;&lt;/div&gt;'
-                        title="Watch video"
-                      />
-                    </div>
-                  </div>
-                  <div className="product-carousel owl-carousel gallery-wrapper">
-                    {item.pictures.map(picture => (
-                      <div className="gallery-item" data-hash={picture.index}>
-                        <a href={picture.src} data-size="1000x667">
-                          <img src={"../" + picture.src} alt="Product" />
-                        </a>
-                      </div>
-                    ))}
-                  </div>
-                  <ul className="product-thumbnails">
-                    {item.thumbnails.map(thumb => (
-                      <li className="active">
-                        <a href={thumb.index}>
-                          <img src={"../" + thumb} alt="Product" />
-                        </a>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+                <ProductCard pictures={item.pictures} />
               </div>
               {/*info de producto */}
               <div className="col-md-6">
                 <div className="padding-top-2x mt-2 hidden-md-up"></div>
-                <h2 className="padding-top-1x text-normal">{item.name}</h2>
+                <h2 className="padding-top-1x text-normal">{item.title}</h2>
                 <span className="h2 d-block">
-                  &nbsp; &#36;{item.actualPrice}
+                  &nbsp; U&#36;D {item.actual_price}
                 </span>
                 <p>{item.description}</p>
                 <div className="row margin-top-1x">
                   <div className="col-sm-4">
                     <div className="form-group">
-                      <label htmlFor="size">Men's size</label>
+                      <label htmlFor="size">Talle</label>
                       <select className="form-control" id="size">
-                        <option>Chooze size</option>
-                        <option>11.5</option>
-                        <option>11</option>
+                        <option>Elegir Talle</option>
                         <option>10.5</option>
                         <option>10</option>
                         <option>9.5</option>
-                        <option>9</option>
-                        <option>8.5</option>
                       </select>
                     </div>
                   </div>
                   <div className="col-sm-5">
                     <div className="form-group">
-                      <label htmlFor="color">Choose color</label>
+                      <label htmlFor="color">Color</label>
                       <select className="form-control" id="color">
-                        <option>White/Red/Blue</option>
-                        <option>Black/Orange/Green</option>
-                        <option>Gray/Purple/White</option>
+                        <option>Gris</option>
                       </select>
                     </div>
                   </div>
@@ -200,13 +191,14 @@ class VIP extends React.Component {
                       <select
                         className="form-control"
                         id="quantity"
-                        onChange={this.state.quantity}
-                      >
-                        <option>1</option>
-                        <option>2</option>
-                        <option>3</option>
-                        <option>4</option>
-                        <option>5</option>
+                        onChange={this.handleInputChange}
+                        value={this.state.quantityToBuy}
+                        name={"quantityToBuy"}>
+                        <option value={1}>1</option>
+                        <option value={2}>2</option>
+                        <option value={3}>3</option>
+                        <option value={4}>4</option>
+                        <option value={5}>5</option>
                       </select>
                     </div>
                   </div>
@@ -230,8 +222,7 @@ class VIP extends React.Component {
                         style={{ width: state.progress + "%" }}
                         aria-valuenow={state.progress}
                         aria-valuemin="0"
-                        aria-valuemax="100"
-                      >
+                        aria-valuemax="100">
                         {state.progress}&#37;
                       </div>
                     </div>
@@ -240,15 +231,15 @@ class VIP extends React.Component {
                     <button
                       className="btn btn-outline-secondary btn-sm btn-wishlist"
                       data-toggle="tooltip"
-                      title="Whishlist"
-                    >
+                      title="Whishlist">
                       <i className="icon-heart"></i>
                     </button>
                     <div
                       className="btn btn-lg btn-secondary"
-                      onClick={this.pagarTest}
-                    >
-                      <a>Pagar con Mercado Pago</a>
+                      onClick={this.pagar}>
+                      <a href={this.state.redirect_url}>
+                        Pagar con Mercado Pago
+                      </a>
                     </div>
                   </div>
                 </div>
@@ -262,8 +253,7 @@ class VIP extends React.Component {
                         className="nav-link active"
                         href="#description"
                         data-toggle="tab"
-                        role="tab"
-                      >
+                        role="tab">
                         Description
                       </a>
                     </li>
@@ -272,9 +262,8 @@ class VIP extends React.Component {
                         className="nav-link"
                         href="#reviews"
                         data-toggle="tab"
-                        role="tab"
-                      >
-                        Reviews (3)
+                        role="tab">
+                        Reviews
                       </a>
                     </li>
                   </ul>
@@ -282,33 +271,26 @@ class VIP extends React.Component {
                     <div
                       className="tab-pane fade show active"
                       id="description"
-                      role="tabpanel"
-                    >
+                      role="tabpanel">
                       <p>{item.description}</p>
                       <div className="row">
                         <div className="col-sm-6">
                           <dl>
-                            <dt>Materials:</dt>
-                            <dd>Leather, Cotton, Rubber, Foam</dd>
-                            <dt>Available Sizes:</dt>
-                            <dd>8.5, 9.0, 9.5, 10.0, 10.5, 11.0, 11.5</dd>
-                            <dt>Available Colors:</dt>
-                            <dd>White/Red/Blue, Black/Orange/Green</dd>
-                          </dl>
-                        </div>
-                        <div className="col-sm-6">
-                          <dl>
-                            <dt>Model Year:</dt>
-                            <dd>2016</dd>
-                            <dt>Manufacturer:</dt>
-                            <dd>Reebok Inc.</dd>
-                            <dt>Made In:</dt>
-                            <dd>Taiwan</dd>
+                            {item.attributes.map(attributes => {
+                              return (
+                                <>
+                                  <dt>{attributes.id}</dt>
+                                  <dd>{attributes.value}</dd>
+                                </>
+                              );
+                            })}
                           </dl>
                         </div>
                       </div>
                     </div>
-                    {this.getReviews()}
+                    <div className="tab-pane fade" id="reviews" role="tabpanel">
+                      {this.state.reviews.length > 0 && this.getReviews()}
+                    </div>
                   </div>
                 </div>
               </div>
