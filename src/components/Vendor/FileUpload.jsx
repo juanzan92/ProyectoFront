@@ -13,6 +13,8 @@ class FileUpload extends React.Component {
       title: '',
       category: '',
       vendor_username: this.currentActiveUser(),
+      vendor_rol: '',
+      vendor: [],
       date_finished: null,
       initial_price: -1,
       actual_price: -1,
@@ -63,16 +65,18 @@ class FileUpload extends React.Component {
     Auth.currentAuthenticatedUser({})
       .then(user => {
         this.setState({
-          vendor_username: user.username.toLowerCase()
+          vendor: user.attributes,
+          vendor_username: user.username.toLowerCase(),
+          vendor_rol: user.attributes["custom:role"]
         });
-        console.log(Auth.currentAuthenticatedUser());
-        console.log(JSON.stringify(this.state.vendor_username));
+        console.log("Authenticated User");
+        console.log(this.state.vendor)
       })
       .catch(err => console.log(err));
   }
 
   async componentDidMount() {
-    //this.setState({date_created: this.getDate()});    
+    //this.setState({date_created: this.getDate()});
   }
 
   handleAttribChange(marca, modelo, color) { 
