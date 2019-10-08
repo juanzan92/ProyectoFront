@@ -11,10 +11,10 @@ class FileUpload extends React.Component {
 
     this.state = {
       title: '',
-      category: '',
-      vendor_username: this.currentActiveUser(),
-      vendor_rol: '',
+      category: 'Tecnologia',
       vendor: [],
+      vendor_username: '',
+      vendor_rol: '',
       date_finished: null,
       initial_price: -1,
       actual_price: -1,
@@ -76,6 +76,7 @@ class FileUpload extends React.Component {
   }
 
   async componentDidMount() {
+    this.currentActiveUser()
     //this.setState({date_created: this.getDate()});
   }
 
@@ -302,9 +303,9 @@ class FileUpload extends React.Component {
                     <div className="col-8">
                       <select className="form-control" name="category" 
                           placeholder="Seleccione categoría"
-                          value={this.state.category} 
+                          value={this.state.category}
                           onChange={this.handleChange}>
-                          <option value="Tecnologia" selected>Tecnologia</option>
+                          <option value="Tecnologia">Tecnologia</option>
                           <option value="Hogar">Hogar</option>
                           <option value="Maquinaria">Maquinaria</option>
                           <option value="Herramientas">Herramientas</option>
