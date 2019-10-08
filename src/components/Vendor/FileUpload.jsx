@@ -10,43 +10,35 @@ class FileUpload extends React.Component {
     super(props);
 
     this.state = {
-      seller_id: this.currentActiveUser(),
-      category: '',
       title: '',
+      category: '',
+      vendor_username: this.currentActiveUser(),
+      date_finished: null,
+      initial_price: -1,
+      actual_price: -1,
+      in_discount: false,
+      initial_stock: -1,
+      stock: -1,      
+      description_short: '',
+      description: '',
+      pictures: [],
+      thumbnails: [],
+      attributes: [],
+      tags: null,
+
+      map: [],
+      url: 'https://s3.us-east-1.amazonaws.com/s-market-images/1570315146747-logo-smarket-navbar.png',
+
       marca: '',
       modelo: '',
       color: '',
-      initial_stock: -1,
-      initial_price: -1,
-      description_short: '',
-      description: '',
-      files: null,
 
-      pictures: [],
-
-      attributes: [],
-      
-      date_created: this.getDate(),
-      date_finished: null,
-
-      in_discount: false,
-      actual_price: null,
-      stock: null,
-      status: null,
-      tags: null,
-      
       filesLoaded: false,
-      url: '',
-      urlx: [],
-      
       isAuthenticated: false
-      
     };
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
-
-  //funcion que reciba todas las llamadas del promise all
 
   getDate(){
     var today = new Date();
@@ -71,18 +63,16 @@ class FileUpload extends React.Component {
     Auth.currentAuthenticatedUser({})
       .then(user => {
         this.setState({
-          seller_id: user.username.toLowerCase()
+          vendor_username: user.username.toLowerCase()
         });
         console.log(Auth.currentAuthenticatedUser());
-        console.log(JSON.stringify(this.state.seller_id));
+        console.log(JSON.stringify(this.state.vendor_username));
       })
       .catch(err => console.log(err));
   }
 
   async componentDidMount() {
-    this.setState({date_created: this.getDate()});
-
-    //this.getCategories();
+    //this.setState({date_created: this.getDate()});    
   }
 
   handleAttribChange(marca, modelo, color) { 
@@ -99,7 +89,7 @@ class FileUpload extends React.Component {
       let colour = {};
       colour.id = 'Color';                     
       colour.value = color;
-      this.state.attributes.push(colour);
+      this.state.attributes.push(colour)
   }
 
   handleChange(event) { 
@@ -151,61 +141,121 @@ class FileUpload extends React.Component {
     this.setState({filesLoaded: true});
   }
 
-  handleFileUpload = (ev) => {
-    let allFiles = this.uploadInput.files;
-
-    console.log(allFiles);
-    console.log("allFiles length :" + allFiles.length);
-
-    console.log("-----------------------------------")
-    
-    for (let i = 0; i < allFiles.length; i++) {
-        console.log("Preparing upload File N°" + i);
-        console.log(allFiles[i]);
-        const formData = new FormData();
-        formData.append('file', allFiles[i]);
+  async handleFileUpload(data, i){
+    try {
       fetch('http://localhost:8080/catalog/img/upload', {
         method: "POST",
-        mode: 'no-cors',
-        body: formData
+        body: data
+      })
+      .then(response =>{
+        return response.json()
       })
       .then(
         response => {
+          //var urlx = response.response_url;
+          //this.setState({url: response.response_url});
+          //this.setState({url: response.response_url});
           console.log("Response File N°" + i);
-          console.log(response);
-          console.log(response.url);
-          console.log(JSON.stringify(response));
-          console.log(JSON.stringify(response.url));
-          
-          //this.state.urlx.push(response.url());
-          
-          console.log("Response to Text");
-          console.log(response.text());
-          
-          console.log("Response to JSON");
-          console.log(JSON.parse(response));
-          
-          return response.text() ? JSON.parse(response) : null
-          
-          /*
-          console.log("*url*");
-          console.log(response.body);
-          console.log(response.url);
-          
-          return response.json()
-          */
-
+          //console.log(response);
+          console.log(response.response_url);
+          //console.log(this.state.url)
+          return response.response_url
       })
       .catch(e => console.log(e))
     }
+    catch (error) {
+      alert(error.message)
+    }
+  }
+
+  postItem = (ev) => {
+    fetch('http://localhost:8080/catalog/items', {
+      method: "POST",
+
+      body: JSON.stringify(this.state.map)
+    })
+    .then(response =>{
+      return response.json()
+    })
+    .then(
+      myJson => {
+        console.log("Post Item Response");
+        //console.log(response);
+        console.log(myJson);
+    })
+    .catch(e => console.log(e))
   }
 
 	handleSubmit(event) {
+    
     event.preventDefault();
-    this.handleAttribChange(this.state.brand, this.state.model, this.state.colour);
-    console.log(JSON.stringify(this.state));
-    console.log(JSON.stringify(this.state.attributes))
-  }
+
+    this.handleAttribChange(this.state.marca, this.state.modelo, this.state.color);
+    
+    console.log(JSON.stringify(this.state.attributes));
+
+    let allFiles = this.uploadInput.files;
+    
+    for (let i = 0; i < allFiles.length; i++) {
+
+        let fileParts = allFiles[i].name.split('.');
+        let fileName = fileParts[0];
+        let fileType = fileParts[0] + fileParts[1];
+        
+        console.log("Preparing upload File N°" + i);
+       
+        const formData = new FormData();
+        formData.append('file', allFiles[i]);
+
+        this.handleFileUpload(formData, i);
+
+        const img = {};
+        
+        img.index = fileName;
+        img.src = this.state.url;
+        img.img_desc = fileType;    
+
+        this.state.pictures.push(img)
+    }
+
+    console.log(JSON.stringify(this.state.pictures));
+
+    const mapp = {};
+    mapp.end_date = this.state.date_finished;
+    mapp.title = this.state.title;
+    mapp.category = this.state.category;
+    mapp.vendor_username = this.state.vendor_username;
+    mapp.initial_price = this.state.initial_stock;
+    mapp.actual_price = this.state.actual_price;
+    mapp.in_discount = this.state.in_discount;
+    mapp.initial_stock = this.state.initial_stock;
+    mapp.stock = this.state.stock;
+    mapp.description_short = this.state.description_short;
+    mapp.description = this.state.description;
+    mapp.pictures = this.state.pictures;
+    mapp.thumbnails = this.state.thumbnails;
+    mapp.attributes = this.state.attributes;
+    mapp.tags = this.state.tags;
+
+    console.log(JSON.stringify(mapp));
+
+    fetch('http://localhost:8080/catalog/items', {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(mapp)
+    })
+    .then(response =>{
+      return response.json()
+    })
+    .then(
+      myJson => {
+        console.log("Post Item Response");
+        console.log(myJson)
+    })
+    .catch(e => console.log(e))
+}
 
   render() {
     return (
@@ -241,7 +291,7 @@ class FileUpload extends React.Component {
           
           <div className="login-box col-md-6 offset-3">
 
-            <form onSubmit={this.submitFilex}>
+            <form onSubmit={this.handleSubmit}>
 
               <div className="form-group row">
                     <label className="col-12" htmlFor="category">Categoría</label>
@@ -250,7 +300,7 @@ class FileUpload extends React.Component {
                           placeholder="Seleccione categoría"
                           value={this.state.category} 
                           onChange={this.handleChange}>
-                          <option value="Tecnologia">Tecnologia</option>
+                          <option value="Tecnologia" selected>Tecnologia</option>
                           <option value="Hogar">Hogar</option>
                           <option value="Maquinaria">Maquinaria</option>
                           <option value="Herramientas">Herramientas</option>
@@ -259,6 +309,7 @@ class FileUpload extends React.Component {
                           <option value="Indumentaria">Indumentaria</option>
                           <option value="Calzado">Calzado</option>
                           <option value="Accesorios">Accesorios</option>
+                          <option value="Moda">Moda</option>
                       </select>
                       <small className="form-text text-muted">
                         Indicá una categoría para tu oportunidad.
@@ -376,26 +427,22 @@ class FileUpload extends React.Component {
                 </div>
 
                 <div className="form-group row">
-              <label className="col-2 col-form-label padding-top-1x" htmlFor="file-input">Imágenes</label>
-              <div className="col-10">
-                <div className="custom-file">
-                  <input className="padding-top-1x" onChange={this.handleFileChange} ref={(ref) => { this.uploadInput = ref; }} name="file-input" type="file" multiple/>
+                  <label className="col-2 col-form-label padding-top-1x" htmlFor="file-input">Imágenes</label>
+                  <div className="col-10">
+                    <div className="custom-file">
+                      <input className="padding-top-1x" onChange={this.handleFileChange} ref={(ref) => { this.uploadInput = ref; }} name="file-input" type="file" multiple/>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            </div>
-
-                
 
                 <div className="form-group row">
                   <div className="col-8">
-                      <button className="btn btn-primary" onClick={this.handleFileUpload}>PUBLICAR</button>
+                      <button className="btn btn-primary" type="submit">PUBLICAR</button>
                   </div>
                 </div>
 
               </form>
-            </div>
-            <br/>
-            <label>{JSON.stringify(this.state.files)}</label>
+            </div>      
       </div>
       <div>
         {JSON.stringify(this.state)}
