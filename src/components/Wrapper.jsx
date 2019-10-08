@@ -32,7 +32,6 @@ export default function wrapper(WrappedComponent) {
           return response.json();
         })
         .then(myJson => {
-          console.log(myJson);
           this.setState({
             categories: myJson,
             isLoading: false

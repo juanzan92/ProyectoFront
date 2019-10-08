@@ -2,7 +2,11 @@ import React from "react";
 
 class PaymentDetail extends React.Component {
   render() {
-    const { quantity, total_amount } = this.props.subscription;
+    const {
+      quantity,
+      total_amount,
+      merchant_order_id
+    } = this.props.subscription;
     const shipping_amount = total_amount * 0.03;
     const afip_amount = total_amount * 0.1;
     const paid_amount = total_amount - afip_amount - shipping_amount;
@@ -35,6 +39,11 @@ class PaymentDetail extends React.Component {
             </tbody>
           </table>
         </div>
+        <a
+          class="btn btn-info"
+          href={`https://www.mercadopago.com.ar/activities/detail/merchant_order_purchase-${merchant_order_id}`}>
+          Ver Factura
+        </a>
       </>
     );
   }
