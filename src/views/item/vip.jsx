@@ -3,6 +3,7 @@ import wraper from "../../components/Wrapper";
 import VIPTitle from "../../components/Item/VIPTitle";
 import Review from "../../components/vip/Review";
 import ProductCard from "../../components/vip/ProductCard";
+import { Auth } from "aws-amplify";
 
 class VIP extends React.Component {
   constructor(props) {
@@ -14,11 +15,18 @@ class VIP extends React.Component {
       isError: false,
       quantityToBuy: 1,
       progress: 0,
-      redirect_url: ""
+      redirect_url: "",
+      user: this.getUsuario()
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.pagar = this.pagar.bind(this);
+  }
+
+  getUsuario() {
+    Auth.currentAuthenticatedUser({}).then(user1 => {
+      return user1.attributes;
+    });
   }
 
   componentDidMount() {
