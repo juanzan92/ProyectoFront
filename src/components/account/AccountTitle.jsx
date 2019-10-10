@@ -1,10 +1,6 @@
 import React from "react";
 
 class AccountTitle extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   state = {
     item: null,
     isLoading: true,

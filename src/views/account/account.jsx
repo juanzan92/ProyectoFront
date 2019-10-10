@@ -2,6 +2,8 @@ import React from "react";
 
 //componentes
 import AccountTitle from "../../components/account/AccountTitle";
+import VendorUserCard from "../../components/account/VendorUserCard";
+import VendorSubscriptionTable from "../../components/account/VendorSubscriotionTable";
 import { Auth } from "aws-amplify";
 import UserCard from "../../components/account/UserCard";
 import SuscriptionTable from "../../components/account/SuscriptionTable";
@@ -16,6 +18,7 @@ class UserAccount extends React.Component {
       user: "",
       orders: []
     };
+    this.getUsuario();
   }
 
   getUsuario() {
@@ -26,15 +29,21 @@ class UserAccount extends React.Component {
     });
   }
 
-  componentDidMount() {
-    this.getUsuario();
-    if (this.state.isLoading) {
-    }
-  }
+  componentDidMount() {}
 
   componentDidUpdate() {
-    if (this.state.user != "" && this.state.orders.length == 0) {
+    if (
+      this.state.user != "" &&
+      this.user.rol === "consumer" &&
+      this.state.orders.length == 0
+    ) {
       this.fetchOrders();
+    } else if (
+      this.state.user != "" &&
+      this.user.rol === "vendor" &&
+      this.state.orders.length == 0
+    ) {
+      this.fetchOportunities();
     }
 
     if (this.state.orders != []) {
@@ -43,6 +52,20 @@ class UserAccount extends React.Component {
   }
 
   fetchOrders() {
+    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/subscriptions/search?index_name=username&search_pattern=${this.state.user.nickname}`;
+    fetch(url)
+      .then(response => {
+        return response.json();
+      })
+      .then(myJson => {
+        this.setState({
+          orders: myJson
+        });
+      })
+      .catch(e => console.log(e));
+  }
+
+  fetchOportunities() {
     const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/subscriptions/search?index_name=username&search_pattern=${this.state.user.nickname}`;
     fetch(url)
       .then(response => {
@@ -82,12 +105,12 @@ class UserAccount extends React.Component {
             <AccountTitle />
             <div className="container padding-bottom-3x mb-2">
               <div className="row">
-                <UserCard
+                <VendorUserCard
                   user={user}
                   orders={orders}
                   selected="suscripciones"
                 />
-                <SuscriptionTable ordenes={orders} />
+                <VendorSubscriptionTable ordenes={orders} />
               </div>
             </div>
           </Context.Provider>

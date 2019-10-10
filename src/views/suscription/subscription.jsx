@@ -48,12 +48,15 @@ class Subscription extends React.Component {
   }
 
   cancelSuscription() {
+    //closeWindow();
     const { subscription_id } = this.props.match.params;
     const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/subscriptions?subscription_id=${subscription_id}`;
     fetch(url, {
       method: "DELETE"
     }).then(response => {
-      return response.json();
+      if (response.status === 500) throw console.error("error");
+
+      if (response.status === 200) window.location.href = "/account";
     });
   }
 

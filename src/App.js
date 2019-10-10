@@ -13,6 +13,10 @@ import notFound from "./views/notFound";
 import Account from "./views/account/account";
 import Subscription from "./views/suscription/subscription";
 import AccountProfile from "./views/account/account-profile";
+import AccountDirections from "./views/account/account-directions";
+import VendorAccountProfile from "./views/account/vendor-profile";
+import VendorAccountReporting from "./views/account/vendor-reporting";
+import VendorAccountDirection from "./views/account/vendor-directions";
 
 class App extends Component {
   constructor(props) {
@@ -30,6 +34,26 @@ class App extends Component {
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/vip/:item_id" component={vip} />
           <Route exact path="/account-profile" component={AccountProfile} />
+          <Route
+            exact
+            path="/account-direction"
+            component={AccountDirections}
+          />
+          <Route
+            exact
+            path="/vendor-profile"
+            component={VendorAccountProfile}
+          />
+          <Route
+            exact
+            path="/vendor-directions"
+            component={VendorAccountDirection}
+          />
+          <Route
+            exact
+            path="/vendor-reporting"
+            component={VendorAccountReporting}
+          />
           <Route exact path="/account" component={Account} />
 
           <Route
