@@ -17,23 +17,28 @@ class FileUpload extends React.Component {
       vendor_rol: '',
       date_finished: null,
       initial_price: -1,
-      actual_price: -1,
       in_discount: false,
       initial_stock: -1,
-      stock: -1,      
       description_short: '',
       description: '',
       pictures: [],
       thumbnails: [],
       attributes: [],
+      dimensions: {},
       tags: null,
 
       map: [],
-      url: 'https://s3.us-east-1.amazonaws.com/s-market-images/1570315146747-logo-smarket-navbar.png',
+      url: 'https://s-market-images.s3.amazonaws.com/1570915087753-logo-smarket.png',
+      urlx: '',
 
       marca: '',
       modelo: '',
       color: '',
+
+      alto: -1,
+      ancho: -1,
+      profundidad: -1,
+      peso: -1,
 
       filesLoaded: false,
       isAuthenticated: false
@@ -69,33 +74,43 @@ class FileUpload extends React.Component {
           vendor_username: user.username.toLowerCase(),
           vendor_rol: user.attributes["custom:role"]
         });
-        console.log("Authenticated User");
+        console.log("Authenticated User FileUpload");
         console.log(this.state.vendor)
       })
       .catch(err => console.log(err));
   }
 
   async componentDidMount() {
-    this.currentActiveUser()
+    console.log("LOGUEANDO PARENT PROPS");
+    console.log(this.props);
+    this.currentActiveUser();
+    //console.log(this.state.vendor_username)
     //this.setState({date_created: this.getDate()});
   }
 
-  handleAttribChange(marca, modelo, color) { 
-      let brand = {};
-      brand.id = 'Marca';                     
-      brand.value = marca;
-      this.state.attributes.push(brand);
-
-      let model = {};
-      model.id = 'Modelo';                     
-      model.value = modelo;
-      this.state.attributes.push(model);
-
-      let colour = {};
-      colour.id = 'Color';                     
-      colour.value = color;
-      this.state.attributes.push(colour)
+  setDimensions(alto, ancho, prof, peso) {
+    this.state.dimensions.height = alto;
+    this.state.dimensions.width = ancho;
+    this.state.dimensions.depth = prof;
+    this.state.dimensions.weight = peso;
   }
+
+  setAttributes(marca, modelo, color) { 
+    let brand = {};
+    brand.id = 'Marca';                     
+    brand.value = marca;
+    this.state.attributes.push(brand);
+
+    let model = {};
+    model.id = 'Modelo';                     
+    model.value = modelo;
+    this.state.attributes.push(model);
+
+    let colour = {};
+    colour.id = 'Color';                     
+    colour.value = color;
+    this.state.attributes.push(colour)
+}
 
   handleChange(event) { 
     const target = event.target;
@@ -146,7 +161,7 @@ class FileUpload extends React.Component {
     this.setState({filesLoaded: true});
   }
 
-  async handleFileUpload(data, i){
+  async handleFileUpload(data, i, urls){
     try {
       fetch('http://localhost:8080/catalog/img/upload', {
         method: "POST",
@@ -160,11 +175,16 @@ class FileUpload extends React.Component {
           //var urlx = response.response_url;
           //this.setState({url: response.response_url});
           //this.setState({url: response.response_url});
-          console.log("Response File N°" + i);
+          console.log("Response file N°" + i);
           //console.log(response);
           console.log(response.response_url);
-          //console.log(this.state.url)
-          return response.response_url
+          console.log("Pusheanding uri N°" + i)
+          urls.push(response.response_url);
+          /*this.setState({
+            urlx: response.response_url
+          })*/
+          //console.log(this.state.urlx)
+          //return response.response_url
       })
       .catch(e => console.log(e))
     }
@@ -195,9 +215,20 @@ class FileUpload extends React.Component {
     
     event.preventDefault();
 
-    this.handleAttribChange(this.state.marca, this.state.modelo, this.state.color);
-    
+    var uris = [];
+    //console.log("Urlx");
+    //console.log(this.state.urlx);
+
+    this.setAttributes(this.state.marca, this.state.modelo, this.state.color);    
+    console.log("*attributes* []")
     console.log(JSON.stringify(this.state.attributes));
+
+    /*this.setState({
+      actual_price: this.state.initial_price,
+      stock: this.state.initial_stock
+    });*/
+
+    this.setDimensions(this.state.alto, this.state.ancho, this.state.alto, this.state.peso);
 
     let allFiles = this.uploadInput.files;
     
@@ -205,43 +236,48 @@ class FileUpload extends React.Component {
 
         let fileParts = allFiles[i].name.split('.');
         let fileName = fileParts[0];
-        let fileType = fileParts[0] + fileParts[1];
+        let fileType = fileParts[0] + "-" + fileParts[1];
         
-        console.log("Preparing upload File N°" + i);
-       
+        console.log("Uploading file N°" + i);
+        
         const formData = new FormData();
         formData.append('file', allFiles[i]);
 
-        this.handleFileUpload(formData, i);
-
-        const img = {};
+        this.handleFileUpload(formData, i, uris);
         
+        const img = {};
         img.index = fileName;
-        img.src = this.state.url;
+        img.src = uris[i];
         img.img_desc = fileType;    
 
         this.state.pictures.push(img)
     }
 
+    console.log("*this.state.pictures* []");
     console.log(JSON.stringify(this.state.pictures));
+
+    console.log("¡¡¡URLs WEON!!!");
+    console.log(uris);
 
     const mapp = {};
     mapp.end_date = this.state.date_finished;
     mapp.title = this.state.title;
     mapp.category = this.state.category;
     mapp.vendor_username = this.state.vendor_username;
-    mapp.initial_price = this.state.initial_stock;
-    mapp.actual_price = this.state.actual_price;
+    mapp.initial_price = this.state.initial_price;
+    mapp.actual_price = this.state.initial_price;
     mapp.in_discount = this.state.in_discount;
     mapp.initial_stock = this.state.initial_stock;
-    mapp.stock = this.state.stock;
+    mapp.stock = this.state.initial_stock;
     mapp.description_short = this.state.description_short;
     mapp.description = this.state.description;
     mapp.pictures = this.state.pictures;
     mapp.thumbnails = this.state.thumbnails;
     mapp.attributes = this.state.attributes;
+    mapp.dimensions = this.state.dimensions;
     mapp.tags = this.state.tags;
 
+    console.log("*mapp* {}")
     console.log(JSON.stringify(mapp));
 
     fetch('http://localhost:8080/catalog/items', {
@@ -411,7 +447,70 @@ class FileUpload extends React.Component {
                     </div>
                 </div>
 
-                <div className="form-group row">
+                <h6>Dimensiones unitarias (CGS)</h6> 
+
+                <div className="form-group row pt-1">
+                    <div className="col-3">
+                        <div className="form-group input-group">
+                          <label htmlFor="alto">Alto</label>
+                          <input className="form-control" type="number" name="alto"  
+                              min="1" 
+                              max="250"
+                              placeholder="cm"
+                              pattern="[0-9]}"
+                              title="centímetros"
+                              value={this.value}
+                              onChange={this.handleChange} 
+                              required/>
+                        </div>
+                    </div>
+                    <div className="col-3">
+                        <div className="form-group input-group">
+                          <label htmlFor="ancho">Ancho</label>
+                          <input className="form-control" type="number" name="ancho"  
+                              min="1" 
+                              max="250"
+                              placeholder="cm"
+                              pattern="[1-9]"
+                              title="centímetros"
+                              value={this.value}
+                              onChange={this.handleChange} 
+                              required/>
+                        </div>
+                    </div>
+                    <div className="col-3">
+                        <div className="form-group input-group">
+                          <label htmlFor="profundidad">Profundidad</label>
+                          <input className="form-control" type="number" name="profundidad"  
+                              min="1" 
+                              max="250"  
+                              placeholder="cm"
+                              pattern="[1-9]"
+                              title="centímetros"
+                              value={this.value}
+                              onChange={this.handleChange}  
+                              required/>
+                        </div>
+                    </div>
+                    <div className="col-3">
+                        <div className="form-group input-group">
+                          <label htmlFor="peso">Peso</label>
+                          <input  className="form-control" type="number" name="peso"
+                              min="1" 
+                              max="25000"  
+                              placeholder="g"
+                              pattern="[0-9]"
+                              title="gramos"
+                              value={this.value}
+                              onChange={this.handleChange} 
+                              required/>
+                        </div>
+                    </div>
+                </div>
+
+                <h6>Describí tu Oportunidad</h6> 
+
+                <div className="form-group row pt-2">
                   <label className="col-2 col-form-label" htmlFor="description_short">Resumen</label>
                   <div className="col-10">
                     <textarea className="form-control" name="description_short" rows="3" 
@@ -425,7 +524,7 @@ class FileUpload extends React.Component {
                   <label className="col-2 col-form-label" htmlFor="description">Descripción</label>
                   <div className="col-10">
                     <textarea className="form-control" name="description" rows="7" 
-                          placeholder="Describí detalladamente tu oportunidad!"
+                          placeholder="Relatá detalladamente tu oportunidad!"
                           value={this.state.description}
                           onChange={this.handleChange}/>
                   </div>
