@@ -3,7 +3,7 @@ import React from "react";
 //componentes
 import AccountTitle from "../../components/account/AccountTitle";
 import VendorUserCard from "../../components/account/VendorUserCard";
-import VendorSubscriptionTable from "../../components/account/VendorSubscriotionTable";
+import VendorSubscriptionTable from "../../components/account/VendorSubscriptionTable";
 import { Auth } from "aws-amplify";
 import UserCard from "../../components/account/UserCard";
 import SuscriptionTable from "../../components/account/SuscriptionTable";

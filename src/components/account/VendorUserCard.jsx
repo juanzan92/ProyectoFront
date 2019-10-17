@@ -2,23 +2,12 @@ import React from "react";
 import VendorNavUser from "./VendorNavUser";
 
 class VendorUserCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: this.props.user,
-      orders: this.props.orders,
-      selected: this.props.selected
-    };
-  }
-
-  componentDidMount() {}
-
   getFullname() {
-    return `${this.state.user.name} ${this.state.user.given_name}`;
+    return `${this.props.user.name} ${this.props.user.given_name}`;
   }
 
   render() {
-    const { user } = this.state;
+    const { user, orders, selected } = this.props;
     const img = NaN;
     if (user.picture) {
       img = user.picture;
@@ -44,10 +33,7 @@ class VendorUserCard extends React.Component {
             </div>
           </div>
         </aside>
-        <VendorNavUser
-          orders={this.state.orders}
-          selected={this.state.selected}
-        />
+        <VendorNavUser orders={orders} selected={selected} />
       </div>
     );
   }

@@ -19,7 +19,7 @@ class VendorNavUser extends React.Component {
           class={
             "list-group-item with-badge " + this.isSelected("oportunidades")
           }
-          href="/account">
+          href="/vendor-oportunities">
           <i className="icon-bag" />
           Oportunidades
           <span className="badge badge-primary badge-pill">

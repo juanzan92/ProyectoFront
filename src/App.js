@@ -17,6 +17,7 @@ import AccountDirections from "./views/account/account-directions";
 import VendorAccountProfile from "./views/account/vendor-profile";
 import VendorAccountReporting from "./views/account/vendor-reporting";
 import VendorAccountDirection from "./views/account/vendor-directions";
+import VendorAccountOportunities from "./views/account/vendor-oportunities";
 
 class App extends Component {
   constructor(props) {
@@ -34,6 +35,11 @@ class App extends Component {
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/vip/:item_id" component={vip} />
           <Route exact path="/account-profile" component={AccountProfile} />
+          <Route
+            exact
+            path="/vendor-oportunities"
+            component={VendorAccountOportunities}
+          />
           <Route
             exact
             path="/account-direction"
