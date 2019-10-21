@@ -19,17 +19,15 @@ class index extends React.Component {
       featureItem: null,
       isLoading: true
     };
-  }
-
-  componentDidMount() {
     this.buscarItemMainSlider();
     this.buscarItemHurryUp();
     this.buscarItemCarrouselBottom();
+    this.fetchCategories();
   }
 
   fetchCategories() {
     const url =
-      "https://kusmq1it9k.execute-api.us-east-1.amazonaws.com/prod/categories/";
+      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/categories/get_all";
     fetch(url, {
       method: "GET",
       headers: {
@@ -40,14 +38,23 @@ class index extends React.Component {
         return response.json();
       })
       .then(myJson => {
-        this.getTopCategories(myJson);
+        this.filterTopCategories(myJson);
       })
       .catch(e => console.log(e));
   }
 
+  filterTopCategories(json) {
+    json.filter(category => category.tags.includes("top_category"));
+    json.pop();
+    json.pop();
+    this.setState({
+      topCategories: json
+    });
+  }
+
   buscarItemMainSlider() {
     const url =
-      "http://localhost:8080/catalog/items/home/carrousel_main/search";
+      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items/home/carrousel_main/search";
     fetch(url, {
       method: "GET",
       headers: {
@@ -60,7 +67,7 @@ class index extends React.Component {
       .then(myJson => {
         console.log(myJson);
         this.setState({
-          featureItem: myJson,
+          mainSliderItems: myJson,
           isLoading: false
         });
       });
@@ -68,7 +75,7 @@ class index extends React.Component {
 
   buscarItemCarrouselBottom() {
     const url =
-      "http://localhost:8080/catalog/items/home/carrousel_bottom/search";
+      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items/home/carrousel_bottom/search";
     fetch(url, {
       method: "GET",
       headers: {
@@ -88,7 +95,8 @@ class index extends React.Component {
   }
 
   buscarItemHurryUp() {
-    const url = "http://localhost:8080/catalog/items/home/hurry_up/search";
+    const url =
+      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items/home/hurry_up/search";
     fetch(url, {
       method: "GET",
       headers: {
@@ -99,9 +107,8 @@ class index extends React.Component {
         return response.json();
       })
       .then(myJson => {
-        console.log(myJson);
         this.setState({
-          featureItem: myJson,
+          featureItem: myJson[0],
           isLoading: false
         });
       });
@@ -115,10 +122,17 @@ class index extends React.Component {
         <div className="offcanvas-wrapper">
           {/* Page Content*/}
           {/* Main Slider*/}
-          <MainSlider
-            mainSlider={this.state.mainSliderItems}
-            key={"main_slider"}
-          />
+          <section
+            className="hero-slider"
+            style={{
+              backgroundImage: "url(/img/hero-slider/main-bg.jpg)",
+              padding: "2% 5% 2% 5%"
+            }}>
+            <MainSlider
+              mainSlider={this.state.mainSliderItems}
+              key={"main_slider"}
+            />
+          </section>
           {/* Top Categories*/}
           <ReactSectionTopCategories
             categories={this.state.topCategories}
@@ -141,8 +155,7 @@ class index extends React.Component {
               <h3 className="text-center mb-30 pb-2">Marcas Populares</h3>
               <div
                 className="owl-carousel"
-                data-owl-carousel='{ "nav": false, "dots": false, "loop": true, "autoplay": true, "autoplayTimeout": 4000, "responsive": {"0":{"items":2}, "470":{"items":3},"630":{"items":4},"991":{"items":5},"1200":{"items":6}} }'
-              >
+                data-owl-carousel='{ "nav": false, "dots": false, "loop": true, "autoplay": true, "autoplayTimeout": 4000, "responsive": {"0":{"items":2}, "470":{"items":3},"630":{"items":4},"991":{"items":5},"1200":{"items":6}} }'>
                 <img
                   className="d-block w-110 opacity-75 m-auto"
                   src="/img/brands/01.png"

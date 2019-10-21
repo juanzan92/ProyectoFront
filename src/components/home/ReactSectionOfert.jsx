@@ -25,7 +25,7 @@ class ReactSectionFeatureItem extends React.Component {
                   <div className="text-center">
                     <h3 className="h2 text-normal mb-1">Ultimos</h3>
                     <h2 className="display-2 text-bold mb-2">{item.title}</h2>
-                    <Timer endDate={item.date_end} />
+                    <Timer endDate={item.end_date} />
                     <br />
                     <a
                       className="btn btn-primary margin-bottom-none"

@@ -1,42 +1,45 @@
 import React from "react";
 import ItemMainSlider from "./Item-Main-Slider";
+import Slider from "react-slick";
 
 class MainSlider extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       items: "",
-      isLoading: true
+      isLoading: true,
+      mainSlider: NaN
     };
   }
 
-  componentDidMount() {}
+  componentDidMount() {
+    setTimeout(this.setState({ isLoading: false }), 1000);
+  }
+
+  buildView(mainSlider) {
+    var settings = {
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1
+    };
+
+    if (mainSlider) {
+      return (
+        <Slider {...settings}>
+          {mainSlider.map(item => {
+            return <ItemMainSlider key={item.item_id} item={item} />;
+          })}
+        </Slider>
+      );
+    }
+  }
 
   render() {
     const { mainSlider } = this.props;
-    if (mainSlider) {
-      return (
-        <section
-          className="hero-slider"
-          style={{ backgroundImage: "url(/img/hero-slider/main-bg.jpg)" }}
-        >
-          <div
-            className="owl-carousel large-controls dots-inside"
-            data-owl-carousel='{ "nav": true, "dots": true, "loop": true, "autoplay": true, "autoplayTimeout": 7000 }'
-          >
-          {mainSlider.map(item => (
-              <ItemMainSlider key={item.id} item={item} />
-            ))}
-          </div>
-        </section>
-      );
-    } else {
-      return (
-        <div class="spinner-border text-info m-2" role="status">
-          <span class="sr-only">Loading...</span>
-        </div>
-      );
-    }
+    const vista = this.buildView(mainSlider);
+    return vista;
   }
 }
 export default MainSlider;

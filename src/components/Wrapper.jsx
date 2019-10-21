@@ -21,7 +21,7 @@ export default function wrapper(WrappedComponent) {
 
     fetchCategories() {
       const url =
-        "https://kusmq1it9k.execute-api.us-east-1.amazonaws.com/prod/categories/";
+        "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/categories/get_all";
       fetch(url, {
         method: "GET",
         headers: {
@@ -32,7 +32,6 @@ export default function wrapper(WrappedComponent) {
           return response.json();
         })
         .then(myJson => {
-          console.log(myJson);
           this.setState({
             categories: myJson,
             isLoading: false

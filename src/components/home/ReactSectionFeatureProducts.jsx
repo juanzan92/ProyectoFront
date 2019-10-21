@@ -8,8 +8,7 @@ class ReactSectionFeatureProducts extends React.Component {
           <h3 className="text-center mb-30">Productos Destacados</h3>
           <div
             className="owl-carousel"
-            data-owl-carousel='{ "nav": false, "dots": true, "margin": 30, "responsive": {"0":{"items":1},"576":{"items":2},"768":{"items":3},"991":{"items":4},"1200":{"items":4}} }'
-          >
+            data-owl-carousel='{ "nav": false, "dots": true, "margin": 30, "responsive": {"0":{"items":1},"576":{"items":2},"768":{"items":3},"991":{"items":4},"1200":{"items":4}} }'>
             {/* Product*/}
             <div className="grid-item">
               <div className="product-card">
@@ -27,8 +26,7 @@ class ReactSectionFeatureProducts extends React.Component {
                   <button
                     className="btn btn-outline-secondary btn-sm btn-wishlist"
                     data-toggle="tooltip"
-                    title="Whishlist"
-                  >
+                    title="Whishlist">
                     <i className="icon-heart" />
                   </button>
                   <button
@@ -38,9 +36,8 @@ class ReactSectionFeatureProducts extends React.Component {
                     data-toast-position="topRight"
                     data-toast-icon="icon-circle-check"
                     data-toast-title="Product"
-                    data-toast-message="successfuly added to cart!"
-                  >
-                    Add to Cart
+                    data-toast-message="successfuly added to cart!">
+                    Comprar
                   </button>
                 </div>
               </div>
@@ -66,8 +63,7 @@ class ReactSectionFeatureProducts extends React.Component {
                   <button
                     className="btn btn-outline-secondary btn-sm btn-wishlist"
                     data-toggle="tooltip"
-                    title="Whishlist"
-                  >
+                    title="Whishlist">
                     <i className="icon-heart" />
                   </button>
                   <button
@@ -77,9 +73,8 @@ class ReactSectionFeatureProducts extends React.Component {
                     data-toast-position="topRight"
                     data-toast-icon="icon-circle-check"
                     data-toast-title="Product"
-                    data-toast-message="successfuly added to cart!"
-                  >
-                    Add to Cart
+                    data-toast-message="successfuly added to cart!">
+                    Comprar
                   </button>
                 </div>
               </div>
@@ -98,8 +93,7 @@ class ReactSectionFeatureProducts extends React.Component {
                   <button
                     className="btn btn-outline-secondary btn-sm btn-wishlist"
                     data-toggle="tooltip"
-                    title="Whishlist"
-                  >
+                    title="Whishlist">
                     <i className="icon-heart" />
                   </button>
                   <button
@@ -109,9 +103,8 @@ class ReactSectionFeatureProducts extends React.Component {
                     data-toast-position="topRight"
                     data-toast-icon="icon-circle-check"
                     data-toast-title="Product"
-                    data-toast-message="successfuly added to cart!"
-                  >
-                    Add to Cart
+                    data-toast-message="successfuly added to cart!">
+                    Comprar
                   </button>
                 </div>
               </div>
@@ -137,8 +130,7 @@ class ReactSectionFeatureProducts extends React.Component {
                   <button
                     className="btn btn-outline-secondary btn-sm btn-wishlist"
                     data-toggle="tooltip"
-                    title="Whishlist"
-                  >
+                    title="Whishlist">
                     <i className="icon-heart" />
                   </button>
                   <button
@@ -148,9 +140,8 @@ class ReactSectionFeatureProducts extends React.Component {
                     data-toast-position="topRight"
                     data-toast-icon="icon-circle-check"
                     data-toast-title="Product"
-                    data-toast-message="successfuly added to cart!"
-                  >
-                    Add to Cart
+                    data-toast-message="successfuly added to cart!">
+                    Comprar
                   </button>
                 </div>
               </div>
@@ -169,8 +160,7 @@ class ReactSectionFeatureProducts extends React.Component {
                   <button
                     className="btn btn-outline-secondary btn-sm btn-wishlist"
                     data-toggle="tooltip"
-                    title="Whishlist"
-                  >
+                    title="Whishlist">
                     <i className="icon-heart" />
                   </button>
                   <button
@@ -180,9 +170,8 @@ class ReactSectionFeatureProducts extends React.Component {
                     data-toast-position="topRight"
                     data-toast-icon="icon-circle-check"
                     data-toast-title="Product"
-                    data-toast-message="successfuly added to cart!"
-                  >
-                    Add to Cart
+                    data-toast-message="successfuly added to cart!">
+                    Comprar
                   </button>
                 </div>
               </div>
@@ -204,8 +193,7 @@ class ReactSectionFeatureProducts extends React.Component {
                   <button
                     className="btn btn-outline-secondary btn-sm btn-wishlist"
                     data-toggle="tooltip"
-                    title="Whishlist"
-                  >
+                    title="Whishlist">
                     <i className="icon-heart" />
                   </button>
                   <button
@@ -215,9 +203,8 @@ class ReactSectionFeatureProducts extends React.Component {
                     data-toast-position="topRight"
                     data-toast-icon="icon-circle-check"
                     data-toast-title="Product"
-                    data-toast-message="successfuly added to cart!"
-                  >
-                    Add to Cart
+                    data-toast-message="successfuly added to cart!">
+                    Comprar
                   </button>
                 </div>
               </div>

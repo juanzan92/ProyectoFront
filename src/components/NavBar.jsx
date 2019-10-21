@@ -208,12 +208,6 @@ class NavBar extends Component {
                 href="#shop-categories"
                 data-toggle="offcanvas"
               />
-              {/* Off-Canvas Toggle (#mobile-menu)*/}
-              <a
-                className="offcanvas-toggle menu-toggle"
-                href="#mobile-menu"
-                data-toggle="offcanvas"
-              />
               {/* Site Logo*/}
               <a className="site-logo" href="/">
                 <img src="/img/logo/logo-smarket-favico.png" alt="Smarket" />
