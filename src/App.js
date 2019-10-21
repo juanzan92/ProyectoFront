@@ -1,15 +1,14 @@
 import React, { Component, Fragment } from "react";
-import { Auth } from 'aws-amplify';
 import "./App.scss";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import Home from "./views/home/home";
 import CheckoutController from "./views/checkout/checkoutController";
 import vip from "./views/item/vip";
 import splash from "./views/splash/splash";
-import SignUp from "./components/LogIn/SignUp";
-import SignIn from "./components/LogIn/SignIn";
-import ForgotPassword from "./components/LogIn/ForgotPassword";
-import UploadOportunity from "./components/Vendor/UploadOportunity";
+import SignUp from "./views/login/SignUp";
+import SignIn from "./views/login/SignIn";
+import ForgotPassword from "./views/login/ForgotPassword";
+import UploadOportunity from "./views/vendor/UploadOportunity";
 
 class App extends Component {
   constructor(props) {

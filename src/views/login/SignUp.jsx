@@ -1,5 +1,5 @@
 import React from "react";
-import wrapper from '../Wrapper';
+import wrapper from '../../components/Wrapper';
 import { Auth } from 'aws-amplify';
 import {Link} from 'react-router-dom';
 
@@ -71,7 +71,8 @@ class SignUp extends React.Component {
       })
       .catch(e => console.log(e));
   }
-assignInputValue(target){
+  
+  assignInputValue(target){
     if (target.type === 'email'){
       if (target.name!=='userEmail') {
         document.getElementById('userEmailConf').pattern = this.state.userEmail;
@@ -108,19 +109,27 @@ assignInputValue(target){
 
   handleSubmit(event) {
     event.preventDefault();
-    this.signUp(this.state.userName, this.state.userPw, 
-      this.state.userEmail, this.state.userRol, this.state.userNombres, 
-      this.state.userApellidos, this.state.userDni, this.state.userPhone,
-      this.state.userAddCalle, this.state.userAddNum, this.state.userAddCp);
-      var confirm = window.confirm("Se ha enviado un enlace de verificación a su casilla de correo.\n¡Confirme su usuario e inicie sesión!");
-      if (confirm == true) {
-        window.location.href = "/signin";
-      } else {
-        window.location.href = "/";
-      }
+    this.signUp(
+      this.state.userName, 
+      this.state.userPw, 
+      this.state.userEmail, 
+      this.state.userRol, 
+      this.state.userNombres, 
+      this.state.userApellidos, 
+      this.state.userDni, 
+      this.state.userPhone,
+      this.state.userAddCalle, 
+      this.state.userAddNum, 
+      this.state.userAddCp)
+    ;
+    var confirm = window.confirm("Se ha enviado un enlace de verificación a su casilla de correo.\n¡Confirme su usuario e inicie sesión!");
+    if (confirm == true) {
+      window.location.href = "/signin";
+    } else {
+      window.location.href = "/";
+    }
   }
   
-
   render() {
     return (
       <>

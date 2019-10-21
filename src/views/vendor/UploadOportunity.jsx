@@ -1,11 +1,9 @@
 import React from "react";
-import wrapper from "../Wrapper";
+import wrapper from "../../components/Wrapper";
 import { Auth } from "aws-amplify";
-import axios from 'axios';
 import { Link } from "react-router-dom";
-import { number } from "prop-types";
 
-class FileUpload extends React.Component {
+class UploadOportunity extends React.Component {
   constructor(props) {
     super(props);
 
@@ -21,7 +19,7 @@ class FileUpload extends React.Component {
       initial_stock: -1,
       description_short: '',
       description: '',
-      pictures: [],
+      pictures: [], 
       thumbnails: [],
       attributes: [],
       dimensions: {},
@@ -72,20 +70,18 @@ class FileUpload extends React.Component {
         this.setState({
           vendor: user.attributes,
           vendor_username: user.username.toLowerCase(),
-          vendor_rol: user.attributes["custom:role"]
+          vendor_rol: user.attributes["custom:role"].toLowerCase()
         });
-        console.log("Authenticated User FileUpload");
+        console.log("Authenticated Vendor");
         console.log(this.state.vendor)
       })
-      .catch(err => console.log(err));
+      .catch((e) => {
+        console.log(e)
+      })
   }
 
   async componentDidMount() {
-    console.log("LOGUEANDO PARENT PROPS");
-    console.log(this.props);
-    this.currentActiveUser();
-    //console.log(this.state.vendor_username)
-    //this.setState({date_created: this.getDate()});
+    this.currentActiveUser()
   }
 
   setDimensions(alto, ancho, prof, peso) {
@@ -146,47 +142,39 @@ class FileUpload extends React.Component {
       method: 'GET',
       mode: 'no-cors'
     })
+    .then((response) => {
+      if(!response.ok) throw new Error(response.status);
+      else return response.json();
+    })
     .then(myJson => {
-        console.log('KE LO KE');
-        console.log(myJson);
-        console.log(myJson.body);
         this.setState({
           categories: myJson
         });
       })
-      .catch(e => console.log(e));
+    .catch((e) => {
+      console.log(e)
+    })
   }
 
-  handleFileChange = (ev) => {
-    this.setState({filesLoaded: true});
-  }
-
-  async handleFileUpload(data, i, urls){
+  async uploadFileToAWS(pic, i, urls){
     try {
       fetch('http://localhost:8080/catalog/img/upload', {
         method: "POST",
-        body: data
+        body: pic
       })
-      .then(response =>{
-        return response.json()
+      .then((response) => {
+        if(!response.ok) throw new Error(response.status);
+        else return response.json();
       })
       .then(
         response => {
-          //var urlx = response.response_url;
-          //this.setState({url: response.response_url});
-          //this.setState({url: response.response_url});
-          console.log("Response file N°" + i);
-          //console.log(response);
+          console.log("URL Response File N°" + i);
           console.log(response.response_url);
-          console.log("Pusheanding uri N°" + i)
           urls.push(response.response_url);
-          /*this.setState({
-            urlx: response.response_url
-          })*/
-          //console.log(this.state.urlx)
-          //return response.response_url
+          })
+      .catch((e) => {
+        console.log(e)
       })
-      .catch(e => console.log(e))
     }
     catch (error) {
       alert(error.message)
@@ -196,107 +184,99 @@ class FileUpload extends React.Component {
   postItem = (ev) => {
     fetch('http://localhost:8080/catalog/items', {
       method: "POST",
-
       body: JSON.stringify(this.state.map)
     })
-    .then(response =>{
-      return response.json()
+    .then((response) => {
+      if(response.status != 200) throw new Error(response.status);
+      else return response.json();
     })
     .then(
       myJson => {
         console.log("Post Item Response");
-        //console.log(response);
         console.log(myJson);
     })
-    .catch(e => console.log(e))
+    .catch((e) => {
+      console.log(e)
+    })
   }
 
 	handleSubmit(event) {
-    
     event.preventDefault();
-
+    //initialize array for url responses from AWS -> uploadFileToAWS
     var uris = [];
-    //console.log("Urlx");
-    //console.log(this.state.urlx);
-
+    //setting oportunity attributes
     this.setAttributes(this.state.marca, this.state.modelo, this.state.color);    
-    console.log("*attributes* []")
-    console.log(JSON.stringify(this.state.attributes));
-
-    /*this.setState({
-      actual_price: this.state.initial_price,
-      stock: this.state.initial_stock
-    });*/
-
+    //setting oportunity dimensions
     this.setDimensions(this.state.alto, this.state.ancho, this.state.alto, this.state.peso);
-
+    //catching files from <input type="file"/>
     let allFiles = this.uploadInput.files;
-    
+    //iterate files array -> perform actions to each one
     for (let i = 0; i < allFiles.length; i++) {
-
-        let fileParts = allFiles[i].name.split('.');
-        let fileName = fileParts[0];
-        let fileType = fileParts[0] + "-" + fileParts[1];
-        
-        console.log("Uploading file N°" + i);
-        
-        const formData = new FormData();
-        formData.append('file', allFiles[i]);
-
-        this.handleFileUpload(formData, i, uris);
-        
-        const img = {};
-        img.index = fileName;
-        img.src = uris[i];
-        img.img_desc = fileType;    
-
-        this.state.pictures.push(img)
+      //setting file[i] name parts
+      let fileParts = allFiles[i].name.split('.');
+      let fileName = fileParts[0];
+      let fileType = fileParts[0] + "-" + fileParts[1];
+      //initialize FormData()
+      const formData = new FormData();
+      //populate formData
+      formData.append('file', allFiles[i]);
+      //upload file[i] to AWS
+      this.uploadFileToAWS(formData, i, uris);
+      //create img[i] object for file[i] upload
+      const img = {};
+      img.index = fileName;
+      img.src = uris[i];
+      img.img_desc = fileType;    
+      //push img[i] object into pictures[] array
+      this.state.pictures.push(img)
     }
-
     console.log("*this.state.pictures* []");
     console.log(JSON.stringify(this.state.pictures));
-
-    console.log("¡¡¡URLs WEON!!!");
+    console.log("*url responses*");
     console.log(uris);
-
-    const mapp = {};
-    mapp.end_date = this.state.date_finished;
-    mapp.title = this.state.title;
-    mapp.category = this.state.category;
-    mapp.vendor_username = this.state.vendor_username;
-    mapp.initial_price = this.state.initial_price;
-    mapp.actual_price = this.state.initial_price;
-    mapp.in_discount = this.state.in_discount;
-    mapp.initial_stock = this.state.initial_stock;
-    mapp.stock = this.state.initial_stock;
-    mapp.description_short = this.state.description_short;
-    mapp.description = this.state.description;
-    mapp.pictures = this.state.pictures;
-    mapp.thumbnails = this.state.thumbnails;
-    mapp.attributes = this.state.attributes;
-    mapp.dimensions = this.state.dimensions;
-    mapp.tags = this.state.tags;
-
-    console.log("*mapp* {}")
-    console.log(JSON.stringify(mapp));
-
+    //building jsonMap object
+    const jsonMap = {};
+    jsonMap.end_date = this.state.date_finished;
+    jsonMap.title = this.state.title;
+    jsonMap.category = this.state.category;
+    jsonMap.vendor_username = this.state.vendor_username;
+    jsonMap.initial_price = this.state.initial_price;
+    jsonMap.actual_price = this.state.initial_price;
+    jsonMap.in_discount = this.state.in_discount;
+    jsonMap.initial_stock = this.state.initial_stock;
+    jsonMap.stock = this.state.initial_stock;
+    jsonMap.description_short = this.state.description_short;
+    jsonMap.description = this.state.description;
+    jsonMap.pictures = this.state.pictures;
+    jsonMap.thumbnails = this.state.thumbnails;
+    jsonMap.attributes = this.state.attributes;
+    jsonMap.dimensions = this.state.dimensions;
+    jsonMap.tags = this.state.tags;
+    
+    console.log("*jsonMap* {}")
+    console.log(JSON.stringify(jsonMap));
+    
+    //post oportunity
     fetch('http://localhost:8080/catalog/items', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(mapp)
+      body: JSON.stringify(jsonMap)
     })
-    .then(response =>{
-      return response.json()
+    .then((response) => {
+      if(!response.ok) throw new Error(response.status);
+      else return response.json();
     })
     .then(
       myJson => {
         console.log("Post Item Response");
         console.log(myJson)
     })
-    .catch(e => console.log(e))
-}
+    .catch((e) => {
+      console.log(e)
+    })
+  }
 
   render() {
     return (
@@ -534,7 +514,7 @@ class FileUpload extends React.Component {
                   <label className="col-2 col-form-label padding-top-1x" htmlFor="file-input">Imágenes</label>
                   <div className="col-10">
                     <div className="custom-file">
-                      <input className="padding-top-1x" onChange={this.handleFileChange} ref={(ref) => { this.uploadInput = ref; }} name="file-input" type="file" multiple/>
+                      <input className="padding-top-1x" ref={(ref) => { this.uploadInput = ref; }} name="file-input" type="file" multiple/>
                     </div>
                   </div>
                 </div>
@@ -556,4 +536,4 @@ class FileUpload extends React.Component {
   }
 }
 
-export default wrapper(FileUpload);
+export default wrapper(UploadOportunity);
