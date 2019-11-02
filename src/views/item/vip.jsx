@@ -103,7 +103,7 @@ class VIP extends React.Component {
       body: JSON.stringify({
         item_id: this.state.item.item_id,
         quantity: this.state.quantityToBuy,
-        consumer_username: "diegote"
+        consumer_username: this.state.user
       })
     })
       .then(response => {
@@ -144,7 +144,6 @@ class VIP extends React.Component {
 
   render() {
     const { item } = this.state;
-    let discount;
     const state = this.state;
 
     if (item && state.reviews.length > 0) {
@@ -162,9 +161,9 @@ class VIP extends React.Component {
                 <div className="padding-top-2x mt-2 hidden-md-up"></div>
                 <h2 className="padding-top-1x text-normal">{item.title}</h2>
                 <span className="h2 d-block">
-                  &nbsp; U&#36;D {item.actual_price}
+                  &nbsp; &#36; {item.actual_price}
                 </span>
-                <p>{item.description}</p>
+                <p>{item.description_short}</p>
                 <div className="row margin-top-1x">
                   <div className="col-sm-4">
                     <div className="form-group">
