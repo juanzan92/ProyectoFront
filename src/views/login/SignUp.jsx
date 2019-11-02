@@ -39,25 +39,29 @@ class SignUp extends React.Component {
     userCalle,
     userNum,
     userCp
-  ) {
+  ){
+    //post user into aws cognito
     Auth.signUp({
-      username: user,
-      password: password,
-      attributes: {
-        nickname: user,
-        email: email,
-        name: userNombres,
-        given_name: userApellidos,
-        address: {
-          street_address: userCalle + ' ' + userNum,
-          postal_code: userCp
+        username: user,
+        password: password,
+        attributes: 
+        {
+          nickname: user,
+          email: email,
+          name: userNombres,
+          given_name: userApellidos,
+          address: 
+          {
+            street_address: userCalle + ' ' + userNum,
+            postal_code: userCp
+          },
+          'custom:role': role,
+          'custom:phone': userPhone,
+          'custom:dni': userDni
         },
-        'custom:role': role,
-        'custom:phone': userPhone,
-        'custom:dni': userDni
-      },
-      validationData: []
-    }).then(function () {
+        validationData: []
+    })
+    .then(function () {
       var body = {
         username: user,
         user_role: role,
@@ -72,24 +76,30 @@ class SignUp extends React.Component {
           address_code: userCp
         }
       }
-      
-        fetch(`http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/account/users`, { //http://localhost:8080/account/users
-          headers: {
-            "Content-Type": "application/json"
-          },
-          method: "POST",
-          body: JSON.stringify(body)
-        })
-          .then(function() {
-            if (role == "vendor") {
-              window.location = `https://auth.mercadopago.com.ar/authorization?client_id=7662807553309957&response_type=code&platform_id=mp&redirect_uri=http%3A%2F%2Flocalhost:3000/splash?user_id=${user}`;
-            } else {
-              window.location.href = "/";
-            }
-          })
-          .catch(e => console.log(e));
+      //post user into dynamo db
+      fetch(`http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/account/users`, { 
+        //http://localhost:8080/account/users
+        headers: {
+          "Content-Type": "application/json"
+        },
+        method: "POST",
+        body: JSON.stringify(body)
+      })
+      .then((response) => {
+        if(!response.ok) throw new Error(response.status);
+        else return response.json();
+      })
+      .then(function() {
+        if (role == "vendor") {
+          window.location = `https://auth.mercadopago.com.ar/authorization?client_id=7662807553309957&response_type=code&platform_id=mp&redirect_uri=http%3A%2F%2Flocalhost:3000/splash?user_id=${user}`;
+        } else {
+          window.location.href = "/";
+        }
       })
       .catch(e => console.log(e));
+    //catch Auth.signUp
+    })
+    .catch(e => console.log(e));
   }
   
   assignInputValue(target){
