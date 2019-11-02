@@ -5,10 +5,11 @@ import Home from "./views/home/home";
 import CheckoutController from "./views/checkout/checkoutController";
 import vip from "./views/item/vip";
 import splash from "./views/splash/splash";
+import SignUp from "./views/login/SignUp";
+import SignIn from "./views/login/SignIn";
+import ForgotPassword from "./views/login/ForgotPassword";
+import UploadOportunity from "./views/vendor/UploadOportunity";
 import splash_congrats from "./views/splash/splash_congrats";
-import SignUp from "./components/LogIn/SignUp";
-import SignIn from "./components/LogIn/SignIn";
-import ForgotPassword from "./components/LogIn/ForgotPassword";
 import notFound from "./views/notFound";
 import Account from "./views/account/account";
 import Subscription from "./views/suscription/subscription";
@@ -19,6 +20,7 @@ class App extends Component {
     super(props);
     this.state = {};
   }
+
   render() {
     return (
       <Router>
@@ -31,13 +33,8 @@ class App extends Component {
           <Route exact path="/vip/:item_id" component={vip} />
           <Route exact path="/account-profile" component={AccountProfile} />
           <Route exact path="/account" component={Account} />
-
-          <Route
-            exact
-            path="/subscripcion/:subscription_id"
-            component={Subscription}
-          />
-
+          <Route path="/upload-oportunity" component={UploadOportunity} />
+          <Route exact path="/subscripcion/:subscription_id" component={Subscription} />
           <Route path="/splash" component={splash} />
           <Route path="/splash_congrats" component={splash_congrats} />
           <Route path="*" component={notFound} />
