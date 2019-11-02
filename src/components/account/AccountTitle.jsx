@@ -1,6 +1,6 @@
 import React from "react";
 
-class VIPTitle extends React.Component {
+class AccountTitle extends React.Component {
   constructor(props) {
     super(props);
   }
@@ -16,7 +16,7 @@ class VIPTitle extends React.Component {
       <div className="page-title">
         <div className="container">
           <div className="column">
-            <h1>Oportunidades</h1>
+            <h1>Mi Cuenta</h1>
           </div>
           <div className="column">
             <ul className="breadcrumbs">
@@ -25,10 +25,10 @@ class VIPTitle extends React.Component {
               </li>
               <li className="separator">&nbsp;</li>
               <li>
-                <a href="shop-grid-ls.html">Shop</a>
+                <a href="shop-grid-ls.html">Cuenta</a>
               </li>
               <li className="separator">&nbsp;</li>
-              <li>{this.prop1}</li>
+              <li>mis ordenes</li>
             </ul>
           </div>
         </div>
@@ -37,4 +37,4 @@ class VIPTitle extends React.Component {
   }
 }
 
-export default VIPTitle;
+export default AccountTitle;

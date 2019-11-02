@@ -1,5 +1,4 @@
 import React from "react";
-import Spinner from "../../components/utils/Spinner";
 import CardHF from "../../components/Checkout/CardHeader";
 
 class Splash extends React.Component {
@@ -9,7 +8,7 @@ class Splash extends React.Component {
         <div className="row center">
           <div className="container center pt-50px">
             <CardHF
-              header="Estamos registrando tu autorización"
+              header="Genial! Estamos registrando tu suscripción"
               title="Espera unos segundos y serás redirigo automáticamente"
               body=""
               spinner={true}
@@ -46,35 +45,38 @@ class Splash extends React.Component {
     var vars = {};
     var parts = window.location.href.replace(
       /[?&]+([^=&]+)=([^&]*)/gi,
-      function(m, key, value) {
+      function (m, key, value) {
         vars[key] = value;
       }
     );
     return vars;
   }
 
-  sendCode() {
-    const authCode = this.getUrlVars()["code"];
-    const userId = this.getUrlVars()["user_id"];
+  redirect() {
+    const merchantOrderId = this.getUrlVars()["merchant_order_id"];
+    const preferenceId = this.getUrlVars()["preference_id"];
 
-    console.log(authCode);
+    console.log(merchantOrderId);
 
     fetch(
-      `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/mp/users/marketplace_auth?user_id=${userId}&code=${authCode}`,
+      `http://localhost:8080/subscriptions?merchant_order_id=${merchantOrderId}&preference_id=${preferenceId}`,
       {
         method: "POST"
       }
     )
-      .then(function() {
-        window.location.href = "/";
+      .then(response => {
+        return response.json();
+      }
+      ).then(myJson => {
+        window.location.href = `/subscripcion/${myJson.suscription_id}`
       })
-      .catch(function(e) {
+      .catch(function (e) {
         console.log(e);
       });
   }
 
   componentDidMount() {
-    this.sendCode();
+    this.redirect();
   }
 }
 

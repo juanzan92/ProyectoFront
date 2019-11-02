@@ -78,16 +78,15 @@ class NavBar extends Component {
         btnNavBar = (
           <>
             <div className="row">
-
               <div className="col-md-3 mt-2">
                 <div className="account">
-                  <a href="/" />
+                  <a href="/account" />
                   <i className="icon-head" />
                   <ul className="toolbar-dropdown">
                     <li className="sub-menu-user">
                       <div className="user-ava">
                         <img
-                          src="img/account/avatar-consumer.png"
+                          src="/img/account/avatar-consumer.png"
                           alt={this.state.user_username}
                         />
                       </div>
@@ -114,7 +113,6 @@ class NavBar extends Component {
                   </ul>
                 </div>
               </div>
-              
               <div className="col-md-2 align-middle">
                 <div className="btn btn-primary p" onClick={this.handleLogout}>
                   Logout
@@ -130,28 +128,26 @@ class NavBar extends Component {
         btnNavBar = (
           <>
             <div className="row">
-
               <div className="col-md-3 mr-3">
                 <nav className="site-menu">
                   <ul>
                     <li>
-                      <a href="/fileupload">
+                      <a href="/upload-oportunity">
                         <span>Publicar</span>
                       </a>
                     </li>
                   </ul>
                 </nav>
               </div>
-
               <div className="col-md-3 mt-2">
                 <div className="account">
-                  <a href="/" />
+                  <a href="/account" />
                   <i className="icon-head" />
                   <ul className="toolbar-dropdown">
                     <li className="sub-menu-user">
                       <div className="user-ava">
                         <img
-                          src="img/account/avatar-vendor.png"
+                          src="/img/account/avatar-vendor.png"
                           alt={this.state.user_username}
                         />
                       </div>
@@ -164,17 +160,16 @@ class NavBar extends Component {
                     </li>
                     <li className="sub-menu-separator"/>
                     <li>
-                      <a href="/account">Mi Cuenta</a>
+                      <a href="/account-profile">Mi Cuenta</a>
                     </li>
                     <li className="sub-menu-separator"/>
                     <li>
-                      <a href="/account/orders">Oportunidades</a>
+                      <a href="/account">Oportunidades</a>
                     </li>
                     <li className="sub-menu-separator"/>
                   </ul>
                 </div>
               </div>
-
               <div className="col-md-2">
                 <div className="btn btn-primary p" onClick={this.handleLogout}>
                   Logout
@@ -211,12 +206,6 @@ class NavBar extends Component {
               <a
                 className="offcanvas-toggle cats-toggle"
                 href="#shop-categories"
-                data-toggle="offcanvas"
-              />
-              {/* Off-Canvas Toggle (#mobile-menu)*/}
-              <a
-                className="offcanvas-toggle menu-toggle"
-                href="#mobile-menu"
                 data-toggle="offcanvas"
               />
               {/* Site Logo*/}

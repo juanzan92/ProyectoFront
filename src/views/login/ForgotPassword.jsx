@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import wrapper from "../Wrapper";
+import wrapper from "../../components/Wrapper";
 import { Link } from "react-router-dom";
 import { Auth } from "aws-amplify";
 

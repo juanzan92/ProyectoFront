@@ -9,7 +9,7 @@ class ReactCard extends React.Component {
     var body = "";
     const { img, id, text, title } = this.props;
     if (text !== "") {
-      body = <p class="text-muted">{body}</p>;
+      body = <p className="text-muted">{body}</p>;
     }
     return (
       <>

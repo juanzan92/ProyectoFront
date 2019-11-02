@@ -1,11 +1,9 @@
 import React from "react";
-import wrapper from "../Wrapper";
+import wrapper from "../../components/Wrapper";
 import { Auth } from "aws-amplify";
-import axios from "axios";
 import { Link } from "react-router-dom";
-import { number } from "prop-types";
 
-class FileUpload extends React.Component {
+class UploadOportunity extends React.Component {
   constructor(props) {
     super(props);
 
@@ -81,20 +79,18 @@ class FileUpload extends React.Component {
         this.setState({
           vendor: user.attributes,
           vendor_username: user.username.toLowerCase(),
-          vendor_rol: user.attributes["custom:role"]
+          vendor_rol: user.attributes["custom:role"].toLowerCase()
         });
         console.log("Authenticated User FileUpload");
         console.log(this.state.vendor);
       })
-      .catch(err => console.log(err));
+      .catch(e => {
+        console.log(e);
+      });
   }
 
   async componentDidMount() {
-    console.log("LOGUEANDO PARENT PROPS");
-    console.log(this.props);
     this.currentActiveUser();
-    //console.log(this.state.vendor_username)
-    //this.setState({date_created: this.getDate()});
   }
 
   setDimensions(alto, ancho, prof, peso) {
@@ -172,7 +168,7 @@ class FileUpload extends React.Component {
     try {
       fetch("http://localhost:8080/catalog/img/upload", {
         method: "POST",
-        body: data
+        body: pic
       })
         .then(response => {
           if (response.code !== 200) {
@@ -251,7 +247,7 @@ class FileUpload extends React.Component {
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify(mapp)
+      body: JSON.stringify(jsonMap)
     })
       .then(response => {
         return response.json();
