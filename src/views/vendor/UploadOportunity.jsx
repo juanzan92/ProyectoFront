@@ -174,7 +174,7 @@ class UploadOportunity extends React.Component {
   uploadFileToAWS(pic, fileName, fileType){
     const img = {};
     return new Promise(resolve => {
-      fetch('http://localhost:8080/catalog/img/upload', {
+      fetch('http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/img/upload', {
         method: "POST",
         body: pic
       })
@@ -217,7 +217,7 @@ class UploadOportunity extends React.Component {
       jsonMap.dimensions = this.state.dimensions;
       jsonMap.tags = this.state.tags;
 
-      fetch('http://localhost:8080/catalog/items', {
+      fetch('http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
