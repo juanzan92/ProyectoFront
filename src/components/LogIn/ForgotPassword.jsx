@@ -28,7 +28,7 @@ class ForgotPassword extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.this.forgotPassword(this.state.username);
+    this.forgotPassword(this.state.username);
   }
 
   render() {
@@ -109,8 +109,7 @@ class ForgotPassword extends React.Component {
                   <div className="card-footer">
                     <button
                       className="btn btn-primary margin-bottom-none"
-                      type="submit"
-                    >
+                      type="submit">
                       RECUPERAR CONTRASEÑA
                     </button>
                   </div>

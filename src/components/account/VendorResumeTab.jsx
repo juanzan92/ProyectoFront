@@ -1,13 +1,18 @@
 import React from "react";
-
-style = {
-  margin: "20px"
-};
+import Divider from "@material-ui/core/Divider";
 
 class VendorResumeTab extends React.Component {
   render() {
     const { oportunities } = this.props;
-    const finished = oportunities.filter();
+    const finished = oportunities.filter(
+      oportunity => oportunity.item_status == "FINISHED"
+    );
+    const inProgress = oportunities.filter(
+      oportunity => oportunity.item_status == "IN_PROGRESS"
+    );
+    const cancelled = oportunities.filter(
+      oportunity => oportunity.item_status == "CANCELLED"
+    );
 
     return (
       <div
@@ -23,14 +28,14 @@ class VendorResumeTab extends React.Component {
         <div class="card text-white bg-primary text-center mb-3">
           <div class="card-body">
             <h4 class="card-title">En Proceso</h4>
-            <p class="card-text">cuantas</p>
+            <p class="card-text">{inProgress}</p>
           </div>
         </div>
         <Divider orientation="vertical" />
         <div class="card text-white bg-danger text-center mb-3">
           <div class="card-body">
             <h4 class="card-title">Canceladas</h4>
-            <p class="card-text">cuanrtas</p>
+            <p class="card-text">{cancelled}</p>
           </div>
         </div>
       </div>

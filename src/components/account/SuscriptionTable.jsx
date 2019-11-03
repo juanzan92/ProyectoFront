@@ -40,9 +40,7 @@ class SuscriptionTable extends React.Component {
       <tr>
         <td>
           <Link to={`/subscripcion/${suscripcion.subscription_id}`}>
-            <a className="text-medium navi-link">
-              {suscripcion.subscription_id}
-            </a>
+            <a className="text-medium navi-link">{suscripcion.item_title}</a>
           </Link>
         </td>
         <td>{fecha}</td>
@@ -63,7 +61,7 @@ class SuscriptionTable extends React.Component {
           <table className="table table-hover margin-bottom-none">
             <thead>
               <tr>
-                <th>Suscripcion #</th>
+                <th>Suscripcion </th>
                 <th>Fecha de Compra</th>
                 <th>Estado</th>
                 <th>Total</th>

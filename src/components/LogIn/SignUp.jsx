@@ -49,37 +49,42 @@ class SignUp extends React.Component {
         name: userNombres,
         given_name: userApellidos,
         address: {
-          street_address: userCalle + ' ' + userNum,
+          street_address: userCalle + " " + userNum,
           postal_code: userCp
         },
-        'custom:role': role,
-        'custom:phone': userPhone,
-        'custom:dni': userDni
+        "custom:role": role,
+        "custom:phone": userPhone,
+        "custom:dni": userDni
       },
       validationData: []
-    }).then(function () {
-      var body = {
-        username: user,
-        user_role: role,
-        email: email,
-        first_name: userNombres,
-        last_name: userApellidos,
-        phone: userPhone,
-        dni: userDni,
-        address: {
-          address_name: userCalle,
-          address_number: userNum,
-          address_code: userCp
-        }
-      }
-      
-        fetch(`http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/account/users`, { //http://localhost:8080/account/users
-          headers: {
-            "Content-Type": "application/json"
-          },
-          method: "POST",
-          body: JSON.stringify(body)
-        })
+    })
+      .then(function() {
+        var body = {
+          username: user,
+          user_role: role,
+          email: email,
+          first_name: userNombres,
+          last_name: userApellidos,
+          phone: userPhone,
+          dni: userDni,
+          address: {
+            address_name: userCalle,
+            address_number: userNum,
+            address_code: userCp
+          }
+        };
+
+        fetch(
+          `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/account/users`,
+          {
+            //http://localhost:8080/account/users
+            headers: {
+              "Content-Type": "application/json"
+            },
+            method: "POST",
+            body: JSON.stringify(body)
+          }
+        )
           .then(function() {
             if (role == "vendor") {
               window.location = `https://auth.mercadopago.com.ar/authorization?client_id=7662807553309957&response_type=code&platform_id=mp&redirect_uri=http%3A%2F%2Flocalhost:3000/splash?user_id=${user}`;
@@ -207,8 +212,7 @@ class SignUp extends React.Component {
                     className="form-control"
                     name="userRol"
                     value={this.state.userRol}
-                    onChange={this.handleChange}
-                  >
+                    onChange={this.handleChange}>
                     <option value="consumer">Colaborador</option>
                     <option value="vendor">Oferente</option>
                   </select>
@@ -398,8 +402,7 @@ class SignUp extends React.Component {
               <div className="col-12 text-center text-sm-right">
                 <button
                   className="btn btn-primary margin-bottom-none"
-                  type="submit"
-                >
+                  type="submit">
                   Registrate
                 </button>
               </div>

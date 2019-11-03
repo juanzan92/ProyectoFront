@@ -1,5 +1,5 @@
 import React from "react";
-import VendorNavUser from "./VendorNavUser";
+import VendorNav from "./VendorNavUser";
 
 class VendorUserCard extends React.Component {
   getFullname() {
@@ -33,7 +33,11 @@ class VendorUserCard extends React.Component {
             </div>
           </div>
         </aside>
-        <VendorNavUser orders={orders} selected={selected} />
+        {console.log("---------")}
+        {console.log(orders)}
+        {console.log("-------")}
+        {console.log(selected)}
+        <VendorNav orders={orders} selected={selected} />
       </div>
     );
   }

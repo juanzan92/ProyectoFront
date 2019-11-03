@@ -1,6 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { AssessmentOutlinedIcon } from "@material-ui/icons/AssessmentOutlined";
+import AssessmentOutlinedIcon from "@material-ui/icons/AssessmentOutlined";
 
 class VendorNavUser extends React.Component {
   isSelected(btn) {
@@ -56,4 +56,5 @@ class VendorNavUser extends React.Component {
     return this.buildView();
   }
 }
+
 export default VendorNavUser;

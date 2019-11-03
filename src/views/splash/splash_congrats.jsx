@@ -45,7 +45,7 @@ class Splash extends React.Component {
     var vars = {};
     var parts = window.location.href.replace(
       /[?&]+([^=&]+)=([^&]*)/gi,
-      function (m, key, value) {
+      function(m, key, value) {
         vars[key] = value;
       }
     );
@@ -59,18 +59,18 @@ class Splash extends React.Component {
     console.log(merchantOrderId);
 
     fetch(
-      `http://localhost:8080/subscriptions?merchant_order_id=${merchantOrderId}&preference_id=${preferenceId}`,
+      `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/subscriptions?merchant_order_id=${merchantOrderId}&preference_id=${preferenceId}`,
       {
         method: "POST"
       }
     )
       .then(response => {
         return response.json();
-      }
-      ).then(myJson => {
-        window.location.href = `/subscripcion/${myJson.suscription_id}`
       })
-      .catch(function (e) {
+      .then(myJson => {
+        window.location.href = `/subscripcion/${myJson.suscription_id}`;
+      })
+      .catch(function(e) {
         console.log(e);
       });
   }

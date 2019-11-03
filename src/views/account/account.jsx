@@ -32,20 +32,20 @@ class UserAccount extends React.Component {
   componentDidMount() {}
 
   componentDidUpdate() {
-    if (
-      this.state.user != "" &&
-      this.user.rol === "consumer" &&
-      this.state.orders.length == 0
-    ) {
-      this.fetchOrders();
-    } else if (
-      this.state.user != "" &&
-      this.user.rol === "vendor" &&
-      this.state.orders.length == 0
-    ) {
-      this.fetchOportunities();
-    }
+    const { user } = this.state;
 
+    if (this.state.user != "") {
+      const rol = user["custom:role"];
+      if (rol === "consumer" && this.state.orders.length == 0) {
+        this.fetchOrders();
+      } else if (
+        this.state.user != "" &&
+        rol === "vendor" &&
+        this.state.orders.length == 0
+      ) {
+        this.fetchOportunities();
+      }
+    }
     if (this.state.orders != []) {
       localStorage.setItem("orders", this.state.orders.join(","));
     }
@@ -66,7 +66,7 @@ class UserAccount extends React.Component {
   }
 
   fetchOportunities() {
-    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/subscriptions/search?index_name=username&search_pattern=${this.state.user.nickname}`;
+    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items/search?index_name=vendor_username&search_pattern=${this.state.user.nickname}`;
     fetch(url)
       .then(response => {
         return response.json();
@@ -83,7 +83,7 @@ class UserAccount extends React.Component {
     const { user, orders } = this.state;
     const selected = "suscripciones";
     if (user && orders != orders.length > 0) {
-      if (user.role === "consumer") {
+      if (user["custom:role"] === "consumer") {
         return (
           <Context.Provider value={selected}>
             <AccountTitle />
@@ -110,7 +110,7 @@ class UserAccount extends React.Component {
                   orders={orders}
                   selected="suscripciones"
                 />
-                <VendorSubscriptionTable ordenes={orders} />
+                <VendorSubscriptionTable items={orders} />
               </div>
             </div>
           </Context.Provider>

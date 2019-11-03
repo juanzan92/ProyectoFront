@@ -19,10 +19,10 @@ class VendorSuscriptionTable extends React.Component {
     //really ?
   }
 
-  calcularBarraProgreso() {
-    var initialQuantity = this.props.item.initial_stock;
-    var actualQuantity = this.props.item.stock;
-    return (actualQuantity * 100) / initialQuantity;
+  calcularBarraProgreso(item) {
+    var { initial_stock, stock } = item;
+    var ventas = initial_stock - stock;
+    return (ventas * 100) / initial_stock;
   }
 
   componentDidMount() {}
@@ -43,8 +43,8 @@ class VendorSuscriptionTable extends React.Component {
         <div
           className="progress-bar bg-success"
           role="progressbar"
-          style={{ width: state.progress + "%" }}
-          aria-valuenow={state.progress}
+          style={{ width: progress + "%" }}
+          aria-valuenow={progress}
           aria-valuemin="0"
           aria-valuemax="100">
           {progress}&#37;
@@ -55,16 +55,16 @@ class VendorSuscriptionTable extends React.Component {
 
   buildRow(item) {
     const status = this.getStatus(item);
-    const date = new Date(item.date_created);
+    const date = new Date(item.end_date);
     const month = date.getMonth();
     const year = date.getFullYear();
     const days = date.getDay();
     const fecha = days + "/" + month + "/" + year;
-    const progressBar = this.calcularBarraProgreso();
+    const progressBar = this.calcularBarraProgreso(item);
     return (
       <tr>
         <td>
-          <Link to={`/subscripcion/${item.subscription_id}`}>
+          <Link to={`/vip/${item.item_id}`}>
             <a className="text-medium navi-link">{item.title}</a>
           </Link>
         </td>
@@ -76,7 +76,7 @@ class VendorSuscriptionTable extends React.Component {
         </td>
         <td>
           <span onClick={this.cancelOportunity()}>
-            <CancelIcon />{" "}
+            <CancelIcon />
           </span>
         </td>
       </tr>
@@ -93,7 +93,7 @@ class VendorSuscriptionTable extends React.Component {
             <thead>
               <tr>
                 <th>Oportunidad #</th>
-                <th>Fecha de Compra</th>
+                <th>Fecha de Fin</th>
                 <th>Estado</th>
                 <th>Progresso</th>
                 <th>Precio</th>

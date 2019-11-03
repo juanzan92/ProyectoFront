@@ -2,7 +2,9 @@ import React from "react";
 import wrapper from "../../components/Wrapper";
 import VendorSuscriptionTable from "../../components/account/VendorSubscriptionTable";
 import VendorResumeTab from "../../components/account/VendorResumeTab";
-import VendorUserCard from "../../components/account/VendorUserCard";
+import AccountTitle from "../../components/account/AccountTitle";
+
+import { Auth } from "aws-amplify";
 
 import { Link } from "@material-ui/core";
 
@@ -48,7 +50,7 @@ class VendorAccountOportunities extends React.Component {
   cancelFullSubscription() {}
 
   render() {
-    const { items } = this.state;
+    const { items, user } = this.state;
     if (user) {
       return (
         <div className="spinner-border text-info m-2 center" role="status">
@@ -66,7 +68,7 @@ class VendorAccountOportunities extends React.Component {
                   Volver a Cuenta
                 </a>
               </Link>
-              <VendorResumeTab />
+              <VendorResumeTab oportunities={items} />
               {items.length > 0 && <VendorSuscriptionTable items={items} />}
             </div>
           </div>
