@@ -7,4 +7,5 @@ phases:
       - rm -rf package-lock.json
       - npm install
       - npm run build
-      - aws s3 sync build s3://s-market-static-front --delete
+      #- aws s3 sync build s3://s-market-static-front --delete
+      - aws s3 cp --recursive --acl public-read ./build s3://s-market-static-front
