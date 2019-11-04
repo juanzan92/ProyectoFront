@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import wrapper from '../../components/Wrapper';
 import { Auth } from 'aws-amplify';
 import { Link } from 'react-router-dom';
@@ -6,7 +6,6 @@ import { Link } from 'react-router-dom';
 class SignUp extends React.Component {
   constructor(props) {
     super(props);
-
     this.state = {
       userRol: "consumer",
       userName: "",
@@ -20,14 +19,16 @@ class SignUp extends React.Component {
       userEmail: "",
       userEmailConf: "",
       userPw: "",
-      userPwConf: ""
+      userPwConf: "",
+      userPais: "",
+      userProvincia: "",
+      userCiudad: ""
     };
-
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
   }
 
-  signUp(
+  async signUp(
     user,
     password,
     email,
@@ -38,68 +39,82 @@ class SignUp extends React.Component {
     userPhone,
     userCalle,
     userNum,
-    userCp
+    userCp,
+    userCountry,
+    userProvince,
+    userCity
   ){
-    //post user into aws cognito
-    Auth.signUp({
-        username: user,
-        password: password,
-        attributes: 
-        {
-          nickname: user,
-          email: email,
-          name: userNombres,
-          given_name: userApellidos,
-          address: 
+    try {
+      console.log(JSON.stringify(this.state));
+      Auth.signUp({
+          'username': user,
+          'password': password,
+          'attributes': 
           {
-            street_address: userCalle + ' ' + userNum,
-            postal_code: userCp
+            'nickname': user,
+            'email': email,
+            'name': userNombres,
+            'given_name': userApellidos,
+            'address': 'HARDCODED',
+            'custom:role': role,
+            'custom:phone': userPhone,
+            'custom:dni': userDni
+          }
+      })
+      .then(function () {
+        var body = {
+          username: user,
+          user_role: role,
+          email: email,
+          first_name: userNombres,
+          last_name: userApellidos,
+          phone: userPhone,
+          dni: userDni,
+          address: {
+            address_name: userCalle,
+            address_number: userNum,
+            address_code: userCp,
+            address_country: userCountry,
+            address_region: userProvince,
+            address_city: userCity
+          }
+        }
+        fetch('http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/account/users', { 
+          headers: {
+            "Content-Type": "application/json"
           },
-          'custom:role': role,
-          'custom:phone': userPhone,
-          'custom:dni': userDni
-        },
-        validationData: []
-    })
-    .then(function () {
-      var body = {
-        username: user,
-        user_role: role,
-        email: email,
-        first_name: userNombres,
-        last_name: userApellidos,
-        phone: userPhone,
-        dni: userDni,
-        address: {
-          address_name: userCalle,
-          address_number: userNum,
-          address_code: userCp
-        }
-      }
-      //post user into dynamo db
-      fetch(`http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/account/users`, { 
-        //http://localhost:8080/account/users
-        headers: {
-          "Content-Type": "application/json"
-        },
-        method: "POST",
-        body: JSON.stringify(body)
+          method: "POST",
+          body: JSON.stringify(body)
+        })
+        .then((response) => {
+          if(!response.ok) {
+            throw new Error(response.status)
+          } 
+          else {
+            var c = window.confirm(
+              "Se ha enviado un enlace de verificación a su casilla de correo.\n¡Confirme su usuario e inicie sesión!"
+            );
+            if (c) {
+              if (role == "vendor"){
+                window.location.href = `https://auth.mercadopago.com.ar/authorization?client_id=5912969040584293&response_type=code&platform_id=mp&redirect_uri=https%3A%2F%2Fd2hbavhsu4ef1q.cloudfront.net/splash?user_id=${user}`;
+              }
+              else {
+                window.location.href = "/signin"  
+              }
+            } 
+            return response.json()
+          } 
+        })
+        .catch(e => console.log(e));
       })
-      .then((response) => {
-        if(!response.ok) throw new Error(response.status);
-        else return response.json();
+      .catch((e) => {
+        console.log(e)
       })
-      .then(function() {
-        if (role == "vendor") {
-          window.location = `https://auth.mercadopago.com.ar/authorization?client_id=7662807553309957&response_type=code&platform_id=mp&redirect_uri=http%3A%2F%2Flocalhost:3000/splash?user_id=${user}`;
-        } else {
-          window.location.href = "/";
-        }
-      })
-      .catch(e => console.log(e));
-    //catch Auth.signUp
-    })
-    .catch(e => console.log(e));
+    }
+    catch (error) {
+      alert(error.message);
+      throw error
+    } 
   }
   
   assignInputValue(target){
@@ -119,9 +134,10 @@ class SignUp extends React.Component {
       if (target.name !== "userName") {
         return target.value.toUpperCase();
       }
-      return target.value.toLowerCase();
+      else {
+        return target.value.toLowerCase();
+      }
     }
-
     if (target.type === "select-one") {
       return target.value.toLowerCase();
     }
@@ -131,7 +147,6 @@ class SignUp extends React.Component {
     const target = event.target;
     const value = this.assignInputValue(target);
     const name = target.name;
-
     this.setState({
       [name]: value
     });
@@ -150,16 +165,11 @@ class SignUp extends React.Component {
       this.state.userPhone,
       this.state.userAddCalle,
       this.state.userAddNum,
-      this.state.userAddCp
+      this.state.userAddCp,
+      this.state.userPais,
+      this.state.userProvincia,
+      this.state.userCiudad
     );
-    var confirm = window.confirm(
-      "Se ha enviado un enlace de verificación a su casilla de correo.\n¡Confirme su usuario e inicie sesión!"
-    );
-    if (confirm == true) {
-      window.location.href = "/signin";
-    } else {
-      window.location.href = "/";
-    }
   }
   
   render() {
@@ -192,6 +202,7 @@ class SignUp extends React.Component {
           </div>
         </div>
         <div className="row padding-top-0.5x padding-bottom-2x">
+            <span>{JSON.stringify(this.state)}</span>
             <div className="login-box col-md-6 offset-3">
             <div>
               <div className="col-md-6">
@@ -297,6 +308,53 @@ class SignUp extends React.Component {
                   />
                 </div>
               </div>
+
+              <div className="col-sm-4">
+                <div className="form-group input-group">
+                  <label htmlFor="userPais">Pais*</label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="userPais"
+                    value={this.state.userPais}
+                    onChange={this.handleChange}
+                    pattern="[A-ZÑ\s]{4,20}"
+                    title="Solo texto (4-40 caracteres)."
+                    required
+                  />
+                </div>
+              </div>
+              <div className="col-sm-4">
+                <div className="form-group input-group">
+                  <label htmlFor="userProvincia">Provincia*</label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="userProvincia"
+                    value={this.state.userProvincia}
+                    onChange={this.handleChange}
+                    pattern="[A-ZÑ\s]{4,25}"
+                    title="Solo texto (4-25 caracteres)."
+                    required
+                  />
+                </div>
+              </div>
+              <div className="col-sm-4">
+                <div className="form-group input-group">
+                  <label htmlFor="userCiudad">Ciudad*</label>
+                  <input
+                    className="form-control"
+                    type="text"
+                    name="userCiudad"
+                    value={this.state.userCiudad}
+                    onChange={this.handleChange}
+                    pattern="[A-ZÑ\s]{4,30}"
+                    title="Solo texto (4-30 caracteres)."
+                    required
+                  />
+                  </div>
+              </div>
+
               <div className="col-sm-6">
                 <div className="form-group input-group">
                   <label htmlFor="reg-phone">Calle*</label>
