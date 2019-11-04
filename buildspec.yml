@@ -6,5 +6,5 @@ phases:
     commands:
       - rm -rf package-lock.json
       - npm install
-      - npm run-script build   
+      - npm run build
       - aws s3 sync build s3://s-market-static-front --delete
