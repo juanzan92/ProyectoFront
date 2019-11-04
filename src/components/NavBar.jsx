@@ -9,20 +9,25 @@ class NavBar extends Component {
     this.state = {
       isAuthenticated: false,
       isAuthenticating: true,
-      activeUser: this.currentActiveUser()
+      user: [],
+      user_username: "",
+      user_rol: ""
     };
   }
+
   async componentDidMount() {
     try {
       if (await Auth.currentSession()) {
         this.userHasAuthenticated(true);
+        this.currentActiveUser();
       }
     } catch (e) {
       if (e !== "No current user") {
-        alert(e);
+        //Acá va un toast
+        //alert(e)
+        console.log(e);
       }
     }
-
     this.setState({ isAuthenticating: false });
   }
 
@@ -38,11 +43,18 @@ class NavBar extends Component {
 
   currentActiveUser() {
     Auth.currentAuthenticatedUser({})
-      .then(user => {
+      .then(userObject => {
         this.setState({
-          activeUser: user.username.toUpperCase()
+          user: userObject.attributes,
+          user_username: userObject.username.toLowerCase(),
+          user_rol: userObject.attributes["custom:role"]
         });
-        console.log(JSON.stringify(this.state.activeUser));
+        console.log("Authenticated User NavBar");
+        console.log(this.state.user);
+        console.log("Username");
+        console.log(this.state.user_username);
+        console.log("User Role");
+        console.log(this.state.user_rol);
       })
       .catch(err => console.log(err));
   }
@@ -53,54 +65,115 @@ class NavBar extends Component {
       userHasAuthenticated: this.userHasAuthenticated
     };
 
-    console.log(Auth.currentAuthenticatedUser());
+    //console.log(Auth.currentAuthenticatedUser());
 
-    const isLogged = this.state.isAuthenticated;
+    //const isLogged = this.state.isAuthenticated;
+
     let btnNavBar;
-    if (isLogged) {
-      btnNavBar = (
-        <>
-          <div className="row">
-            <div className="col-md-3 mt-2">
-              <div className="account">
-                <a href="/" />
-                <i className="icon-head" />
-                <ul className="toolbar-dropdown">
-                  <li className="sub-menu-user">
-                    <div className="user-ava">
-                      <img
-                        src="img/account/user-ava-sm.jpg"
-                        alt="Daniel Adams"
-                      />
-                    </div>
-                    <div className="user-info">
-                      <h6 className="user-name">{this.state.activeUser}</h6>
-                      <span className="text-xs text-muted">
-                        Colaborador
-                      </span>
-                    </div>
-                  </li>
-                  <li>
-                    <a href="/account">Mi Cuenta</a>
-                  </li>
-                  <li className="sub-menu-separator" />
-                  <li>
-                    <a href="/account/orders">Suscripciones</a>
-                  </li>
-                  <li>
-                    <a href="/account/wishlist">Favoritos</a>
-                  </li>
-                </ul>
+
+    if (this.state.isAuthenticated) {
+      if (this.state.user_rol == "consumer") {
+        btnNavBar = (
+          <>
+            <div className="row">
+              <div className="col-md-3 mt-2">
+                <div className="account">
+                  <a href="/account" />
+                  <i className="icon-head" />
+                  <ul className="toolbar-dropdown">
+                    <li className="sub-menu-user">
+                      <div className="user-ava">
+                        <img
+                          src="/img/account/avatar-consumer.png"
+                          alt={this.state.user_username}
+                        />
+                      </div>
+                      <div className="user-info">
+                        <h6 className="user-name">
+                          {this.state.user_username}
+                        </h6>
+                        <span className="text-xs text-muted">Colaborador</span>
+                      </div>
+                    </li>
+                    <li className="sub-menu-separator" />
+                    <li>
+                      <a href="/account">Mi Cuenta</a>
+                    </li>
+                    <li className="sub-menu-separator" />
+                    <li>
+                      <a href="/account">Suscripciones</a>
+                    </li>
+                    <li className="sub-menu-separator" />
+                    <li>
+                      <a href="/account">Favoritos</a>
+                    </li>
+                    <li className="sub-menu-separator" />
+                  </ul>
+                </div>
+              </div>
+              <div className="col-md-2 align-middle">
+                <div className="btn btn-primary p" onClick={this.handleLogout}>
+                  Logout
+                </div>
               </div>
             </div>
-            <div className="col-md-2 align-middle">
-              <div className="btn btn-primary p" onClick={this.handleLogout}>
-                LOGOUT
+          </>
+        );
+      } else {
+        btnNavBar = (
+          <>
+            <div className="row">
+              <div className="col-md-3 mr-3">
+                <nav className="site-menu">
+                  <ul>
+                    <li>
+                      <a href="/upload-oportunity">
+                        <span>Publicar</span>
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+              <div className="col-md-3 mt-2">
+                <div className="account">
+                  <a href="/account" />
+                  <i className="icon-head" />
+                  <ul className="toolbar-dropdown">
+                    <li className="sub-menu-user">
+                      <div className="user-ava">
+                        <img
+                          src="/img/account/avatar-vendor.png"
+                          alt={this.state.user_username}
+                        />
+                      </div>
+                      <div className="user-info">
+                        <h6 className="user-name">
+                          {this.state.user_username}
+                        </h6>
+                        <span className="text-xs text-muted">Oferente</span>
+                      </div>
+                    </li>
+                    <li className="sub-menu-separator" />
+                    <li>
+                      <a href="/account">Mi Cuenta</a>
+                    </li>
+                    <li className="sub-menu-separator" />
+                    <li>
+                      <a href="/account">Oportunidades</a>
+                    </li>
+                    <li className="sub-menu-separator" />
+                  </ul>
+                </div>
+              </div>
+              <div className="col-md-2">
+                <div className="btn btn-primary p" onClick={this.handleLogout}>
+                  Logout
+                </div>
               </div>
             </div>
-          </div>
-        </>
-      );
+          </>
+        );
+      }
     } else {
       btnNavBar = (
         <>

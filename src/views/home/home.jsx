@@ -44,7 +44,6 @@ class index extends React.Component {
   }
 
   filterTopCategories(json) {
-    json.filter(category => category.tags.includes("top_category"));
     json.pop();
     json.pop();
     this.setState({

@@ -9,28 +9,39 @@ class VIP extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      item: "",
+      item: null,
       reviews: [],
       isLoading: true,
       isError: false,
       quantityToBuy: 1,
       progress: 0,
       redirect_url: "",
-      user: this.getUsuario()
+      user: null
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.pagar = this.pagar.bind(this);
+    this.getUsuario();
   }
 
   getUsuario() {
     Auth.currentAuthenticatedUser({}).then(user1 => {
-      return user1.attributes;
+      this.setState({
+        user: user1.attributes
+      });
     });
   }
 
   componentDidMount() {
     this.buscarItemTest();
+  }
+
+  componentDidUpdate() {
+    if (this.state.user) {
+      if (this.state.item && this.state.isLoading) {
+        this.getURLPago();
+      }
+    }
   }
 
   handleInputChange(event) {
@@ -59,14 +70,12 @@ class VIP extends React.Component {
       .then(myJson => {
         console.log(myJson);
         this.setState({
-          item: myJson,
-          isLoading: false
+          item: myJson
         });
       })
       .then(response => {
         this.calcularBarraProgreso();
         this.buscarReviews();
-        this.getURLPago();
       });
   }
 
@@ -103,7 +112,7 @@ class VIP extends React.Component {
       body: JSON.stringify({
         item_id: this.state.item.item_id,
         quantity: this.state.quantityToBuy,
-        consumer_username: this.state.user
+        consumer_username: this.state.user.nickname
       })
     })
       .then(response => {
@@ -111,7 +120,8 @@ class VIP extends React.Component {
       })
       .then(preferencia => {
         this.setState({
-          redirect_url: preferencia.redirect_url
+          redirect_url: preferencia.redirect_url,
+          isLoading: false
         });
       });
   }

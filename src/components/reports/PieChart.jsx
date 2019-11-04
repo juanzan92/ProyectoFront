@@ -2,10 +2,10 @@ import React, { PureComponent } from "react";
 import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
 
 const data = [
-  { name: "Group A", value: 400 },
-  { name: "Group B", value: 300 },
-  { name: "Group C", value: 300 },
-  { name: "Group D", value: 200 }
+  { name: "Cordoba", value: 400 },
+  { name: "Buenos Aires", value: 300 },
+  { name: "Rosario", value: 300 },
+  { name: "Mendoza", value: 200 }
 ];
 
 const renderActiveShape = props => {

@@ -5,25 +5,27 @@ import Home from "./views/home/home";
 import CheckoutController from "./views/checkout/checkoutController";
 import vip from "./views/item/vip";
 import splash from "./views/splash/splash";
+import SignUp from "./views/login/SignUp";
+import SignIn from "./views/login/SignIn";
+import ForgotPassword from "./views/login/ForgotPassword";
+import UploadOportunity from "./views/vendor/UploadOportunity";
 import splash_congrats from "./views/splash/splash_congrats";
-import SignUp from "./components/LogIn/SignUp";
-import SignIn from "./components/LogIn/SignIn";
-import ForgotPassword from "./components/LogIn/ForgotPassword";
 import notFound from "./views/notFound";
 import Account from "./views/account/account";
 import Subscription from "./views/suscription/subscription";
-import AccountProfile from "./views/account/account-profile";
 import AccountDirections from "./views/account/account-directions";
 import VendorAccountProfile from "./views/account/vendor-profile";
 import VendorAccountReporting from "./views/account/vendor-reporting";
 import VendorAccountDirection from "./views/account/vendor-directions";
 import VendorAccountOportunities from "./views/account/vendor-oportunities";
+import ListingCategory from "./views/listing-category/ListingCategories";
 
 class App extends Component {
   constructor(props) {
     super(props);
     this.state = {};
   }
+
   render() {
     return (
       <Router>
@@ -34,7 +36,11 @@ class App extends Component {
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/vip/:item_id" component={vip} />
-          <Route exact path="/account-profile" component={AccountProfile} />
+          <Route
+            exact
+            path="/category/:category_id"
+            component={ListingCategory}
+          />
           <Route
             exact
             path="/vendor-oportunities"
@@ -61,13 +67,12 @@ class App extends Component {
             component={VendorAccountReporting}
           />
           <Route exact path="/account" component={Account} />
-
+          <Route path="/upload-oportunity" component={UploadOportunity} />
           <Route
             exact
             path="/subscripcion/:subscription_id"
             component={Subscription}
           />
-
           <Route path="/splash" component={splash} />
           <Route path="/splash_congrats" component={splash_congrats} />
           <Route path="*" component={notFound} />

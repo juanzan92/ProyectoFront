@@ -4,6 +4,7 @@ phases:
     runtime-versions:
         nodejs: 8
     commands:
+      - rm -rf package-lock.json
       - npm install
       - npm run-script build   
       - aws s3 sync build s3://s-market-static-front --delete

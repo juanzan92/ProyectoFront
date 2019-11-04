@@ -28,7 +28,7 @@ class NavUser extends React.Component {
         </a>
 
         <Link
-          to="/account-profile"
+          to="/account"
           class={"list-group-item " + this.isSelected("mi cuenta")}>
           <i className="icon-head" />
           Mi cuenta

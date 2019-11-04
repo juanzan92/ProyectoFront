@@ -5,21 +5,20 @@ class OffCanvasMenu extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      categories: [],
       isLoading: true,
-      currentCategory:null
+      currentCategory: null
     };
-    this.updateCurrentCategory = this.updateCurrentCategory.bind(this)
+    this.updateCurrentCategory = this.updateCurrentCategory.bind(this);
   }
 
-  updateCurrentCategory(category){
+  updateCurrentCategory(category) {
     this.setState({
-      currentCategory:category})
-
+      currentCategory: category
+    });
   }
 
   render() {
-    const categories = this.props.categories;
+    const { categories } = this.props;
     return (
       <>
         <div className="offcanvas-container" id="shop-categories">
@@ -32,7 +31,7 @@ class OffCanvasMenu extends React.Component {
                 <OffCanvasCategory
                   propsCategories={category}
                   currentCategory={this.state.currentCategory}
-                  updateCurrent= {this.updateCurrentCategory}
+                  updateCurrent={this.updateCurrentCategory}
                   key={category.categoryId}
                 />
               ))}

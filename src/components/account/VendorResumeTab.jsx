@@ -1,6 +1,10 @@
 import React from "react";
 import Divider from "@material-ui/core/Divider";
 
+const styleCardText = {
+  fontWeight: "bold"
+};
+
 class VendorResumeTab extends React.Component {
   render() {
     const { oportunities } = this.props;
@@ -24,7 +28,9 @@ class VendorResumeTab extends React.Component {
             style={{ width: "150px" }}>
             <div class="card-body">
               <h4 class="card-title">Finalizadas</h4>
-              <p class="card-text">{finished.length}</p>
+              <p class="card-text" style={styleCardText}>
+                {finished.length}
+              </p>
             </div>
           </div>
           <Divider orientation="vertical" />
@@ -33,7 +39,9 @@ class VendorResumeTab extends React.Component {
             style={{ width: "150px" }}>
             <div class="card-body">
               <h4 class="card-title">Activas</h4>
-              <p class="card-text">{inProgress.length}</p>
+              <p class="card-text" style={styleCardText}>
+                {inProgress.length}
+              </p>
             </div>
           </div>
           <Divider orientation="vertical" />
@@ -42,7 +50,9 @@ class VendorResumeTab extends React.Component {
             style={{ width: "150px" }}>
             <div class="card-body">
               <h4 class="card-title">Canceladas</h4>
-              <p class="card-text">{cancelled.length}</p>
+              <p class="card-text" style={styleCardText}>
+                {cancelled.length}
+              </p>
             </div>
           </div>
         </div>

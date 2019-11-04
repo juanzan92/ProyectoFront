@@ -26,7 +26,7 @@ class VendorUserCard extends React.Component {
                 className="edit-avatar"
                 onClick={() => window.location.reload()}
               />
-              <img src="img/account/user-ava.jpg" alt="User" />
+              <img src="/img/account/avatar-vendor.png" alt="User" />
             </div>
             <div className="user-data">
               <h4>{this.getFullname()}</h4>

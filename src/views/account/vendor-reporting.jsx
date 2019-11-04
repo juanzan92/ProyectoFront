@@ -3,6 +3,7 @@ import wrapper from "../../components/Wrapper";
 import ChartsDeck from "../../components/reports/ChartsDeck";
 import VendorResumeTab from "../../components/account/VendorResumeTab";
 import { Auth } from "aws-amplify";
+import VendorUserCard from "../../components/account/VendorUserCard";
 
 class VendorReporting extends React.Component {
   constructor(props) {
@@ -45,6 +46,10 @@ class VendorReporting extends React.Component {
       });
   }
 
+  handleBackBtn() {
+    window.location.href = "/account";
+  }
+
   render() {
     const { items, user } = this.state;
     if (!user) {
@@ -76,6 +81,11 @@ class VendorReporting extends React.Component {
             <hr class="margin-bottom-1x"></hr>
             <div className="row">
               <ChartsDeck />
+            </div>
+            <div
+              className="btn btn-outline-primary "
+              onClick={e => this.handleBackBtn()}>
+              Volver a Cuenta
             </div>
           </div>
         </>

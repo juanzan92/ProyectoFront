@@ -22,9 +22,7 @@ class ChartsDeck extends React.Component {
             <div class="card-body">
               <h4 class="card-title">Ventas Mensuales</h4>
               <p class="card-text">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This content is a little bit
-                longer.
+                Grafico que representa tus ventas mensuales
               </p>
             </div>
           </div>
@@ -33,8 +31,8 @@ class ChartsDeck extends React.Component {
             <div class="card-body">
               <h4 class="card-title">Procedencia de Compradores</h4>
               <p class="card-text">
-                This card has supporting text below as a natural lead-in to
-                additional content.
+                Representa de donde provienen los compradores de tus
+                oportunidades
               </p>
             </div>
           </div>
@@ -43,9 +41,8 @@ class ChartsDeck extends React.Component {
             <div class="card-body">
               <h4 class="card-title">Ventas por Categoria</h4>
               <p class="card-text">
-                This is a wider card with supporting text below as a natural
-                lead-in to additional content. This card has even longer content
-                than the first to show that equal height action.
+                Aqui puedes observar las categorias mas demandadas dentro de la
+                plataforma
               </p>
             </div>
           </div>
