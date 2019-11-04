@@ -99,7 +99,8 @@ class SignUp extends React.Component {
                 window.location.href = `https://auth.mercadopago.com.ar/authorization?client_id=5912969040584293&response_type=code&platform_id=mp&redirect_uri=https%3A%2F%2Fd2hbavhsu4ef1q.cloudfront.net/splash?user_id=${user}`;
               }
               else {
-                window.location.href = "/signin"  
+                window.location.href = "/signin"
+                  
               }
             } 
             return response.json()
