@@ -8,7 +8,7 @@ class VendorReporting extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      user: "",
+      user: this.getUsuario(),
       items: []
     };
   }
@@ -21,9 +21,15 @@ class VendorReporting extends React.Component {
     });
   }
 
+  componentDidUpdate() {
+    if (this.state.user != null && this.state.items.length == 0) {
+      this.getItems();
+    }
+  }
+
   getItems() {
-    const { vendor_username } = this.user;
-    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items/search?index_name=vendor_username&search_pattern=${vendor_username}`;
+    const { nickname } = this.state.user;
+    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items/search?index_name=vendor_username&search_pattern=${nickname}`;
     fetch(url, {
       method: "GET"
     })
@@ -40,17 +46,41 @@ class VendorReporting extends React.Component {
   }
 
   render() {
-    const { items } = this.state;
-    return (
-      <>
-        <div className="container padding-bottom-3x mb-2 ">
-          <div className="row">
-            <VendorResumeTab oportunities={items} />
-          </div>
-          <ChartsDeck />
+    const { items, user } = this.state;
+    if (!user) {
+      return (
+        <div className="spinner-border text-info m-2 center" role="status">
+          <span className="sr-only">Loading...</span>
         </div>
-      </>
-    );
+      );
+    } else {
+      return (
+        <>
+          <div className="container padding-bottom-3x mb-2 ">
+            <h6 class="text-muted text-normal text-uppercase padding-top-2x">
+              Oportunidades:{" "}
+            </h6>
+            <hr class="margin-bottom-1x"></hr>
+            <div
+              className="row"
+              style={{
+                paddingTop: "1rem",
+                marginTop: "1rem",
+                border: "1px solid rgba(0, 0, 0, 0.12)"
+              }}>
+              {items.length > 0 && <VendorResumeTab oportunities={items} />}
+            </div>
+            <h6 class="text-muted text-normal text-uppercase padding-top-2x">
+              Reportes Vendedor:{" "}
+            </h6>
+            <hr class="margin-bottom-1x"></hr>
+            <div className="row">
+              <ChartsDeck />
+            </div>
+          </div>
+        </>
+      );
+    }
   }
 }
 

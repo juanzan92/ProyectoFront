@@ -8,37 +8,45 @@ class VendorResumeTab extends React.Component {
       oportunity => oportunity.item_status == "FINISHED"
     );
     const inProgress = oportunities.filter(
-      oportunity => oportunity.item_status == "IN_PROGRESS"
+      oportunity => oportunity.item_status == "ACTIVE"
     );
     const cancelled = oportunities.filter(
       oportunity => oportunity.item_status == "CANCELLED"
     );
 
     return (
-      <div
-        className="container"
-        style={{ display: "flex", justifyContent: "space-between" }}>
-        <div class="card text-white bg-success text-center mb-3">
-          <div class="card-body">
-            <h4 class="card-title">Finalizadas</h4>
-            <p class="card-text">{finished}</p>
+      <>
+        <div
+          className="container"
+          style={{ display: "flex", justifyContent: "space-evenly" }}>
+          <div
+            class="card text-white bg-success text-center mb-3 "
+            style={{ width: "150px" }}>
+            <div class="card-body">
+              <h4 class="card-title">Finalizadas</h4>
+              <p class="card-text">{finished.length}</p>
+            </div>
+          </div>
+          <Divider orientation="vertical" />
+          <div
+            class="card text-white bg-primary text-center mb-3 "
+            style={{ width: "150px" }}>
+            <div class="card-body">
+              <h4 class="card-title">Activas</h4>
+              <p class="card-text">{inProgress.length}</p>
+            </div>
+          </div>
+          <Divider orientation="vertical" />
+          <div
+            class="card text-white bg-danger text-center mb-3 "
+            style={{ width: "150px" }}>
+            <div class="card-body">
+              <h4 class="card-title">Canceladas</h4>
+              <p class="card-text">{cancelled.length}</p>
+            </div>
           </div>
         </div>
-        <Divider orientation="vertical" />
-        <div class="card text-white bg-primary text-center mb-3">
-          <div class="card-body">
-            <h4 class="card-title">En Proceso</h4>
-            <p class="card-text">{inProgress}</p>
-          </div>
-        </div>
-        <Divider orientation="vertical" />
-        <div class="card text-white bg-danger text-center mb-3">
-          <div class="card-body">
-            <h4 class="card-title">Canceladas</h4>
-            <p class="card-text">{cancelled}</p>
-          </div>
-        </div>
-      </div>
+      </>
     );
   }
 }

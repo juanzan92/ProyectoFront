@@ -41,12 +41,13 @@ class VendorNavUser extends React.Component {
           <i className="icon-map" />
           Direcciones
         </a>
-        <Link
-          class={"list-group-item with-badge " + this.isSelected("reports")}
-          href="/vendor-reporting">
-          <AssessmentOutlinedIcon />
-          Reportes
-          <span className="badge badge-primary badge-pill">3</span>
+        <Link to="/vendor-reporting">
+          <a
+            class={"list-group-item with-badge " + this.isSelected("reports")}
+            href="/vendor-reporting">
+            <AssessmentOutlinedIcon />
+            Reportes
+          </a>
         </Link>
       </nav>
     );

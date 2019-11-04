@@ -16,10 +16,6 @@ class ChartsDeck extends React.Component {
 
     return (
       <>
-        <h6 class="text-muted text-normal text-uppercase padding-top-2x">
-          Reportes Vendedor:{" "}
-        </h6>
-        <hr class="margin-bottom-1x"></hr>
         <div class="card-deck">
           <div class="card margin-bottom-1x">
             <BarChart barChartFiler={barChartFiler} />

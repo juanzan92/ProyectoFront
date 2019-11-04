@@ -18,7 +18,7 @@ class VendorUserCard extends React.Component {
           <div
             className="user-cover"
             style={{
-              backgroundImage: `${img}`
+              background: `/img/account/user-cover-img.jpg`
             }}></div>
           <div className="user-info">
             <div className="user-avatar">
@@ -33,10 +33,6 @@ class VendorUserCard extends React.Component {
             </div>
           </div>
         </aside>
-        {console.log("---------")}
-        {console.log(orders)}
-        {console.log("-------")}
-        {console.log(selected)}
         <VendorNav orders={orders} selected={selected} />
       </div>
     );

@@ -108,7 +108,7 @@ class UserAccount extends React.Component {
                 <VendorUserCard
                   user={user}
                   orders={orders}
-                  selected="suscripciones"
+                  selected="oportunities"
                 />
                 <VendorSubscriptionTable items={orders} />
               </div>
