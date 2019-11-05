@@ -225,7 +225,9 @@ class UploadOportunity extends React.Component {
       body: JSON.stringify(jsonMap)
       })
       .then((response) => {
-        if(!response.ok) throw new Error(response.status);
+        if(!response.ok) {
+          throw new Error(response.status)
+        } 
         else {
           const r = window.confirm("Oportunidad cargada correctamente!!!");
           if (r) window.location.href = "/vendor-oportunities";
