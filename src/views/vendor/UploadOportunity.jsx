@@ -174,7 +174,7 @@ class UploadOportunity extends React.Component {
   uploadFileToAWS(pic, fileName, fileType){
     const img = {};
     return new Promise(resolve => {
-      fetch('http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/img/upload', {
+      fetch('http://localhost:8080/catalog/img/upload', {
         method: "POST",
         body: pic
       })
