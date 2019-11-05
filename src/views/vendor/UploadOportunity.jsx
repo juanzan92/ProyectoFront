@@ -224,16 +224,13 @@ class UploadOportunity extends React.Component {
       jsonMap.dimensions = this.state.dimensions;
       jsonMap.tags = this.state.tags;
 
-      fetch(
-        "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify(jsonMap)
-        }
-      )
+      fetch("http://localhost:8080/catalog/items", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(jsonMap)
+      })
         .then(response => {
           if (!response.ok) throw new Error(response.status);
           else {
