@@ -207,7 +207,7 @@ class UploadOportunity extends React.Component {
       alert("Files could not be uploaded!!!");
     } else {
       const jsonMap = {};
-      jsonMap.end_date = this.state.date_finished;
+      jsonMap.end_date = new Date(this.state.date_finished);
       jsonMap.title = this.state.title;
       jsonMap.category = this.state.category;
       jsonMap.vendor_username = this.state.vendor_username;
@@ -603,7 +603,6 @@ class UploadOportunity extends React.Component {
             </form>
           </div>
         </div>
-        <div>{JSON.stringify(this.state)}</div>
       </>
     );
   }

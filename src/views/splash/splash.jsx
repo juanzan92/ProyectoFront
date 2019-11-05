@@ -66,7 +66,7 @@ class Splash extends React.Component {
       }
     )
       .then(function() {
-        window.location.href = "/";
+        window.location.href = "/signin";
       })
       .catch(function(e) {
         console.log(e);

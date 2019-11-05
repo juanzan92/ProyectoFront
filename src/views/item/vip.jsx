@@ -4,6 +4,7 @@ import VIPTitle from "../../components/Item/VIPTitle";
 import Review from "../../components/vip/Review";
 import ProductCard from "../../components/vip/ProductCard";
 import { Auth } from "aws-amplify";
+import Timer from "../../components/utils/Timer";
 
 class VIP extends React.Component {
   constructor(props) {
@@ -96,8 +97,9 @@ class VIP extends React.Component {
   calcularBarraProgreso() {
     var initialQuantity = this.state.item.initial_stock;
     var actualQuantity = this.state.item.stock;
+    var vendido = initialQuantity - actualQuantity;
     this.setState({
-      progress: (actualQuantity * 100) / initialQuantity
+      progress: (vendido * 100) / initialQuantity
     });
   }
 
@@ -174,17 +176,6 @@ class VIP extends React.Component {
                 </span>
                 <p>{item.description_short}</p>
                 <div className="row margin-top-1x">
-                  <div className="col-sm-4">
-                    <div className="form-group">
-                      <label htmlFor="size">Talle</label>
-                      <select className="form-control" id="size">
-                        <option>Elegir Talle</option>
-                        <option>10.5</option>
-                        <option>10</option>
-                        <option>9.5</option>
-                      </select>
-                    </div>
-                  </div>
                   <div className="col-sm-5">
                     <div className="form-group">
                       <label htmlFor="color">Color</label>
@@ -193,6 +184,7 @@ class VIP extends React.Component {
                       </select>
                     </div>
                   </div>
+
                   <div className="col-sm-3">
                     <div className="form-group">
                       <label htmlFor="quantity">Cantidad</label>
@@ -211,11 +203,18 @@ class VIP extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="padding-bottom-1x mb-2">
-                  <span className="text-medium">Categoria:&nbsp;</span>
-                  <a className="navi-link" href="/home">
-                    {item.category}
-                  </a>
+                <div
+                  className="padding-bottom-1x mb-2"
+                  style={{ dispplay: "grid" }}>
+                  <Timer endDate={item.end_date} />
+                  <span className="text-medium" style={{ display: "block" }}>
+                    Categoria:&nbsp;
+                    <a
+                      className="navi-link"
+                      href={`/category/${item.category}`}>
+                      {item.category}
+                    </a>
+                  </span>
                 </div>
 
                 <hr className="mb-3" />

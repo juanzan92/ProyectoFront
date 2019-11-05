@@ -55,11 +55,11 @@ class VendorSuscriptionTable extends React.Component {
 
   buildRow(item) {
     const status = this.getStatus(item);
-    const date = new Date(item.end_date);
-    const month = date.getMonth();
-    const year = date.getFullYear();
-    const days = date.getDay();
-    const fecha = days + "/" + month + "/" + year;
+    //const date = item.end_date;
+    //const month = date.getMonth();
+    //const year = date.getFullYear();
+    //const days = date.getDay();
+    const fecha = item.end_date;
     const progressBar = this.calcularBarraProgreso(item);
     return (
       <tr>
