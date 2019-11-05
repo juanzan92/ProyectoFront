@@ -104,10 +104,6 @@ class NavBar extends Component {
                       <a href="/account">Suscripciones</a>
                     </li>
                     <li className="sub-menu-separator" />
-                    <li>
-                      <a href="/account">Favoritos</a>
-                    </li>
-                    <li className="sub-menu-separator" />
                   </ul>
                 </div>
               </div>

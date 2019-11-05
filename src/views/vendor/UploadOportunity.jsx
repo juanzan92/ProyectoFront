@@ -132,8 +132,7 @@ class UploadOportunity extends React.Component {
   }
 
   getCategories() {
-    const url =
-      "http://localhost:8080/catalog/categories/get_all";
+    const url = "http://localhost:8080/catalog/categories/get_all";
     fetch(url, {
       method: "GET",
       mode: "no-cors"
@@ -183,13 +182,10 @@ class UploadOportunity extends React.Component {
   uploadFileToAWS(pic, fileName, fileType) {
     const img = {};
     return new Promise(resolve => {
-      fetch(
-        "http://localhost:8080/catalog/img/upload",
-        {
-          method: "POST",
-          body: pic
-        }
-      )
+      fetch("http://localhost:8080/catalog/img/upload", {
+        method: "POST",
+        body: pic
+      })
         .then(response => {
           if (!response.ok) throw new Error(response.status);
           else return response.json();
@@ -229,7 +225,7 @@ class UploadOportunity extends React.Component {
       jsonMap.tags = this.state.tags;
 
       fetch(
-        "http://localhost:8080/catalog/items",
+        "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items",
         {
           method: "POST",
           headers: {

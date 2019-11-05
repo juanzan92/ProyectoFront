@@ -45,6 +45,7 @@ class SignUp extends React.Component {
     userCity
   ) {
     try {
+      console.log(JSON.stringify(this.state));
       Auth.signUp({
         username: user,
         password: password,
@@ -77,13 +78,16 @@ class SignUp extends React.Component {
               address_city: userCity
             }
           };
-          fetch("http://localhost:8080/account/users", {
-            headers: {
-              "Content-Type": "application/json"
-            },
-            method: "POST",
-            body: JSON.stringify(body)
-          })
+          fetch(
+            "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/account/users",
+            {
+              headers: {
+                "Content-Type": "application/json"
+              },
+              method: "POST",
+              body: JSON.stringify(body)
+            }
+          )
             .then(response => {
               if (!response.ok) {
                 throw new Error(response.status);
