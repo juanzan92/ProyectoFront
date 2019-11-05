@@ -18,6 +18,7 @@ class ReactSectionTopCategories extends React.Component {
             {categories.map(category => (
               <div className="col-md-4 col-sm-6">
                 <ReactCard
+                  id={category.category_name}
                   title={category.category_name}
                   img={category.picture}
                   text={"Mirar Categoria"}

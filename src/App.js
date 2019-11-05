@@ -14,6 +14,7 @@ import notFound from "./views/notFound";
 import Account from "./views/account/account";
 import Subscription from "./views/suscription/subscription";
 import AccountDirections from "./views/account/account-directions";
+import AccountProfile from "./views/account/account-profile";
 import VendorAccountProfile from "./views/account/vendor-profile";
 import VendorAccountReporting from "./views/account/vendor-reporting";
 import VendorAccountDirection from "./views/account/vendor-directions";
@@ -56,6 +57,7 @@ class App extends Component {
             path="/account-direction"
             component={AccountDirections}
           />
+          <Route exact path="/account-profile" component={AccountProfile} />
           <Route
             exact
             path="/vendor-profile"

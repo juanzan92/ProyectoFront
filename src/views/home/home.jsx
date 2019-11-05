@@ -27,7 +27,7 @@ class index extends React.Component {
 
   fetchCategories() {
     const url =
-      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/categories/get_all";
+      "http://localhost:8080/catalog/categories/get_all";
     fetch(url, {
       method: "GET",
       headers: {
@@ -53,7 +53,7 @@ class index extends React.Component {
 
   buscarItemMainSlider() {
     const url =
-      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items/home/carrousel_main/search";
+      "http://localhost:8080/catalog/items/home/carrousel_main/search";
     fetch(url, {
       method: "GET",
       headers: {
@@ -74,7 +74,7 @@ class index extends React.Component {
 
   buscarItemCarrouselBottom() {
     const url =
-      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items/home/carrousel_bottom/search";
+      "http://localhost:8080/catalog/items/home/carrousel_bottom/search";
     fetch(url, {
       method: "GET",
       headers: {
@@ -95,7 +95,7 @@ class index extends React.Component {
 
   buscarItemHurryUp() {
     const url =
-      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items/home/hurry_up/search";
+      "http://localhost:8080/catalog/items/home/hurry_up/search";
     fetch(url, {
       method: "GET",
       headers: {

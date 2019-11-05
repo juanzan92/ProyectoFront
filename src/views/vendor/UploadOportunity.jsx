@@ -133,7 +133,7 @@ class UploadOportunity extends React.Component {
 
   getCategories() {
     const url =
-      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/categories/get_all";
+      "http://localhost:8080/catalog/categories/get_all";
     fetch(url, {
       method: "GET",
       mode: "no-cors"
@@ -184,7 +184,7 @@ class UploadOportunity extends React.Component {
     const img = {};
     return new Promise(resolve => {
       fetch(
-        "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/img/upload",
+        "http://localhost:8080/catalog/img/upload",
         {
           method: "POST",
           body: pic
@@ -229,7 +229,7 @@ class UploadOportunity extends React.Component {
       jsonMap.tags = this.state.tags;
 
       fetch(
-        "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items",
+        "http://localhost:8080/catalog/items",
         {
           method: "POST",
           headers: {

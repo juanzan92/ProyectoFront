@@ -19,7 +19,7 @@ class NavUser extends React.Component {
           class={
             "list-group-item with-badge " + this.isSelected("suscripciones")
           }
-          href="account">
+          href="/account">
           <i className="icon-bag" />
           Suscripciones
           <span className="badge badge-primary badge-pill">
@@ -28,15 +28,15 @@ class NavUser extends React.Component {
         </a>
 
         <Link
-          to="/account"
-          class={"list-group-item " + this.isSelected("mi cuenta")}>
+          to="/account-profile"
+          class={"list-group-item " + this.isSelected("mi_cuenta")}>
           <i className="icon-head" />
           Mi cuenta
         </Link>
 
         <a
-          class={"list-group-item " + this.isSelected("direcciones")}
-          href="/account-directions">
+          class={"list-group-item " + this.isSelected("direccion")}
+          href="/account-direction">
           <i className="icon-map" />
           Direcciones
         </a>

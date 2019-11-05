@@ -59,7 +59,7 @@ class Splash extends React.Component {
     console.log(merchantOrderId);
 
     fetch(
-      `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/subscriptions?merchant_order_id=${merchantOrderId}&preference_id=${preferenceId}`,
+      `http://localhost:8080/subscriptions?merchant_order_id=${merchantOrderId}&preference_id=${preferenceId}`,
       {
         method: "POST"
       }

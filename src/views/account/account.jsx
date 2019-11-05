@@ -52,7 +52,7 @@ class UserAccount extends React.Component {
   }
 
   fetchOrders() {
-    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/subscriptions/search?index_name=username&search_pattern=${this.state.user.nickname}`;
+    const url = `http://localhost:8080/subscriptions/search?index_name=username&search_pattern=${this.state.user.nickname}`;
     fetch(url)
       .then(response => {
         return response.json();
@@ -66,7 +66,7 @@ class UserAccount extends React.Component {
   }
 
   fetchOportunities() {
-    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items/search?index_name=vendor_username&search_pattern=${this.state.user.nickname}`;
+    const url = `http://localhost:8080/catalog/items/search?index_name=vendor_username&search_pattern=${this.state.user.nickname}`;
     fetch(url)
       .then(response => {
         return response.json();

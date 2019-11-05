@@ -28,7 +28,7 @@ class ListingCategories extends React.Component {
       price: { max_amount: 20000, min_amount: 0 }
     };
 
-    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items/listing/${category_id}`;
+    const url = `http://localhost:8080/catalog/items/listing/${category_id}`;
     fetch(url, {
       method: "POST",
       headers: { "Content-Type": "application/json" },

@@ -59,7 +59,7 @@ class VIP extends React.Component {
 
   buscarItemTest() {
     const { item_id } = this.props.match.params;
-    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items?item_id=${item_id}`;
+    const url = `http://localhost:8080/catalog/items?item_id=${item_id}`;
     fetch(url, {
       method: "GET"
     })
@@ -81,7 +81,7 @@ class VIP extends React.Component {
 
   buscarReviews() {
     const url =
-      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com//catalog/reviews/search?index_name=item_id&search_pattern=1234";
+      "http://localhost:8080/catalog/reviews/search?index_name=item_id&search_pattern=1234";
     fetch(url)
       .then(response => {
         return response.json();
@@ -102,8 +102,7 @@ class VIP extends React.Component {
   }
 
   getURLPago() {
-    const url =
-      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/mp/preferences"; //url backend
+    const url = "http://localhost:8080/mp/preferences"; //url backend
     fetch(url, {
       method: "POST",
       headers: {
@@ -112,7 +111,7 @@ class VIP extends React.Component {
       body: JSON.stringify({
         item_id: this.state.item.item_id,
         quantity: this.state.quantityToBuy,
-        consumer_username: this.state.user.nickname
+        consumer_username: "diegote"
       })
     })
       .then(response => {

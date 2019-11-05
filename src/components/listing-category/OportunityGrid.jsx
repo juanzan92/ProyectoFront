@@ -20,7 +20,7 @@ class OportunityGrid extends React.Component {
           {items.map(x => (
             <div class="product-card" style={cardStyle}>
               <a class="product-thumb" href="shop-single.html">
-                <img src={`/${x.pictures[0].src}`} alt="Product" />
+                <img src={"/img/shop/products/01.jpg"} alt="Product" />
               </a>
               <h3 class="product-title">
                 <a href="shop-single.html">{x.title}</a>

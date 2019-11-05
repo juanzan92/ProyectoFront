@@ -30,7 +30,7 @@ class VendorReporting extends React.Component {
 
   getItems() {
     const { nickname } = this.state.user;
-    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items/search?index_name=vendor_username&search_pattern=${nickname}`;
+    const url = `http://localhost:8080/catalog/items/search?index_name=vendor_username&search_pattern=${nickname}`;
     fetch(url, {
       method: "GET"
     })
