@@ -12,7 +12,7 @@ class ListingCategories extends React.Component {
   }
 
   getItems() {
-    const { category_id } = this.props.match.params;
+    const { category_id, max_amount, min_amount } = this.props.match;
     const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items/listing/${category_id}`;
     fetch(url, {
       method: "POST",

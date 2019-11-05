@@ -41,6 +41,11 @@ class App extends Component {
             path="/category/:category_id"
             component={ListingCategory}
           />
+
+          <Route
+            path="/category/:category_id/:max_price/:min_price"
+            component={ListingCategory}
+          />
           <Route
             exact
             path="/vendor-oportunities"
