@@ -96,7 +96,7 @@ class SignUp extends React.Component {
             );
             if (c) {
               if (role == "vendor"){
-                window.location.href = `https://auth.mercadopago.com.ar/authorization?client_id=5912969040584293&response_type=code&platform_id=mp&redirect_uri=https%3A%2F%2Fd2hbavhsu4ef1q.cloudfront.net/splash?user_id=${user}`;
+                window.location.href = `https://auth.mercadopago.com.ar/authorization?client_id=5912969040584293&response_type=code&platform_id=mp&redirect_uri=http%3A%2F%2Flocalhost:3000/splash?user_id=${user}`;
               }
               else {
                 window.location.href = "/signin"  
@@ -202,7 +202,6 @@ class SignUp extends React.Component {
           </div>
         </div>
         <div className="row padding-top-0.5x padding-bottom-2x">
-            <span>{JSON.stringify(this.state)}</span>
             <div className="login-box col-md-6 offset-3">
             <div>
               <div className="col-md-6">
