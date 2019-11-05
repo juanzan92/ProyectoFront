@@ -127,7 +127,7 @@ class UploadOportunity extends React.Component {
   
   getCategories() {
     const url =
-      'http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/categories/get_all';
+      'http://localhost:8080/catalog/categories/get_all';
     fetch(url, {
       method: 'GET',
       mode: 'no-cors'
@@ -217,7 +217,7 @@ class UploadOportunity extends React.Component {
       jsonMap.dimensions = this.state.dimensions;
       jsonMap.tags = this.state.tags;
 
-      fetch('http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items', {
+      fetch('http://localhost:8080/catalog/items', {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
@@ -230,7 +230,7 @@ class UploadOportunity extends React.Component {
         } 
         else {
           const r = window.confirm("Oportunidad cargada correctamente!!!");
-          if (r) window.location.href = "/vendor-oportunities";
+          if (r) window.location.href = "/account";
           return response.json()
         }
       })
@@ -325,7 +325,7 @@ class UploadOportunity extends React.Component {
                     <div className="col-8">
                       <input className="form-control" type="text" name="title" 
                           placeholder="Termo Stanley Adventure 750ml"
-                          pattern="[A-Z0-9Ñ\s]{3,40}"
+                          pattern="^[A-Z0-9\s]{3,60}$"
                           value={this.state.title}
                           onChange={this.handleChange}
                           required/>
@@ -341,7 +341,7 @@ class UploadOportunity extends React.Component {
                           <label htmlFor="marca">Marca</label>
                           <input className="form-control" type="text" name="marca"  
                               placeholder="Stanley"
-                              pattern="^[a-zA-Z0-9_-]{2,40}"
+                              pattern="^[A-Z0-9\s]{2,40}$"
                               title="Alfanumérico. Entre 2-40 caracteres."
                               value={this.state.marca}
                               onChange={this.handleChange} 
@@ -353,7 +353,7 @@ class UploadOportunity extends React.Component {
                           <label htmlFor="modelo">Modelo</label>
                           <input className="form-control" type="text" name="modelo"  
                               placeholder="Adventure 750ml"
-                              pattern="[A-Z0-9Ñ\s]{3,40}"
+                              pattern="^[A-Z0-9\s]{2,40}$"
                               title="Alfanumérico. Entre 2-60 caracteres."
                               value={this.state.modelo}
                               onChange={this.handleChange}  
@@ -513,9 +513,6 @@ class UploadOportunity extends React.Component {
 
               </form>
             </div>      
-      </div>
-      <div>
-        {JSON.stringify(this.state)}
       </div>
       </>
     );

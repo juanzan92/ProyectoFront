@@ -79,7 +79,7 @@ class SignUp extends React.Component {
             address_city: userCity
           }
         }
-        fetch('http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/account/users', { 
+        fetch('http://localhost:8080/account/users', { 
           headers: {
             "Content-Type": "application/json"
           },
