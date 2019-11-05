@@ -1,4 +1,6 @@
 import React, { PureComponent } from "react";
+import Typography from "@material-ui/core/Typography";
+import Slider from "@material-ui/core/Slider";
 
 import {
   BarChart,
@@ -57,29 +59,76 @@ const data = [
   }
 ];
 
+const marks = [
+  {
+    value: 3,
+    label: "3 Meses"
+  },
+  {
+    value: 6,
+    label: "6 Meses"
+  },
+  {
+    value: 12,
+    label: "12 Meses"
+  }
+];
+
+const styleFilter = {
+  padding: "2px"
+};
+
+function valuetext(value) {
+  return `${value}M`;
+}
+
+function valueLabelFormat(value) {
+  return marks.findIndex(mark => mark.value === value) + 1;
+}
+
 export default class Example extends PureComponent {
   static jsfiddleUrl = "https://jsfiddle.net/alidingling/30763kr7/";
 
   render() {
     return (
-      <ResponsiveContainer width="100%" height={300}>
-        <BarChart
-          data={data}
-          margin={{
-            top: 5,
-            right: 30,
-            left: 20,
-            bottom: 5
-          }}>
-          <CartesianGrid strokeDasharray="3 3" />
-          <XAxis dataKey="name" />
-          <YAxis />
-          <Tooltip />
-          <Legend />
-          <Bar dataKey="pv" fill="#8884d8" />
-          <Bar dataKey="uv" fill="#82ca9d" />
-        </BarChart>
-      </ResponsiveContainer>
+      <>
+        <ResponsiveContainer width="100%" height={450}>
+          <BarChart
+            data={data}
+            margin={{
+              top: 5,
+              right: 30,
+              left: 20,
+              bottom: 5
+            }}>
+            <CartesianGrid strokeDasharray="3 3" />
+            <XAxis dataKey="name" />
+            <YAxis />
+            <Tooltip />
+            <Legend />
+            <Bar dataKey="pv" fill="#8884d8" />
+            <Bar dataKey="uv" fill="#82ca9d" />
+          </BarChart>
+        </ResponsiveContainer>
+
+        <div style={{ margin: "2.3rem" }}>
+          <Typography id="discrete-slider-restrict" gutterBottom>
+            Seleccionar Periodo
+          </Typography>
+          <Slider
+            defaultValue={3}
+            valueLabelFormat={valueLabelFormat}
+            getAriaValueText={valuetext}
+            aria-labelledby="discrete-slider"
+            step={null}
+            valueLabelDisplay="auto"
+            marks={marks}
+            max={12}
+            min={0}
+            style={styleFilter}
+          />
+        </div>
+      </>
     );
   }
 }

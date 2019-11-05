@@ -8,12 +8,12 @@ class ListingCategoriesTitle extends React.Component {
   };
 
   render() {
-    const { title } = this.props;
+    const { title, category } = this.props;
     return (
       <div className="page-title">
         <div className="container">
           <div className="column">
-            <h1>Categoria {}</h1>
+            <h1>{category}</h1>
           </div>
           <div className="column">
             <ul className="breadcrumbs">
