@@ -46,9 +46,6 @@ class UserAccount extends React.Component {
         this.fetchOportunities();
       }
     }
-    if (this.state.orders != []) {
-      localStorage.setItem("orders", this.state.orders.join(","));
-    }
   }
 
   fetchOrders() {

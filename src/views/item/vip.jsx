@@ -77,6 +77,7 @@ class VIP extends React.Component {
       .then(response => {
         this.calcularBarraProgreso();
         this.buscarReviews();
+        this.getURLPago();
       });
   }
 
@@ -113,7 +114,7 @@ class VIP extends React.Component {
       body: JSON.stringify({
         item_id: this.state.item.item_id,
         quantity: this.state.quantityToBuy,
-        consumer_username: "diegote"
+        consumer_username: "richiardo"
       })
     })
       .then(response => {
