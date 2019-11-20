@@ -1,7 +1,7 @@
 import React from "react";
-import wrapper from '../../components/Wrapper';
-import { Auth } from 'aws-amplify';
-import { Link } from 'react-router-dom';
+import wrapper from "../../components/Wrapper";
+import { Auth } from "aws-amplify";
+import { Link } from "react-router-dom";
 
 class SignUp extends React.Component {
   constructor(props) {
@@ -43,84 +43,80 @@ class SignUp extends React.Component {
     userCountry,
     userProvince,
     userCity
-  ){
+  ) {
     try {
       console.log(JSON.stringify(this.state));
       Auth.signUp({
-          'username': user,
-          'password': password,
-          'attributes': 
-          {
-            'nickname': user,
-            'email': email,
-            'name': userNombres,
-            'given_name': userApellidos,
-            'address': 'HARDCODED',
-            'custom:role': role,
-            'custom:phone': userPhone,
-            'custom:dni': userDni
-          }
-      })
-      .then(function () {
-        var body = {
-          username: user,
-          user_role: role,
+        username: user,
+        password: password,
+        attributes: {
+          nickname: user,
           email: email,
-          first_name: userNombres,
-          last_name: userApellidos,
-          phone: userPhone,
-          dni: userDni,
-          address: {
-            address_name: userCalle,
-            address_number: userNum,
-            address_code: userCp,
-            address_country: userCountry,
-            address_region: userProvince,
-            address_city: userCity
-          }
+          name: userNombres,
+          given_name: userApellidos,
+          address: "HARDCODED",
+          "custom:role": role,
+          "custom:phone": userPhone,
+          "custom:dni": userDni
         }
-        fetch('http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/account/users', { 
-          headers: {
-            "Content-Type": "application/json"
-          },
-          method: "POST",
-          body: JSON.stringify(body)
-        })
-        .then((response) => {
-          if(!response.ok) {
-            throw new Error(response.status)
-          } 
-          else {
-            var c = window.confirm(
-              "Se ha enviado un enlace de verificación a su casilla de correo.\n¡Confirme su usuario e inicie sesión!"
-            );
-            if (c) {
-              if (role == "vendor"){
-                window.location.href = `https://auth.mercadopago.com.ar/authorization?client_id=5912969040584293&response_type=code&platform_id=mp&redirect_uri=http%3A%2F%2Flocalhost:3000/splash?user_id=${user}`;
-              }
-              else {
-                window.location.href = "/signin"  
-              }
-            } 
-            return response.json()
-          } 
-        })
-        .catch(e => console.log(e));
       })
-      .catch((e) => {
-        console.log(e)
-      })
-    }
-    catch (error) {
+        .then(function() {
+          var body = {
+            username: user,
+            user_role: role,
+            email: email,
+            first_name: userNombres,
+            last_name: userApellidos,
+            phone: userPhone,
+            dni: userDni,
+            address: {
+              address_name: userCalle,
+              address_number: userNum,
+              address_code: userCp,
+              address_country: userCountry,
+              address_region: userProvince,
+              address_city: userCity
+            }
+          };
+          fetch("http://localhost:8080/account/users", {
+            headers: {
+              "Content-Type": "application/json"
+            },
+            method: "POST",
+            body: JSON.stringify(body)
+          })
+            .then(response => {
+              if (!response.ok) {
+                throw new Error(response.status);
+              } else {
+                var c = window.confirm(
+                  "Se ha enviado un enlace de verificación a su casilla de correo.\n¡Confirme su usuario e inicie sesión!"
+                );
+                if (c) {
+                  if (role == "vendor") {
+                    window.location.href = `https://auth.mercadopago.com.ar/authorization?client_id=7662807553309957&response_type=code&platform_id=mp&redirect_uri=http%3A%2F%2Flocalhost:3000/splash?user_id=${user}`;
+                  } else {
+                    window.location.href = "/signin";
+                  }
+                }
+                return response.json();
+              }
+            })
+            .catch(e => console.log(e));
+        })
+        .catch(e => {
+          console.log(e);
+        });
+    } catch (error) {
       alert(error.message);
-      throw error
-    } 
+      throw error;
+    }
   }
-  
-  assignInputValue(target){
-    if (target.type === 'email'){
-      if (target.name!=='userEmail') {
-        document.getElementById('userEmailConf').pattern = this.state.userEmail;
+
+  assignInputValue(target) {
+    if (target.type === "email") {
+      if (target.name !== "userEmail") {
+        document.getElementById("userEmailConf").pattern = this.state.userEmail;
       }
       return target.value.toLowerCase();
     }
@@ -133,8 +129,7 @@ class SignUp extends React.Component {
     if (target.type === "text") {
       if (target.name !== "userName") {
         return target.value.toUpperCase();
-      }
-      else {
+      } else {
         return target.value.toLowerCase();
       }
     }
@@ -171,7 +166,7 @@ class SignUp extends React.Component {
       this.state.userCiudad
     );
   }
-  
+
   render() {
     return (
       <>
@@ -202,7 +197,7 @@ class SignUp extends React.Component {
           </div>
         </div>
         <div className="row padding-top-0.5x padding-bottom-2x">
-            <div className="login-box col-md-6 offset-3">
+          <div className="login-box col-md-6 offset-3">
             <div>
               <div className="col-md-6">
                 <h4 className="">Ya sos miembro?</h4>
@@ -225,8 +220,7 @@ class SignUp extends React.Component {
                     className="form-control"
                     name="userRol"
                     value={this.state.userRol}
-                    onChange={this.handleChange}
-                  >
+                    onChange={this.handleChange}>
                     <option value="consumer">Colaborador</option>
                     <option value="vendor">Oferente</option>
                   </select>
@@ -351,7 +345,7 @@ class SignUp extends React.Component {
                     title="Solo texto (4-30 caracteres)."
                     required
                   />
-                  </div>
+                </div>
               </div>
 
               <div className="col-sm-6">
@@ -463,8 +457,7 @@ class SignUp extends React.Component {
               <div className="col-12 text-center text-sm-right">
                 <button
                   className="btn btn-primary margin-bottom-none"
-                  type="submit"
-                >
+                  type="submit">
                   Registrate
                 </button>
               </div>

@@ -1,6 +1,16 @@
 import React from "react";
 
 class TemplateModal extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.usarfun = this.usarfun.bind(this);
+  }
+
+  usarfun() {
+    this.props.cancelSuscription && this.props.cancelSuscription();
+  }
+
   render() {
     return (
       <>
@@ -33,7 +43,7 @@ class TemplateModal extends React.Component {
                 <button
                   class="btn btn-danger btn-sm"
                   type="button"
-                  onClick={() => this.props.cancelSuscription()}>
+                  onClick={() => this.usarfun()}>
                   Cancelar Suscripción
                 </button>
               </div>

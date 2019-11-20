@@ -13,7 +13,7 @@ class ProductCard extends React.Component {
     pictures.forEach(picture => {
       let pictureAux = {
         label: picture.id,
-        imgPath: `/${picture.src}`
+        imgPath: `${picture.src}`
       };
       tutorialSteps.img.push(pictureAux);
     });

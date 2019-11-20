@@ -64,6 +64,11 @@ class TrackingBar extends React.Component {
                   {subscription_status}
                 </span>
               )}
+              {subscription_status == "IN_PROGRESS" && (
+                <span style={{ fontWeight: "500", color: "blue" }}>
+                  {subscription_status}
+                </span>
+              )}
               {subscription_status == "CANCELLED" && (
                 <span style={{ fontWeight: "500", color: "red" }}>
                   {subscription_status}

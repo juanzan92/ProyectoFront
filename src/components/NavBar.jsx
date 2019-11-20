@@ -10,8 +10,8 @@ class NavBar extends Component {
       isAuthenticated: false,
       isAuthenticating: true,
       user: [],
-      user_username: '',
-      user_rol: ''
+      user_username: "",
+      user_rol: ""
     };
   }
 
@@ -19,7 +19,7 @@ class NavBar extends Component {
     try {
       if (await Auth.currentSession()) {
         this.userHasAuthenticated(true);
-        this.currentActiveUser()
+        this.currentActiveUser();
       }
     } catch (e) {
       if (e !== "No current user") {
@@ -38,7 +38,7 @@ class NavBar extends Component {
   handleLogout = async event => {
     await Auth.signOut();
     this.userHasAuthenticated(false);
-    window.location.href = "/"
+    window.location.href = "/";
   };
 
   currentActiveUser() {
@@ -54,7 +54,7 @@ class NavBar extends Component {
         console.log("Username");
         console.log(this.state.user_username);
         console.log("User Role");
-        console.log(this.state.user_rol)
+        console.log(this.state.user_rol);
       })
       .catch(err => console.log(err));
   }
@@ -68,13 +68,11 @@ class NavBar extends Component {
     //console.log(Auth.currentAuthenticatedUser());
 
     //const isLogged = this.state.isAuthenticated;
-    
+
     let btnNavBar;
 
     if (this.state.isAuthenticated) {
-
-      if (this.state.user_rol == "consumer"){
-        
+      if (this.state.user_rol == "consumer") {
         btnNavBar = (
           <>
             <div className="row">
@@ -91,21 +89,21 @@ class NavBar extends Component {
                         />
                       </div>
                       <div className="user-info">
-                        <h6 className="user-name">{this.state.user_username}</h6>
-                        <span className="text-xs text-muted">
-                          Colaborador
-                        </span>
+                        <h6 className="user-name">
+                          {this.state.user_username}
+                        </h6>
+                        <span className="text-xs text-muted">Colaborador</span>
                       </div>
                     </li>
-                    <li className="sub-menu-separator"/>
+                    <li className="sub-menu-separator" />
                     <li>
-                      <a href="/account-profile">Mi Cuenta</a>
+                      <a href="/account">Mi Cuenta</a>
                     </li>
-                    <li className="sub-menu-separator"/>
+                    <li className="sub-menu-separator" />
                     <li>
                       <a href="/account">Suscripciones</a>
                     </li>
-                    <li className="sub-menu-separator"/>
+                    <li className="sub-menu-separator" />
                   </ul>
                 </div>
               </div>
@@ -114,13 +112,10 @@ class NavBar extends Component {
                   Logout
                 </div>
               </div>
-
             </div>
           </>
         );
-      }
-      else
-      {
+      } else {
         btnNavBar = (
           <>
             <div className="row">
@@ -148,21 +143,21 @@ class NavBar extends Component {
                         />
                       </div>
                       <div className="user-info">
-                        <h6 className="user-name">{this.state.user_username}</h6>
-                        <span className="text-xs text-muted">
-                          Oferente
-                        </span>
+                        <h6 className="user-name">
+                          {this.state.user_username}
+                        </h6>
+                        <span className="text-xs text-muted">Oferente</span>
                       </div>
                     </li>
-                    <li className="sub-menu-separator"/>
+                    <li className="sub-menu-separator" />
                     <li>
-                      <a href="/account-profile">Mi Cuenta</a>
+                      <a href="/account">Mi Cuenta</a>
                     </li>
-                    <li className="sub-menu-separator"/>
+                    <li className="sub-menu-separator" />
                     <li>
                       <a href="/account">Oportunidades</a>
                     </li>
-                    <li className="sub-menu-separator"/>
+                    <li className="sub-menu-separator" />
                   </ul>
                 </div>
               </div>
@@ -171,13 +166,11 @@ class NavBar extends Component {
                   Logout
                 </div>
               </div>
-
             </div>
           </>
         );
       }
-    } 
-    else{
+    } else {
       btnNavBar = (
         <>
           <Link to="/signin">

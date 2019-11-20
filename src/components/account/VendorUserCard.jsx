@@ -1,24 +1,13 @@
 import React from "react";
-import NavUser from "./NavUser";
+import VendorNav from "./VendorNavUser";
 
-class UserCard extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      user: this.props.user,
-      orders: this.props.orders,
-      selected: this.props.selected
-    };
-  }
-
-  componentDidMount() {}
-
+class VendorUserCard extends React.Component {
   getFullname() {
-    return `${this.state.user.name} ${this.state.user.given_name}`;
+    return `${this.props.user.name} ${this.props.user.given_name}`;
   }
 
   render() {
-    const { user } = this.state;
+    const { user, orders, selected } = this.props;
     const img = NaN;
     if (user.picture) {
       img = user.picture;
@@ -29,7 +18,7 @@ class UserCard extends React.Component {
           <div
             className="user-cover"
             style={{
-              backgroundImage: `${img}`
+              background: `/img/account/user-cover-img.jpg`
             }}></div>
           <div className="user-info">
             <div className="user-avatar">
@@ -37,16 +26,16 @@ class UserCard extends React.Component {
                 className="edit-avatar"
                 onClick={() => window.location.reload()}
               />
-              <img src="/img/account/avatar-consumer.png" alt="User" />
+              <img src="/img/account/avatar-vendor.png" alt="User" />
             </div>
             <div className="user-data">
               <h4>{this.getFullname()}</h4>
             </div>
           </div>
         </aside>
-        <NavUser orders={this.state.orders} selected={this.state.selected} />
+        <VendorNav orders={orders} selected={selected} />
       </div>
     );
   }
 }
-export default UserCard;
+export default VendorUserCard;

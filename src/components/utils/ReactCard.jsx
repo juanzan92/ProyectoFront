@@ -26,8 +26,7 @@ class ReactCard extends React.Component {
             {body}
             <a
               className="btn btn-outline-primary btn-sm"
-              href="shop-grid-ls.html"
-            >
+              href={`/category/${id}`}>
               {text}
             </a>
           </div>

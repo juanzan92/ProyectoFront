@@ -1,13 +1,13 @@
 import React from "react";
 
-import UserCard from "../../components/account/UserCard";
+import VendorUserCard from "../../components/account/VendorUserCard";
 import wrapper from "../../components/Wrapper";
-import AccountProfileForm from "../../components/account/AccountForm";
+import VendorAccountProfileForm from "../../components/account/VendorAccountForm";
 import AccountTitle from "../../components/account/AccountTitle";
 import { Auth } from "aws-amplify";
 import { Snackbar } from "@material-ui/core";
 
-class AccountProfile extends React.Component {
+class VendorAccountProfile extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -54,12 +54,14 @@ class AccountProfile extends React.Component {
           <AccountTitle />
           <div className="container padding-bottom-3x mb-2">
             <div className="row">
-              <UserCard
+              <VendorUserCard
                 user={this.state.user}
                 orders={this.state.orders}
                 selected={"mi_cuenta"}
               />
-              {this.state.user && <AccountProfileForm user={this.state.user} />}
+              {this.state.user && (
+                <VendorAccountProfileForm user={this.state.user} />
+              )}
             </div>
           </div>
           <Snackbar></Snackbar>
@@ -75,4 +77,4 @@ class AccountProfile extends React.Component {
   }
 }
 
-export default wrapper(AccountProfile);
+export default wrapper(VendorAccountProfile);

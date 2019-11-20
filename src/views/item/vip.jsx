@@ -4,33 +4,45 @@ import VIPTitle from "../../components/Item/VIPTitle";
 import Review from "../../components/vip/Review";
 import ProductCard from "../../components/vip/ProductCard";
 import { Auth } from "aws-amplify";
+import Timer from "../../components/utils/Timer";
 
 class VIP extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      item: "",
+      item: null,
       reviews: [],
       isLoading: true,
       isError: false,
       quantityToBuy: 1,
       progress: 0,
       redirect_url: "",
-      user: this.getUsuario()
+      user: null
     };
 
     this.handleInputChange = this.handleInputChange.bind(this);
     this.pagar = this.pagar.bind(this);
+    this.getUsuario();
   }
 
   getUsuario() {
     Auth.currentAuthenticatedUser({}).then(user1 => {
-      return user1.attributes;
+      this.setState({
+        user: user1.attributes
+      });
     });
   }
 
   componentDidMount() {
     this.buscarItemTest();
+  }
+
+  componentDidUpdate() {
+    if (this.state.user) {
+      if (this.state.item && this.state.isLoading) {
+        this.getURLPago();
+      }
+    }
   }
 
   handleInputChange(event) {
@@ -48,7 +60,7 @@ class VIP extends React.Component {
 
   buscarItemTest() {
     const { item_id } = this.props.match.params;
-    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/catalog/items?item_id=${item_id}`;
+    const url = `http://localhost:8080/catalog/items?item_id=${item_id}`;
     fetch(url, {
       method: "GET"
     })
@@ -59,8 +71,7 @@ class VIP extends React.Component {
       .then(myJson => {
         console.log(myJson);
         this.setState({
-          item: myJson,
-          isLoading: false
+          item: myJson
         });
       })
       .then(response => {
@@ -72,7 +83,7 @@ class VIP extends React.Component {
 
   buscarReviews() {
     const url =
-      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com//catalog/reviews/search?index_name=item_id&search_pattern=1234";
+      "http://localhost:8080/catalog/reviews/search?index_name=item_id&search_pattern=1234";
     fetch(url)
       .then(response => {
         return response.json();
@@ -87,14 +98,14 @@ class VIP extends React.Component {
   calcularBarraProgreso() {
     var initialQuantity = this.state.item.initial_stock;
     var actualQuantity = this.state.item.stock;
+    var vendido = initialQuantity - actualQuantity;
     this.setState({
-      progress: (actualQuantity * 100) / initialQuantity
+      progress: (vendido * 100) / initialQuantity
     });
   }
 
   getURLPago() {
-    const url =
-      "http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/mp/preferences"; //url backend
+    const url = "http://localhost:8080/mp/preferences"; //url backend
     fetch(url, {
       method: "POST",
       headers: {
@@ -103,7 +114,7 @@ class VIP extends React.Component {
       body: JSON.stringify({
         item_id: this.state.item.item_id,
         quantity: this.state.quantityToBuy,
-        consumer_username: "diegote"
+        consumer_username: "richiardo"
       })
     })
       .then(response => {
@@ -111,7 +122,8 @@ class VIP extends React.Component {
       })
       .then(preferencia => {
         this.setState({
-          redirect_url: preferencia.redirect_url
+          redirect_url: preferencia.redirect_url,
+          isLoading: false
         });
       });
   }
@@ -144,7 +156,6 @@ class VIP extends React.Component {
 
   render() {
     const { item } = this.state;
-    let discount;
     const state = this.state;
 
     if (item && state.reviews.length > 0) {
@@ -162,21 +173,10 @@ class VIP extends React.Component {
                 <div className="padding-top-2x mt-2 hidden-md-up"></div>
                 <h2 className="padding-top-1x text-normal">{item.title}</h2>
                 <span className="h2 d-block">
-                  &nbsp; U&#36;D {item.actual_price}
+                  &nbsp; &#36; {item.actual_price}
                 </span>
-                <p>{item.description}</p>
+                <p>{item.description_short}</p>
                 <div className="row margin-top-1x">
-                  <div className="col-sm-4">
-                    <div className="form-group">
-                      <label htmlFor="size">Talle</label>
-                      <select className="form-control" id="size">
-                        <option>Elegir Talle</option>
-                        <option>10.5</option>
-                        <option>10</option>
-                        <option>9.5</option>
-                      </select>
-                    </div>
-                  </div>
                   <div className="col-sm-5">
                     <div className="form-group">
                       <label htmlFor="color">Color</label>
@@ -185,6 +185,7 @@ class VIP extends React.Component {
                       </select>
                     </div>
                   </div>
+
                   <div className="col-sm-3">
                     <div className="form-group">
                       <label htmlFor="quantity">Cantidad</label>
@@ -203,11 +204,18 @@ class VIP extends React.Component {
                     </div>
                   </div>
                 </div>
-                <div className="padding-bottom-1x mb-2">
-                  <span className="text-medium">Categoria:&nbsp;</span>
-                  <a className="navi-link" href="/home">
-                    {item.category}
-                  </a>
+                <div
+                  className="padding-bottom-1x mb-2"
+                  style={{ dispplay: "grid" }}>
+                  <Timer endDate={item.end_date} />
+                  <span className="text-medium" style={{ display: "block" }}>
+                    Categoria:&nbsp;
+                    <a
+                      className="navi-link"
+                      href={`/category/${item.category}`}>
+                      {item.category}
+                    </a>
+                  </span>
                 </div>
 
                 <hr className="mb-3" />

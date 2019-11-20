@@ -28,7 +28,7 @@ class Subscription extends React.Component {
   fetchSuscription() {
     const { subscription_id } = this.state;
 
-    const url = `http://proyectoback-tesis.us-west-2.elasticbeanstalk.com/subscriptions/?subscription_id=${subscription_id}`;
+    const url = `http://localhost:8080/subscriptions/?subscription_id=${subscription_id}`;
     fetch(url, {
       method: "GET",
       headers: {
@@ -47,7 +47,18 @@ class Subscription extends React.Component {
       });
   }
 
-  cancelSuscription() {}
+  cancelSuscription() {
+    //closeWindow();
+    const { subscription_id } = this.props.match.params;
+    const url = `http://localhost:8080/subscriptions?subscription_id=${subscription_id}`;
+    fetch(url, {
+      method: "DELETE"
+    }).then(response => {
+      if (response.status === 500) throw console.error("error");
+
+      if (response.status === 200) window.location.href = "/account";
+    });
+  }
 
   render() {
     if (this.state.subscription != null) {
@@ -74,7 +85,7 @@ class Subscription extends React.Component {
                   </h3>
                 </div>
 
-                <CancelModal cancelSuscription={() => this.cancelSuscription} />
+                <CancelModal cancelSuscription={this.cancelSuscription} />
                 <button
                   class="btn btn-outline-danger m-auto"
                   type="button"

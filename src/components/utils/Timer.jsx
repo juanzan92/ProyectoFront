@@ -9,6 +9,7 @@ class Timer extends React.Component {
       hours: "",
       days: ""
     };
+
     this.secondsRemaining = (Date.parse(props.endDate) - Date.now()) / 1000;
     this.handleChange = this.handleChange.bind(this);
     // method that triggers the countdown functionality

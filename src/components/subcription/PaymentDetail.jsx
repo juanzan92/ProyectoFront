@@ -39,9 +39,10 @@ class PaymentDetail extends React.Component {
             </tbody>
           </table>
         </div>
+        {/* TODO cambiar por la factura posta la url  */}
         <a
           class="btn btn-info"
-          href={`https://www.mercadopago.com.ar/activities/detail/merchant_order_purchase-${merchant_order_id}`}>
+          href={`https://www.mercadopago.com.ar/activities`}>
           Ver Factura
         </a>
       </>

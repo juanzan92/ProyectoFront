@@ -1,6 +1,6 @@
 import React from "react";
 
-class AccountTitle extends React.Component {
+class ListingCategoriesTitle extends React.Component {
   state = {
     item: null,
     isLoading: true,
@@ -8,11 +8,12 @@ class AccountTitle extends React.Component {
   };
 
   render() {
+    const { title, category_name } = this.props;
     return (
       <div className="page-title">
         <div className="container">
           <div className="column">
-            <h1>Mi Cuenta</h1>
+            <h1>{category_name}</h1>
           </div>
           <div className="column">
             <ul className="breadcrumbs">
@@ -21,10 +22,10 @@ class AccountTitle extends React.Component {
               </li>
               <li className="separator">&nbsp;</li>
               <li>
-                <a href="shop-grid-ls.html">Cuenta</a>
+                <a href="shop-grid-ls.html">Categorias</a>
               </li>
               <li className="separator">&nbsp;</li>
-              <li>mis ordenes</li>
+              <li>{category_name}</li>
             </ul>
           </div>
         </div>
@@ -33,4 +34,4 @@ class AccountTitle extends React.Component {
   }
 }
 
-export default AccountTitle;
+export default ListingCategoriesTitle;

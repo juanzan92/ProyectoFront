@@ -45,7 +45,7 @@ class Splash extends React.Component {
     var vars = {};
     var parts = window.location.href.replace(
       /[?&]+([^=&]+)=([^&]*)/gi,
-      function (m, key, value) {
+      function(m, key, value) {
         vars[key] = value;
       }
     );
@@ -66,11 +66,11 @@ class Splash extends React.Component {
     )
       .then(response => {
         return response.json();
-      }
-      ).then(myJson => {
-        window.location.href = `/subscripcion/${myJson.suscription_id}`
       })
-      .catch(function (e) {
+      .then(myJson => {
+        window.location.href = `/subscripcion/${myJson.suscription_id}`;
+      })
+      .catch(function(e) {
         console.log(e);
       });
   }
