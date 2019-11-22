@@ -69,11 +69,11 @@ class NavBar extends Component {
 
     //const isLogged = this.state.isAuthenticated;
 
-    let btnNavBar;
+    let navToolBar;
 
     if (this.state.isAuthenticated) {
       if (this.state.user_rol == "consumer") {
-        btnNavBar = (
+        navToolBar = (
           <>
             <div className="row">
               <div className="col-md-3 mt-2">
@@ -116,7 +116,7 @@ class NavBar extends Component {
           </>
         );
       } else {
-        btnNavBar = (
+        navToolBar = (
           <>
             <div className="row">
               <div className="col-md-3 mr-3">
@@ -171,7 +171,7 @@ class NavBar extends Component {
         );
       }
     } else {
-      btnNavBar = (
+      navToolBar = (
         <>
           <Link to="/signin">
             <div className="btn btn-primary p">
@@ -188,7 +188,7 @@ class NavBar extends Component {
     return (
       <>
         <header className="navbar navbar-sticky">
-          {/* Search*/}
+          {/* Branding*/}
           <div className="site-branding">
             <div className="inner">
               {/* Off-Canvas Toggle (#shop-categories)*/}
@@ -228,7 +228,7 @@ class NavBar extends Component {
               </li>
               <li>
                 <a href="/">
-                  <span>FAQ</span>
+                  <span>FAQ's</span>
                 </a>
               </li>
             </ul>
@@ -236,7 +236,7 @@ class NavBar extends Component {
           {/* Toolbar*/}
           <div className="toolbar">
             <div className="inner">
-              <div className="tools">{btnNavBar}</div>
+              <div className="tools">{navToolBar}</div>
             </div>
           </div>
         </header>
