@@ -15,8 +15,9 @@ class VendorSuscriptionTable extends React.Component {
     this.cancelOportunity = this.cancelOportunity.bind(this);
   }
 
-  cancelOportunity() {
-    //really ?
+  cancelOportunity(itemId) {
+    const url = `http://localhost:8080/catalog/items?item_id=${itemId}`;
+    fetch(url, { method: "DELETE" }).then(window.location.reload());
   }
 
   calcularBarraProgreso(item) {
@@ -75,7 +76,7 @@ class VendorSuscriptionTable extends React.Component {
           <span className="text-medium">&#36;{item.actual_price}</span>
         </td>
         <td>
-          <span onClick={this.cancelOportunity()}>
+          <span onClick={() => this.cancelOportunity(item.item_id)}>
             <CancelIcon />
           </span>
         </td>

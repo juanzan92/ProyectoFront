@@ -55,7 +55,6 @@ class Subscription extends React.Component {
       method: "DELETE"
     }).then(response => {
       if (response.status === 500) throw console.error("error");
-
       if (response.status === 200) window.location.href = "/account";
     });
   }

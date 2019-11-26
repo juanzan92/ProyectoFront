@@ -2,7 +2,7 @@ import React from "react";
 
 const cardStyle = {
   maxWidth: "265px",
-  height: "300px",
+  height: "310px",
   margin: "0.5rem"
 };
 
@@ -19,11 +19,14 @@ class OportunityGrid extends React.Component {
         <div class="row" style={{ flexWrap: "wrap" }}>
           {items.map(x => (
             <div class="product-card" style={cardStyle}>
-              <a class="product-thumb" href="shop-single.html">
-                <img src={"/img/shop/products/01.jpg"} alt="Product" />
+              <a
+                class="product-thumb"
+                style={{ maxHeight: "180px", margin: "auto" }}
+                href={`/vip/${x.item_id}`}>
+                <img src={x.pictures[0].src} alt="Product" />
               </a>
               <h3 class="product-title">
-                <a href="shop-single.html">{x.title}</a>
+                <a href={`/vip/${x.item_id}`}>{x.title}</a>
               </h3>
               <h4 class="product-price">$ {x.actual_price}</h4>
               <div class="product-buttons">

@@ -11,10 +11,58 @@ class ListingCategories extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      items: []
+      items: [],
+      filteredItems: [],
+      priceMin: 0,
+      priceMax: 200000,
+      brands: [],
+      checkedItems: [],
+      sortingBy: "minMax"
     };
 
     this.getItems();
+    this.handleBrandFilter = this.handleBrandFilter.bind(this);
+    this.orderItems = this.orderItems.bind(this);
+  }
+
+  getMarcasFromItems() {
+    const { items } = this.state;
+    let myBrand = [];
+    items.forEach(item => myBrand.push(item.attributes[0].value));
+
+    myBrand = this.compressArray(myBrand);
+
+    this.setState({
+      brands: myBrand
+    });
+  }
+
+  compressArray(original) {
+    var compressed = [];
+    // make a copy of the input array
+    var copy = original.slice(0);
+    // first loop goes over every element
+    for (var i = 0; i < original.length; i++) {
+      var myCount = 0;
+      // loop over every element in the copy and see if it's the same
+      for (var w = 0; w < copy.length; w++) {
+        if (original[i] == copy[w]) {
+          // increase amount of times duplicate is found
+          myCount++;
+          // sets item to undefined
+          delete copy[w];
+        }
+      }
+
+      if (myCount > 0) {
+        var a = new Object();
+        a.value = original[i];
+        a.count = myCount;
+        compressed.push(a);
+      }
+    }
+
+    return compressed;
   }
 
   getItems() {
@@ -41,28 +89,71 @@ class ListingCategories extends React.Component {
       .then(myJson => {
         console.log(myJson);
         this.setState({
-          items: myJson
+          items: myJson,
+          filteredItems: myJson
         });
+        this.getMarcasFromItems();
       });
   }
 
-  render() {
-    const { items } = this.state;
-    const { category_id } = this.props;
+  orderItems(filter) {
+    const { filteredItems } = this.state;
 
-    if (items.length > 0) {
+    if (filter === "maxMin") {
+      filteredItems.sort((a, b) => b.actual_price - a.actual_price);
+      this.setState({ filteredItems: filteredItems, sortingBy: filter });
+    } else if (filter == "minMax") {
+      filteredItems.sort((a, b) => a.actual_price - b.actual_price);
+      this.setState({ filteredItems: filteredItems });
+    } else {
+      filteredItems.sort();
+      this.setState({ filteredItems: filteredItems });
+    }
+  }
+
+  handleBrandFilter(brand) {
+    const { items, checkedItems, sortingBy } = this.state;
+
+    if (!checkedItems.includes(brand)) {
+      checkedItems.push(brand);
+    } else if (checkedItems.length > 0) {
+      let index = checkedItems.indexOf(brand);
+      checkedItems.splice(index, 1);
+    }
+
+    if (checkedItems.length == 0) {
+      this.setState({
+        filteredItems: items
+      });
+    } else {
+      this.setState({
+        filteredItems: items.filter(item =>
+          checkedItems.includes(item.attributes[0].value)
+        )
+      });
+    }
+  }
+
+  render() {
+    const { filteredItems, brands } = this.state;
+    const { category_id } = this.props.match.params;
+
+    if (filteredItems.length > 0) {
       return (
         <>
-          <ListingCategoriesTitle category={category_id} />
+          <ListingCategoriesTitle category_name={category_id} />
           <div class="container padding-bottom-3x mb-1">
             <div class="row">
               <div class="col-xl-9 col-lg-8 order-lg-2">
-                <ShopToolbar />
-                {<OportunityGrid items={items} />}
+                <ShopToolbar orderItems={this.orderItems} />
+                {<OportunityGrid items={filteredItems} />}
                 <PaginationControl />
               </div>
               <div class="col-xl-3 col-lg-4 order-lg-1">
-                <ProductFilter />
+                <ProductFilter
+                  brands={brands}
+                  handleBrandFilter={this.handleBrandFilter}
+                />
               </div>
             </div>
           </div>
