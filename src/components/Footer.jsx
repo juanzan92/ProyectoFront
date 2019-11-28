@@ -23,7 +23,7 @@ class Footer extends React.Component {
                   </p>
                   <p>
                     <a className="navi-link-light" href="#">
-                      Redes Sociales
+                      Smarket Social
                     </a>
                   </p>
                   <a
@@ -47,7 +47,7 @@ class Footer extends React.Component {
                       <a href="#">Quiénes Somos</a>
                     </li>
                     <li>
-                      <a href="#">FAQ's</a>
+                      <a href="/utils/faqs">FAQ's</a>
                     </li>
                     <li>
                       <a href="#">Blog</a>

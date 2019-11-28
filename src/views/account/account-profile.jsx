@@ -51,7 +51,7 @@ class AccountProfile extends React.Component {
     if (this.state.orders.length > 0) {
       return (
         <>
-          <AccountTitle />
+          <AccountTitle/>
           <div className="container padding-bottom-3x mb-2">
             <div className="row">
               <UserCard
@@ -59,10 +59,10 @@ class AccountProfile extends React.Component {
                 orders={this.state.orders}
                 selected={"mi_cuenta"}
               />
-              {this.state.user && <AccountProfileForm user={this.state.user} />}
+              {this.state.user && <AccountProfileForm user={this.state.user}/>}
             </div>
           </div>
-          <Snackbar></Snackbar>
+          <Snackbar/>
         </>
       );
     } else {
