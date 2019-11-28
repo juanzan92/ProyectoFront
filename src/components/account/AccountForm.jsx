@@ -11,71 +11,70 @@ class AccountProfileForm extends React.Component {
       user_rol: "",
       custom_phone: null,
       custom_dni: null,
+      userCallesuki: "",
       userDynamo: {},
-      userFromDynamo: {},
+      userParentData: {},
 
-      userPhone: "",
-      userPais: "",
-      userProvincia: "",
-      userCiudad: "",
+      userNombres: "",
+      userApellidos: "",
+      userRol: "",
+      userEmail: "",
+      userTelefono: "",
+      userDni: "",
       userAddCalle: "",
       userAddNum: "",
       userAddCp: "",
-      userPw: "",
-      userPwConf: "",
+      userAddPiso: null,
+      userAddDepto: null,
+      userAddPais: "",
+      userAddPvcia: "",
+      userAddCiudad: "",
 
-      userOldPw: "",
+      userCurrentPw: "",
       userNewPw: "",
       userNewPwConf: "",
+
+      isPwButtonDisabled: false,
+      isDataButtonDisabled: false
     };
 
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handlePasswordChange = this.handlePasswordChange.bind(this);
+    this.getUserByUsername = this.getUserByUsername.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.submitUserDataUpload = this.submitUserDataUpload.bind(this);
+    this.submitPasswordUpload = this.submitPasswordUpload.bind(this);
   }
 
-  currentLoggedUser() {
-    Auth.currentAuthenticatedUser({})
-      .then(userObject => {
-        this.setState({
-          user_username: userObject.username.toLowerCase(),
-          user_rol: userObject.attributes["custom:role"].toLowerCase()
-        });
-        console.log("Username");
-        console.log(this.state.user_username);
-        console.log("User Role");
-        console.log(this.state.user_rol);
-      })
-      .catch(err => console.log(err));
-  }
 
-  async retrieveUser(){
-    try {
-      if (await Auth.currentSession()) {
-        this.currentLoggedUser();
-      }
-    } catch (e) {
-      if (e !== "No current user") {
-        console.log(e);
-      }
-    }
-  }
+  componentDidMount() {
 
-  async componentDidMount() {
-
-    const dynamoUser = await this.getUserByUsername();
+    const dynamoUser = this.getUserData();
 
     this.setState({
-        userFromDynamo: dynamoUser
+        userNombres: dynamoUser.first_name,
+        userApellidos: dynamoUser.last_name,
+        userRol: dynamoUser.user_role,
+        userEmail: dynamoUser.email,
+        userTelefono: dynamoUser.phone,
+        userDni: dynamoUser.dni,
+        userAddCalle: dynamoUser.address.address_name,
+        userAddNum: dynamoUser.address.address_number,
+        userAddCp: dynamoUser.address.address_code,
+        userAddPais: dynamoUser.address.address_country,
+        userAddPvcia: dynamoUser.address.address_region,
+        userAddCiudad: dynamoUser.address.address_city
     })
 
-    console.log("User From Dynamo (AccountForm)"); 
-    console.log(JSON.stringify(this.state.userFromDynamo));
+    console.log("User from Dynamo"); 
+    console.log(JSON.stringify(dynamoUser));
 
   }
 
+  async getUserData(){
+    const userData = await this.getUserByUsername();
+    return userData
+  }
+  
   getUserByUsername(){
-    //this.state.user.username
-    //this.state.user.attributes.nickname
     return new Promise(resolve => {
       fetch("http://localhost:8080/account/users?username=" + this.state.user.nickname, {
         headers: {
@@ -92,49 +91,31 @@ class AccountProfileForm extends React.Component {
           }
         })
         .then(userData => {
-
-          console.log("USER DATA ADDRESS");
-          console.log(userData.address);
           resolve(userData)
-          /*this.setState({
-              userFromDynamo: resolve(userData)
-          })*/
-
         })
         .catch(e => console.log(e));
     });
   }
 
-  updatePassword(){
-    Auth.currentAuthenticatedUser()
-    .then(user => {
-        return Auth.changePassword(user, this.state.userOldPw, this.state.userPwConf);
-    })
-    .then(data => console.log(data))
-    .catch(err => console.log(err));
-  }
-  
-
-
   updateUser(){
 
     var body = {
-      username: this.state.userDynamo.username,
-      first_name: this.state.userDynamo.first_name,
-      last_name: this.state.userDynamo.last_name,
-      user_role: this.state.userDynamo.user_rol,
-      email: this.state.userDynamo.email,
-      phone: this.state.userDynamo.phone,
-      dni: this.state.userDynamo.dni,
+      username: this.state.user.nickname,
+      first_name: this.state.userNombres,
+      last_name: this.state.userApellidos,
+      user_role: this.state.userRol,
+      email: this.state.userEmail,
+      phone: this.state.userTelefono,
+      dni: this.state.userDni,
       address: {
-        address_name: this.state.userDynamo.address_name,
-        address_number: this.state.userDynamo.address_number,
-        address_code: this.state.userDynamo.address_code,
+        address_name: this.state.userAddCalle,
+        address_number: this.state.useruserAddNum,
+        address_code: this.state.userAddCp,
         floor: null,
         apartment: null,
-        address_country: this.state.userDynamo.address_country,
-        address_region: this.state.userDynamo.address_region,
-        address_city: this.state.userDynamo.address_city
+        address_country: this.state.userAddPais,
+        address_region: this.state.userAddPvcia,
+        address_city: this.state.userAddCiudad
       }
     };
 
@@ -150,7 +131,11 @@ class AccountProfileForm extends React.Component {
         throw new Error(response.status);
       } 
       else {
-        return response.json()
+        this.setState({
+          isDataButtonDisabled: true
+        });
+        setTimeout(() => this.setState({ isDataButtonDisabled: false }), 10000);
+        return response.json();
       }
     })
     .then(response => {
@@ -169,53 +154,296 @@ class AccountProfileForm extends React.Component {
   }
 
 
-  async handlePasswordChange(event) {
-    this.updatePassword();
-    this.updateUser();
-
-    document.getElementById("submit-btn").disabled = true;
-
-    console.log("Updating user");
-  }
-
-  async handleSubmit(event) {
-    this.updateUser();
-    console.log("Updating user");
+  updatePassword(){
+    Auth.currentAuthenticatedUser()
+    .then(user => {
+        return Auth.changePassword(user, this.state.userCurrentPw, this.state.userNewPwConf);
+    })
+    .then(data => {
+      console.log(data);
+      if (data) {
+        this.setState({
+          isPwButtonDisabled: true
+        });
+        setTimeout(() => this.setState({ isPwButtonDisabled: false }), 10000);
+      } 
+      else {
+        throw new Error(response.status);
+      }
+    })
+    .catch(err => console.log(err));
   }
   
-
-  async retrieveData(){
-    const dynamoUser = await this.getUserByUsername();
-
-    this.setState({
-        userFromDynamo: dynamoUser
-    })
-
-    console.log("User From Dynamo (AccountForm)"); 
-    console.log(JSON.stringify(this.state.userFromDynamo));
-
-    return dynamoUser;
+  submitPasswordUpload(event) {
+    event.preventDefault();
+    this.updatePassword();
+    console.log("Contraseña correctamente actualizada!!!");
   }
+
+  submitUserDataUpload(event) {
+    event.preventDefault();
+    this.updateUser();
+    console.log("Usuario correctamente actualizado!!!");
+  }
+  
 
   render() {
 
-    const {userFromDynamo} = this.state;
-    console.log("userFromDynamo render() method")
-    console.log(userFromDynamo);
+    const {userParentData} = this.state;
+    console.log("userParentData into render()")
+    console.log(userParentData);
 
+    console.log(this.state.userCallesuki);
+
+    if(userParentData !== undefined){
       return (
         <>
           <div className="col-md-8">
-  
-            <div>
-                <Accordion usuarioDeDynamo={userFromDynamo}/>
+
+          <div className="accordion" id="accordion1" role="tablist">
+                    <div className="card">
+                        <div className="card-header" role="tab">
+                          <h6><a className="collapsed" href="#collapseTwo" data-toggle="collapse" aria-expanded="false">#Datos Personales</a></h6>
+                        </div>
+                        <div className="collapse show" id="collapseTwo" data-parent="#accordion1" role="tabpanel">
+                            <form className="margin-top-1x margin-bottom-1x" onSubmit={this.submitUserDataUpload}>
+                                <div className="row offset-1">
+                                    <div className="col-md-5">
+                                        <div className="form-group input-group">
+                                            <label htmlFor="userNombres">Nombres</label>
+                                            <input
+                                                className="form-control form-control-rounded form-control-sm"
+                                                type="text"
+                                                name="userNombres"
+                                                value={this.state.userNombres}
+                                                onChange={this.handleChange}
+                                                pattern="[A-ZÑ\s]{3,40}"
+                                                title="Únicamente texto. Longitud de 3-40 caracteres."
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-5">
+                                        <div className="form-group input-group">
+                                            <label htmlFor="userApellidos">Apellidos</label>
+                                            <input
+                                                className="form-control form-control-rounded form-control-sm"
+                                                type="text"
+                                                name="userApellidos"
+                                                value={this.state.userApellidos}
+                                                onChange={this.handleChange}
+                                                pattern="[A-ZÑ\s]{3,40}"
+                                                title="Únicamente texto. Longitud de 3-40 caracteres."
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div className="row offset-1">
+                                    <div className="col-md-6">
+                                        <div className="form-group input-group">
+                                            <label htmlFor="userPhone">Teléfono</label>
+                                            <input
+                                                className="form-control form-control-rounded form-control-sm"
+                                                type="text"
+                                                name="userPhone"
+                                                value={this.state.userTelefono}
+                                                onChange={this.handleChange}
+                                                pattern="[0-9]{10}"
+                                                title="Incluir código de área en todo caso. Se admite opcionalmente prefijo internacional (+54) y nacional (15)."
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div className="row offset-1">
+                                    <div className="col-md-4">
+                                        <div className="form-group input-group">
+                                            <label htmlFor="userPais">Pais</label>
+                                            <input
+                                                className="form-control form-control-rounded form-control-sm"
+                                                type="text"
+                                                name="userPais"
+                                                value={this.state.userAddPais}
+                                                onChange={this.handleChange}
+                                                pattern="[A-ZÑ\s]{4,20}"
+                                                title="Solo texto (4-40 caracteres)."
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-4">
+                                        <div className="form-group input-group">
+                                            <label htmlFor="userProvincia">Provincia</label>
+                                            <input
+                                                className="form-control form-control-rounded form-control-sm"
+                                                type="text"
+                                                name="userProvincia"
+                                                value={this.state.userAddPvcia}
+                                                onChange={this.handleChange}
+                                                pattern="[A-ZÑ\s]{4,25}"
+                                                title="Solo texto (4-25 caracteres)."
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                    <div className="col-md-3">
+                                        <div className="form-group input-group">
+                                            <label htmlFor="userCiudad">Ciudad</label>
+                                            <input
+                                                className="form-control form-control-rounded form-control-sm"
+                                                type="text"
+                                                name="userCiudad"
+                                                value={this.state.userAddCiudad}
+                                                onChange={this.handleChange}
+                                                pattern="[A-ZÑ\s]{4,30}"
+                                                title="Solo texto (4-30 caracteres)."
+                                                required
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            <div className="row offset-1">
+                                <div className="col-md-5">
+                                    <div className="form-group input-group">
+                                    <label htmlFor="userAddCalle">Calle</label>
+                                    <input
+                                        className="form-control form-control-rounded form-control-sm"
+                                        type="text"
+                                        name="userAddCalle"
+                                        value={this.state.userAddCalle}
+                                        onChange={this.handleChange}
+                                        pattern="[A-ZÑ\s]{3,40}"
+                                        title="Únicamente texto. Longitud de 3-40 caracteres."
+                                        required
+                                    />
+                                    </div>
+                                </div>
+                                <div className="col-md-3">
+                                    <div className="form-group input-group">
+                                    <label htmlFor="userAddNum">Número</label>
+                                    <input
+                                        className="form-control form-control-rounded form-control-sm"
+                                        type="text"
+                                        name="userAddNum"
+                                        value={this.state.userAddNum}
+                                        onChange={this.handleChange}
+                                        pattern="[0-9]{1,4}"
+                                        title="Numérico. Longitud de 1-4 caracteres."
+                                        required
+                                    />
+                                    </div>
+                                </div>
+                                <div className="col-md-3">
+                                    <div className="form-group input-group">
+                                    <label htmlFor="userAddCp">CP</label>
+                                    <input
+                                        className="form-control form-control-rounded form-control-sm"
+                                        type="text"
+                                        name="userAddCp"
+                                        value={this.state.userAddCp}
+                                        onChange={this.handleChange}
+                                        pattern="[0-9]{4}"
+                                        title="Numérico. Longitud de 4 caracteres."
+                                        required
+                                    />
+                                    </div>
+                                </div>
+                            </div>
+                            <div className="row">
+                                <div className="col-12 text-center text-md-center">
+                                    <button
+                                    className="btn btn-primary margin-bottom-none"
+                                    type="submit"
+                                    name="submit-userdata"
+                                    disabled={this.state.isDataButtonDisabled}
+                                    >
+                                    ACTUALIZAR
+                                    </button>
+                                </div>
+                            </div>
+                        </form> 
+                    </div>
+                </div>
+                <div className="card">
+                    <div className="card-header" role="tab">
+                        <h6><a href="#collapseOne" data-toggle="collapse" aria-expanded="true">#Contraseña</a></h6>
+                    </div>
+                    <div className="collapse show" id="collapseOne" data-parent="#accordion1" role="tabpanel">
+                        <form className="row margin-top-1x margin-bottom-1x" onSubmit={this.submitPasswordUpload}>
+                            
+                            <div className="col-md-6 offset-3">
+                                <div className="form-group input-group">
+                                <label htmlFor="userCurrentPw">Contraseña actual</label>
+                                <input
+                                    className="form-control form-control-rounded form-control-sm"
+                                    type="password"
+                                    name="userCurrentPw"
+                                    value={this.userCurrentPw}
+                                    onChange={this.handleChange}
+                                    pattern="(?=.*\d)(?=.*[a-z]).{8,}"
+                                    title="Ingrese su contraseña actual."
+                                    required
+                                />
+                                </div>
+                            </div>
+    
+                            <div className="col-md-6 offset-3">
+                                <div className="form-group input-group">
+                                <label htmlFor="userNewPw">Ingresá tu nueva contraseña</label>
+                                <input
+                                    className="form-control form-control-rounded form-control-sm"
+                                    type="password"
+                                    name="userNewPw"
+                                    value={this.state.userNewPw}
+                                    onChange={this.handleChange}
+                                    pattern="(?=.*\d)(?=.*[a-z]).{8,}"
+                                    title="Longitud mínima de 8 caracteres. Incluir al menos una letra minúscula y un número."
+                                    required
+                                />
+                                </div>
+                            </div>
+    
+                            <div className="col-md-6 offset-3">
+                                <div className="form-group input-group">
+                                <label htmlFor="userNewPwConfirm">
+                                    Repetí tu nueva contraseña
+                                </label>
+                                <input
+                                    className="form-control form-control-rounded form-control-sm"
+                                    type="password"
+                                    name="userNewPwConfirm"
+                                    id="userPwConf"
+                                    value={this.userNewPwConf}
+                                    onChange={this.handleChange}
+                                    pattern={this.state.userNewPw}
+                                    title="Las nuevas contraseñas deben coincidir."
+                                    required
+                                />
+                                </div>
+                            </div>
+                        
+                            <div className="col-md-6 offset-3 text-center text-md-center">
+                                <button
+                                className="btn btn-primary margin-bottom-none"
+                                type="submit"
+                                name="submit-password"
+                                disabled={this.state.isPwButtonDisabled}
+                                >
+                                ACTUALIZAR CONTRASEÑA
+                                </button>
+                            </div>
+    
+                        </form>
+                    </div>
+                </div>
             </div>
               
           </div>  
         </>
       );
-
-    
+    }
     
   }
 }
