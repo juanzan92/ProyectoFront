@@ -23,12 +23,12 @@ class ShopToolbar extends React.Component {
   render() {
     return (
       <>
-        <div class="shop-toolbar padding-bottom-1x mb-2">
-          <div class="column">
-            <div class="shop-sorting">
+        <div className="shop-toolbar padding-bottom-1x mb-2">
+          <div className="column">
+            <div className="shop-sorting">
               <label for="sorting">Ordenar por:</label>
               <select
-                class="form-control"
+                className="form-control"
                 id="sorting"
                 name="sorting"
                 value={this.state.sorting}
@@ -39,14 +39,14 @@ class ShopToolbar extends React.Component {
               </select>
             </div>
           </div>
-          <div class="column">
-            <div class="shop-view">
-              <a class="grid-view active" href="shop-grid-ls.html">
+          <div className="column">
+            <div className="shop-view">
+              <a className="grid-view active" href="shop-grid-ls.html">
                 <span></span>
                 <span></span>
                 <span></span>
               </a>
-              <a class="list-view" href="shop-list-ls.html">
+              <a className="list-view" href="shop-list-ls.html">
                 <span></span>
                 <span></span>
                 <span></span>

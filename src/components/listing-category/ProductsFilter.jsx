@@ -8,22 +8,25 @@ class ProductFilter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      price: [0, 100]
+      price: [this.props.priceMax * 0.5, this.props.priceMax * 0.8]
     };
 
     this.handleCheck = this.handleCheck.bind(this);
-    this.handleChange = this.handleChange.bind(this);
+    this.handleSliderChange = this.handleSliderChange.bind(this);
+    this.handleStopDrag = this.handleStopDrag.bind(this);
   }
 
   handleCheck = name => {
     this.props.handleBrandFilter(name);
   };
-
-  handleChange = (event, newPrice) => {
-    this.setState({ price: newPrice });
+  handleSliderChange = (event, price) => this.setState({ price });
+  handleStopDrag = () => this.props.update(this.state.price);
+  submitPriceChange = event => {
+    this.props.handlePriceFilter(this.state.price);
   };
   render() {
-    const { brands } = this.props;
+    const { brands, priceMin, priceMax } = this.props;
+    const { price } = this.state;
 
     return (
       <>
@@ -37,11 +40,38 @@ class ProductFilter extends React.Component {
           <section class="widget widget-categories">
             <h3 class="widget-title">Rango de Precios</h3>
             <Slider
-              value={this.state.price}
-              onChange={this.handleChange}
+              value={price}
+              min={priceMin}
+              max={priceMax}
+              onChange={this.handleSliderChange}
+              onDragStop={this.handleStopDrag}
               valueLabelDisplay="auto"
               aria-labelledby="range-slider"
             />{" "}
+            <div className="row" style={{ alignItems: "center" }}>
+              <div class="column">
+                <button
+                  class="btn btn-outline-primary btn-sm"
+                  onClick={this.submitPriceChange}>
+                  Aplicar
+                </button>
+              </div>
+              <div class="column">
+                <div
+                  class="ui-range-values"
+                  style={{ display: "flex", flexDirection: "row" }}>
+                  <div class="ui-range-value-min">
+                    ${this.state.price[0]}
+                    <span></span>
+                  </div>
+                  &nbsp;-&nbsp;
+                  <div class="ui-range-value-max">
+                    ${this.state.price[1]}
+                    <span></span>
+                  </div>
+                </div>
+              </div>
+            </div>
           </section>
 
           <section class="widget">

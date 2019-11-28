@@ -18,7 +18,7 @@ class OportunityGrid extends React.Component {
         {/*<!-- Product-->*/}
         <div class="row" style={{ flexWrap: "wrap" }}>
           {items.map(x => (
-            <div class="product-card" style={cardStyle}>
+            <div class="product-card" style={cardStyle} key={x.item_id}>
               <a
                 class="product-thumb"
                 style={{ maxHeight: "180px", margin: "auto" }}

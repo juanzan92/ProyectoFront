@@ -17,11 +17,13 @@ class ListingCategories extends React.Component {
       priceMax: 200000,
       brands: [],
       checkedItems: [],
-      sortingBy: "minMax"
+      sortingBy: "minMax",
+      priceFilter: []
     };
 
     this.getItems();
     this.handleBrandFilter = this.handleBrandFilter.bind(this);
+    this.handlePriceFilter = this.handlePriceFilter.bind(this);
     this.orderItems = this.orderItems.bind(this);
   }
 
@@ -90,10 +92,26 @@ class ListingCategories extends React.Component {
         console.log(myJson);
         this.setState({
           items: myJson,
-          filteredItems: myJson
+          filteredItems: myJson,
+          priceMin: this.getMin(myJson),
+          priceMax: this.getMax(myJson)
         });
         this.getMarcasFromItems();
       });
+  }
+
+  getMax(vectorItems) {
+    let vectorPrices = [];
+    vectorItems.forEach(x => vectorPrices.push(x.actual_price));
+    let max = Math.max.apply(null, vectorPrices);
+    return max;
+  }
+
+  getMin(vectorItems) {
+    let vectorPrices = [];
+    vectorItems.forEach(x => vectorPrices.push(x.actual_price));
+    let min = Math.min.apply(null, vectorPrices);
+    return min;
   }
 
   orderItems(filter) {
@@ -112,7 +130,7 @@ class ListingCategories extends React.Component {
   }
 
   handleBrandFilter(brand) {
-    const { items, checkedItems, sortingBy } = this.state;
+    const { items, checkedItems } = this.state;
 
     if (!checkedItems.includes(brand)) {
       checkedItems.push(brand);
@@ -125,17 +143,32 @@ class ListingCategories extends React.Component {
       this.setState({
         filteredItems: items
       });
+      this.orderItems(this.state.sortingBy);
     } else {
       this.setState({
         filteredItems: items.filter(item =>
           checkedItems.includes(item.attributes[0].value)
         )
       });
+      this.orderItems(this.state.sortingBy);
     }
   }
 
+  handlePriceFilter(price) {
+    const { items } = this.state;
+
+    let auxFiltered = items.filter(
+      item => item.actual_price >= price[0] && item.actual_price <= price[1]
+    );
+
+    this.setState({
+      filteredItems: auxFiltered
+    });
+    this.orderItems(this.state.sortingBy);
+  }
+
   render() {
-    const { filteredItems, brands } = this.state;
+    const { filteredItems, brands, priceMin, priceMax } = this.state;
     const { category_id } = this.props.match.params;
 
     if (filteredItems.length > 0) {
@@ -152,7 +185,10 @@ class ListingCategories extends React.Component {
               <div class="col-xl-3 col-lg-4 order-lg-1">
                 <ProductFilter
                   brands={brands}
+                  priceMin={priceMin}
+                  priceMax={priceMax}
                   handleBrandFilter={this.handleBrandFilter}
+                  handlePriceFilter={this.handlePriceFilter}
                 />
               </div>
             </div>

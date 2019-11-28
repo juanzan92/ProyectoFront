@@ -17,7 +17,13 @@ class VendorSuscriptionTable extends React.Component {
 
   cancelOportunity(itemId) {
     const url = `http://localhost:8080/catalog/items?item_id=${itemId}`;
-    fetch(url, { method: "DELETE" }).then(window.location.reload());
+    fetch(url, { method: "DELETE" }).then(response => {
+      if (response.status == 200) {
+        window.location.reload();
+      } else {
+        //hacer notification
+      }
+    });
   }
 
   calcularBarraProgreso(item) {
