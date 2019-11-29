@@ -25,9 +25,7 @@ class PaymentDetail extends React.Component {
               </tr>
               <tr>
                 <td>Cargo de envío</td>
-                <td>
-                  $ {Math.round(((shipping_amount + 0.00001) * 100) / 100)}
-                </td>
+                <td>$ {shipping_amount}</td>
               </tr>
               <tr style={{ margin: "2px" }}></tr>
               <tr>

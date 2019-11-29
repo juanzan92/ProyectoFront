@@ -62,7 +62,10 @@ class Subscription extends React.Component {
   render() {
     if (this.state.subscription != null) {
       const { subscription } = this.state;
-      const cancelled = false;
+      var cancelled = false;
+      if (subscription.subscription_status === "CANCELLED") {
+        cancelled = true;
+      }
       return (
         <>
           <SubscriptionTitle subscription_id={subscription.subscription_id} />

@@ -13,12 +13,12 @@ class PaymentMethod extends React.Component {
           <div class="card-body">
             <p class="card-text" style={{ margin: "0 0 1px" }}>
               <i class="pe-7s-credit" style={{ fontSize: "large" }}></i> Pagaste
-              U$D {total_amount}
+              $ {total_amount}
             </p>
             <p class="card-text" style={{ margin: "0 0 1px" }}>
               El día {Date(date_created)}
             </p>
-            <span class="text-muted">Número de transaccion: {id}</span>
+            <span class="text-muted">Número de transacci&#243;n: {id}</span>
           </div>
         </div>
       </>
