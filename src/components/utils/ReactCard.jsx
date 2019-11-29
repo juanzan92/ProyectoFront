@@ -14,7 +14,7 @@ class ReactCard extends React.Component {
     return (
       <>
         <div className="card mb-30">
-          <a className="card-img-tiles" href={"/" + id}>
+          <a className="card-img-tiles" href={`/category/${id}`}>
             <div className="inner">
               <div className="main-img">
                 <img src={img} alt="Category" />
