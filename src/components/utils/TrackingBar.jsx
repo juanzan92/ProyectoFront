@@ -39,6 +39,16 @@ class TrackingBar extends React.Component {
       );
   }
 
+  translateStatus(status) {
+    if (status == "FINISHED") {
+      return "FINALIZADO";
+    } else if (status == "CANCELLED") {
+      return "CANCELADO";
+    } else if (status == "IN_PROGRESS") {
+      return "EN CAMINO";
+    }
+  }
+
   render() {
     const {
       shipments,
@@ -61,17 +71,17 @@ class TrackingBar extends React.Component {
               Estado:
               {subscription_status == "FINISHED" && (
                 <span style={{ fontWeight: "500", color: "green" }}>
-                  {subscription_status}
+                  {this.translateStatus(subscription_status)}
                 </span>
               )}
               {subscription_status == "IN_PROGRESS" && (
                 <span style={{ fontWeight: "500", color: "blue" }}>
-                  {subscription_status}
+                  {this.translateStatus(subscription_status)}
                 </span>
               )}
               {subscription_status == "CANCELLED" && (
                 <span style={{ fontWeight: "500", color: "red" }}>
-                  {subscription_status}
+                  {this.translateStatus(subscription_status)}
                 </span>
               )}
             </span>

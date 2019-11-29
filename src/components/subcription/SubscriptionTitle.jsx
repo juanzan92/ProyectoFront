@@ -8,7 +8,7 @@ class SubscriptionTitle extends React.Component {
       <div className="page-title">
         <div className="container">
           <div className="column">
-            <h1>Suscripcion</h1>
+            <h1>Subscripci&#243;n</h1>
           </div>
           <div className="column">
             <ul className="breadcrumbs">

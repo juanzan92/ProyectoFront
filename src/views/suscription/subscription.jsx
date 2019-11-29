@@ -83,15 +83,17 @@ class Subscription extends React.Component {
                     <WarningRoundedIcon>WarningRoundedIcon</WarningRoundedIcon>
                   </h3>
                 </div>
-
-                <CancelModal cancelSuscription={this.cancelSuscription} />
-                <button
-                  class="btn btn-outline-danger m-auto"
-                  type="button"
-                  data-toggle="modal"
-                  data-target="#modalCentered">
-                  Cancelar suscripción
-                </button>
+                {cancelled == false && (
+                    <CancelModal cancelSuscription={this.cancelSuscription} />
+                  ) && (
+                    <button
+                      class="btn btn-outline-danger m-auto"
+                      type="button"
+                      data-toggle="modal"
+                      data-target="#modalCentered">
+                      Cancelar suscripción
+                    </button>
+                  )}
               </div>
             )}
           </div>

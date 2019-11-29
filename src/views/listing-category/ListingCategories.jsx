@@ -180,7 +180,7 @@ class ListingCategories extends React.Component {
               <div class="col-xl-9 col-lg-8 order-lg-2">
                 <ShopToolbar orderItems={this.orderItems} />
                 {<OportunityGrid items={filteredItems} />}
-                <PaginationControl />
+                {/*<PaginationControl />*/}
               </div>
               <div class="col-xl-3 col-lg-4 order-lg-1">
                 <ProductFilter

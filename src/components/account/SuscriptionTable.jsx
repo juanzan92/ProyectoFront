@@ -36,11 +36,12 @@ class SuscriptionTable extends React.Component {
     const year = date.getFullYear();
     const days = date.getDay();
     const fecha = days + "/" + month + "/" + year;
+    let shownTitle = suscripcion.item_title.substring(0, 60);
     return (
       <tr>
         <td>
           <Link to={`/subscripcion/${suscripcion.subscription_id}`}>
-            <a className="text-medium navi-link">{suscripcion.item_title}</a>
+            <a className="text-medium navi-link">{shownTitle}</a>
           </Link>
         </td>
         <td>{fecha}</td>
