@@ -260,6 +260,8 @@ class UploadOportunity extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+  
+    if(this.uploadInput.files.length>0){
     this.setState({
       isButtonDisabled: true
     });
@@ -279,6 +281,9 @@ class UploadOportunity extends React.Component {
       .catch(error => {
         console.log(error);
       });
+    } else{
+      alert("Por favor, carga al menos una imagen.")
+    }
   }
 
   render() {
@@ -338,6 +343,7 @@ class UploadOportunity extends React.Component {
                     <option value="Calzado">Calzado</option>
                     <option value="Accesorios">Accesorios</option>
                     <option value="Moda">Moda</option>
+                    <option value="Carteras">Carteras</option>
                   </select>
                   <small className="form-text text-muted">
                     Indicá una categoría para tu oportunidad.
