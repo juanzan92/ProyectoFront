@@ -234,14 +234,14 @@ class UploadOportunity extends React.Component {
         .then(response => {
           if (!response.ok) throw new Error(response.status);
           else {
-            const r = window.confirm("Oportunidad cargada correctamente!!!");
-            if (r) window.location.href = "/vendor-oportunities";
+            const r = window.confirm("Oportunidad publicada correctamente !!!");
+            if (r) window.location.href = "/account";
             return response.json();
           }
         })
         .catch(e => {
           console.log(e);
-          alert("Error al cargar la Oportunidad !!!");
+          alert("Error al publicar la oportunidad !!!");
           window.location.reload();
         });
     }
@@ -344,7 +344,8 @@ class UploadOportunity extends React.Component {
                     type="text"
                     name="title"
                     placeholder="Termo Stanley Adventure 750ml"
-                    pattern="[A-Z0-9Ñ\s]{3,40}"
+                    pattern="[A-Z0-9Ñ\s]{3,60}"
+                    title="Alfanumérico. Entre 2-60 caracteres."
                     value={this.state.title}
                     onChange={this.handleChange}
                     required

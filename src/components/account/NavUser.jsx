@@ -26,20 +26,12 @@ class NavUser extends React.Component {
             {orders.length}
           </span>
         </a>
-
         <Link
           to="/account-profile"
           className={"list-group-item " + this.isSelected("mi_cuenta")}>
           <i className="icon-head" />
           Mis Datos
         </Link>
-
-        <a
-          className={"list-group-item " + this.isSelected("direccion")}
-          href="/account-direction">
-          <i className="icon-map" />
-          Direcciones
-        </a>
       </nav>
     );
   }
