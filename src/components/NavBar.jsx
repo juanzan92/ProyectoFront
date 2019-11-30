@@ -222,12 +222,12 @@ class NavBar extends Component {
                 </a>
               </li>
               <li>
-                <a href="/">
+                <a href="/aboutus">
                   <span>Quienes somos</span>
                 </a>
               </li>
               <li>
-                <a href="/">
+                <a href="/faqs">
                   <span>FAQ's</span>
                 </a>
               </li>
