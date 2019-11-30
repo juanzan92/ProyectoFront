@@ -30,12 +30,7 @@ class OportunityGrid extends React.Component {
               </h3>
               <h4 class="product-price">$ {x.actual_price}</h4>
               <div class="product-buttons">
-                <button
-                  class="btn btn-outline-secondary btn-sm btn-wishlist"
-                  data-toggle="tooltip"
-                  title="Whishlist">
-                  <i class="icon-heart"></i>
-                </button>
+                
                 <button
                   class="btn btn-outline-primary btn-sm"
                   onClick={() => this.goToItem(x.item_id)}

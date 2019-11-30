@@ -46,6 +46,17 @@ class UploadOportunity extends React.Component {
     return today;
   }
 
+  getDate(day) {
+    var date = new Date();
+    date.setDate(date.getDate()+day);  
+    var dd = String(date.getDate()).padStart(2, "0");
+    var mm = String(date.getMonth() + 1).padStart(2, "0");
+    var yyyy = date.getFullYear();
+    var today = `${yyyy}-${mm}-${dd}`;
+
+    return today;
+  }
+
   changeDateFormat(inputDate) {
     // Expects yyyy-mm-dd
     var newdate = inputDate
@@ -381,8 +392,8 @@ class UploadOportunity extends React.Component {
                       type="text"
                       name="modelo"
                       placeholder="Adventure 750ml"
-                      pattern="[A-Z0-9Ñ\s]{3,40}"
-                      title="Alfanumérico. Entre 2-60 caracteres."
+                      pattern="[A-Z0-9Ñ\s]{1,40}"
+                      title="Alfanumérico. Entre 1-40 caracteres."
                       value={this.state.modelo}
                       onChange={this.handleChange}
                       required
@@ -449,6 +460,8 @@ class UploadOportunity extends React.Component {
                       className="form-control"
                       type="date"
                       name="date_finished"
+                      min={this.getDate(20)}
+                      max={this.getDate(120)}
                       value={this.value}
                       onChange={this.handleChange}
                     />

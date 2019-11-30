@@ -68,7 +68,7 @@ class VendorAccountOportunities extends React.Component {
           <div className="container padding-bottom-3x mb-2">
             <div className="row">
               <Link to="/vendor-reporting">
-                <a className="btn btn-primary " style={{ paddingBottom: "5%" }}>
+                <a className="btn btn-primary " style={{ paddingBottom: "5%" }} href="/account">
                   Volver a Cuenta
                 </a>
               </Link>

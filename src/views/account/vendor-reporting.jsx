@@ -84,7 +84,7 @@ class VendorReporting extends React.Component {
             </div>
             <div
               className="btn btn-outline-primary "
-              onClick={e => this.handleBackBtn()}>
+              onClick={e => this.handleBackBtn()} href="/account">
               Volver a Cuenta
             </div>
           </div>
