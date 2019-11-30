@@ -28,6 +28,21 @@ class FAQs extends React.Component {
     render() {
         return (
             <>
+                <div class="page-title">
+                    <div class="container">
+                        <div class="column">
+                            <h1>Preguntas Frecuentes</h1>
+                        </div>
+                        <div class="column">
+                            <ul class="breadcrumbs">
+                                <li><a href="/">Home</a>
+                                </li>
+                                <li class="separator">&nbsp;</li>
+                                <li>Preguntas Frecuentes</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
                 <div className="container padding-bottom-3x">
                     <div className="row">
                         <div className="col-md-6">

@@ -7,24 +7,24 @@ class AboutUs extends React.Component {
     return (
       <>
 
-<div class="offcanvas-wrapper">
-          <div class="page-title">
-            <div class="container">
-              <div class="column">
-                <h1>Quiénes Somos</h1>
-              </div>
-              <div class="column">
-                <ul class="breadcrumbs">
-                  <li><a href="/">Home</a>
-                  </li>
-                  <li class="separator">&nbsp;</li>
-                  <li>Quiénes Somos</li>
-                </ul>
-              </div>
+
+        <div class="page-title">
+          <div class="container">
+            <div class="column">
+              <h1>Quiénes Somos</h1>
+            </div>
+            <div class="column">
+              <ul class="breadcrumbs">
+                <li><a href="/">Home</a>
+                </li>
+                <li class="separator">&nbsp;</li>
+                <li>Quiénes Somos</li>
+              </ul>
             </div>
           </div>
+        </div>
 
-          <div className="container padding-bottom-2x mb-2">
+        <div className="container padding-bottom-4x">
           <div class="row align-items-center padding-top-2x padding-bottom-2x">
             <div class="row align-items-center padding-bottom-2x">
               <div class="col-md-5">
@@ -38,7 +38,7 @@ class AboutUs extends React.Component {
                   mundo mediante un mecanismo innovador de financiamiento colectivo.
                   Nos encargamos de conectar a consumidores y comerciantes argentinos mediante oportunidades únicas de precios inmejorables.
                 </p>
-                <a class="text-medium text-decoration-none" href="/">Catálogo de Oportunidades&nbsp;<i class="icon-arrow-right"/></a>
+                <a class="text-medium text-decoration-none" href="/">Catálogo de Oportunidades&nbsp;<i class="icon-arrow-right" /></a>
               </div>
             </div>
             <hr />
@@ -53,7 +53,7 @@ class AboutUs extends React.Component {
                 <p>
                   Accedé a precios increíbles participando en carteras de compra colectivas. Democratizamos el acceso a bienes de todo el mundo, igualando el poder de compra entre nuestros colaboradores. Comprá productos novedosos que sólo encontrarás en el exterior evitando intermediarios en la cadena de suministro. ¡Sin trabas!
                 </p>
-                <a class="text-medium text-decoration-none" href="/faqs">Medios de Pago&nbsp;<i class="icon-arrow-right"/></a>
+                <a class="text-medium text-decoration-none" href="/faqs">Medios de Pago&nbsp;<i class="icon-arrow-right" /></a>
               </div>
             </div>
 
@@ -65,7 +65,7 @@ class AboutUs extends React.Component {
                 <div class="mt-30 hidden-md-up" />
                 <h2>Transparentes</h2>
                 <p>Con Smarket, el precio que pagás es el que ves en todo momento. Incluye todos los costos de envío e impuestos hasta llegar a tu hogar u oficina, por lo cuál el producto te llega sin costos adicionales hasta tu manos. ¡Sin sorpresas!</p>
-                <a class="text-medium text-decoration-none" href="/faqs">Políticas de Costos&nbsp;<i class="icon-arrow-right"/></a>
+                <a class="text-medium text-decoration-none" href="/faqs">Política de Costos&nbsp;<i class="icon-arrow-right" /></a>
               </div>
             </div>
             <hr />
@@ -78,13 +78,13 @@ class AboutUs extends React.Component {
                 <div class="mt-30 hidden-md-up" />
                 <h2>Cómodos</h2>
                 <p>Recibí productos de todo el mundo directo a la puerta de tu casa mediante Mercado Envíos. Si el objetivo de tu oportunidad no prospera, el dinero se devuelve automáticamente a tu cuenta de Mercado Pago</p>
-                <a class="text-medium text-decoration-none" href="/faqs">Políticas de Envío&nbsp;<i class="icon-arrow-right"/></a>
+                <a class="text-medium text-decoration-none" href="/faqs">Políticas de Envío&nbsp;<i class="icon-arrow-right" /></a>
               </div>
             </div>
 
           </div>
-          </div>
-          </div>
+        </div>
+
       </>
     );
   }
