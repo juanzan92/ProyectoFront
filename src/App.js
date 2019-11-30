@@ -11,6 +11,8 @@ import ForgotPassword from "./views/login/ForgotPassword";
 import UploadOportunity from "./views/vendor/UploadOportunity";
 import splash_congrats from "./views/splash/splash_congrats";
 import notFound from "./views/notFound";
+import FAQs from "./views/us/FAQs";
+import AboutUs from "./views/us/AboutUs";
 import Account from "./views/account/account";
 import Subscription from "./views/suscription/subscription";
 import AccountDirections from "./views/account/account-directions";
@@ -62,6 +64,16 @@ class App extends Component {
             exact
             path="/vendor-profile"
             component={VendorAccountProfile}
+          />
+          <Route
+            exact
+            path="/faqs"
+            component={FAQs}
+          />
+          <Route
+            exact
+            path="/aboutus"
+            component={AboutUs}
           />
           <Route
             exact
