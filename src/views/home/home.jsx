@@ -5,7 +5,6 @@ import wrapper from "../../components/Wrapper";
 import MainSlider from "../../components/home/Home-Main-Slider";
 import ReactSectionTopCategories from "../../components/home/ReactSectionTopCategories";
 import ReactSectionOfert from "../../components/home/ReactSectionOfert";
-import ReactSectionFeatureProducts from "../../components/home/ReactSectionFeatureProducts";
 
 class index extends React.Component {
   constructor(props) {
@@ -140,11 +139,7 @@ class index extends React.Component {
             item={this.state.featureItem}
             key={"feature-item"}
           />
-          {/* Featured Products Carousel*/}
-
-          <ReactSectionFeatureProducts
-            featureProducs={this.state.featureProducs}
-          />
+          
           {/* Popular Brands*/}
           <section className="bg-faded padding-top-3x padding-bottom-3x">
             <div className="container">
