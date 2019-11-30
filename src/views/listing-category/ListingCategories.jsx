@@ -90,6 +90,7 @@ class ListingCategories extends React.Component {
       })
       .then(myJson => {
         console.log(myJson);
+        myJson = myJson.filter(item => item.item_status === "ACTIVE");
         this.setState({
           items: myJson,
           filteredItems: myJson,
@@ -143,14 +144,12 @@ class ListingCategories extends React.Component {
       this.setState({
         filteredItems: items
       });
-      this.orderItems(this.state.sortingBy);
     } else {
       this.setState({
         filteredItems: items.filter(item =>
           checkedItems.includes(item.attributes[0].value)
         )
       });
-      this.orderItems(this.state.sortingBy);
     }
   }
 
@@ -164,7 +163,6 @@ class ListingCategories extends React.Component {
     this.setState({
       filteredItems: auxFiltered
     });
-    this.orderItems(this.state.sortingBy);
   }
 
   render() {

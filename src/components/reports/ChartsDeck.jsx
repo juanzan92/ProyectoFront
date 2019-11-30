@@ -3,6 +3,8 @@ import BarChart from "../reports/BarChart";
 import PieChart from "../reports/PieChart";
 import RadarChart from "../reports/RadarChart";
 
+const urlBack = "http://localhost:8080/reports?username=jak";
+
 class ChartsDeck extends React.Component {
   constructor(props) {
     super(props);
