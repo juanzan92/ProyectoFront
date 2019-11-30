@@ -40,13 +40,6 @@ class NavUser extends React.Component {
           <i className="icon-map" />
           Direcciones
         </a>
-        <a
-          class={"list-group-item with-badge " + this.isSelected("favoritos")}
-          href="/account-favs">
-          <i className="icon-heart" />
-          Favoritos
-          <span className="badge badge-primary badge-pill">3</span>
-        </a>
       </nav>
     );
   }

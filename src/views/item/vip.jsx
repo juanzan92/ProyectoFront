@@ -236,12 +236,6 @@ class VIP extends React.Component {
                     </div>
                   </div>
                   <div className="sp-buttons mt-2 mb-2">
-                    <button
-                      className="btn btn-outline-secondary btn-sm btn-wishlist"
-                      data-toggle="tooltip"
-                      title="Whishlist">
-                      <i className="icon-heart"></i>
-                    </button>
                     <div
                       className="btn btn-lg btn-secondary"
                       onClick={this.pagar}>
