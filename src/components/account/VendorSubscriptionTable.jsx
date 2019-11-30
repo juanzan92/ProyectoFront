@@ -35,9 +35,9 @@ class VendorSuscriptionTable extends React.Component {
   componentDidMount() {}
 
   getStatus(item) {
-    if (item.subscription_status === "CANCELLED") {
+    if (item.item_status === "CANCELLED") {
       return <span className="text-danger">Cancelado</span>;
-    } else if (item.subscription_status === "FINISHED") {
+    } else if (item.item_status === "FINISHED") {
       return <span className="text-success">Finalizado</span>;
     } else {
       return <span className="text-info">En Progreso</span>;

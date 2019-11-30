@@ -87,14 +87,27 @@ function valueLabelFormat(value) {
 }
 
 export default class Example extends PureComponent {
+  constructor(props) {
+    super(props);
+    this.state = {
+      months: 3
+    };
+  }
+
   static jsfiddleUrl = "https://jsfiddle.net/alidingling/30763kr7/";
 
+  handleChange = (event, months) => this.setState({ months: months });
+
+  handleDragStop = () => this.props.update(this.state.months);
+
   render() {
+    var auxData = data.slice(0, this.state.months);
+
     return (
       <>
         <ResponsiveContainer width="100%" height={450}>
           <BarChart
-            data={data}
+            data={auxData}
             margin={{
               top: 5,
               right: 30,
@@ -117,7 +130,7 @@ export default class Example extends PureComponent {
           </Typography>
           <Slider
             defaultValue={3}
-            valueLabelFormat={valueLabelFormat}
+            valueLabelDisplay="off"
             getAriaValueText={valuetext}
             aria-labelledby="discrete-slider"
             step={null}
@@ -126,6 +139,9 @@ export default class Example extends PureComponent {
             max={12}
             min={0}
             style={styleFilter}
+            onChange={this.handleChange}
+            onDragStop={this.handleDragStop}
+            name={"inputFilter"}
           />
         </div>
       </>

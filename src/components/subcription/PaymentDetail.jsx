@@ -21,16 +21,16 @@ class PaymentDetail extends React.Component {
             <tbody>
               <tr>
                 <td>Pagaste por {quantity}</td>
-                <td>$ {Math.round(((paid_amount + 0.00001) * 100) / 100)}</td>
+                <td>$ {paid_amount.toFixed(2)}</td>
               </tr>
               <tr>
                 <td>Cargo de envío</td>
-                <td>$ {shipping_amount}</td>
+                <td>$ {shipping_amount.toFixed(2)}</td>
               </tr>
               <tr style={{ margin: "2px" }}></tr>
               <tr>
                 <td>Cargo DDJJ AFIP</td>
-                <td>$ {Math.round(((afip_amount + 0.00001) * 100) / 100)}</td>
+                <td>$ {afip_amount.toFixed(2)}</td>
               </tr>
               <tr>
                 <td style={{ fontWeight: "600" }}>Total</td>

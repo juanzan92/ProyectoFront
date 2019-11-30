@@ -43,9 +43,8 @@ class index extends React.Component {
   }
 
   filterTopCategories(json) {
-    json.splice(0, 3);
     this.setState({
-      topCategories: json
+      topCategories: json.slice(0, 3)
     });
   }
 

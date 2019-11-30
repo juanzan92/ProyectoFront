@@ -36,7 +36,10 @@ class SuscriptionTable extends React.Component {
     const year = date.getFullYear();
     const days = date.getDay();
     const fecha = days + "/" + month + "/" + year;
-    let shownTitle = suscripcion.item_title.substring(0, 60);
+    let shownTitle = suscripcion.item_title;
+    if (shownTitle) {
+      shownTitle = shownTitle.substring(0, 30);
+    }
     return (
       <tr>
         <td>

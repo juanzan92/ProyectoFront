@@ -36,12 +36,6 @@ class ItemMainSlider extends React.Component {
           <div className="row justify-content-center align-items-center">
             <div className="col-lg-5 col-md-6 padding-bottom-2x text-md-left text-center">
               <div className="from-bottom">
-                <img
-                  className="d-inline-block mb-4"
-                  src={this.getLogo("Motorola")}
-                  style={{ width: "125px" }}
-                  alt=""
-                />
                 <div className="h2 text-body text-normal mb-2 pt-1">
                   {item.title}
                 </div>

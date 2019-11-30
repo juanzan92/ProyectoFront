@@ -8,7 +8,7 @@ class ProductFilter extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      price: [this.props.priceMax * 0.5, this.props.priceMax * 0.8]
+      price: [0, this.props.priceMax]
     };
 
     this.handleCheck = this.handleCheck.bind(this);
