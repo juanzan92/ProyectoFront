@@ -381,8 +381,8 @@ class UploadOportunity extends React.Component {
                       type="text"
                       name="modelo"
                       placeholder="Adventure 750ml"
-                      pattern="[A-Z0-9Ñ\s]{3,40}"
-                      title="Alfanumérico. Entre 2-60 caracteres."
+                      pattern="[A-Z0-9Ñ\s]{1,40}"
+                      title="Alfanumérico. Entre 1-40 caracteres."
                       value={this.state.modelo}
                       onChange={this.handleChange}
                       required
