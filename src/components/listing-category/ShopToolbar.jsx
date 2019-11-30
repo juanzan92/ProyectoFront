@@ -39,20 +39,6 @@ class ShopToolbar extends React.Component {
               </select>
             </div>
           </div>
-          <div className="column">
-            <div className="shop-view">
-              <a className="grid-view active" href="shop-grid-ls.html">
-                <span></span>
-                <span></span>
-                <span></span>
-              </a>
-              <a className="list-view" href="shop-list-ls.html">
-                <span></span>
-                <span></span>
-                <span></span>
-              </a>
-            </div>
-          </div>
         </div>
       </>
     );
