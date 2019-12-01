@@ -5,7 +5,6 @@ import wrapper from "../../components/Wrapper";
 import MainSlider from "../../components/home/Home-Main-Slider";
 import ReactSectionTopCategories from "../../components/home/ReactSectionTopCategories";
 import ReactSectionOfert from "../../components/home/ReactSectionOfert";
-import ReactSectionFeatureProducts from "../../components/home/ReactSectionFeatureProducts";
 
 class index extends React.Component {
   constructor(props) {
@@ -26,8 +25,7 @@ class index extends React.Component {
   }
 
   fetchCategories() {
-    const url =
-      "http://localhost:8080/catalog/categories/get_all";
+    const url = "http://localhost:8080/catalog/categories/get_all";
     fetch(url, {
       method: "GET",
       headers: {
@@ -44,10 +42,8 @@ class index extends React.Component {
   }
 
   filterTopCategories(json) {
-    json.pop();
-    json.pop();
     this.setState({
-      topCategories: json
+      topCategories: json.slice(0, 3)
     });
   }
 
@@ -94,8 +90,7 @@ class index extends React.Component {
   }
 
   buscarItemHurryUp() {
-    const url =
-      "http://localhost:8080/catalog/items/home/hurry_up/search";
+    const url = "http://localhost:8080/catalog/items/home/hurry_up/search";
     fetch(url, {
       method: "GET",
       headers: {
@@ -143,11 +138,7 @@ class index extends React.Component {
             item={this.state.featureItem}
             key={"feature-item"}
           />
-          {/* Featured Products Carousel*/}
-
-          <ReactSectionFeatureProducts
-            featureProducs={this.state.featureProducs}
-          />
+          
           {/* Popular Brands*/}
           <section className="bg-faded padding-top-3x padding-bottom-3x">
             <div className="container">
@@ -203,7 +194,8 @@ class index extends React.Component {
                 />
                 <h6>Colaboración</h6>
                 <p className="text-muted margin-bottom-none">
-                  Accedé a precios increíbles participando en carteras de compra colectivas
+                  Accedé a precios increíbles participando en carteras de compra
+                  colectivas
                 </p>
               </div>
               <div className="col-md-3 col-sm-6 text-center mb-30">
@@ -214,7 +206,8 @@ class index extends React.Component {
                 />
                 <h6>Mercado Pago</h6>
                 <p className="text-muted margin-bottom-none">
-                  Aprovechá todos los medios y promociones que ofrece Mercado Pago
+                  Aprovechá todos los medios y promociones que ofrece Mercado
+                  Pago
                 </p>
               </div>
               <div className="col-md-3 col-sm-6 text-center mb-30">
@@ -225,7 +218,8 @@ class index extends React.Component {
                 />
                 <h6>Mercado Envíos</h6>
                 <p className="text-muted margin-bottom-none">
-                  Recibí productos de todo el mundo directo a la puerta de tu casa
+                  Recibí productos de todo el mundo directo a la puerta de tu
+                  casa
                 </p>
               </div>
               <div className="col-md-3 col-sm-6 text-center mb-30">
@@ -236,7 +230,8 @@ class index extends React.Component {
                 />
                 <h6>Devoluciones Gratuitas</h6>
                 <p className="text-muted margin-bottom-none">
-                  Cancelá en cualquier momento y recibí el dinero en tu cuenta de Mercado Pago
+                  Cancelá en cualquier momento y recibí el dinero en tu cuenta
+                  de Mercado Pago
                 </p>
               </div>
             </div>

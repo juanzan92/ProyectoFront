@@ -22,6 +22,7 @@ import VendorAccountReporting from "./views/account/vendor-reporting";
 import VendorAccountDirection from "./views/account/vendor-directions";
 import VendorAccountOportunities from "./views/account/vendor-oportunities";
 import ListingCategory from "./views/listing-category/ListingCategories";
+import Categories from "./views/listing-category/Categories";
 
 class App extends Component {
   constructor(props) {
@@ -39,6 +40,7 @@ class App extends Component {
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/vip/:item_id" component={vip} />
+          <Route exact path="/categorias" component={Categories} />
           <Route
             exact
             path="/category/:category_id"

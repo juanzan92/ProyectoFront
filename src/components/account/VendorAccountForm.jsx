@@ -201,7 +201,7 @@ class VendorAccountProfileForm extends React.Component {
             <div className="accordion" id="accordion1" role="tablist">
               <div className="card">
                 <div className="card-header" role="tab">
-                  <h6><a className="collapsed" href="#collapseTwo" data-toggle="collapse" aria-expanded="false">#Datos Personales</a></h6>
+                  <h6><a className="collapsed" href="#collapseTwo" data-toggle="collapse" aria-expanded="false">Datos Personales</a></h6>
                 </div>
                 <div className="collapse show" id="collapseTwo" data-parent="#accordion1" role="tabpanel">
                   <form className="margin-top-1x margin-bottom-1x" onSubmit={this.submitUserDataUpload}>
@@ -366,7 +366,7 @@ class VendorAccountProfileForm extends React.Component {
               </div>
               <div className="card">
                 <div className="card-header" role="tab">
-                  <h6><a href="#collapseOne" data-toggle="collapse" aria-expanded="true">#Contraseña</a></h6>
+                  <h6><a href="#collapseOne" data-toggle="collapse" aria-expanded="true">Contraseña</a></h6>
                 </div>
                 <div className="collapse show" id="collapseOne" data-parent="#accordion1" role="tabpanel">
                   <form className="row margin-top-1x margin-bottom-1x" onSubmit={this.submitPasswordUpload}>

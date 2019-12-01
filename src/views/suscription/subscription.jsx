@@ -54,8 +54,6 @@ class Subscription extends React.Component {
     fetch(url, {
       method: "DELETE"
     }).then(response => {
-      if (response.status === 500) throw console.error("error");
-
       if (response.status === 200) window.location.href = "/account";
     });
   }
@@ -63,34 +61,32 @@ class Subscription extends React.Component {
   render() {
     if (this.state.subscription != null) {
       const { subscription } = this.state;
-      const cancelled = false;
+      var cancelable = false;
+      if (subscription.subscription_status === "IN_PROGRESS") {
+        cancelable = true;
+      }
       return (
         <>
           <SubscriptionTitle subscription_id={subscription.subscription_id} />
           <div className="container padding-bottom-3x mb-1">
-            {cancelled ? (
-              <AlertDanger message={"Esta suscripción fue cancelada"} />
-            ) : (
-              <TrackingBar subscription={subscription} />
-            )}
+            <TrackingBar subscription={subscription} />
             <SubscriptionDetail subscription={subscription} />
-            {(subscription.subscription_status != "CANCELLED" ||
-              subscription.subscription_status != "FINISHED") && (
+            {cancelable && (
               <div className="card mb-3 col-lg-3">
                 <div className="d-inline-block" style={{ margin: "auto" }}>
-                  <h3 style={{ margin: "auto" }}>
+                  <h3 style={{ textAlign: "center", margin: "0,5 rem" }}>
                     <WarningRoundedIcon>WarningRoundedIcon</WarningRoundedIcon>
                     Cuidado
                     <WarningRoundedIcon>WarningRoundedIcon</WarningRoundedIcon>
                   </h3>
                 </div>
-
                 <CancelModal cancelSuscription={this.cancelSuscription} />
                 <button
                   class="btn btn-outline-danger m-auto"
                   type="button"
                   data-toggle="modal"
-                  data-target="#modalCentered">
+                  data-target="#modalCentered"
+                  style={{ margin: "0.5rem !important" }}>
                   Cancelar suscripción
                 </button>
               </div>

@@ -93,7 +93,7 @@ class SignUp extends React.Component {
                   "Se ha enviado un enlace de verificación a su casilla de correo.\n¡Confirme su usuario e inicie sesión!"
                 );
                 if (c) {
-                  if (role == "vendor") {
+                  if (role === "vendor") {
                     window.location.href = `https://auth.mercadopago.com.ar/authorization?client_id=7662807553309957&response_type=code&platform_id=mp&redirect_uri=http%3A%2F%2Flocalhost:3000/splash?user_id=${user}`;
                   } else {
                     window.location.href = "/signin";

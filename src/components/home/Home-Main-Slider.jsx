@@ -25,7 +25,7 @@ class MainSlider extends React.Component {
       slidesToScroll: 1
     };
 
-    if (mainSlider) {
+    if (mainSlider != NaN) {
       return (
         <Slider {...settings}>
           {mainSlider.map(item => {

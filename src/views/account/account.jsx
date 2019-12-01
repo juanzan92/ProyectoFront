@@ -14,7 +14,7 @@ class UserAccount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
+      isLoading: true,
       user: "",
       orders: []
     };
@@ -36,12 +36,12 @@ class UserAccount extends React.Component {
 
     if (this.state.user != "") {
       const rol = user["custom:role"];
-      if (rol === "consumer" && this.state.orders.length == 0) {
+      if (rol === "consumer" && this.state.orders.length === 0) {
         this.fetchOrders();
       } else if (
         this.state.user != "" &&
         rol === "vendor" &&
-        this.state.orders.length == 0
+        this.state.orders.length === 0
       ) {
         this.fetchOportunities();
       }
@@ -56,7 +56,8 @@ class UserAccount extends React.Component {
       })
       .then(myJson => {
         this.setState({
-          orders: myJson
+          orders: myJson,
+          isLoading: false
         });
       })
       .catch(e => console.log(e));
@@ -70,16 +71,17 @@ class UserAccount extends React.Component {
       })
       .then(myJson => {
         this.setState({
-          orders: myJson
+          orders: myJson,
+          isLoading: false
         });
       })
       .catch(e => console.log(e));
   }
 
   render() {
-    const { user, orders } = this.state;
+    const { user, orders, isLoading } = this.state;
     const selected = "suscripciones";
-    if (user && orders != orders.length > 0) {
+    if (user && orders && !isLoading) {
       if (user["custom:role"] === "consumer") {
         return (
           <Context.Provider value={selected}>

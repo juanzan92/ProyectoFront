@@ -9,13 +9,13 @@ class VendorResumeTab extends React.Component {
   render() {
     const { oportunities } = this.props;
     const finished = oportunities.filter(
-      oportunity => oportunity.item_status == "FINISHED"
+      oportunity => oportunity.item_status === "FINISHED"
     );
     const inProgress = oportunities.filter(
-      oportunity => oportunity.item_status == "ACTIVE"
+      oportunity => oportunity.item_status === "ACTIVE"
     );
     const cancelled = oportunities.filter(
-      oportunity => oportunity.item_status == "CANCELLED"
+      oportunity => oportunity.item_status === "CANCELLED"
     );
 
     return (

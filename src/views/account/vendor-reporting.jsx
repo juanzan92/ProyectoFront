@@ -23,7 +23,7 @@ class VendorReporting extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.user != null && this.state.items.length == 0) {
+    if (this.state.user != null && this.state.items.length === 0) {
       this.getItems();
     }
   }
@@ -84,7 +84,7 @@ class VendorReporting extends React.Component {
             </div>
             <div
               className="btn btn-outline-primary "
-              onClick={e => this.handleBackBtn()}>
+              onClick={e => this.handleBackBtn()} href="/account">
               Volver a Cuenta
             </div>
           </div>

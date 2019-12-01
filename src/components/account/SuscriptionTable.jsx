@@ -1,6 +1,12 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
+const titleStyle = {
+  width: "200px",
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis"
+};
 class SuscriptionTable extends React.Component {
   constructor(props) {
     super(props);
@@ -36,17 +42,21 @@ class SuscriptionTable extends React.Component {
     const year = date.getFullYear();
     const days = date.getDay();
     const fecha = days + "/" + month + "/" + year;
+    let shownTitle = suscripcion.item_title;
+    if (shownTitle) {
+      shownTitle = shownTitle.substring(0, 30);
+    }
     return (
       <tr>
         <td>
           <Link to={`/subscripcion/${suscripcion.subscription_id}`}>
-            <a className="text-medium navi-link">{suscripcion.item_title}</a>
+            <a className="text-medium navi-link">{shownTitle}</a>
           </Link>
         </td>
         <td>{fecha}</td>
         <td>{status}</td>
         <td>
-          <span className="text-medium">&#36;{suscripcion.paid_amount}</span>
+          <span className="text-medium">&#36;{suscripcion.total_amount}</span>
         </td>
       </tr>
     );
@@ -80,11 +90,33 @@ class SuscriptionTable extends React.Component {
     );
   }
 
+  buildEmptyTable() {
+    return (
+      <div className="col-lg-8">
+        <div className="padding-top-2x mt-2 hidden-lg-up" />
+        <div className="table-responsive">
+          <table className="table table-hover margin-bottom-none">
+            <thead>
+              <tr>
+                <th>Suscripcion </th>
+                <th>Fecha de Compra</th>
+                <th>Estado</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const { orders } = this.state;
     if (orders.length > 0) {
       const table = this.buildTable(orders);
       return <>{table}</>;
+    } else if (orders.length === 0) {
+      return this.buildEmptyTable();
     } else {
       return (
         <div className="spinner-center text-info m-2" role="status">

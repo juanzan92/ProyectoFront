@@ -1,37 +1,43 @@
 import React from "react";
+import { array } from "prop-types";
 
 class ShopToolbar extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      sorting: "minMax"
+    };
+
+    this.handleChange = this.handleChange.bind(this);
+  }
+
+  handleChange(event) {
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+    this.setState({
+      [name]: value
+    });
+    this.props.orderItems(value, new Array());
+  }
+
   render() {
     return (
       <>
-        <div class="shop-toolbar padding-bottom-1x mb-2">
-          <div class="column">
-            <div class="shop-sorting">
-              <label for="sorting">Sort by:</label>
-              <select class="form-control" id="sorting">
-                <option>Popularity</option>
-                <option>Low - High Price</option>
-                <option>High - Low Price</option>
-                <option>Avarage Rating</option>
-                <option>A - Z Order</option>
-                <option>Z - A Order</option>
+        <div className="shop-toolbar padding-bottom-1x mb-2">
+          <div className="column">
+            <div className="shop-sorting">
+              <label for="sorting">Ordenar por:</label>
+              <select
+                className="form-control"
+                id="sorting"
+                name="sorting"
+                value={this.state.sorting}
+                onChange={this.handleChange}>
+                <option value="minMax">Precio Míninimo</option>
+                <option value="maxMin">Precio Máximo </option>
+                <option value="name">Nombre</option>
               </select>
-              <span class="text-muted">Showing:&nbsp;</span>
-              <span>1 - 12 items</span>
-            </div>
-          </div>
-          <div class="column">
-            <div class="shop-view">
-              <a class="grid-view active" href="shop-grid-ls.html">
-                <span></span>
-                <span></span>
-                <span></span>
-              </a>
-              <a class="list-view" href="shop-list-ls.html">
-                <span></span>
-                <span></span>
-                <span></span>
-              </a>
             </div>
           </div>
         </div>

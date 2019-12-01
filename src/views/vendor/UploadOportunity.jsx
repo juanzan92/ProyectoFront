@@ -46,6 +46,24 @@ class UploadOportunity extends React.Component {
     return today;
   }
 
+  getDate(day) {
+    var date = new Date();
+    date.setDate(date.getDate() + day);
+    var dd = String(date.getDate()).padStart(2, "0");
+    var mm = String(date.getMonth() + 1).padStart(2, "0");
+    var yyyy = date.getFullYear();
+    var today = `${yyyy}-${mm}-${dd}`;
+
+    return today;
+  }
+
+  parseFecha(date_finished) {
+    return `${date_finished.substring(6, 10)}-${date_finished.substring(
+      3,
+      5
+    )}-${date_finished.substring(0, 2)}`;
+  }
+
   changeDateFormat(inputDate) {
     // Expects yyyy-mm-dd
     var newdate = inputDate
@@ -118,7 +136,7 @@ class UploadOportunity extends React.Component {
 
   assignInputValue(target) {
     if (target.type === "text") {
-      if (target.name == "initial_stock" || target.name == "initial_price") {
+      if (target.name === "initial_stock" || target.name === "initial_price") {
         return target.value;
       } else {
         return target.value.toUpperCase();
@@ -207,7 +225,8 @@ class UploadOportunity extends React.Component {
       alert("Files could not be uploaded!!!");
     } else {
       const jsonMap = {};
-      jsonMap.end_date = new Date(this.state.date_finished);
+
+      jsonMap.end_date = `${this.parseFecha(this.state.date_finished)}`;
       jsonMap.title = this.state.title;
       jsonMap.category = this.state.category;
       jsonMap.vendor_username = this.state.vendor_username;
@@ -249,25 +268,30 @@ class UploadOportunity extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
-    this.setState({
-      isButtonDisabled: true
-    });
-    setTimeout(() => this.setState({ isButtonDisabled: false }), 10000);
-    this.setAttributes(this.state.marca, this.state.modelo, this.state.color);
-    this.setDimensions(
-      this.state.alto,
-      this.state.ancho,
-      this.state.profundidad,
-      this.state.peso
-    );
-    let allFiles = this.uploadInput.files;
-    this.iterateAllFiles(allFiles)
-      .then(response => {
-        this.postItem(response);
-      })
-      .catch(error => {
-        console.log(error);
+
+    if (this.uploadInput.files.length > 0) {
+      this.setState({
+        isButtonDisabled: true
       });
+      setTimeout(() => this.setState({ isButtonDisabled: false }), 10000);
+      this.setAttributes(this.state.marca, this.state.modelo, this.state.color);
+      this.setDimensions(
+        this.state.alto,
+        this.state.ancho,
+        this.state.profundidad,
+        this.state.peso
+      );
+      let allFiles = this.uploadInput.files;
+      this.iterateAllFiles(allFiles)
+        .then(response => {
+          this.postItem(response);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    } else {
+      alert("Por favor, carga al menos una imagen.");
+    }
   }
 
   render() {
@@ -327,6 +351,7 @@ class UploadOportunity extends React.Component {
                     <option value="Calzado">Calzado</option>
                     <option value="Accesorios">Accesorios</option>
                     <option value="Moda">Moda</option>
+                    <option value="Carteras">Carteras</option>
                   </select>
                   <small className="form-text text-muted">
                     Indicá una categoría para tu oportunidad.
@@ -450,6 +475,8 @@ class UploadOportunity extends React.Component {
                       className="form-control"
                       type="date"
                       name="date_finished"
+                      min={this.getDate(20)}
+                      max={this.getDate(120)}
                       value={this.value}
                       onChange={this.handleChange}
                     />
@@ -462,14 +489,14 @@ class UploadOportunity extends React.Component {
               <div className="form-group row pt-1">
                 <div className="col-3">
                   <div className="form-group input-group">
-                    <label htmlFor="alto">Alto</label>
+                    <label htmlFor="alto">Alto (cm)</label>
                     <input
                       className="form-control"
                       type="number"
                       name="alto"
                       min="1"
-                      max="250"
-                      placeholder="cm"
+                      max="70"
+                      placeholder="70 máx"
                       pattern="[0-9]}"
                       title="Unidad: Centímetros"
                       value={this.value}
@@ -480,14 +507,14 @@ class UploadOportunity extends React.Component {
                 </div>
                 <div className="col-3">
                   <div className="form-group input-group">
-                    <label htmlFor="ancho">Ancho</label>
+                    <label htmlFor="ancho">Ancho (cm)</label>
                     <input
                       className="form-control"
                       type="number"
                       name="ancho"
                       min="1"
-                      max="250"
-                      placeholder="cm"
+                      max="70"
+                      placeholder="70 máx"
                       pattern="[1-9]"
                       title="Unidad: Centímetros"
                       value={this.value}
@@ -498,14 +525,14 @@ class UploadOportunity extends React.Component {
                 </div>
                 <div className="col-3">
                   <div className="form-group input-group">
-                    <label htmlFor="profundidad">Profundidad</label>
+                    <label htmlFor="profundidad">Profundidad (cm)</label>
                     <input
                       className="form-control"
                       type="number"
                       name="profundidad"
                       min="1"
                       max="250"
-                      placeholder="cm"
+                      placeholder="70 máx"
                       pattern="[1-9]"
                       title="Unidad: Centímetros"
                       value={this.value}
@@ -516,14 +543,14 @@ class UploadOportunity extends React.Component {
                 </div>
                 <div className="col-3">
                   <div className="form-group input-group">
-                    <label htmlFor="peso">Peso</label>
+                    <label htmlFor="peso">Peso (gr)</label>
                     <input
                       className="form-control"
                       type="number"
                       name="peso"
                       min="1"
-                      max="25000"
-                      placeholder="g"
+                      max="1500"
+                      placeholder="1500 máx"
                       pattern="[0-9]"
                       title="Unidad: Gramos"
                       value={this.value}

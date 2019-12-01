@@ -72,7 +72,7 @@ class NavBar extends Component {
     let navToolBar;
 
     if (this.state.isAuthenticated) {
-      if (this.state.user_rol == "consumer") {
+      if (this.state.user_rol === "consumer") {
         navToolBar = (
           <>
             <div className="row">

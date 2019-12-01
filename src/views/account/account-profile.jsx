@@ -25,7 +25,7 @@ class AccountProfile extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.user !== "" && this.state.orders.length == 0) {
+    if (this.state.user !== "" && this.state.orders.length === 0) {
       this.fetchOrders();
     }
   }

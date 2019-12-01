@@ -11,8 +11,8 @@ class OffCanvasCategory extends React.Component {
   componentDidMount() {}
 
   render() {
-    const subCategory = ["Sneakers", "Loafers", "Sandals"];
-    var response = "loading";
+    const subCategory = ["Sub-Cat 1", "Sub-Cat 2", "Sub-Cat 3"];
+    var response;
     var aux = 1;
     const category = this.state.category;
     const { currentCategory } = this.props;

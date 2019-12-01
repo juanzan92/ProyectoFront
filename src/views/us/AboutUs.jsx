@@ -38,7 +38,6 @@ class AboutUs extends React.Component {
                   mundo mediante un mecanismo innovador de financiamiento colectivo.
                   Nos encargamos de conectar a consumidores y comerciantes argentinos mediante oportunidades únicas de precios inmejorables.
                 </p>
-                <a class="text-medium text-decoration-none" href="/">Catálogo de Oportunidades&nbsp;<i class="icon-arrow-right" /></a>
               </div>
             </div>
             <hr />
