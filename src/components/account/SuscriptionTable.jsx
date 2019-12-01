@@ -56,7 +56,7 @@ class SuscriptionTable extends React.Component {
         <td>{fecha}</td>
         <td>{status}</td>
         <td>
-          <span className="text-medium">&#36;{suscripcion.paid_amount}</span>
+          <span className="text-medium">&#36;{suscripcion.total_amount}</span>
         </td>
       </tr>
     );

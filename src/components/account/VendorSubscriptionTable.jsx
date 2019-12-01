@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import CancelIcon from "@material-ui/icons/Cancel";
+import CancelItemModal from "../utils/CancelItemModal";
 
 const titleStyle = {
   width: "100px",
@@ -48,7 +49,22 @@ class VendorSuscriptionTable extends React.Component {
     }
   }
 
-  buildProgressBar(progress) {
+  buildProgressBar(progress, status) {
+    if (status === "CANCELLED") {
+      return (
+        <div className="progress mt-1">
+          <div
+            className="progress-bar bg-danger"
+            role="progressbar"
+            style={{ width: progress + "%" }}
+            aria-valuenow={progress}
+            aria-valuemin="0"
+            aria-valuemax="100">
+            {progress}&#37;
+          </div>
+        </div>
+      );
+    }
     return (
       <div className="progress mt-1">
         <div
@@ -84,15 +100,27 @@ class VendorSuscriptionTable extends React.Component {
         </td>
         <td>{fecha}</td>
         <td>{status}</td>
-        <td>{this.buildProgressBar(progressBar)}</td>
+        <td>{this.buildProgressBar(progressBar, item.item_status)}</td>
         <td>
           <span className="text-medium">&#36;{item.actual_price}</span>
         </td>
         <td>
           {item.item_status !== "CANCELLED" && (
-            <span onClick={() => this.cancelOportunity(item.item_id)}>
-              <CancelIcon />
-            </span>
+            <>
+              <CancelItemModal
+                cancelSuscription={this.cancelSuscription}
+                cancelOportunity={this.cancelOportunity}
+                item_id={item.item_id}
+              />
+              <button
+                class="btn btn-outline-danger m-auto"
+                type="button"
+                data-toggle="modal"
+                data-target="#modalCentered"
+                style={{ margin: "0.5rem !important" }}>
+                <CancelIcon />
+              </button>
+            </>
           )}
         </td>
       </tr>
