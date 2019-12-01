@@ -48,7 +48,7 @@ class VendorAccountProfile extends React.Component {
     if (this.state.orders.length > 0) {
       return (
         <>
-          <AccountTitle/>
+          <AccountTitle />
           <div className="container padding-bottom-3x mb-2">
             <div className="row">
               <VendorUserCard
@@ -59,7 +59,7 @@ class VendorAccountProfile extends React.Component {
               {this.state.user && <VendorAccountProfileForm user={this.state.user} />}
             </div>
           </div>
-          <Snackbar/>
+          <Snackbar />
         </>
       );
     } else {

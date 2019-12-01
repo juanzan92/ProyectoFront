@@ -1,6 +1,5 @@
 import React from "react";
 import { Auth } from "aws-amplify";
-import Accordion from "./Accordion";
 
 class VendorAccountProfileForm extends React.Component {
   constructor(props) {

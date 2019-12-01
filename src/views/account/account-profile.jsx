@@ -1,5 +1,4 @@
 import React from "react";
-
 import UserCard from "../../components/account/UserCard";
 import wrapper from "../../components/Wrapper";
 import AccountProfileForm from "../../components/account/AccountForm";
@@ -49,7 +48,7 @@ class AccountProfile extends React.Component {
     if (this.state.orders.length > 0) {
       return (
         <>
-          <AccountTitle/>
+          <AccountTitle />
           <div className="container padding-bottom-3x mb-2">
             <div className="row">
               <UserCard
@@ -57,10 +56,10 @@ class AccountProfile extends React.Component {
                 orders={this.state.orders}
                 selected={"mi_cuenta"}
               />
-              { <AccountProfileForm user={this.state.user}/>}
+              {<AccountProfileForm user={this.state.user} />}
             </div>
           </div>
-          <Snackbar/>
+          <Snackbar />
         </>
       );
     } else {
