@@ -256,12 +256,15 @@ class VIP extends React.Component {
                   {user ? (
                     <div className="sp-buttons mt-2 mb-2">
                       <div
-                        className="btn btn-lg btn-secondary"
+                        className="btn btn-lg btn-primary"
                         onClick={this.pagar}
                         disabled={blockButton}>
                         <a
                           href={this.state.redirect_url}
-                          style={{ textDecoration: "none !important" }}>
+                          style={{
+                            textDecoration: "none solid",
+                            color: "white"
+                          }}>
                           Pagar con Mercado Pago
                         </a>
                       </div>
