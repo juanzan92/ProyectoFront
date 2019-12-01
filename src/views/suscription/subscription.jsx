@@ -74,7 +74,7 @@ class Subscription extends React.Component {
             {cancelable && (
               <div className="card mb-3 col-lg-3">
                 <div className="d-inline-block" style={{ margin: "auto" }}>
-                  <h3 style={{ margin: "auto" }}>
+                  <h3 style={{ textAlign: "center", margin: "0,5 rem" }}>
                     <WarningRoundedIcon>WarningRoundedIcon</WarningRoundedIcon>
                     Cuidado
                     <WarningRoundedIcon>WarningRoundedIcon</WarningRoundedIcon>
@@ -85,7 +85,8 @@ class Subscription extends React.Component {
                   class="btn btn-outline-danger m-auto"
                   type="button"
                   data-toggle="modal"
-                  data-target="#modalCentered">
+                  data-target="#modalCentered"
+                  style={{ margin: "0.5rem !important" }}>
                   Cancelar suscripción
                 </button>
               </div>

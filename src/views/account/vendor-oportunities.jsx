@@ -22,7 +22,7 @@ class VendorAccountOportunities extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.user != null && this.state.items.length == 0) {
+    if (this.state.user != null && this.state.items.length === 0) {
       this.getItems();
     }
   }
@@ -68,12 +68,19 @@ class VendorAccountOportunities extends React.Component {
           <div className="container padding-bottom-3x mb-2">
             <div className="row">
               <Link to="/vendor-reporting">
-                <a className="btn btn-primary " style={{ paddingBottom: "5%" }} href="/account">
+                <a
+                  className="btn btn-primary "
+                  style={{ paddingBottom: "5%" }}
+                  href="/account">
                   Volver a Cuenta
                 </a>
               </Link>
               <VendorResumeTab oportunities={items} />
-              {items.length > 0 && <VendorSuscriptionTable items={items} />}
+
+              <div
+                style={{ margin: "auto", marginTop: "40px ", width: "100%" }}>
+                {items.length > 0 && <VendorSuscriptionTable items={items} />}
+              </div>
             </div>
           </div>
         </>

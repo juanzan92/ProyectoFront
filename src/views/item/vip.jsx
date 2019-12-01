@@ -107,7 +107,7 @@ class VIP extends React.Component {
     const { item } = this.state;
 
     const attribute = item.attributes.find(
-      attribute => attribute.id == "Color"
+      attribute => attribute.id === "Color"
     );
     return attribute["value"];
   }

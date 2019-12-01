@@ -36,12 +36,12 @@ class UserAccount extends React.Component {
 
     if (this.state.user != "") {
       const rol = user["custom:role"];
-      if (rol === "consumer" && this.state.orders.length == 0) {
+      if (rol === "consumer" && this.state.orders.length === 0) {
         this.fetchOrders();
       } else if (
         this.state.user != "" &&
         rol === "vendor" &&
-        this.state.orders.length == 0
+        this.state.orders.length === 0
       ) {
         this.fetchOportunities();
       }

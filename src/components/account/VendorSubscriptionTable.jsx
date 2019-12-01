@@ -24,7 +24,7 @@ class VendorSuscriptionTable extends React.Component {
   cancelOportunity(itemId) {
     const url = `http://localhost:8080/catalog/items?item_id=${itemId}`;
     fetch(url, { method: "DELETE" }).then(response => {
-      if (response.status == 200) {
+      if (response.status === 200) {
         window.location.reload();
       } else {
         //hacer notification
@@ -102,7 +102,7 @@ class VendorSuscriptionTable extends React.Component {
   buildTable(items) {
     const rows = items.map(sus => this.buildRow(sus));
     return (
-      <div className="col-lg-8">
+      <div>
         <div className="padding-top-2x mt-2 hidden-lg-up" />
         <div className="table-responsive">
           <table className="table table-hover margin-bottom-none">
@@ -125,7 +125,7 @@ class VendorSuscriptionTable extends React.Component {
 
   buildEmptyTable() {
     return (
-      <div className="col-lg-8">
+      <div>
         <div className="padding-top-2x mt-2 hidden-lg-up" />
         <div className="table-responsive">
           <table className="table table-hover margin-bottom-none">

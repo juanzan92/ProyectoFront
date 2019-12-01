@@ -7,9 +7,8 @@ class PaymentDetail extends React.Component {
       total_amount,
       merchant_order_id
     } = this.props.subscription;
-    const shipping_amount = total_amount * 0.03;
-    const afip_amount = total_amount * 0.1;
-    const paid_amount = total_amount - afip_amount - shipping_amount;
+    const shipping_amount = total_amount * 0.19;
+    const paid_amount = total_amount - shipping_amount;
 
     return (
       <>
@@ -28,10 +27,6 @@ class PaymentDetail extends React.Component {
                 <td>$ {shipping_amount.toFixed(2)}</td>
               </tr>
               <tr style={{ margin: "2px" }}></tr>
-              <tr>
-                <td>Cargo DDJJ AFIP</td>
-                <td>$ {afip_amount.toFixed(2)}</td>
-              </tr>
               <tr>
                 <td style={{ fontWeight: "600" }}>Total</td>
                 <td style={{ fontWeight: "600" }}>$ {total_amount}</td>

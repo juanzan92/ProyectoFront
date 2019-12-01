@@ -48,7 +48,7 @@ class ListingCategories extends React.Component {
       var myCount = 0;
       // loop over every element in the copy and see if it's the same
       for (var w = 0; w < copy.length; w++) {
-        if (original[i] == copy[w]) {
+        if (original[i] === copy[w]) {
           // increase amount of times duplicate is found
           myCount++;
           // sets item to undefined
@@ -125,7 +125,7 @@ class ListingCategories extends React.Component {
     if (filter === "maxMin") {
       filteredItems.sort((a, b) => b.actual_price - a.actual_price);
       this.setState({ filteredItems: filteredItems, sortingBy: filter });
-    } else if (filter == "minMax") {
+    } else if (filter === "minMax") {
       filteredItems.sort((a, b) => a.actual_price - b.actual_price);
       this.setState({ filteredItems: filteredItems, sortingBy: filter });
     } else {

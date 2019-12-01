@@ -23,7 +23,7 @@ class VendorReporting extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.user != null && this.state.items.length == 0) {
+    if (this.state.user != null && this.state.items.length === 0) {
       this.getItems();
     }
   }

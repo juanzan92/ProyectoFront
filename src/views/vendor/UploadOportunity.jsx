@@ -133,7 +133,7 @@ class UploadOportunity extends React.Component {
 
   assignInputValue(target) {
     if (target.type === "text") {
-      if (target.name == "initial_stock" || target.name == "initial_price") {
+      if (target.name === "initial_stock" || target.name === "initial_price") {
         return target.value;
       } else {
         return target.value.toUpperCase();
