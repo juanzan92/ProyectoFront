@@ -5,6 +5,7 @@ import Review from "../../components/vip/Review";
 import ProductCard from "../../components/vip/ProductCard";
 import { Auth } from "aws-amplify";
 import Timer from "../../components/utils/Timer";
+import { Redirect } from "react-router-dom";
 
 class VIP extends React.Component {
   constructor(props) {
@@ -18,20 +19,27 @@ class VIP extends React.Component {
       progress: 0,
       redirect_url: "",
       user: null,
-      blockButton: true
+      blockButton: true,
+      color: null
     };
+    this.getUsuario();
     this.buscarItemTest();
     this.handleInputChange = this.handleInputChange.bind(this);
     this.pagar = this.pagar.bind(this);
-    this.getUsuario();
   }
 
   getUsuario() {
-    Auth.currentAuthenticatedUser({}).then(user1 => {
-      this.setState({
-        user: user1.attributes
-      });
-    });
+    Auth.currentAuthenticatedUser({})
+      .then(user1 => {
+        this.setState({
+          user: user1.attributes
+        });
+      })
+      .catch(respones =>
+        this.setState({
+          user: false
+        })
+      );
   }
 
   handleInputChange(event) {
@@ -95,30 +103,41 @@ class VIP extends React.Component {
     });
   }
 
+  getColorFromItem() {
+    const { item } = this.state;
+
+    const attribute = item.attributes.find(
+      attribute => attribute.id == "Color"
+    );
+    return attribute["value"];
+  }
+
   getURLPago(quantity) {
-    this.setState({ blockButton: true });
-    const url = "http://localhost:8080/mp/preferences"; //url backend
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        item_id: this.state.item.item_id,
-        quantity: quantity,
-        consumer_username: "richiardo"
+    if (this.state.user) {
+      this.setState({ blockButton: true });
+      const url = "http://localhost:8080/mp/preferences";
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          item_id: this.state.item.item_id,
+          quantity: quantity,
+          consumer_username: this.state.user.nickname
+        })
       })
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(preferencia => {
-        this.setState({
-          redirect_url: preferencia.redirect_url,
-          blockButton: false,
-          isLoading: false
+        .then(response => {
+          return response.json();
+        })
+        .then(preferencia => {
+          this.setState({
+            redirect_url: preferencia.redirect_url,
+            blockButton: false,
+            isLoading: false
+          });
         });
-      });
+    }
   }
 
   pagar() {
@@ -147,8 +166,14 @@ class VIP extends React.Component {
     }
   }
 
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to="/signin" />;
+    }
+  };
+
   render() {
-    const { item, blockButton } = this.state;
+    const { item, blockButton, user } = this.state;
     const state = this.state;
 
     if (item && state.reviews.length > 0) {
@@ -174,7 +199,7 @@ class VIP extends React.Component {
                     <div className="form-group">
                       <label htmlFor="color">Color</label>
                       <select className="form-control" id="color">
-                        <option>{item.attributes[1].value}</option>
+                        <option>{this.getColorFromItem()}</option>
                       </select>
                     </div>
                   </div>
@@ -228,18 +253,26 @@ class VIP extends React.Component {
                       </div>
                     </div>
                   </div>
-                  <div className="sp-buttons mt-2 mb-2">
-                    <div
-                      className="btn btn-lg btn-secondary"
-                      onClick={this.pagar}
-                      disabled={blockButton}>
-                      <a
-                        href={this.state.redirect_url}
-                        style={{ textDecoration: "none !important" }}>
-                        Pagar con Mercado Pago
-                      </a>
+                  {user ? (
+                    <div className="sp-buttons mt-2 mb-2">
+                      <div
+                        className="btn btn-lg btn-secondary"
+                        onClick={this.pagar}
+                        disabled={blockButton}>
+                        <a
+                          href={this.state.redirect_url}
+                          style={{ textDecoration: "none !important" }}>
+                          Pagar con Mercado Pago
+                        </a>
+                      </div>
                     </div>
-                  </div>
+                  ) : (
+                    <div className="sp-buttons mt-2 mb-2">
+                      <div className="btn btn-lg btn-info">
+                        Ingresa y Compra
+                      </div>
+                    </div>
+                  )}
                 </div>
               </div>
               {/** descripcion */}

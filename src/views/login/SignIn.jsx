@@ -11,7 +11,8 @@ class SignIn extends React.Component {
       isLoading: false,
       username: "",
       password: "",
-      remember_me: false
+      remember_me: false,
+      blockSignInBtn: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -19,12 +20,13 @@ class SignIn extends React.Component {
   }
 
   async signIn(user, password) {
+    this.setState({ blockSignInBtn: true });
     try {
       await Auth.signIn(user, password);
       window.location.href = "/";
     } catch (error) {
       alert(error.message);
-      this.setState({ isLoading: false });
+      this.setState({ isLoading: false, blockSignInBtn: false });
       console.error(error);
       console.log(error);
     }
@@ -54,6 +56,7 @@ class SignIn extends React.Component {
   }
 
   render() {
+    const { blockSignInBtn } = this.state;
     return (
       <>
         <div className="page-title">
@@ -141,15 +144,14 @@ class SignIn extends React.Component {
                 <button
                   className="btn btn-primary margin-bottom-none"
                   type="submit"
-                >
+                  disabled={blockSignInBtn}>
                   INGRESÁ
                 </button>
 
                 <Link to="/signup">
                   <button
                     className="btn btn-primary margin-bottom-none"
-                    type="submit"
-                  >
+                    type="submit">
                     CREAR CUENTA
                   </button>
                 </Link>
