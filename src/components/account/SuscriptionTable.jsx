@@ -90,11 +90,33 @@ class SuscriptionTable extends React.Component {
     );
   }
 
+  buildEmptyTable() {
+    return (
+      <div className="col-lg-8">
+        <div className="padding-top-2x mt-2 hidden-lg-up" />
+        <div className="table-responsive">
+          <table className="table table-hover margin-bottom-none">
+            <thead>
+              <tr>
+                <th>Suscripcion </th>
+                <th>Fecha de Compra</th>
+                <th>Estado</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const { orders } = this.state;
     if (orders.length > 0) {
       const table = this.buildTable(orders);
       return <>{table}</>;
+    } else if (orders.length === 0) {
+      return this.buildEmptyTable();
     } else {
       return (
         <div className="spinner-center text-info m-2" role="status">

@@ -3,10 +3,10 @@ import { Link } from "react-router-dom";
 import CancelIcon from "@material-ui/icons/Cancel";
 
 const titleStyle = {
-  width: "230px",
-  whiteSpace: "nowrap",
+  width: "100px",
   overflow: "hidden",
-  textOverflow: "ellipsis"
+  textOverflow: "ellipsis",
+  textDecoration: "none"
 };
 class VendorSuscriptionTable extends React.Component {
   constructor(props) {
@@ -66,19 +66,20 @@ class VendorSuscriptionTable extends React.Component {
 
   buildRow(item) {
     const status = this.getStatus(item);
-    //const date = item.end_date;
-    //const month = date.getMonth();
-    //const year = date.getFullYear();
-    //const days = date.getDay();
-    const fecha = item.end_date;
+    const date = new Date(item.end_date);
+    const month = date.getMonth();
+    const year = date.getFullYear();
+    const days = date.getDay();
+    const fecha = `${days}/${month}/${year}`;
     const progressBar = this.calcularBarraProgreso(item);
     return (
       <tr>
         <td>
-          <Link to={`/vip/${item.item_id}`}>
-            <a className="text-medium navi-link" style={titleStyle}>
-              {item.title}
-            </a>
+          <Link
+            to={`/vip/${item.item_id}`}
+            className="text-medium navi-link"
+            style={titleStyle}>
+            {item.title.slice(0, 30)}
           </Link>
         </td>
         <td>{fecha}</td>
@@ -88,9 +89,11 @@ class VendorSuscriptionTable extends React.Component {
           <span className="text-medium">&#36;{item.actual_price}</span>
         </td>
         <td>
-          <span onClick={() => this.cancelOportunity(item.item_id)}>
-            <CancelIcon />
-          </span>
+          {item.item_status !== "CANCELLED" && (
+            <span onClick={() => this.cancelOportunity(item.item_id)}>
+              <CancelIcon />
+            </span>
+          )}
         </td>
       </tr>
     );
@@ -120,11 +123,39 @@ class VendorSuscriptionTable extends React.Component {
     );
   }
 
+  buildEmptyTable() {
+    return (
+      <div className="col-lg-8">
+        <div className="padding-top-2x mt-2 hidden-lg-up" />
+        <div className="table-responsive">
+          <table className="table table-hover margin-bottom-none">
+            <thead>
+              <tr>
+                <th>Suscripcion </th>
+                <th>Fecha de Compra</th>
+                <th>Estado</th>
+                <th>Total</th>
+              </tr>
+            </thead>
+          </table>
+        </div>
+        <div className="text-right">
+          <a className="btn btn-link-primary margin-bottom-none" href="#">
+            <i className="icon-download" />
+            &nbsp;Detalles
+          </a>
+        </div>
+      </div>
+    );
+  }
+
   render() {
     const { items } = this.state;
     if (items.length > 0) {
       const table = this.buildTable(items);
       return <>{table}</>;
+    } else if (items.length === 0) {
+      return this.buildEmptyTable();
     } else {
       return (
         <div className="spinner-center text-info m-2" role="status">

@@ -14,7 +14,7 @@ import {
   ResponsiveContainer
 } from "recharts";
 
-const data = [
+const data1 = [
   {
     name: "Page A",
     uv: 4000,
@@ -102,8 +102,7 @@ export default class Example extends PureComponent {
   handleDragStop = () => this.props.update(this.state.months);
 
   render() {
-    var auxData = data.slice(0, this.state.months);
-
+    var auxData = this.state.data.slice(0, this.state.months);
     return (
       <>
         <ResponsiveContainer width="100%" height={450}>
@@ -116,12 +115,12 @@ export default class Example extends PureComponent {
               bottom: 5
             }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="name" />
+            <XAxis dataKey="month" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="pv" fill="#8884d8" />
-            <Bar dataKey="uv" fill="#82ca9d" />
+            <Bar dataKey="quantity" fill="#8884d8" />
+            <Bar dataKey="income" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
 

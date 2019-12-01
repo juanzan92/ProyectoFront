@@ -1,4 +1,5 @@
 import React from "react";
+import { array } from "prop-types";
 
 class ShopToolbar extends React.Component {
   constructor(props) {
@@ -17,7 +18,7 @@ class ShopToolbar extends React.Component {
     this.setState({
       [name]: value
     });
-    this.props.orderItems(value);
+    this.props.orderItems(value, new Array());
   }
 
   render() {

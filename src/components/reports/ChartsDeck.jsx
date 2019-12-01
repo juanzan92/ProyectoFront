@@ -4,6 +4,20 @@ import PieChart from "../reports/PieChart";
 import RadarChart from "../reports/RadarChart";
 import { Auth } from "aws-amplify";
 
+const meses = [
+  "Ene",
+  "Feb",
+  "Mar",
+  "Abr",
+  "May",
+  "Jun",
+  "Jul",
+  "Ago",
+  "Sep",
+  "Oct",
+  "Nov",
+  "Dic"
+];
 const urlBack = "http://localhost:8080/reports?username=jak";
 
 const cardBody = {
@@ -38,9 +52,12 @@ class ChartsDeck extends React.Component {
         return response.json();
       })
       .then(myJson => {
+        myJson.graph_03.forEach(element => {
+          element.month = meses[element.month - 1];
+        });
         this.setState({
           data: myJson,
-          barChart: myJson[2]
+          barChart: myJson.graph_03
         });
       });
   }
@@ -58,7 +75,9 @@ class ChartsDeck extends React.Component {
                 Grafico que representa tus ventas mensuales
               </p>
             </div>
-            <BarChart barChartFiler={barChartFiler} data={barChart} />
+            {barChart.length > 0 && (
+              <BarChart barChartFiler={barChartFiler} data={barChart} />
+            )}
           </div>
           <div class="card margin-bottom-1x">
             <div class="card-body" style={cardBody}>

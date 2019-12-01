@@ -76,7 +76,7 @@ class ProductFilter extends React.Component {
 
           <section class="widget">
             <h3 class="widget-title">Buscar Por Marca</h3>
-            <FormGroup row>
+            <FormGroup row style={{ display: "inline-grid" }}>
               {brands.map(brand => {
                 return (
                   <FormControlLabel

@@ -14,7 +14,7 @@ class UserAccount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
+      isLoading: true,
       user: "",
       orders: []
     };
@@ -56,7 +56,8 @@ class UserAccount extends React.Component {
       })
       .then(myJson => {
         this.setState({
-          orders: myJson
+          orders: myJson,
+          isLoading: false
         });
       })
       .catch(e => console.log(e));
@@ -70,16 +71,17 @@ class UserAccount extends React.Component {
       })
       .then(myJson => {
         this.setState({
-          orders: myJson
+          orders: myJson,
+          isLoading: false
         });
       })
       .catch(e => console.log(e));
   }
 
   render() {
-    const { user, orders } = this.state;
+    const { user, orders, isLoading } = this.state;
     const selected = "suscripciones";
-    if (user && orders != orders.length > 0) {
+    if (user && orders && !isLoading) {
       if (user["custom:role"] === "consumer") {
         return (
           <Context.Provider value={selected}>

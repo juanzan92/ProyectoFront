@@ -18,7 +18,7 @@ class ListingCategories extends React.Component {
       brands: [],
       checkedItems: [],
       sortingBy: "minMax",
-      priceFilter: []
+      priceFilter: [0, 99999999999]
     };
 
     this.getItems();
@@ -115,19 +115,31 @@ class ListingCategories extends React.Component {
     return min;
   }
 
-  orderItems(filter) {
-    const { filteredItems } = this.state;
+  orderItems(filter, arrayToSort) {
+    let { filteredItems } = this.state;
+
+    arrayToSort.length > 0
+      ? (filteredItems = arrayToSort)
+      : (filteredItems = filteredItems);
 
     if (filter === "maxMin") {
       filteredItems.sort((a, b) => b.actual_price - a.actual_price);
       this.setState({ filteredItems: filteredItems, sortingBy: filter });
     } else if (filter == "minMax") {
       filteredItems.sort((a, b) => a.actual_price - b.actual_price);
-      this.setState({ filteredItems: filteredItems });
+      this.setState({ filteredItems: filteredItems, sortingBy: filter });
     } else {
-      filteredItems.sort();
-      this.setState({ filteredItems: filteredItems });
+      filteredItems.sort(function(a, b) {
+        if (a.title < b.title) {
+          return -1;
+        }
+        if (a.title > b.title) {
+          return 1;
+        }
+        return 0;
+      });
     }
+    this.setState({ filteredItems: filteredItems, sortingBy: filter });
   }
 
   handleBrandFilter(brand) {
@@ -140,17 +152,7 @@ class ListingCategories extends React.Component {
       checkedItems.splice(index, 1);
     }
 
-    if (checkedItems.length == 0) {
-      this.setState({
-        filteredItems: items
-      });
-    } else {
-      this.setState({
-        filteredItems: items.filter(item =>
-          checkedItems.includes(item.attributes[0].value)
-        )
-      });
-    }
+    this.getAllInOne(items, "brand");
   }
 
   handlePriceFilter(price) {
@@ -160,9 +162,35 @@ class ListingCategories extends React.Component {
       item => item.actual_price >= price[0] && item.actual_price <= price[1]
     );
 
-    this.setState({
-      filteredItems: auxFiltered
-    });
+    this.getAllInOne(auxFiltered, "price", price);
+  }
+
+  getAllInOne(filteredArray, filterBy, filterValue) {
+    let exitArray = [];
+    var { checkedItems, priceFilter } = this.state;
+    if (filterBy === "price") {
+      checkedItems.length === 0
+        ? (exitArray = filteredArray.filter(item =>
+            checkedItems.includes(item.attributes[0].value)
+          ))
+        : (exitArray = filteredArray);
+
+      this.setState({ priceFilter: filterValue });
+    } else {
+      checkedItems.length === 0
+        ? (exitArray = filteredArray)
+        : (exitArray = filteredArray.filter(item =>
+            checkedItems.includes(item.attributes[0].value)
+          ));
+
+      exitArray = exitArray.filter(
+        item =>
+          item.actual_price >= priceFilter[0] &&
+          item.actual_price <= priceFilter[1]
+      );
+    }
+
+    this.orderItems(this.state.sortingBy, exitArray);
   }
 
   render() {
