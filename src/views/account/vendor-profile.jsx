@@ -1,5 +1,4 @@
 import React from "react";
-
 import VendorUserCard from "../../components/account/VendorUserCard";
 import wrapper from "../../components/Wrapper";
 import VendorAccountProfileForm from "../../components/account/VendorAccountForm";
@@ -18,14 +17,12 @@ class VendorAccountProfile extends React.Component {
   }
 
   getUsuario() {
-    Auth.currentAuthenticatedUser({}).then(user1 => {
+    Auth.currentAuthenticatedUser({}).then(userObject => {
       this.setState({
-        user: user1.attributes
+        user: userObject.attributes
       });
     });
   }
-
-  componentDidMount() {}
 
   componentDidUpdate() {
     if (this.state.user !== "" && this.state.orders.length == 0) {
@@ -34,7 +31,7 @@ class VendorAccountProfile extends React.Component {
   }
 
   fetchOrders() {
-    const url = `http://localhost:8080/subscriptions/search?index_name=username&search_pattern=${this.state.user.nickname}`;
+    const url = `http://localhost:8080/catalog/items/search?index_name=vendor_username&search_pattern=${this.state.user.nickname}`;
     fetch(url)
       .then(response => {
         return response.json();
@@ -59,12 +56,10 @@ class VendorAccountProfile extends React.Component {
                 orders={this.state.orders}
                 selected={"mi_cuenta"}
               />
-              {this.state.user && (
-                <VendorAccountProfileForm user={this.state.user} />
-              )}
+              {this.state.user && <VendorAccountProfileForm user={this.state.user}/>}
             </div>
           </div>
-          <Snackbar></Snackbar>
+          <Snackbar />
         </>
       );
     } else {

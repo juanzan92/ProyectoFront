@@ -104,6 +104,10 @@ class NavBar extends Component {
                       <a href="/account">Suscripciones</a>
                     </li>
                     <li className="sub-menu-separator" />
+                    <li>
+                      <a onClick={this.handleLogout}>Salir</a>
+                    </li>
+                    <li className="sub-menu-separator" />
                   </ul>
                 </div>
               </div>
@@ -158,6 +162,10 @@ class NavBar extends Component {
                       <a href="/account">Oportunidades</a>
                     </li>
                     <li className="sub-menu-separator" />
+                    <li>
+                      <a onClick={this.handleLogout}>Salir</a>
+                    </li>
+                    <li className="sub-menu-separator" />
                   </ul>
                 </div>
               </div>
@@ -206,18 +214,13 @@ class NavBar extends Component {
           {/* Main Navigation*/}
           <nav className="site-menu">
             <ul>
-              <li className="has-megamenu active">
+              <li>
                 <a href="/">
                   <span>Home</span>
                 </a>
               </li>
               <li>
-                <a href="/">
-                  <span>Hurry up!</span>
-                </a>
-              </li>
-              <li className="has-megamenu">
-                <a href="/">
+                <a href="/categories">
                   <span>Categorias</span>
                 </a>
               </li>

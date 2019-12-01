@@ -234,14 +234,14 @@ class UploadOportunity extends React.Component {
         .then(response => {
           if (!response.ok) throw new Error(response.status);
           else {
-            const r = window.confirm("Oportunidad cargada correctamente!!!");
-            if (r) window.location.href = "/vendor-oportunities";
+            const r = window.confirm("Oportunidad publicada correctamente !!!");
+            if (r) window.location.href = "/account";
             return response.json();
           }
         })
         .catch(e => {
           console.log(e);
-          alert("Error al cargar la Oportunidad !!!");
+          alert("Error al publicar la oportunidad !!!");
           window.location.reload();
         });
     }
@@ -344,7 +344,8 @@ class UploadOportunity extends React.Component {
                     type="text"
                     name="title"
                     placeholder="Termo Stanley Adventure 750ml"
-                    pattern="[A-Z0-9Ñ\s]{3,40}"
+                    pattern="[A-Z0-9Ñ\s]{3,60}"
+                    title="Alfanumérico. Entre 2-60 caracteres."
                     value={this.state.title}
                     onChange={this.handleChange}
                     required
@@ -365,7 +366,7 @@ class UploadOportunity extends React.Component {
                       type="text"
                       name="marca"
                       placeholder="Stanley"
-                      pattern="^[a-zA-Z0-9_-]{2,40}"
+                      pattern="[A-Z0-9Ñ\s]{2,40}"
                       title="Alfanumérico. Entre 2-40 caracteres."
                       value={this.state.marca}
                       onChange={this.handleChange}
@@ -381,7 +382,7 @@ class UploadOportunity extends React.Component {
                       type="text"
                       name="modelo"
                       placeholder="Adventure 750ml"
-                      pattern="[A-Z0-9Ñ\s]{3,40}"
+                      pattern="[A-Z0-9Ñ\s]{2,60}"
                       title="Alfanumérico. Entre 2-60 caracteres."
                       value={this.state.modelo}
                       onChange={this.handleChange}
@@ -397,7 +398,7 @@ class UploadOportunity extends React.Component {
                       type="text"
                       name="color"
                       placeholder="Azul"
-                      pattern="^[A-Z]{3,15}"
+                      pattern="^[A-ZÑ\s]{3,15}"
                       title="Sólo texto. Entre 2-15 caracteres."
                       value={this.state.color}
                       onChange={this.handleChange}
@@ -470,7 +471,7 @@ class UploadOportunity extends React.Component {
                       max="250"
                       placeholder="cm"
                       pattern="[0-9]}"
-                      title="centímetros"
+                      title="Unidad: Centímetros"
                       value={this.value}
                       onChange={this.handleChange}
                       required
@@ -488,7 +489,7 @@ class UploadOportunity extends React.Component {
                       max="250"
                       placeholder="cm"
                       pattern="[1-9]"
-                      title="centímetros"
+                      title="Unidad: Centímetros"
                       value={this.value}
                       onChange={this.handleChange}
                       required
@@ -506,7 +507,7 @@ class UploadOportunity extends React.Component {
                       max="250"
                       placeholder="cm"
                       pattern="[1-9]"
-                      title="centímetros"
+                      title="Unidad: Centímetros"
                       value={this.value}
                       onChange={this.handleChange}
                       required
@@ -524,7 +525,7 @@ class UploadOportunity extends React.Component {
                       max="25000"
                       placeholder="g"
                       pattern="[0-9]"
-                      title="gramos"
+                      title="Unidad: Gramos"
                       value={this.value}
                       onChange={this.handleChange}
                       required
