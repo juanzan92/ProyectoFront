@@ -313,7 +313,7 @@ class AccountProfileForm extends React.Component {
                             name="userAddCalle"
                             value={this.state.userAddCalle}
                             onChange={this.handleChange}
-                            pattern="[A-ZÑ\s]{3,40}"
+                            pattern="[A-Z0-9Ñ\s]{3,40}"
                             title="Únicamente texto. Longitud de 3-40 caracteres."
                             required
                           />

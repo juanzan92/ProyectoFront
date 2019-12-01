@@ -18,14 +18,12 @@ class AccountProfile extends React.Component {
   }
 
   getUsuario() {
-    Auth.currentAuthenticatedUser({}).then(user1 => {
+    Auth.currentAuthenticatedUser({}).then(userObject => {
       this.setState({
-        user: user1.attributes
+        user: userObject.attributes
       });
     });
   }
-
-  componentDidMount() {}
 
   componentDidUpdate() {
     if (this.state.user !== "" && this.state.orders.length == 0) {
@@ -59,7 +57,7 @@ class AccountProfile extends React.Component {
                 orders={this.state.orders}
                 selected={"mi_cuenta"}
               />
-              {this.state.user && <AccountProfileForm user={this.state.user}/>}
+              { <AccountProfileForm user={this.state.user}/>}
             </div>
           </div>
           <Snackbar/>
