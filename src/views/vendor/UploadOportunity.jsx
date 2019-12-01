@@ -489,14 +489,14 @@ class UploadOportunity extends React.Component {
               <div className="form-group row pt-1">
                 <div className="col-3">
                   <div className="form-group input-group">
-                    <label htmlFor="alto">Alto</label>
+                    <label htmlFor="alto">Alto (cm)</label>
                     <input
                       className="form-control"
                       type="number"
                       name="alto"
                       min="1"
-                      max="250"
-                      placeholder="cm"
+                      max="70"
+                      placeholder="70 máx"
                       pattern="[0-9]}"
                       title="Unidad: Centímetros"
                       value={this.value}
@@ -507,14 +507,14 @@ class UploadOportunity extends React.Component {
                 </div>
                 <div className="col-3">
                   <div className="form-group input-group">
-                    <label htmlFor="ancho">Ancho</label>
+                    <label htmlFor="ancho">Ancho (cm)</label>
                     <input
                       className="form-control"
                       type="number"
                       name="ancho"
                       min="1"
-                      max="250"
-                      placeholder="cm"
+                      max="70"
+                      placeholder="70 máx"
                       pattern="[1-9]"
                       title="Unidad: Centímetros"
                       value={this.value}
@@ -525,14 +525,14 @@ class UploadOportunity extends React.Component {
                 </div>
                 <div className="col-3">
                   <div className="form-group input-group">
-                    <label htmlFor="profundidad">Profundidad</label>
+                    <label htmlFor="profundidad">Profundidad (cm)</label>
                     <input
                       className="form-control"
                       type="number"
                       name="profundidad"
                       min="1"
                       max="250"
-                      placeholder="cm"
+                      placeholder="70 máx"
                       pattern="[1-9]"
                       title="Unidad: Centímetros"
                       value={this.value}
@@ -543,14 +543,14 @@ class UploadOportunity extends React.Component {
                 </div>
                 <div className="col-3">
                   <div className="form-group input-group">
-                    <label htmlFor="peso">Peso</label>
+                    <label htmlFor="peso">Peso (gr)</label>
                     <input
                       className="form-control"
                       type="number"
                       name="peso"
                       min="1"
-                      max="25000"
-                      placeholder="g"
+                      max="1500"
+                      placeholder="1500 máx"
                       pattern="[0-9]"
                       title="Unidad: Gramos"
                       value={this.value}
