@@ -125,7 +125,7 @@ class VendorSuscriptionTable extends React.Component {
 
   buildEmptyTable() {
     return (
-      <div>
+      <div className="col-lg-8">
         <div className="padding-top-2x mt-2 hidden-lg-up" />
         <div className="table-responsive">
           <table className="table table-hover margin-bottom-none">
