@@ -213,16 +213,6 @@ class NavBar extends Component {
               </li>
               <li>
                 <a href="/">
-                  <span>Hurry up!</span>
-                </a>
-              </li>
-              <li className="has-megamenu">
-                <a href="/">
-                  <span>Categorias</span>
-                </a>
-              </li>
-              <li>
-                <a href="/">
                   <span>Quienes somos</span>
                 </a>
               </li>

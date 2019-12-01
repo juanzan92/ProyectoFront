@@ -57,6 +57,10 @@ class UploadOportunity extends React.Component {
     return today;
   }
 
+  parseFecha(date_finished){
+    return `${date_finished.substring(6,10)}-${date_finished.substring(3,5)}-${date_finished.substring(0,2)}`
+  }
+
   changeDateFormat(inputDate) {
     // Expects yyyy-mm-dd
     var newdate = inputDate
@@ -217,8 +221,10 @@ class UploadOportunity extends React.Component {
     if (!flag) {
       alert("Files could not be uploaded!!!");
     } else {
+
       const jsonMap = {};
-      jsonMap.end_date = new Date(this.state.date_finished);
+
+      jsonMap.end_date = `${this.parseFecha(this.state.date_finished)}`;
       jsonMap.title = this.state.title;
       jsonMap.category = this.state.category;
       jsonMap.vendor_username = this.state.vendor_username;
@@ -260,6 +266,8 @@ class UploadOportunity extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+  
+    if(this.uploadInput.files.length>0){
     this.setState({
       isButtonDisabled: true
     });
@@ -279,6 +287,9 @@ class UploadOportunity extends React.Component {
       .catch(error => {
         console.log(error);
       });
+    } else{
+      alert("Por favor, carga al menos una imagen.")
+    }
   }
 
   render() {
@@ -338,6 +349,7 @@ class UploadOportunity extends React.Component {
                     <option value="Calzado">Calzado</option>
                     <option value="Accesorios">Accesorios</option>
                     <option value="Moda">Moda</option>
+                    <option value="Carteras">Carteras</option>
                   </select>
                   <small className="form-text text-muted">
                     Indicá una categoría para tu oportunidad.
