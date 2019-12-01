@@ -235,7 +235,7 @@ class VIP extends React.Component {
                       disabled={blockButton}>
                       <a
                         href={this.state.redirect_url}
-                        style={{ textDecoration: "none !important" }}>
+                        style={{ textDecoration: "none solid" }}>
                         Pagar con Mercado Pago
                       </a>
                     </div>
