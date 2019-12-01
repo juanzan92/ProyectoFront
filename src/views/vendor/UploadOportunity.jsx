@@ -220,10 +220,27 @@ class UploadOportunity extends React.Component {
     });
   }
 
+  reemplazarAcentos(description)
+  {
+    var chars={
+      "á":"a", "é":"e", "í":"i", "ó":"o", "ú":"u",
+      "à":"a", "è":"e", "ì":"i", "ò":"o", "ù":"u", "ñ":"n",
+      "Á":"A", "É":"E", "Í":"I", "Ó":"O", "Ú":"U",
+      "À":"A", "È":"E", "Ì":"I", "Ò":"O", "Ù":"U", "Ñ":"N"}
+    var expr=/[áàéèíìóòúùñ]/ig;
+    var res=description.replace(expr,function(e){return chars[e]});
+    return res;
+  }
+  
+
   postItem = flag => {
     if (!flag) {
       alert("Files could not be uploaded!!!");
     } else {
+
+      this.setState({description: this.reemplazarAcentos(this.state.description)}); 
+      this.setState({description_short: this.reemplazarAcentos(this.state.description_short)}); 
+      
       const jsonMap = {};
 
       jsonMap.end_date = `${this.parseFecha(this.state.date_finished)}`;

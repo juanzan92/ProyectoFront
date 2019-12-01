@@ -21,10 +21,6 @@ class ListingCategoriesTitle extends React.Component {
                 <a href="/">Home</a>
               </li>
               <li className="separator">&nbsp;</li>
-              <li>
-                <a href="/categories">Categorias</a>
-              </li>
-              <li className="separator">&nbsp;</li>
               <li>{category_name}</li>
             </ul>
           </div>
