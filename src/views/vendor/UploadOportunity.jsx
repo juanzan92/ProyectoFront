@@ -57,6 +57,10 @@ class UploadOportunity extends React.Component {
     return today;
   }
 
+  parseFecha(date_finished){
+    return `${date_finished.substring(6,10)}-${date_finished.substring(3,5)}-${date_finished.substring(0,2)}`
+  }
+
   changeDateFormat(inputDate) {
     // Expects yyyy-mm-dd
     var newdate = inputDate
@@ -217,8 +221,10 @@ class UploadOportunity extends React.Component {
     if (!flag) {
       alert("Files could not be uploaded!!!");
     } else {
+
       const jsonMap = {};
-      jsonMap.end_date = new Date(this.state.date_finished);
+
+      jsonMap.end_date = `${this.parseFecha(this.state.date_finished)}`;
       jsonMap.title = this.state.title;
       jsonMap.category = this.state.category;
       jsonMap.vendor_username = this.state.vendor_username;
