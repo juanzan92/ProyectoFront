@@ -32,8 +32,6 @@ class VendorSuscriptionTable extends React.Component {
     return (ventas * 100) / initial_stock;
   }
 
-  componentDidMount() {}
-
   getStatus(item) {
     if (item.item_status === "CANCELLED") {
       return <span className="text-danger">Cancelado</span>;

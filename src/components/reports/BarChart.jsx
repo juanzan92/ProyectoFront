@@ -90,7 +90,8 @@ export default class Example extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      months: 3
+      months: 3,
+      data: this.props.data
     };
   }
 

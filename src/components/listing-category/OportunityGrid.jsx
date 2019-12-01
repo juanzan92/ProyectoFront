@@ -2,8 +2,15 @@ import React from "react";
 
 const cardStyle = {
   maxWidth: "265px",
-  height: "310px",
+  height: "325px",
   margin: "0.5rem"
+};
+
+const titleStyle = {
+  width: "230px",
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis"
 };
 
 class OportunityGrid extends React.Component {
@@ -21,16 +28,21 @@ class OportunityGrid extends React.Component {
             <div class="product-card" style={cardStyle} key={x.item_id}>
               <a
                 class="product-thumb"
-                style={{ maxHeight: "180px", margin: "auto" }}
+                style={{ height: "181px", margin: "auto" }}
                 href={`/vip/${x.item_id}`}>
-                <img src={x.pictures[0].src} alt="Product" />
+                <img
+                  src={x.pictures[0].src}
+                  alt="Product"
+                  style={{ height: "181px", margin: "auto" }}
+                />
               </a>
-              <h3 class="product-title">
-                <a href={`/vip/${x.item_id}`}>{x.title}</a>
+              <h3 class="product-title" style={titleStyle}>
+                <a href={`/vip/${x.item_id}`} style={titleStyle}>
+                  {x.title}
+                </a>
               </h3>
               <h4 class="product-price">$ {x.actual_price}</h4>
               <div class="product-buttons">
-                
                 <button
                   class="btn btn-outline-primary btn-sm"
                   onClick={() => this.goToItem(x.item_id)}

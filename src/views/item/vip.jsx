@@ -17,9 +17,10 @@ class VIP extends React.Component {
       quantityToBuy: 1,
       progress: 0,
       redirect_url: "",
-      user: null
+      user: null,
+      blockButton: true
     };
-
+    this.buscarItemTest();
     this.handleInputChange = this.handleInputChange.bind(this);
     this.pagar = this.pagar.bind(this);
     this.getUsuario();
@@ -33,26 +34,16 @@ class VIP extends React.Component {
     });
   }
 
-  componentDidMount() {
-    this.buscarItemTest();
-  }
-
-  componentDidUpdate() {
-    if (this.state.user) {
-      if (this.state.item && this.state.isLoading) {
-        this.getURLPago();
-      }
-    }
-  }
-
   handleInputChange(event) {
     const target = event.target;
     const value = target.value;
     const name = target.name;
 
     if (name === "quantityToBuy") {
-      this.getURLPago();
+      this.setState({ quantityToBuy: value });
+      this.getURLPago(value);
     }
+
     this.setState({
       [name]: value
     });
@@ -77,13 +68,13 @@ class VIP extends React.Component {
       .then(response => {
         this.calcularBarraProgreso();
         this.buscarReviews();
-        this.getURLPago();
+        this.getURLPago(1);
       });
   }
 
   buscarReviews() {
-    const url =
-      "http://localhost:8080/catalog/reviews/search?index_name=item_id&search_pattern=1234";
+    const id = `${this.state.item.item_id}`;
+    const url = `http://localhost:8080/catalog/reviews/search?index_name=item_id&search_pattern=1234`;
     fetch(url)
       .then(response => {
         return response.json();
@@ -104,7 +95,8 @@ class VIP extends React.Component {
     });
   }
 
-  getURLPago() {
+  getURLPago(quantity) {
+    this.setState({ blockButton: true });
     const url = "http://localhost:8080/mp/preferences"; //url backend
     fetch(url, {
       method: "POST",
@@ -123,6 +115,7 @@ class VIP extends React.Component {
       .then(preferencia => {
         this.setState({
           redirect_url: preferencia.redirect_url,
+          blockButton: false,
           isLoading: false
         });
       });
@@ -155,7 +148,7 @@ class VIP extends React.Component {
   }
 
   render() {
-    const { item } = this.state;
+    const { item, blockButton } = this.state;
     const state = this.state;
 
     if (item && state.reviews.length > 0) {
@@ -181,7 +174,7 @@ class VIP extends React.Component {
                     <div className="form-group">
                       <label htmlFor="color">Color</label>
                       <select className="form-control" id="color">
-                        <option>Gris</option>
+                        <option>{item.attributes[1].value}</option>
                       </select>
                     </div>
                   </div>
@@ -212,7 +205,8 @@ class VIP extends React.Component {
                     Categoria:&nbsp;
                     <a
                       className="navi-link"
-                      href={`/category/${item.category}`}>
+                      href={`/category/${item.category}`}
+                      style={{ textDecoration: "none !important" }}>
                       {item.category}
                     </a>
                   </span>
@@ -238,8 +232,11 @@ class VIP extends React.Component {
                   <div className="sp-buttons mt-2 mb-2">
                     <div
                       className="btn btn-lg btn-secondary"
-                      onClick={this.pagar}>
-                      <a href={this.state.redirect_url}>
+                      onClick={this.pagar}
+                      disabled={blockButton}>
+                      <a
+                        href={this.state.redirect_url}
+                        style={{ textDecoration: "none !important" }}>
                         Pagar con Mercado Pago
                       </a>
                     </div>
@@ -247,7 +244,9 @@ class VIP extends React.Component {
                 </div>
               </div>
               {/** descripcion */}
-              <div className="row padding-top-3x mb-3">
+              <div
+                className="row padding-top-3x mb-3"
+                style={{ width: "100%" }}>
                 <div className="col-lg-10 offset-lg-1">
                   <ul className="nav nav-tabs" role="tablist">
                     <li className="nav-item">

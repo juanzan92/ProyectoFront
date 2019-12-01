@@ -51,8 +51,9 @@ const SwipeableTextMobileStepper = props => {
   };
 
   return (
-    <div className={classes.root}>
+    <div className={classes.root} style={{ textAlign: "center" }}>
       <AutoPlaySwipeableViews
+        style={{ textAlign: "center" }}
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={activeStep}
         onChangeIndex={handleStepChange}
