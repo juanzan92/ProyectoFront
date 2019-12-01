@@ -105,7 +105,7 @@ class VIP extends React.Component {
       },
       body: JSON.stringify({
         item_id: this.state.item.item_id,
-        quantity: this.state.quantityToBuy,
+        quantity: quantity,
         consumer_username: "richiardo"
       })
     })
@@ -205,8 +205,7 @@ class VIP extends React.Component {
                     Categoria:&nbsp;
                     <a
                       className="navi-link"
-                      href={`/category/${item.category}`}
-                      style={{ textDecoration: "none !important" }}>
+                      href={`/category/${item.category}`}>
                       {item.category}
                     </a>
                   </span>

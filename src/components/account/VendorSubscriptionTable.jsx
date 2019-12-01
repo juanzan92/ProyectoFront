@@ -2,6 +2,12 @@ import React from "react";
 import { Link } from "react-router-dom";
 import CancelIcon from "@material-ui/icons/Cancel";
 
+const titleStyle = {
+  width: "230px",
+  whiteSpace: "nowrap",
+  overflow: "hidden",
+  textOverflow: "ellipsis"
+};
 class VendorSuscriptionTable extends React.Component {
   constructor(props) {
     super(props);
@@ -70,7 +76,9 @@ class VendorSuscriptionTable extends React.Component {
       <tr>
         <td>
           <Link to={`/vip/${item.item_id}`}>
-            <a className="text-medium navi-link">{item.title}</a>
+            <a className="text-medium navi-link" style={titleStyle}>
+              {item.title}
+            </a>
           </Link>
         </td>
         <td>{fecha}</td>
