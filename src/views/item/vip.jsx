@@ -270,11 +270,13 @@ class VIP extends React.Component {
                       </div>
                     </div>
                   ) : (
+                    <a href="/signin">
                     <div className="sp-buttons mt-2 mb-2">
-                      <div className="btn btn-lg btn-info">
+                      <div className="btn btn-lg btn-info" >
                         Ingresa y Compra
                       </div>
                     </div>
+                    </a>
                   )}
                 </div>
               </div>
