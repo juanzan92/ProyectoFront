@@ -240,7 +240,9 @@ class UploadOportunity extends React.Component {
 
       this.setState({description: this.reemplazarAcentos(this.state.description)}); 
       this.setState({description_short: this.reemplazarAcentos(this.state.description_short)}); 
-      
+      this.setState({title: this.reemplazarAcentos(this.state.title)}); 
+
+
       const jsonMap = {};
 
       jsonMap.end_date = `${this.parseFecha(this.state.date_finished)}`;
