@@ -56,7 +56,7 @@ class AccountProfile extends React.Component {
                 orders={this.state.orders}
                 selected={"mi_cuenta"}
               />
-              {<AccountProfileForm user={this.state.user} />}
+              {this.state.user && <AccountProfileForm user={this.state.user}/>}
             </div>
           </div>
           <Snackbar />

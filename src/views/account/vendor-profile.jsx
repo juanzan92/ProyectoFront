@@ -56,7 +56,7 @@ class VendorAccountProfile extends React.Component {
                 orders={this.state.orders}
                 selected={"mi_cuenta"}
               />
-              {this.state.user && <VendorAccountProfileForm user={this.state.user} />}
+              {this.state.user && <VendorAccountProfileForm user={this.state.user}/>}
             </div>
           </div>
           <Snackbar />
