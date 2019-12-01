@@ -32,17 +32,18 @@ class VendorNavUser extends React.Component {
           to="/vendor-profile"
           class={"list-group-item " + this.isSelected("myaccount")}>
           <i className="icon-head" />
-          Mi Cuenta
+          Datos de cuenta
         </Link>
 
         <Link 
-          to="/vendor-reporting">
-          <a
+          to="/vendor-reporting"
             class={"list-group-item with-badge " + this.isSelected("reports")}
-            href="/vendor-reporting">
+
+            href="/vendor-reporting" style={{textDecoration: "none !important"}} 
+            >
             <AssessmentOutlinedIcon />
             Reportes
-          </a>
+         
         </Link>
       </nav>
     );
