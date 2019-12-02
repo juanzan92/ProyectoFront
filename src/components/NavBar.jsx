@@ -166,10 +166,6 @@ class NavBar extends Component {
                     </li>
                     <li className="sub-menu-separator" />
                     <li>
-                      <a href="/account">Oportunidades</a>
-                    </li>
-                    <li className="sub-menu-separator" />
-                    <li>
                       <a onClick={this.handleLogout}>Salir</a>
                     </li>
                     <li className="sub-menu-separator" />
