@@ -169,11 +169,13 @@ class ListingCategories extends React.Component {
     let exitArray = [];
     var { checkedItems, priceFilter } = this.state;
     if (filterBy === "price") {
-      checkedItems.length === 0
-        ? (exitArray = filteredArray.filter(item =>
-            checkedItems.includes(item.attributes[0].value)
-          ))
-        : (exitArray = filteredArray);
+      if (checkedItems.length !== 0) {
+        exitArray = filteredArray.filter(item =>
+          checkedItems.includes(item.attributes[0].value)
+        );
+      } else {
+        exitArray = filteredArray;
+      }
 
       this.setState({ priceFilter: filterValue });
     } else {
