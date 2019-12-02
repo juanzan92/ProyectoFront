@@ -140,7 +140,7 @@ class VendorSuscriptionTable extends React.Component {
                 <th>Oportunidad #</th>
                 <th>Fecha de Fin</th>
                 <th>Estado</th>
-                <th>Progresso</th>
+                <th>Progreso</th>
                 <th>Precio</th>
                 <th>Cancelar</th>
               </tr>
