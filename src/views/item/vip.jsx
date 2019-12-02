@@ -175,6 +175,10 @@ class VIP extends React.Component {
   render() {
     const { item, blockButton, user } = this.state;
     const state = this.state;
+    var role =  null ;
+    if(user){
+      role = user["custom:role"];
+    }
 
     if (item) {
       return (
@@ -254,7 +258,7 @@ class VIP extends React.Component {
                     </div>
                   </div>
                   {user &&
-                  user.role == "consumer" &&
+                  role === "consumer" &&
                   item.item_status === "ACTIVE" ? (
                     <div className="sp-buttons mt-2 mb-2">
                       <div
@@ -271,7 +275,7 @@ class VIP extends React.Component {
                         </a>
                       </div>
                     </div>
-                  ) : user.role == "vendor" ? (
+                  ) : (!user)  ? (
                     <a href="/signin">
                       <div className="sp-buttons mt-2 mb-2">
                         <div className="btn btn-lg btn-info">

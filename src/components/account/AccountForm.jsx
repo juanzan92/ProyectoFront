@@ -218,6 +218,7 @@ class AccountProfileForm extends React.Component {
                             pattern="[A-ZÑ\s]{3,40}"
                             title="Únicamente texto. Longitud de 3-40 caracteres."
                             required
+                            disabled
                           />
                         </div>
                       </div>
@@ -233,6 +234,7 @@ class AccountProfileForm extends React.Component {
                             pattern="[A-ZÑ\s]{3,40}"
                             title="Únicamente texto. Longitud de 3-40 caracteres."
                             required
+                            disabled
                           />
                         </div>
                       </div>

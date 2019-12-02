@@ -37,7 +37,7 @@ class Review extends React.Component {
               </div>
               <p className="comment-text">{this.props.review.description}</p>
               <div className="comment-footer">
-                <span className="comment-meta">{"Alguien genial"}</span>
+                <span className="comment-meta">{this.props.review.username}</span>
               </div>
             </div>
           </div>
