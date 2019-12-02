@@ -7,7 +7,6 @@ class VendorAccountProfileForm extends React.Component {
     this.state = {
       user: this.props.user,
       userDynamo: null,
-
       userNombres: "",
       userApellidos: "",
       userRol: "",
@@ -218,6 +217,7 @@ class VendorAccountProfileForm extends React.Component {
                             pattern="[A-ZÑ\s]{3,40}"
                             title="Únicamente texto. Longitud de 3-40 caracteres."
                             required
+                            disabled
                           />
                         </div>
                       </div>
@@ -233,6 +233,7 @@ class VendorAccountProfileForm extends React.Component {
                             pattern="[A-ZÑ\s]{3,40}"
                             title="Únicamente texto. Longitud de 3-40 caracteres."
                             required
+                            disabled
                           />
                         </div>
                       </div>
