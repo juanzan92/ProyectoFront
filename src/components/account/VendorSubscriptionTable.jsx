@@ -159,7 +159,7 @@ class VendorSuscriptionTable extends React.Component {
           <table className="table table-hover margin-bottom-none">
             <thead>
               <tr>
-                <th>Suscripcion </th>
+                <th>Suscripción </th>
                 <th>Fecha de Compra</th>
                 <th>Estado</th>
                 <th>Total</th>
