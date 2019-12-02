@@ -13,6 +13,8 @@ class NavBar extends Component {
       user_username: "",
       user_rol: ""
     };
+
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   async componentDidMount() {
@@ -57,6 +59,11 @@ class NavBar extends Component {
         console.log(this.state.user_rol);
       })
       .catch(err => console.log(err));
+  }
+
+  handleSearch(inputSearch) {
+    if (inputSearch) {
+    }
   }
 
   render() {
@@ -159,10 +166,6 @@ class NavBar extends Component {
                     </li>
                     <li className="sub-menu-separator" />
                     <li>
-                      <a href="/account">Oportunidades</a>
-                    </li>
-                    <li className="sub-menu-separator" />
-                    <li>
                       <a onClick={this.handleLogout}>Salir</a>
                     </li>
                     <li className="sub-menu-separator" />
@@ -196,14 +199,29 @@ class NavBar extends Component {
     return (
       <>
         <header className="navbar navbar-sticky">
+          <form class="site-search" method="get">
+            <input
+              type="text"
+              name="site_search"
+              placeholder="Type to search..."
+              onClick={this.handleSearch}
+            />
+            <div class="search-tools">
+              <span class="clear-search">Clear</span>
+              <span class="close-search">
+                <i class="icon-cross"></i>
+              </span>
+            </div>
+          </form>
           {/* Branding*/}
           <div className="site-branding">
             <div className="inner">
               {/* Off-Canvas Toggle (#shop-categories)*/}
               <a
                 className="offcanvas-toggle cats-toggle"
-                href="#shop-categories"
+                //href="#shop-categories"
                 data-toggle="offcanvas"
+                onClick={this.props.handleOpenOffCanvasMenu}
               />
               {/* Site Logo*/}
               <a className="site-logo" href="/">
@@ -217,11 +235,6 @@ class NavBar extends Component {
               <li>
                 <a href="/">
                   <span>Home</span>
-                </a>
-              </li>
-              <li>
-                <a href="/categories">
-                  <span>Categorias</span>
                 </a>
               </li>
               <li>

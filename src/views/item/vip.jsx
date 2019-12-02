@@ -82,7 +82,7 @@ class VIP extends React.Component {
 
   buscarReviews() {
     const id = `${this.state.item.item_id}`;
-    const url = `http://localhost:8080/catalog/reviews/search?index_name=item_id&search_pattern=1234`;
+    const url = `http://localhost:8080/catalog/reviews/search?index_name=item_id&search_pattern=${id}`;
     fetch(url)
       .then(response => {
         return response.json();
@@ -99,7 +99,7 @@ class VIP extends React.Component {
     var actualQuantity = this.state.item.stock;
     var vendido = initialQuantity - actualQuantity;
     this.setState({
-      progress: (vendido * 100) / initialQuantity
+      progress: ((vendido * 100) / initialQuantity).toFixed(2)
     });
   }
 
@@ -175,8 +175,12 @@ class VIP extends React.Component {
   render() {
     const { item, blockButton, user } = this.state;
     const state = this.state;
+    var role =  null ;
+    if(user){
+      role = user["custom:role"];
+    }
 
-    if (item && state.reviews.length > 0) {
+    if (item) {
       return (
         <>
           <VIPTitle prop1={item.title} />
@@ -253,7 +257,9 @@ class VIP extends React.Component {
                       </div>
                     </div>
                   </div>
-                  {user ? (
+                  {user &&
+                  role === "consumer" &&
+                  item.item_status === "ACTIVE" ? (
                     <div className="sp-buttons mt-2 mb-2">
                       <div
                         className="btn btn-lg btn-primary"
@@ -269,15 +275,15 @@ class VIP extends React.Component {
                         </a>
                       </div>
                     </div>
-                  ) : (
+                  ) : (!user)  ? (
                     <a href="/signin">
-                    <div className="sp-buttons mt-2 mb-2">
-                      <div className="btn btn-lg btn-info" >
-                        Ingresa y Compra
+                      <div className="sp-buttons mt-2 mb-2">
+                        <div className="btn btn-lg btn-info">
+                          Ingresa y Compra
+                        </div>
                       </div>
-                    </div>
                     </a>
-                  )}
+                  ) : null}
                 </div>
               </div>
               {/** descripcion */}

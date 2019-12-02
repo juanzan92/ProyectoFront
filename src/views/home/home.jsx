@@ -138,7 +138,7 @@ class index extends React.Component {
             item={this.state.featureItem}
             key={"feature-item"}
           />
-          
+
           {/* Popular Brands*/}
           <section className="bg-faded padding-top-3x padding-bottom-3x">
             <div className="container">

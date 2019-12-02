@@ -6,6 +6,7 @@ import SubscriptionDetail from "../../components/subcription/SubscriptionDetail"
 import AlertDanger from "../../components/utils/DangerAlert";
 import CancelModal from "../../components/utils/TemplateModal";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
+import ReviewForm from "../../components/subcription/ReviewFrom";
 
 class Subscription extends React.Component {
   constructor(props) {
@@ -58,9 +59,36 @@ class Subscription extends React.Component {
     });
   }
 
+  buscarReviews() {
+    const { item_id } = this.state.subscription;
+    const url = `http://localhost:8080/catalog/reviews/search?index_name=item_id&search_pattern=${item_id}`;
+    return new Promise(resolve => {
+      fetch(url).then(response => {
+        resolve(response.json());
+      });
+    });
+  }
+
+  async isReviwedEnable() {
+    let reviews = [];
+    if (this.state.subscription.subscription_status === "FINISHED") {
+      reviews = await this.buscarReviews();
+
+      reviews.filter(
+        review => review.username === this.state.subscription.username
+      );
+    }
+    if (reviews.length < 0) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   render() {
     if (this.state.subscription != null) {
       const { subscription } = this.state;
+
       var cancelable = false;
       if (subscription.subscription_status === "IN_PROGRESS") {
         cancelable = true;
@@ -90,6 +118,12 @@ class Subscription extends React.Component {
                   Cancelar suscripción
                 </button>
               </div>
+            )}
+            {this.isReviwedEnable() && (
+              <ReviewForm
+                user={subscription.username}
+                item_id={subscription.item_id}
+              />
             )}
           </div>
         </>

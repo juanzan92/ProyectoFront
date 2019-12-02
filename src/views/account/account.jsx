@@ -93,7 +93,9 @@ class UserAccount extends React.Component {
                   orders={orders}
                   selected="suscripciones"
                 />
-                <SuscriptionTable ordenes={orders} />
+                <div className="col-lg-8">
+                  <SuscriptionTable ordenes={orders} />
+                </div>
               </div>
             </div>
           </Context.Provider>
@@ -109,7 +111,9 @@ class UserAccount extends React.Component {
                   orders={orders}
                   selected="oportunities"
                 />
-                <VendorSubscriptionTable items={orders} />
+                <div className="col-lg-8">
+                  <VendorSubscriptionTable items={orders} />
+                </div>
               </div>
             </div>
           </Context.Provider>

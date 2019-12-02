@@ -44,13 +44,16 @@ class SuscriptionTable extends React.Component {
     const fecha = days + "/" + month + "/" + year;
     let shownTitle = suscripcion.item_title;
     if (shownTitle) {
-      shownTitle = shownTitle.substring(0, 30);
+      shownTitle = shownTitle.substring(0, 20);
     }
     return (
       <tr>
         <td>
-          <Link to={`/subscripcion/${suscripcion.subscription_id}`}>
-            <a className="text-medium navi-link">{shownTitle}</a>
+          <Link
+            className="text-medium navi-link"
+            to={`/subscripcion/${suscripcion.subscription_id}`}
+            style={{ textDecoration: "none !important" }}>
+            {shownTitle}
           </Link>
         </td>
         <td>{fecha}</td>
@@ -65,13 +68,13 @@ class SuscriptionTable extends React.Component {
   buildTable(orders) {
     const rows = orders.map(sus => this.buildRow(sus));
     return (
-      <div className="col-lg-8">
+      <>
         <div className="padding-top-2x mt-2 hidden-lg-up" />
         <div className="table-responsive">
           <table className="table table-hover margin-bottom-none">
             <thead>
               <tr>
-                <th>Suscripcion </th>
+                <th>Suscripción </th>
                 <th>Fecha de Compra</th>
                 <th>Estado</th>
                 <th>Total</th>
@@ -80,25 +83,19 @@ class SuscriptionTable extends React.Component {
             <tbody>{rows}</tbody>
           </table>
         </div>
-        <div className="text-right">
-          <a className="btn btn-link-primary margin-bottom-none" href="#">
-            <i className="icon-download" />
-            &nbsp;Detalles
-          </a>
-        </div>
-      </div>
+      </>
     );
   }
 
   buildEmptyTable() {
     return (
-      <div className="col-lg-8">
+      <>
         <div className="padding-top-2x mt-2 hidden-lg-up" />
         <div className="table-responsive">
           <table className="table table-hover margin-bottom-none">
             <thead>
               <tr>
-                <th>Suscripcion </th>
+                <th>Suscripción </th>
                 <th>Fecha de Compra</th>
                 <th>Estado</th>
                 <th>Total</th>
@@ -106,7 +103,7 @@ class SuscriptionTable extends React.Component {
             </thead>
           </table>
         </div>
-      </div>
+      </>
     );
   }
 

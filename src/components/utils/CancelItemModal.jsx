@@ -9,18 +9,32 @@ const alingCenterStyle = {
 class CancelItemModal extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isClickable: false,
+      item_id: this.props.item_id
+    };
 
     this.usarfun = this.usarfun.bind(this);
+    this.enableCancleBtn = this.enableCancleBtn.bind(this);
   }
 
   usarfun() {
-    this.props.cancelOportunity(this.props.item_id);
+    this.setState({ isClickable: true });
+    this.props.cancelOportunity(this.state.item_id);
+  }
+
+  enableCancleBtn() {
+    this.setState({ isClickable: false });
   }
 
   render() {
     return (
       <>
-        <div class="modal fade" id="modalCentered" tabindex="-1" role="dialog">
+        <div
+          class="modal fade"
+          id={`modalCentered${this.props.item_id}`}
+          tabindex="-1"
+          role="dialog">
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
@@ -29,6 +43,7 @@ class CancelItemModal extends React.Component {
                   class="close"
                   type="button"
                   data-dismiss="modal"
+                  onClick={this.enableCancleBtn}
                   aria-label="Close">
                   <span aria-hidden="true">&times;</span>
                 </button>
@@ -48,6 +63,7 @@ class CancelItemModal extends React.Component {
                 <button
                   class="btn btn-danger btn-sm"
                   type="button"
+                  disabled={this.state.isClickable}
                   onClick={() => this.usarfun()}>
                   Cancelar Item
                 </button>

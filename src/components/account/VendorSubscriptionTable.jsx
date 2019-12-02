@@ -50,6 +50,7 @@ class VendorSuscriptionTable extends React.Component {
   }
 
   buildProgressBar(progress, status) {
+    progress = progress.toFixed(2);
     if (status === "CANCELLED") {
       return (
         <div className="progress mt-1">
@@ -83,10 +84,7 @@ class VendorSuscriptionTable extends React.Component {
   buildRow(item) {
     const status = this.getStatus(item);
     const date = new Date(item.end_date);
-    const month = date.getMonth();
-    const year = date.getFullYear();
-    const days = date.getDay();
-    const fecha = `${days}/${month}/${year}`;
+    const fecha = date.toDateString();
     const progressBar = this.calcularBarraProgreso(item);
     return (
       <tr>
@@ -108,15 +106,17 @@ class VendorSuscriptionTable extends React.Component {
           {item.item_status !== "CANCELLED" && (
             <>
               <CancelItemModal
+                key={item.item_id}
                 cancelSuscription={this.cancelSuscription}
                 cancelOportunity={this.cancelOportunity}
                 item_id={item.item_id}
               />
               <button
+                key={item.item_id}
                 class="btn btn-outline-danger m-auto"
                 type="button"
                 data-toggle="modal"
-                data-target="#modalCentered"
+                data-target={`#modalCentered${item.item_id}`}
                 style={{ margin: "0.5rem !important" }}>
                 <CancelIcon />
               </button>
@@ -128,7 +128,6 @@ class VendorSuscriptionTable extends React.Component {
   }
 
   buildTable(items) {
-    const rows = items.map(sus => this.buildRow(sus));
     return (
       <div>
         <div className="padding-top-2x mt-2 hidden-lg-up" />
@@ -139,12 +138,12 @@ class VendorSuscriptionTable extends React.Component {
                 <th>Oportunidad #</th>
                 <th>Fecha de Fin</th>
                 <th>Estado</th>
-                <th>Progresso</th>
+                <th>Progreso</th>
                 <th>Precio</th>
                 <th>Cancelar</th>
               </tr>
             </thead>
-            <tbody>{rows}</tbody>
+            <tbody>{items.map(sus => this.buildRow(sus))}</tbody>
           </table>
         </div>
       </div>
@@ -153,13 +152,13 @@ class VendorSuscriptionTable extends React.Component {
 
   buildEmptyTable() {
     return (
-      <div className="col-lg-8">
+      <div className="col-lg-7">
         <div className="padding-top-2x mt-2 hidden-lg-up" />
         <div className="table-responsive">
           <table className="table table-hover margin-bottom-none">
             <thead>
               <tr>
-                <th>Suscripcion </th>
+                <th>Suscripción </th>
                 <th>Fecha de Compra</th>
                 <th>Estado</th>
                 <th>Total</th>
