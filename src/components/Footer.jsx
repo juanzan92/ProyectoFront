@@ -38,69 +38,6 @@ class Footer extends React.Component {
                   </a>
                 </section>
               </div>
-              <div className="col-lg-3 col-md-6">
-                {/* About Us*/}
-                <section className="widget widget-links widget-light-skin">
-                  <h3 className="widget-title">NOSOTROS</h3>
-                  <ul>
-                    <li>
-                      <a href="#">Quiénes Somos</a>
-                    </li>
-                    <li>
-                      <a href="/utils/faqs">FAQ's</a>
-                    </li>
-                    <li>
-                      <a href="#">Blog</a>
-                    </li>
-                  </ul>
-                </section>
-              </div>
-              <div className="col-lg-3 col-md-6">
-                {/* Mobile App Buttons*/}
-                <section className="widget widget-links widget-light-skin">
-                  <h3 className="widget-title">MARCAS</h3>
-                  <ul>
-                    <li>
-                      <a href="#">Adidas</a>
-                    </li>
-                    <li>
-                      <a href="#">Apple</a>
-                    </li>
-                    <li>
-                      <a href="#">Chanel</a>
-                    </li>
-                    <li>
-                      <a href="#">Motorola</a>
-                    </li>
-                    <li>
-                      <a href="#">Stanley</a>
-                    </li>
-                  </ul>
-                </section>
-              </div>
-              <div className="col-lg-3 col-md-6">
-                {/* Account / Shipping Info*/}
-                <section className="widget widget-links widget-light-skin">
-                  <h3 className="widget-title">DATOS DE COLOR</h3>
-                  <ul>
-                    <li>
-                      <a href="#">Medios de Pago</a>
-                    </li>
-                    <li>
-                      <a href="#">Políticas de Calidad</a>
-                    </li>
-                    <li>
-                      <a href="#">Devoluciones</a>
-                    </li>
-                    <li>
-                      <a href="#">Información Aduanera</a>
-                    </li>
-                    <li>
-                      <a href="#">Terminos y Condiciones</a>
-                    </li>
-                  </ul>
-                </section>
-              </div>
             </div>
             {/* Copyright*/}
             <div className="row">
@@ -121,10 +58,6 @@ class Footer extends React.Component {
                   &nbsp;&nbsp;Transparente
                 </p>
             </div>
-
-            
-
-
             </div>
         </footer>
       </>
