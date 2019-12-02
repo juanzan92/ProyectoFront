@@ -133,9 +133,9 @@ class TrackingBar extends React.Component {
                     <h4 className="step-title">
                       {this.getAdressName(track.receiver_address)}
                     </h4>
-                    <h4 className="step-title">
+                    {/* <h4 className="step-title">
                       {this.getDate(track.date_created)}
-                    </h4>
+                    </h4> */}
                   </div>
                 );
               }else if(track.shipment_status !== "delivered"){
