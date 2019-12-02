@@ -99,7 +99,7 @@ class VIP extends React.Component {
     var actualQuantity = this.state.item.stock;
     var vendido = initialQuantity - actualQuantity;
     this.setState({
-      progress: (vendido * 100) / initialQuantity
+      progress: ((vendido * 100) / initialQuantity).toFixed(2)
     });
   }
 
@@ -253,7 +253,9 @@ class VIP extends React.Component {
                       </div>
                     </div>
                   </div>
-                  {user ? (
+                  {user &&
+                  user.role == "consumer" &&
+                  item.item_status === "ACTIVE" ? (
                     <div className="sp-buttons mt-2 mb-2">
                       <div
                         className="btn btn-lg btn-primary"
@@ -269,7 +271,7 @@ class VIP extends React.Component {
                         </a>
                       </div>
                     </div>
-                  ) : (
+                  ) : user.role == "vendor" ? (
                     <a href="/signin">
                       <div className="sp-buttons mt-2 mb-2">
                         <div className="btn btn-lg btn-info">
@@ -277,7 +279,7 @@ class VIP extends React.Component {
                         </div>
                       </div>
                     </a>
-                  )}
+                  ) : null}
                 </div>
               </div>
               {/** descripcion */}
