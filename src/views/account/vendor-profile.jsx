@@ -11,7 +11,9 @@ class VendorAccountProfile extends React.Component {
     super(props);
     this.state = {
       user: "",
-      orders: []
+      orders: [],
+      searchedItems: false,
+      isLoading: true
     };
     this.getUsuario();
   }
@@ -25,12 +27,17 @@ class VendorAccountProfile extends React.Component {
   }
 
   componentDidUpdate() {
-    if (this.state.user !== "" && this.state.orders.length === 0) {
+    if (
+      this.state.user !== "" &&
+      this.state.orders.length === 0 &&
+      !this.state.searchedItems
+    ) {
       this.fetchOrders();
     }
   }
 
   fetchOrders() {
+    this.setState({ searchedItems: true });
     const url = `http://localhost:8080/catalog/items/search?index_name=vendor_username&search_pattern=${this.state.user.nickname}`;
     fetch(url)
       .then(response => {
@@ -38,14 +45,16 @@ class VendorAccountProfile extends React.Component {
       })
       .then(myJson => {
         this.setState({
-          orders: myJson
+          orders: myJson,
+          isLoading: false
         });
       })
       .catch(e => console.log(e));
   }
 
   render() {
-    if (this.state.orders.length > 0) {
+    const { isLoading } = this.state;
+    if (!isLoading) {
       return (
         <>
           <AccountTitle />
@@ -56,7 +65,9 @@ class VendorAccountProfile extends React.Component {
                 orders={this.state.orders}
                 selected={"mi_cuenta"}
               />
-              {this.state.user && <VendorAccountProfileForm user={this.state.user}/>}
+              {this.state.user && (
+                <VendorAccountProfileForm user={this.state.user} />
+              )}
             </div>
           </div>
           <Snackbar />

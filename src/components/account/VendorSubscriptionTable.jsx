@@ -50,6 +50,7 @@ class VendorSuscriptionTable extends React.Component {
   }
 
   buildProgressBar(progress, status) {
+    progress = progress.toFixed(2);
     if (status === "CANCELLED") {
       return (
         <div className="progress mt-1">
