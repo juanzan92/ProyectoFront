@@ -73,6 +73,12 @@ class VendorReporting extends React.Component {
                 marginTop: "1rem",
                 border: "1px solid rgba(0, 0, 0, 0.12)"
               }}>
+              {items.length === 0 && (
+                <h3 style={{ margin: "1.0rem" }}>
+                  No tienes Datos. Cuando vendas, aqu&#237; encontraras tus
+                  reportes.
+                </h3>
+              )}
               {items.length > 0 && <VendorResumeTab oportunities={items} />}
             </div>
             <h6 class="text-muted text-normal text-uppercase padding-top-2x">
@@ -84,7 +90,8 @@ class VendorReporting extends React.Component {
             </div>
             <div
               className="btn btn-outline-primary "
-              onClick={e => this.handleBackBtn()} href="/account">
+              onClick={e => this.handleBackBtn()}
+              href="/account">
               Volver a Cuenta
             </div>
           </div>

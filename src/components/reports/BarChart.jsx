@@ -115,12 +115,12 @@ export default class Example extends PureComponent {
               bottom: 5
             }}>
             <CartesianGrid strokeDasharray="3 3" />
-            <XAxis dataKey="month" />
+            <XAxis dataKey="mes" />
             <YAxis />
             <Tooltip />
             <Legend />
-            <Bar dataKey="quantity" fill="#8884d8" />
-            <Bar dataKey="income" fill="#82ca9d" />
+            <Bar dataKey="ventas" fill="#8884d8" />
+            <Bar dataKey="ganancia" fill="#82ca9d" />
           </BarChart>
         </ResponsiveContainer>
 

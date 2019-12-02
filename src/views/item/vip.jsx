@@ -82,7 +82,7 @@ class VIP extends React.Component {
 
   buscarReviews() {
     const id = `${this.state.item.item_id}`;
-    const url = `http://localhost:8080/catalog/reviews/search?index_name=item_id&search_pattern=1234`;
+    const url = `http://localhost:8080/catalog/reviews/search?index_name=item_id&search_pattern=${id}`;
     fetch(url)
       .then(response => {
         return response.json();
@@ -176,7 +176,7 @@ class VIP extends React.Component {
     const { item, blockButton, user } = this.state;
     const state = this.state;
 
-    if (item && state.reviews.length > 0) {
+    if (item) {
       return (
         <>
           <VIPTitle prop1={item.title} />
@@ -271,11 +271,11 @@ class VIP extends React.Component {
                     </div>
                   ) : (
                     <a href="/signin">
-                    <div className="sp-buttons mt-2 mb-2">
-                      <div className="btn btn-lg btn-info" >
-                        Ingresa y Compra
+                      <div className="sp-buttons mt-2 mb-2">
+                        <div className="btn btn-lg btn-info">
+                          Ingresa y Compra
+                        </div>
                       </div>
-                    </div>
                     </a>
                   )}
                 </div>

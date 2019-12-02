@@ -49,8 +49,11 @@ class SuscriptionTable extends React.Component {
     return (
       <tr>
         <td>
-          <Link to={`/subscripcion/${suscripcion.subscription_id}`}>
-            <a className="text-medium navi-link">{shownTitle}</a>
+          <Link
+            className="text-medium navi-link"
+            to={`/subscripcion/${suscripcion.subscription_id}`}
+            style={{ textDecoration: "none !important" }}>
+            {shownTitle}
           </Link>
         </td>
         <td>{fecha}</td>
@@ -79,12 +82,6 @@ class SuscriptionTable extends React.Component {
             </thead>
             <tbody>{rows}</tbody>
           </table>
-        </div>
-        <div className="text-right">
-          <a className="btn btn-link-primary margin-bottom-none" href="#">
-            <i className="icon-download" />
-            &nbsp;Detalles
-          </a>
         </div>
       </div>
     );

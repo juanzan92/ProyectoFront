@@ -13,6 +13,8 @@ class NavBar extends Component {
       user_username: "",
       user_rol: ""
     };
+
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   async componentDidMount() {
@@ -57,6 +59,11 @@ class NavBar extends Component {
         console.log(this.state.user_rol);
       })
       .catch(err => console.log(err));
+  }
+
+  handleSearch(inputSearch) {
+    if (inputSearch) {
+    }
   }
 
   render() {
@@ -196,6 +203,20 @@ class NavBar extends Component {
     return (
       <>
         <header className="navbar navbar-sticky">
+          <form class="site-search" method="get">
+            <input
+              type="text"
+              name="site_search"
+              placeholder="Type to search..."
+              onClick={this.handleSearch}
+            />
+            <div class="search-tools">
+              <span class="clear-search">Clear</span>
+              <span class="close-search">
+                <i class="icon-cross"></i>
+              </span>
+            </div>
+          </form>
           {/* Branding*/}
           <div className="site-branding">
             <div className="inner">
