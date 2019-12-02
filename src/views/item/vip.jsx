@@ -254,7 +254,7 @@ class VIP extends React.Component {
                     </div>
                   </div>
                   {user &&
-                  user.role == "consumer" &&
+                  user.role !== "vendor" &&
                   item.item_status === "ACTIVE" ? (
                     <div className="sp-buttons mt-2 mb-2">
                       <div
@@ -271,7 +271,7 @@ class VIP extends React.Component {
                         </a>
                       </div>
                     </div>
-                  ) : user.role == "vendor" ? (
+                  ) : (user.role == "vendor" || !user)  ? (
                     <a href="/signin">
                       <div className="sp-buttons mt-2 mb-2">
                         <div className="btn btn-lg btn-info">
