@@ -484,7 +484,7 @@ class UploadOportunity extends React.Component {
                 </div>
               </div>
 
-              <h6>Dimensiones unitarias (CGS)</h6>
+              <h6>Dimensiones (Sistema CGS)</h6>
 
               <div className="form-group row pt-1">
                 <div className="col-3">
@@ -543,14 +543,14 @@ class UploadOportunity extends React.Component {
                 </div>
                 <div className="col-3">
                   <div className="form-group input-group">
-                    <label htmlFor="peso">Peso (gr)</label>
+                    <label htmlFor="peso">Peso (g)</label>
                     <input
                       className="form-control"
                       type="number"
                       name="peso"
                       min="1"
-                      max="1500"
-                      placeholder="1500 máx"
+                      max="15000"
+                      placeholder="15000 máx"
                       pattern="[0-9]"
                       title="Unidad: Gramos"
                       value={this.value}

@@ -30,7 +30,7 @@ class NavUser extends React.Component {
           to="/account-profile"
           className={"list-group-item " + this.isSelected("mi_cuenta")}>
           <i className="icon-head" />
-          Datos de cuenta
+          Mi Cuenta
         </Link>
       </nav>
     );

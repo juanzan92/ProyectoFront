@@ -32,7 +32,7 @@ class VendorNavUser extends React.Component {
           to="/vendor-profile"
           class={"list-group-item " + this.isSelected("myaccount")}>
           <i className="icon-head" />
-          Datos de cuenta
+          Mi Cuenta
         </Link>
 
         <Link 
