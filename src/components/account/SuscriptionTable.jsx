@@ -44,7 +44,7 @@ class SuscriptionTable extends React.Component {
     const fecha = days + "/" + month + "/" + year;
     let shownTitle = suscripcion.item_title;
     if (shownTitle) {
-      shownTitle = shownTitle.substring(0, 30);
+      shownTitle = shownTitle.substring(0, 20);
     }
     return (
       <tr>
@@ -68,7 +68,7 @@ class SuscriptionTable extends React.Component {
   buildTable(orders) {
     const rows = orders.map(sus => this.buildRow(sus));
     return (
-      <div className="col-lg-8">
+      <>
         <div className="padding-top-2x mt-2 hidden-lg-up" />
         <div className="table-responsive">
           <table className="table table-hover margin-bottom-none">
@@ -83,13 +83,13 @@ class SuscriptionTable extends React.Component {
             <tbody>{rows}</tbody>
           </table>
         </div>
-      </div>
+      </>
     );
   }
 
   buildEmptyTable() {
     return (
-      <div className="col-lg-8">
+      <>
         <div className="padding-top-2x mt-2 hidden-lg-up" />
         <div className="table-responsive">
           <table className="table table-hover margin-bottom-none">
@@ -103,7 +103,7 @@ class SuscriptionTable extends React.Component {
             </thead>
           </table>
         </div>
-      </div>
+      </>
     );
   }
 

@@ -219,8 +219,9 @@ class NavBar extends Component {
               {/* Off-Canvas Toggle (#shop-categories)*/}
               <a
                 className="offcanvas-toggle cats-toggle"
-                href="#shop-categories"
+                //href="#shop-categories"
                 data-toggle="offcanvas"
+                onClick={this.props.handleOpenOffCanvasMenu}
               />
               {/* Site Logo*/}
               <a className="site-logo" href="/">

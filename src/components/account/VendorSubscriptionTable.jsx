@@ -87,7 +87,8 @@ class VendorSuscriptionTable extends React.Component {
     const month = date.getMonth();
     const year = date.getFullYear();
     const days = date.getDay();
-    const fecha = `${days}/${month}/${year}`;
+    // const fecha = `${days}/${month}/${year}`;
+    const fecha = date.toDateString();
     const progressBar = this.calcularBarraProgreso(item);
     return (
       <tr>
@@ -154,7 +155,7 @@ class VendorSuscriptionTable extends React.Component {
 
   buildEmptyTable() {
     return (
-      <div className="col-lg-8">
+      <div className="col-lg-7">
         <div className="padding-top-2x mt-2 hidden-lg-up" />
         <div className="table-responsive">
           <table className="table table-hover margin-bottom-none">
