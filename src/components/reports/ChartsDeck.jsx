@@ -20,7 +20,8 @@ const meses = [
 ];
 
 const cardBody = {
-  flex: "none !important"
+  flex: "none !important",
+  maxHeight: "150px"
 };
 
 class ChartsDeck extends React.Component {

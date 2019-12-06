@@ -1,5 +1,6 @@
 import React, { PureComponent } from "react";
 import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
+import css from "./xaxa.scss";
 
 const data = [
   { name: "Cordoba", value: 400 },

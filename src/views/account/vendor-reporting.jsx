@@ -61,7 +61,9 @@ class VendorReporting extends React.Component {
     } else {
       return (
         <>
-          <div className="container padding-bottom-3x mb-2 ">
+          <div
+            className="container padding-bottom-3x mb-2 "
+            style={{ width: "100%", maxWidth: "70%" }}>
             <h6 class="text-muted text-normal text-uppercase padding-top-2x">
               Oportunidades:{" "}
             </h6>
