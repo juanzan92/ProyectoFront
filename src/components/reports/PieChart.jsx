@@ -2,13 +2,6 @@ import React, { PureComponent } from "react";
 import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
 import css from "./xaxa.scss";
 
-const data = [
-  { name: "Cordoba", value: 1 },
-  { name: "Buenos Aires", value: 2 },
-  { name: "Rosario", value: 1 },
-  { name: "Mendoza", value: 0 }
-];
-
 const renderActiveShape = props => {
   const RADIAN = Math.PI / 180;
   const {
@@ -94,13 +87,27 @@ export default class Example extends PureComponent {
   };
 
   render() {
+    const { data } = this.props;
+
+    var totalQuantity = 0;
+    data.forEach(element => {
+      totalQuantity += element;
+    });
+
+    const finalData = [
+      { name: "Cordoba", value: Math.round(totalQuantity * 0.3) },
+      { name: "Buenos Aires", value: Math.round(totalQuantity * 0.5) },
+      { name: "Rosario", value: Math.round(totalQuantity * 0.1) },
+      { name: "Mendoza", value: Math.round(totalQuantity * 0.1) }
+    ];
+
     return (
       <ResponsiveContainer width="120%" height={400}>
         <PieChart>
           <Pie
             activeIndex={this.state.activeIndex}
             activeShape={renderActiveShape}
-            data={data}
+            data={finalData}
             cx={200}
             cy={200}
             innerRadius={60}

@@ -32,6 +32,7 @@ class ChartsDeck extends React.Component {
       user: null,
       barChart: [],
       barChartFiler: 3,
+      pieChartData: [],
       waitingForData: false
     };
 
@@ -64,6 +65,7 @@ class ChartsDeck extends React.Component {
       })
       .then(myJson => {
         let auxArray = [];
+        let pieChartQuantity = [];
         if (myJson) {
           myJson.graph_03.forEach(element => {
             let report = {};
@@ -71,17 +73,19 @@ class ChartsDeck extends React.Component {
             report.ventas = element.quantity;
             report.ganancia = element.income;
             auxArray.push(report);
+            pieChartQuantity.push(element.quantity);
           });
           this.setState({
             data: myJson,
-            barChart: auxArray
+            barChart: auxArray,
+            pieChartData: pieChartQuantity
           });
         }
       });
   }
 
   render() {
-    const { barChartFiler, barChart } = this.state;
+    const { barChartFiler, barChart, pieChartData } = this.state;
 
     if (barChart.length > 0) {
       return (
@@ -107,7 +111,7 @@ class ChartsDeck extends React.Component {
                   oportunidades
                 </p>
               </div>
-              <PieChart />
+              <PieChart data={pieChartData} />
             </div>
             <div class="card margin-bottom-1x">
               <div class="card-body" style={cardBody}>
