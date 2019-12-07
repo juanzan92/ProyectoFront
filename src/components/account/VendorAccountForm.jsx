@@ -36,7 +36,6 @@ class VendorAccountProfileForm extends React.Component {
     this.submitPasswordUpload = this.submitPasswordUpload.bind(this);
   }
 
-
   async componentDidMount() {
     const dynamoUser = await this.getUserByUsername();
     this.setState({
@@ -53,7 +52,7 @@ class VendorAccountProfileForm extends React.Component {
       userAddPais: dynamoUser.address.address_country,
       userAddPvcia: dynamoUser.address.address_region,
       userAddCiudad: dynamoUser.address.address_city
-    })
+    });
   }
 
   handleChange(event) {
@@ -63,8 +62,7 @@ class VendorAccountProfileForm extends React.Component {
     let value = "";
     if (target.type === "password") {
       value = target.value;
-    }
-    else {
+    } else {
       value = target.value.toUpperCase();
     }
     this.setState({
@@ -74,22 +72,25 @@ class VendorAccountProfileForm extends React.Component {
 
   getUserByUsername() {
     return new Promise(resolve => {
-      fetch("http://localhost:8080/account/users?username=" + this.state.user.nickname, {
-        headers: {
-          "Content-Type": "application/json"
-        },
-        method: "GET"
-      })
+      fetch(
+        "http://localhost:8080/account/users?username=" +
+          this.state.user.nickname,
+        {
+          headers: {
+            "Content-Type": "application/json"
+          },
+          method: "GET"
+        }
+      )
         .then(response => {
           if (!response.ok) {
             throw new Error(response.status);
-          }
-          else {
-            return response.json()
+          } else {
+            return response.json();
           }
         })
         .then(userData => {
-          resolve(userData)
+          resolve(userData);
         })
         .catch(e => console.log(e));
     });
@@ -126,12 +127,14 @@ class VendorAccountProfileForm extends React.Component {
       .then(response => {
         if (!response.ok) {
           throw new Error(response.status);
-        }
-        else {
+        } else {
           this.setState({
             isDataButtonDisabled: true
           });
-          setTimeout(() => this.setState({ isDataButtonDisabled: false }), 5000);
+          setTimeout(
+            () => this.setState({ isDataButtonDisabled: false }),
+            5000
+          );
           return response.json();
         }
       })
@@ -139,11 +142,10 @@ class VendorAccountProfileForm extends React.Component {
         var c = window.confirm("Usuario actualizado correctamente !!!");
         if (c) {
           window.location.reload();
-        }
-        else {
+        } else {
           window.location.href = "/account";
         }
-        return response
+        return response;
       })
       .catch(e => console.log(e));
   }
@@ -151,31 +153,35 @@ class VendorAccountProfileForm extends React.Component {
   async updatePassword() {
     try {
       const currentUser = await Auth.currentAuthenticatedUser();
-      await Auth.changePassword(currentUser, this.state.userCurrentPw, this.state.userNewPwConf)
+      await Auth.changePassword(
+        currentUser,
+        this.state.userCurrentPw,
+        this.state.userNewPwConf
+      )
         .then(response => {
           if (response) {
             this.setState({
               isPwButtonDisabled: true
             });
-            setTimeout(() => this.setState({ isPwButtonDisabled: false }), 5000);
+            setTimeout(
+              () => this.setState({ isPwButtonDisabled: false }),
+              5000
+            );
             var c = window.confirm("Contraseña actualizada correctamente !!!");
             if (c) {
               window.location.reload();
-            }
-            else {
+            } else {
               window.location.href = "/account";
             }
-            return response.json()
-          }
-          else {
+            return response.json();
+          } else {
             throw new Error(response.status);
           }
         })
         .catch(err => {
           console.log(err);
         });
-    }
-    catch (error) {
+    } catch (error) {
       alert(error.message);
       throw error;
     }
@@ -200,10 +206,24 @@ class VendorAccountProfileForm extends React.Component {
             <div className="accordion" id="accordion1" role="tablist">
               <div className="card">
                 <div className="card-header" role="tab">
-                  <h6><a className="collapsed" href="#collapseTwo" data-toggle="collapse" aria-expanded="false">Datos Personales</a></h6>
+                  <h6>
+                    <a
+                      className="collapsed"
+                      href="#collapseTwo"
+                      data-toggle="collapse"
+                      aria-expanded="false">
+                      Datos Personales
+                    </a>
+                  </h6>
                 </div>
-                <div className="collapse show" id="collapseTwo" data-parent="#accordion1" role="tabpanel">
-                  <form className="margin-top-1x margin-bottom-1x" onSubmit={this.submitUserDataUpload}>
+                <div
+                  className="collapse show"
+                  id="collapseTwo"
+                  data-parent="#accordion1"
+                  role="tabpanel">
+                  <form
+                    className="margin-top-1x margin-bottom-1x"
+                    onSubmit={this.submitUserDataUpload}>
                     <div className="row offset-1">
                       <div className="col-md-5">
                         <div className="form-group input-group">
@@ -215,7 +235,6 @@ class VendorAccountProfileForm extends React.Component {
                             value={this.state.userNombres}
                             onChange={this.handleChange}
                             pattern="[A-ZÑ\s]{3,40}"
-                            title="Únicamente texto. Longitud de 3-40 caracteres."
                             required
                             disabled
                           />
@@ -231,7 +250,6 @@ class VendorAccountProfileForm extends React.Component {
                             value={this.state.userApellidos}
                             onChange={this.handleChange}
                             pattern="[A-ZÑ\s]{3,40}"
-                            title="Únicamente texto. Longitud de 3-40 caracteres."
                             required
                             disabled
                           />
@@ -356,10 +374,9 @@ class VendorAccountProfileForm extends React.Component {
                           className="btn btn-primary margin-bottom-none"
                           type="submit"
                           id="submit-userdata"
-                          disabled={this.state.isDataButtonDisabled}
-                        >
+                          disabled={this.state.isDataButtonDisabled}>
                           ACTUALIZAR
-                                    </button>
+                        </button>
                       </div>
                     </div>
                   </form>
@@ -367,11 +384,23 @@ class VendorAccountProfileForm extends React.Component {
               </div>
               <div className="card">
                 <div className="card-header" role="tab">
-                  <h6><a href="#collapseOne" data-toggle="collapse" aria-expanded="true">Contraseña</a></h6>
+                  <h6>
+                    <a
+                      href="#collapseOne"
+                      data-toggle="collapse"
+                      aria-expanded="true">
+                      Contraseña
+                    </a>
+                  </h6>
                 </div>
-                <div className="collapse show" id="collapseOne" data-parent="#accordion1" role="tabpanel">
-                  <form className="row margin-top-1x margin-bottom-1x" onSubmit={this.submitPasswordUpload}>
-
+                <div
+                  className="collapse show"
+                  id="collapseOne"
+                  data-parent="#accordion1"
+                  role="tabpanel">
+                  <form
+                    className="row margin-top-1x margin-bottom-1x"
+                    onSubmit={this.submitPasswordUpload}>
                     <div className="col-md-6 offset-3">
                       <div className="form-group input-group">
                         <label htmlFor="userCurrentPw">Contraseña actual</label>
@@ -390,7 +419,9 @@ class VendorAccountProfileForm extends React.Component {
 
                     <div className="col-md-6 offset-3">
                       <div className="form-group input-group">
-                        <label htmlFor="userNewPw">Ingresá tu nueva contraseña</label>
+                        <label htmlFor="userNewPw">
+                          Ingresá tu nueva contraseña
+                        </label>
                         <input
                           className="form-control form-control-rounded form-control-sm"
                           type="password"
@@ -408,7 +439,7 @@ class VendorAccountProfileForm extends React.Component {
                       <div className="form-group input-group">
                         <label htmlFor="userNewPwConf">
                           Repetí tu nueva contraseña
-                                </label>
+                        </label>
                         <input
                           className="form-control form-control-rounded form-control-sm"
                           type="password"
@@ -428,29 +459,24 @@ class VendorAccountProfileForm extends React.Component {
                         className="btn btn-primary margin-bottom-none"
                         type="submit"
                         name="submit-password"
-                        disabled={this.state.isPwButtonDisabled}
-                      >
+                        disabled={this.state.isPwButtonDisabled}>
                         ACTUALIZAR CONTRASEÑA
-                                </button>
+                      </button>
                     </div>
-
                   </form>
                 </div>
               </div>
             </div>
-
           </div>
         </>
       );
-    }
-    else {
+    } else {
       return (
         <div className="spinner-center text-info m-2 center" role="status">
           <span className="sr-only">Loading...</span>
         </div>
       );
     }
-
   }
 }
 

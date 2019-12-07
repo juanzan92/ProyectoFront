@@ -8,12 +8,16 @@ import CancelModal from "../../components/utils/TemplateModal";
 import WarningRoundedIcon from "@material-ui/icons/WarningRounded";
 import ReviewForm from "../../components/subcription/ReviewFrom";
 
+const btnStyle = { marginBottom: "0.5rem !important" };
+
 class Subscription extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       subscription: null,
       isLoading: true,
+      isReviwedEnable: false,
+      reviewed: false,
       subscription_id: this.props.match.params.subscription_id
     };
 
@@ -24,7 +28,15 @@ class Subscription extends React.Component {
     this.fetchSuscription();
   }
 
-  componentDidUpdate() {}
+  componentDidUpdate() {
+    if (
+      !this.state.reviewed &&
+      this.state.subscription &&
+      !this.state.isReviwedEnable
+    ) {
+      this.isReviwedEnable();
+    }
+  }
 
   fetchSuscription() {
     const { subscription_id } = this.state;
@@ -70,24 +82,27 @@ class Subscription extends React.Component {
   }
 
   async isReviwedEnable() {
+    if (!this.state.reviewed) {
+      this.setState({ reviewed: true });
+    }
+
     let reviews = [];
     if (this.state.subscription.subscription_status === "FINISHED") {
       reviews = await this.buscarReviews();
 
-      reviews.filter(
+      reviews = reviews.filter(
         review => review.username === this.state.subscription.username
       );
-    }
-    if (reviews.length < 0) {
-      return false;
-    } else {
-      return true;
+
+      if (!reviews[0].username === this.state.subscription.username) {
+        this.setState({ isReviwedEnable: true });
+      }
     }
   }
 
   render() {
     if (this.state.subscription != null) {
-      const { subscription } = this.state;
+      const { subscription, isReviwedEnable } = this.state;
 
       var cancelable = false;
       if (subscription.subscription_status === "IN_PROGRESS") {
@@ -114,14 +129,14 @@ class Subscription extends React.Component {
                   type="button"
                   data-toggle="modal"
                   data-target="#modalCentered"
-                  style={{ margin: "0.5rem !important" }}>
+                  style={btnStyle}>
                   Cancelar suscripción
                 </button>
               </div>
             )}
-            {this.isReviwedEnable() && (
+            {isReviwedEnable && (
               <ReviewForm
-                user={subscription.username}
+                username={subscription.username}
                 item_id={subscription.item_id}
               />
             )}

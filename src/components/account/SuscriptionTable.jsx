@@ -7,6 +7,7 @@ const titleStyle = {
   overflow: "hidden",
   textOverflow: "ellipsis"
 };
+
 class SuscriptionTable extends React.Component {
   constructor(props) {
     super(props);
@@ -25,6 +26,24 @@ class SuscriptionTable extends React.Component {
     });
   }
 
+  reemplazarFecha(description) {
+    var chars = {
+      Dec: "Dic",
+      Jan: "Ene",
+      Mon: "Lun",
+      Tue: "Mar",
+      Thu: "Jue",
+      Fri: "Vie",
+      Sat: "Sab",
+      Sun: "Dom"
+    };
+    var expr = /[Dec,]/gi;
+    var res = description.replace(expr, function(e) {
+      return chars[e];
+    });
+    return res;
+  }
+
   getStatus(suscripcion) {
     if (suscripcion.subscription_status === "CANCELLED") {
       return <span className="text-danger">Cancelado</span>;
@@ -34,14 +53,22 @@ class SuscriptionTable extends React.Component {
       return <span className="text-info">En Progreso</span>;
     }
   }
+  getFormattedDate(date) {
+    let year = date.getFullYear();
+    let month = (1 + date.getMonth()).toString().padStart(2, "0");
+    let day = date
+      .getDate()
+      .toString()
+      .padStart(2, "0");
+
+    return month + "/" + day + "/" + year;
+  }
 
   buildRow(suscripcion) {
     const status = this.getStatus(suscripcion);
     const date = new Date(suscripcion.date_created);
-    const month = date.getMonth();
-    const year = date.getFullYear();
-    const days = date.getDay();
-    const fecha = days + "/" + month + "/" + year;
+
+    const fecha = this.getFormattedDate(date);
     let shownTitle = suscripcion.item_title;
     if (shownTitle) {
       shownTitle = shownTitle.substring(0, 20);

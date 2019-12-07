@@ -55,7 +55,7 @@ class ReviewForm extends React.Component {
           className="card mb-3"
           style={{ display: "flex", flexDirection: "row", maxWidth: "50%" }}>
           <div style={{ margin: "2% auto", width: "100%", padding: "1.5rem" }}>
-            <h3>Danos tu Opini&#243;n </h3>
+            <h3>Danos tu Opini&#243;n sobre el producto</h3>
             <form noValidate autoComplete="off">
               <div
                 style={{

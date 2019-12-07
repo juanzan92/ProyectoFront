@@ -56,9 +56,10 @@ export default class Example extends PureComponent {
         cx={200}
         cy={250}
         outerRadius={150}
-        width={450}
-        height={450}
-        data={data}>
+        width={430}
+        height={420}
+        data={data}
+        style={{ zIndex: "999999" }}>
         <PolarGrid />
         <PolarAngleAxis dataKey="subject" />
         <PolarRadiusAxis />

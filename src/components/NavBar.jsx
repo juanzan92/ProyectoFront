@@ -104,7 +104,7 @@ class NavBar extends Component {
                     </li>
                     <li className="sub-menu-separator" />
                     <li>
-                      <a href="/account">Mi Cuenta</a>
+                      <a href="/account-profile">Mi Cuenta</a>
                     </li>
                     <li className="sub-menu-separator" />
                     <li>
@@ -162,7 +162,11 @@ class NavBar extends Component {
                     </li>
                     <li className="sub-menu-separator" />
                     <li>
-                      <a href="/account">Mi Cuenta</a>
+                      <a href="/vendor-profile">Mi Cuenta</a>
+                    </li>
+                    <li className="sub-menu-separator" />
+                    <li>
+                      <a href="/account">Oportunidades</a>
                     </li>
                     <li className="sub-menu-separator" />
                     <li>

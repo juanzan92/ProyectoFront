@@ -3,11 +3,15 @@ import React from "react";
 class TemplateModal extends React.Component {
   constructor(props) {
     super(props);
+    this.state = {
+      btnEnable: false
+    };
 
     this.usarfun = this.usarfun.bind(this);
   }
 
   usarfun() {
+    this.setState({ btnEnable: true });
     this.props.cancelSuscription && this.props.cancelSuscription();
   }
 
@@ -43,7 +47,8 @@ class TemplateModal extends React.Component {
                 <button
                   class="btn btn-danger btn-sm"
                   type="button"
-                  onClick={() => this.usarfun()}>
+                  onClick={() => this.usarfun()}
+                  disable={this.state.btnEnable}>
                   Cancelar Suscripción
                 </button>
               </div>

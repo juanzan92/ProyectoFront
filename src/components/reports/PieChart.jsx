@@ -67,14 +67,14 @@ const renderActiveShape = props => {
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
         textAnchor={textAnchor}
-        fill="#333">{`P ${value}`}</text>
+        fill="#333">{` ${value}`}</text>
       <text
         x={ex + (cos >= 0 ? 1 : -1) * 12}
         y={ey}
         dy={18}
         textAnchor={textAnchor}
         fill="#999">
-        {`(Rate ${(percent * 100).toFixed(2)}%)`}
+        {`(${(percent * 100).toFixed(2)}%)`}
       </text>
     </g>
   );
@@ -95,7 +95,7 @@ export default class Example extends PureComponent {
 
   render() {
     return (
-      <ResponsiveContainer width="100%" height={450}>
+      <ResponsiveContainer width="100%" height={420}>
         <PieChart>
           <Pie
             activeIndex={this.state.activeIndex}
@@ -108,6 +108,7 @@ export default class Example extends PureComponent {
             fill="#8884d8"
             dataKey="value"
             onMouseEnter={this.onPieEnter}
+            style={{ zIndex: "999999" }}
           />
         </PieChart>
       </ResponsiveContainer>

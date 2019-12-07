@@ -26,7 +26,7 @@ class OffCanvasCategory extends React.Component {
             </li>
             {subCategory.map(subcategory => (
               <li>
-                <a href={"/category/" + subcategory + aux}>{subcategory}</a>
+                <a href={"/category/" + category}>{subcategory}</a>
               </li>
             ))}
           </ul>
