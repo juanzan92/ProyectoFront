@@ -222,7 +222,6 @@ class FAQs extends React.Component {
                     </div>
                   </div>
                 </div>
-
                 <div className="card">
                   <div className="card-header" role="tab">
                     <h6>
