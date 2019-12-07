@@ -90,7 +90,7 @@ export default class Example extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
-      months: 3,
+      months: 12,
       data: this.props.data
     };
   }
@@ -129,7 +129,7 @@ export default class Example extends PureComponent {
             Seleccionar Periodo
           </Typography>
           <Slider
-            defaultValue={3}
+            defaultValue={12}
             valueLabelDisplay="off"
             getAriaValueText={valuetext}
             aria-labelledby="discrete-slider"

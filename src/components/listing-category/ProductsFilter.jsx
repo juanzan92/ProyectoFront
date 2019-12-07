@@ -94,6 +94,14 @@ class ProductFilter extends React.Component {
               })}
             </FormGroup>
           </section>
+          <section
+            class="promo-box"
+            style={{
+              backgroundImage: "url(/img/crowdfundinf.png)",
+              height: "270px"
+            }}>
+            <div class="promo-box-content text-center padding-top-3x padding-bottom-2x"></div>
+          </section>
         </aside>
       </>
     );

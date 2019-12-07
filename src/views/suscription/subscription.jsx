@@ -67,7 +67,12 @@ class Subscription extends React.Component {
     fetch(url, {
       method: "DELETE"
     }).then(response => {
-      if (response.status === 200) window.location.href = "/account";
+      if (response.status === 200) {
+        alert("Suscripcion cancelada con éxito");
+        window.location.href = "/account";
+      } else {
+        alert("hubo un error");
+      }
     });
   }
 
@@ -94,7 +99,10 @@ class Subscription extends React.Component {
         review => review.username === this.state.subscription.username
       );
 
-      if (!reviews[0].username === this.state.subscription.username) {
+      if (
+        reviews.length == 0 ||
+        !reviews[0].username === this.state.subscription.username
+      ) {
         this.setState({ isReviwedEnable: true });
       }
     }
@@ -138,6 +146,7 @@ class Subscription extends React.Component {
               <ReviewForm
                 username={subscription.username}
                 item_id={subscription.item_id}
+                item_title={subscription.item_title}
               />
             )}
           </div>

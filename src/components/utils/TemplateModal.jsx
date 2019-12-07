@@ -4,7 +4,7 @@ class TemplateModal extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      btnEnable: false
+      btnDisable: false
     };
 
     this.usarfun = this.usarfun.bind(this);
@@ -48,7 +48,7 @@ class TemplateModal extends React.Component {
                   class="btn btn-danger btn-sm"
                   type="button"
                   onClick={() => this.usarfun()}
-                  disable={this.state.btnEnable}>
+                  disable={this.state.btnDisable}>
                   Cancelar Suscripción
                 </button>
               </div>

@@ -3,10 +3,10 @@ import { PieChart, Pie, Sector, ResponsiveContainer } from "recharts";
 import css from "./xaxa.scss";
 
 const data = [
-  { name: "Cordoba", value: 400 },
-  { name: "Buenos Aires", value: 300 },
-  { name: "Rosario", value: 300 },
-  { name: "Mendoza", value: 200 }
+  { name: "Cordoba", value: 1 },
+  { name: "Buenos Aires", value: 2 },
+  { name: "Rosario", value: 1 },
+  { name: "Mendoza", value: 0 }
 ];
 
 const renderActiveShape = props => {
@@ -74,7 +74,7 @@ const renderActiveShape = props => {
         dy={18}
         textAnchor={textAnchor}
         fill="#999">
-        {`(${(percent * 100).toFixed(2)}%)`}
+        {`${(percent * 100).toFixed(0)}%`}
       </text>
     </g>
   );
@@ -95,20 +95,19 @@ export default class Example extends PureComponent {
 
   render() {
     return (
-      <ResponsiveContainer width="100%" height={420}>
+      <ResponsiveContainer width="120%" height={400}>
         <PieChart>
           <Pie
             activeIndex={this.state.activeIndex}
             activeShape={renderActiveShape}
             data={data}
-            cx={190}
-            cy={190}
+            cx={200}
+            cy={200}
             innerRadius={60}
             outerRadius={80}
             fill="#8884d8"
             dataKey="value"
             onMouseEnter={this.onPieEnter}
-            style={{ zIndex: "999999" }}
           />
         </PieChart>
       </ResponsiveContainer>

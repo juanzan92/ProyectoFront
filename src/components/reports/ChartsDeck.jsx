@@ -91,7 +91,8 @@ class ChartsDeck extends React.Component {
               <div class="card-body">
                 <h4 class="card-title">Ventas Mensuales</h4>
                 <p class="card-text" style={cardBody}>
-                  Grafico que representa tus ventas mensuales
+                  Grafico que representa tus ventas mensuales expresadas en
+                  miles de pesos
                 </p>
               </div>
               {barChart.length > 0 && (

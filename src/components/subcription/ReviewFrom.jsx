@@ -49,13 +49,17 @@ class ReviewForm extends React.Component {
 
   render() {
     const { reviewDescription, rating } = this.state;
+    const { item_title } = this.props;
     return (
       <>
         <div
           className="card mb-3"
           style={{ display: "flex", flexDirection: "row", maxWidth: "50%" }}>
           <div style={{ margin: "2% auto", width: "100%", padding: "1.5rem" }}>
-            <h3>Danos tu Opini&#243;n sobre el producto</h3>
+            <h3>Danos tu Opini&#243;n sobre el producto:</h3>
+            <h6 class="col-form-label" for="textarea-input">
+              {item_title}
+            </h6>
             <form noValidate autoComplete="off">
               <div
                 style={{
