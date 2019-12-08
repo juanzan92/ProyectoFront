@@ -8,13 +8,24 @@ class TrackingBar extends React.Component {
 
   getState() {}
 
-  getDate(trackDate) {
+  getFor(trackDate) {
     const date = new Date(trackDate);
     const month = date.getMonth();
     const year = date.getFullYear();
     const days = date.getDay();
     const fecha = days + "/" + month + "/" + year;
     return fecha;
+  }
+  getFormattedDate(date) {
+    date = new Date(date);
+    let year = date.getFullYear();
+    let month = (1 + date.getMonth()).toString().padStart(2, "0");
+    let day = date
+      .getDate()
+      .toString()
+      .padStart(2, "0");
+
+    return day + "/" + month + "/" + year;
   }
 
   getAdressName(reciver) {
@@ -49,7 +60,7 @@ class TrackingBar extends React.Component {
           </div>
           <h4 className="step-title">Recibido</h4>
           <h4 className="step-title">
-            {this.getDate(finalShipment.date_created)}
+            {this.getFormattedDate(finalShipment.date_created)}
           </h4>
         </div>
       );

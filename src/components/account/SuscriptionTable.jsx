@@ -48,10 +48,14 @@ class SuscriptionTable extends React.Component {
     if (suscripcion.subscription_status === "CANCELLED") {
       return <span className="text-danger">Cancelado</span>;
     } else if (suscripcion.subscription_status === "FINISHED") {
-      return <span className="text" style={{color:"#038858"}}>Finalizado</span>;
+      return (
+        <span className="text" style={{ color: "#038858" }}>
+          Finalizado
+        </span>
+      );
     } else if (suscripcion.subscription_status === "DELIVERING") {
       return (
-        <span className="text" style={{color:"#c206e2"}}>
+        <span className="text" style={{ color: "#c206e2" }}>
           En Camino
         </span>
       );
@@ -68,7 +72,7 @@ class SuscriptionTable extends React.Component {
       .toString()
       .padStart(2, "0");
 
-    return month + "/" + day + "/" + year;
+    return day + "/" + month + "/" + year;
   }
 
   buildRow(suscripcion) {
