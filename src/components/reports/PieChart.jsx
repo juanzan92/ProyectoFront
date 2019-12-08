@@ -102,22 +102,24 @@ export default class Example extends PureComponent {
     ];
 
     return (
-      <ResponsiveContainer width="120%" height={400}>
-        <PieChart>
-          <Pie
-            activeIndex={this.state.activeIndex}
-            activeShape={renderActiveShape}
-            data={finalData}
-            cx={200}
-            cy={200}
-            innerRadius={60}
-            outerRadius={80}
-            fill="#8884d8"
-            dataKey="value"
-            onMouseEnter={this.onPieEnter}
-          />
-        </PieChart>
-      </ResponsiveContainer>
+      <>
+        <ResponsiveContainer width="120%" height={400}>
+          <PieChart>
+            <Pie
+              activeIndex={this.state.activeIndex}
+              activeShape={renderActiveShape}
+              data={finalData}
+              cx={190}
+              cy={200}
+              innerRadius={60}
+              outerRadius={80}
+              fill="#8884d8"
+              dataKey="value"
+              onMouseEnter={this.onPieEnter}
+            />
+          </PieChart>
+        </ResponsiveContainer>
+      </>
     );
   }
 }

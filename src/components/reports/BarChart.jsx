@@ -102,12 +102,26 @@ export default class Example extends PureComponent {
   handleDragStop = () => this.props.update(this.state.months);
 
   render() {
-    var auxData = this.state.data.slice(0, this.state.months);
+    var mesActual = new Date(Date.now());
+    mesActual = 11 - mesActual.getMonth();
+
+    let arrayToShow = [];
+    var auxData = this.state.data.reverse();
+
+    for (var i = 0; i < this.state.months; i++) {
+      arrayToShow.push(auxData[mesActual]);
+      mesActual++;
+    }
+
+    arrayToShow.reverse();
+    auxData.reverse();
+    //arrayToShow = auxData.slice(0, this.state.months);
+
     return (
       <>
         <ResponsiveContainer width="100%" height={450}>
           <BarChart
-            data={auxData}
+            data={arrayToShow}
             margin={{
               top: 5,
               right: 30,
