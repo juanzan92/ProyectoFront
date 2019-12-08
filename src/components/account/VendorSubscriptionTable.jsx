@@ -43,9 +43,19 @@ class VendorSuscriptionTable extends React.Component {
     if (item.item_status === "CANCELLED") {
       return <span className="text-danger">Cancelado</span>;
     } else if (item.item_status === "FINISHED") {
-      return <span className="text-success">Finalizado</span>;
+      return (
+        <span className="text" style={{ color: "#038858" }}>
+          Finalizado
+        </span>
+      );
+    } else if (item.item_status === "DELIVERING") {
+      return (
+        <span className="text" style={{ color: "#c206e2" }}>
+          En Camino
+        </span>
+      );
     } else {
-      return <span className="text-info">En Progreso</span>;
+      return <span className="text-info">En Proceso</span>;
     }
   }
 

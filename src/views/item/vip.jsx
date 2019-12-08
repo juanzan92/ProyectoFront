@@ -172,11 +172,21 @@ class VIP extends React.Component {
     }
   };
 
+  buildComboStock(stock) {
+    let arrayOutput = [];
+
+    for (var i = 0; i < stock; i++) {
+      arrayOutput.push(<option value={i + 1}>{i + 1}</option>);
+    }
+
+    return arrayOutput;
+  }
+
   render() {
     const { item, blockButton, user } = this.state;
     const state = this.state;
-    var role =  null ;
-    if(user){
+    var role = null;
+    if (user) {
       role = user["custom:role"];
     }
 
@@ -217,11 +227,7 @@ class VIP extends React.Component {
                         onChange={this.handleInputChange}
                         value={this.state.quantityToBuy}
                         name={"quantityToBuy"}>
-                        <option value={1}>1</option>
-                        <option value={2}>2</option>
-                        <option value={3}>3</option>
-                        <option value={4}>4</option>
-                        <option value={5}>5</option>
+                        {this.buildComboStock(item.stock)}
                       </select>
                     </div>
                   </div>
@@ -275,7 +281,7 @@ class VIP extends React.Component {
                         </a>
                       </div>
                     </div>
-                  ) : (!user)  ? (
+                  ) : !user ? (
                     <a href="/signin">
                       <div className="sp-buttons mt-2 mb-2">
                         <div className="btn btn-lg btn-info">

@@ -27,7 +27,7 @@ class TrackingBar extends React.Component {
 
   isSubscriptionDelivered() {
     const { shipments } = this.props.subscription;
-    const finalShipment = shipments[shipments.length-1];
+    const finalShipment = shipments[shipments.length - 1];
     if (finalShipment && finalShipment.shipment_status !== "delivered") {
       return (
         <div className="step">
@@ -48,7 +48,9 @@ class TrackingBar extends React.Component {
             </div>
           </div>
           <h4 className="step-title">Recibido</h4>
-          <h4 className="step-title">{this.getDate(finalShipment.date_created)}</h4>
+          <h4 className="step-title">
+            {this.getDate(finalShipment.date_created)}
+          </h4>
         </div>
       );
     }
@@ -59,9 +61,9 @@ class TrackingBar extends React.Component {
       return "FINALIZADO";
     } else if (status === "CANCELLED") {
       return "CANCELADO";
-    } else if (status === "IN_PROGRESS") {
+    } else if (status === "DELIVERING") {
       return "EN CAMINO";
-    }else{
+    } else {
       return "PENDIENTE";
     }
   }
@@ -74,10 +76,10 @@ class TrackingBar extends React.Component {
     } = this.props.subscription;
 
     var ind = 0;
-    var checkpoint_pending =""
-     if(shipments.length>1){
-       checkpoint_pending = "completed"
-     }
+    var checkpoint_pending = "";
+    if (shipments.length > 1) {
+      checkpoint_pending = "completed";
+    }
 
     return (
       <div className="card mb-3">
@@ -93,7 +95,12 @@ class TrackingBar extends React.Component {
             <span className="text-medium">
               Estado:
               {subscription_status === "FINISHED" && (
-                <span style={{ fontWeight: "500", color: "green" }}>
+                <span style={{ fontWeight: "500", color: "#038858" }}>
+                  {this.translateStatus(subscription_status)}
+                </span>
+              )}
+              {subscription_status === "DELIVERING" && (
+                <span style={{ fontWeight: "500", color: "#c206e2" }}>
                   {this.translateStatus(subscription_status)}
                 </span>
               )}
@@ -121,7 +128,10 @@ class TrackingBar extends React.Component {
               <h4 className="step-title">Envio Externo</h4>
             </div>
             {shipments.map(track => {
-              if (track.shipment_status !== "delivered" && track.shipment_status !== "pending") {
+              if (
+                track.shipment_status !== "delivered" &&
+                track.shipment_status !== "pending"
+              ) {
                 ind = +1;
                 return (
                   <div className="step completed">
@@ -138,7 +148,7 @@ class TrackingBar extends React.Component {
                     </h4> */}
                   </div>
                 );
-              }else if(track.shipment_status !== "delivered"){
+              } else if (track.shipment_status !== "delivered") {
                 ind = +1;
                 return (
                   <div className={`step ${checkpoint_pending}`}>
