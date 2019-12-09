@@ -113,7 +113,7 @@ class VendorSuscriptionTable extends React.Component {
           <span className="text-medium">&#36;{item.actual_price}</span>
         </td>
         <td>
-          {item.item_status !== "CANCELLED" && (
+          {item.item_status === "IN_PROGRESS" && (
             <>
               <CancelItemModal
                 key={item.item_id}

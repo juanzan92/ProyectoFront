@@ -38,7 +38,7 @@ class CancelItemModal extends React.Component {
           <div class="modal-dialog modal-dialog-centered" role="document">
             <div class="modal-content">
               <div class="modal-header">
-                <h4 class="modal-title">Cancelacion de Suscripcion</h4>
+                <h4 class="modal-title">Cancelacion de Oportunidad</h4>
                 <button
                   class="close"
                   type="button"
@@ -50,7 +50,8 @@ class CancelItemModal extends React.Component {
               </div>
               <div class="modal-body" style={alingCenterStyle}>
                 <p>
-                  Estas por cancelar un Item. <p>Seguro quieres hacerlo ?</p>
+                  Estas por cancelar un Oportunidad.{" "}
+                  <p>Seguro quieres hacerlo ?</p>
                 </p>
               </div>
               <div class="modal-footer" style={alingCenterStyle}>
