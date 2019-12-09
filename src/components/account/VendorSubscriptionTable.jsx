@@ -9,6 +9,12 @@ const titleStyle = {
   textOverflow: "ellipsis",
   textDecoration: "none"
 };
+
+const btnCancelStyle = {
+  position: "relative",
+  top: "-2px"
+};
+
 class VendorSuscriptionTable extends React.Component {
   constructor(props) {
     super(props);
@@ -112,8 +118,8 @@ class VendorSuscriptionTable extends React.Component {
         <td>
           <span className="text-medium">&#36;{item.actual_price}</span>
         </td>
-        <td>
-          {item.item_status === "IN_PROGRESS" && (
+        <td style={{ paddingTop: "0.2rem" }}>
+          {item.item_status === "ACTIVE" && (
             <>
               <CancelItemModal
                 key={item.item_id}
@@ -128,7 +134,7 @@ class VendorSuscriptionTable extends React.Component {
                 data-toggle="modal"
                 data-target={`#modalCentered${item.item_id}`}
                 style={{ margin: "0.5rem !important" }}>
-                <CancelIcon />
+                <CancelIcon style={btnCancelStyle} />
               </button>
             </>
           )}
