@@ -10,7 +10,7 @@ class Splash extends React.Component {
           <div className="container center pt-50px">
             <CardHF
               header="Estamos registrando tu autorización"
-              title="Espera unos segundos y serás redirijo automáticamente"
+              title="Espera unos segundos y serás redirigido automáticamente"
               body=""
               spinner={true}
             />
