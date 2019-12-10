@@ -8,6 +8,7 @@ import { Auth } from "aws-amplify";
 import UserCard from "../../components/account/UserCard";
 import SuscriptionTable from "../../components/account/SuscriptionTable";
 import wrapper from "../../components/Wrapper";
+import BackOfficceGraph from "../../components/account/BackOfficceGraph";
 const Context = React.createContext();
 
 class UserAccount extends React.Component {
@@ -34,7 +35,7 @@ class UserAccount extends React.Component {
   componentDidUpdate() {
     const { user } = this.state;
 
-    if (this.state.user != "") {
+    if (this.state.user != "" && user.nickname !== "admin1") {
       const rol = user["custom:role"];
       if (rol === "consumer" && this.state.orders.length === 0) {
         this.fetchOrders();
@@ -45,6 +46,8 @@ class UserAccount extends React.Component {
       ) {
         this.fetchOportunities();
       }
+    } else if (this.state.isLoading != false) {
+      this.setState({ isLoading: false });
     }
   }
 
@@ -83,23 +86,43 @@ class UserAccount extends React.Component {
     const selected = "suscripciones";
     if (user && orders && !isLoading) {
       if (user["custom:role"] === "consumer") {
-        return (
-          <Context.Provider value={selected}>
-            <AccountTitle />
-            <div className="container padding-bottom-3x mb-2">
-              <div className="row">
-                <UserCard
-                  user={user}
-                  orders={orders}
-                  selected="suscripciones"
-                />
-                <div className="col-lg-8">
-                  <SuscriptionTable ordenes={orders} />
+        if (user.nickname === "admin1") {
+          return (
+            <>
+              <AccountTitle />
+              <div className="container padding-bottom-3x mb-2">
+                <div className="row">
+                  <UserCard
+                    user={user}
+                    orders={orders}
+                    selected="suscripciones"
+                  />
+                  <div className="col-lg-8">
+                    <BackOfficceGraph />
+                  </div>
                 </div>
               </div>
-            </div>
-          </Context.Provider>
-        );
+            </>
+          );
+        } else {
+          return (
+            <Context.Provider value={selected}>
+              <AccountTitle />
+              <div className="container padding-bottom-3x mb-2">
+                <div className="row">
+                  <UserCard
+                    user={user}
+                    orders={orders}
+                    selected="suscripciones"
+                  />
+                  <div className="col-lg-8">
+                    <SuscriptionTable ordenes={orders} />
+                  </div>
+                </div>
+              </div>
+            </Context.Provider>
+          );
+        }
       } else {
         return (
           <Context.Provider value={selected}>
