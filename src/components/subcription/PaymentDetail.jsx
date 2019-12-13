@@ -5,12 +5,11 @@ class PaymentDetail extends React.Component {
     const {
       quantity,
       total_amount,
+      shipping_cost,
+      transaction_amount,
       merchant_order_id
     } = this.props.subscription;
-    const shipping_amount = total_amount * 0.03;
-    const afip_amount = total_amount * 0.1;
-    const paid_amount = total_amount - afip_amount - shipping_amount;
-
+    const fee = total_amount - shipping_cost - transaction_amount;
     return (
       <>
         <h3>Detalle de Pago</h3>
@@ -21,17 +20,17 @@ class PaymentDetail extends React.Component {
             <tbody>
               <tr>
                 <td>Pagaste por {quantity}</td>
-                <td>$ {paid_amount}</td>
+                <td>$ {transaction_amount.toFixed(2)}</td>
               </tr>
+              {fee !== 0&&<tr>
+                <td>Costos de intereses</td>
+                <td>$ {fee.toFixed(2)}</td>
+              </tr>}
               <tr>
                 <td>Cargo de envío</td>
-                <td>$ {shipping_amount}</td>
+                <td>$ {shipping_cost.toFixed(2)}</td>
               </tr>
               <tr style={{ margin: "2px" }}></tr>
-              <tr>
-                <td>Cargo DDJJ AFIP</td>
-                <td>$ {afip_amount}</td>
-              </tr>
               <tr>
                 <td style={{ fontWeight: "600" }}>Total</td>
                 <td style={{ fontWeight: "600" }}>$ {total_amount}</td>

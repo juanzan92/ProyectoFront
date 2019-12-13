@@ -20,7 +20,7 @@ class VendorNavUser extends React.Component {
           class={
             "list-group-item with-badge " + this.isSelected("oportunities")
           }
-          href="/vendor-oportunities">
+          href="/account">
           <i className="icon-bag" />
           Oportunidades
           <span className="badge badge-primary badge-pill">
@@ -30,24 +30,18 @@ class VendorNavUser extends React.Component {
 
         <Link
           to="/vendor-profile"
-          class={"list-group-item " + this.isSelected("myaccount")}>
+          class={"list-group-item " + this.isSelected("mi_cuenta")}>
           <i className="icon-head" />
-          Mi cuenta
+          Datos de cuenta
         </Link>
 
-        <a
-          class={"list-group-item " + this.isSelected("directions")}
-          href="/vendor-directions">
-          <i className="icon-map" />
-          Direcciones
-        </a>
-        <Link to="/vendor-reporting">
-          <a
-            class={"list-group-item with-badge " + this.isSelected("reports")}
-            href="/vendor-reporting">
-            <AssessmentOutlinedIcon />
-            Reportes
-          </a>
+        <Link
+          to="/vendor-reporting"
+          class={"list-group-item with-badge " + this.isSelected("reports")}
+          href="/vendor-reporting"
+          style={{ textDecoration: "none !important" }}>
+          <AssessmentOutlinedIcon />
+          Reportes
         </Link>
       </nav>
     );

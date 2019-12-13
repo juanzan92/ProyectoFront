@@ -27,13 +27,6 @@ class ReactSectionTopCategories extends React.Component {
               </div>
             ))}
           </div>
-          <div className="text-center">
-            <ReactA
-              aClass={"btn btn-outline-secondary margin-top-none"}
-              aTitle={"Todas las categorias"}
-              aHref={"/categories"}
-            />
-          </div>
         </section>
       </>
     );

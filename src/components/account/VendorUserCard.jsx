@@ -2,12 +2,21 @@ import React from "react";
 import VendorNav from "./VendorNavUser";
 
 class VendorUserCard extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: this.props.user,
+      orders: this.props.orders,
+      selected: this.props.selected
+    };
+  }
+
   getFullname() {
-    return `${this.props.user.name} ${this.props.user.given_name}`;
+    return `${this.state.user.name} ${this.state.user.given_name}`;
   }
 
   render() {
-    const { user, orders, selected } = this.props;
+    const { user, orders, selected } = this.state;
     const img = NaN;
     if (user.picture) {
       img = user.picture;

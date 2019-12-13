@@ -1,5 +1,4 @@
 import React from "react";
-
 import VendorUserCard from "../../components/account/VendorUserCard";
 import wrapper from "../../components/Wrapper";
 import VendorAccountProfileForm from "../../components/account/VendorAccountForm";
@@ -12,43 +11,50 @@ class VendorAccountProfile extends React.Component {
     super(props);
     this.state = {
       user: "",
-      orders: []
+      orders: [],
+      searchedItems: false,
+      isLoading: true
     };
     this.getUsuario();
   }
 
   getUsuario() {
-    Auth.currentAuthenticatedUser({}).then(user1 => {
+    Auth.currentAuthenticatedUser({}).then(userObject => {
       this.setState({
-        user: user1.attributes
+        user: userObject.attributes
       });
     });
   }
 
-  componentDidMount() {}
-
   componentDidUpdate() {
-    if (this.state.user !== "" && this.state.orders.length == 0) {
+    if (
+      this.state.user !== "" &&
+      this.state.orders.length === 0 &&
+      !this.state.searchedItems
+    ) {
       this.fetchOrders();
     }
   }
 
   fetchOrders() {
-    const url = `http://localhost:8080/subscriptions/search?index_name=username&search_pattern=${this.state.user.nickname}`;
+    this.setState({ searchedItems: true });
+    const url = `http://localhost:8080/catalog/items/search?index_name=vendor_username&search_pattern=${this.state.user.nickname}`;
     fetch(url)
       .then(response => {
         return response.json();
       })
       .then(myJson => {
         this.setState({
-          orders: myJson
+          orders: myJson,
+          isLoading: false
         });
       })
       .catch(e => console.log(e));
   }
 
   render() {
-    if (this.state.orders.length > 0) {
+    const { isLoading } = this.state;
+    if (!isLoading) {
       return (
         <>
           <AccountTitle />
@@ -64,7 +70,7 @@ class VendorAccountProfile extends React.Component {
               )}
             </div>
           </div>
-          <Snackbar></Snackbar>
+          <Snackbar />
         </>
       );
     } else {

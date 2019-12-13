@@ -11,8 +11,11 @@ export default function wrapper(WrappedComponent) {
       super();
       this.state = {
         categories: [],
+        active: "",
         isLoading: true
       };
+
+      this.handleOpenOffCanvasMenu = this.handleOpenOffCanvasMenu.bind(this);
     }
 
     componentDidMount() {
@@ -39,18 +42,35 @@ export default function wrapper(WrappedComponent) {
         .catch(e => console.log(e));
     }
 
+    handleOpenOffCanvasMenu() {
+      if (this.state.active == "active") {
+        this.setState({ active: "" });
+      } else {
+        this.setState({ active: "active" });
+      }
+    }
+
     render() {
       return (
         <div>
           <TopBar />
           <OffCanvasMenu
             categories={this.state.categories}
+            active={this.state.active}
             key={"off-canvas-menu"}
           />
-          <NavBar key={"nav-bar"} />
+          <NavBar
+            key={"nav-bar"}
+            handleOpenOffCanvasMenu={this.handleOpenOffCanvasMenu}
+          />
           <WrappedComponent
             {...this.props}
             categories={this.state.categories}
+            handleOpenOffCanvasMenu={this.handleOpenOffCanvasMenu}
+          />
+          <div
+            className="site-backdrop"
+            onClick={this.handleOpenOffCanvasMenu}
           />
           <Footer key={"footer"} />
         </div>

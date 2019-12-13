@@ -25,7 +25,7 @@ class VIPTitle extends React.Component {
               </li>
               <li className="separator">&nbsp;</li>
               <li>
-                <a href="shop-grid-ls.html">Shop</a>
+                S-Market
               </li>
               <li className="separator">&nbsp;</li>
               <li>{this.prop1}</li>

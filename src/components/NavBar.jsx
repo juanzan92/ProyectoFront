@@ -13,6 +13,8 @@ class NavBar extends Component {
       user_username: "",
       user_rol: ""
     };
+
+    this.handleSearch = this.handleSearch.bind(this);
   }
 
   async componentDidMount() {
@@ -59,6 +61,11 @@ class NavBar extends Component {
       .catch(err => console.log(err));
   }
 
+  handleSearch(inputSearch) {
+    if (inputSearch) {
+    }
+  }
+
   render() {
     const childProps = {
       isAuthenticated: this.state.isAuthenticated,
@@ -69,11 +76,11 @@ class NavBar extends Component {
 
     //const isLogged = this.state.isAuthenticated;
 
-    let btnNavBar;
+    let navToolBar;
 
     if (this.state.isAuthenticated) {
-      if (this.state.user_rol == "consumer") {
-        btnNavBar = (
+      if (this.state.user_rol === "consumer") {
+        navToolBar = (
           <>
             <div className="row">
               <div className="col-md-3 mt-2">
@@ -97,11 +104,15 @@ class NavBar extends Component {
                     </li>
                     <li className="sub-menu-separator" />
                     <li>
-                      <a href="/account">Mi Cuenta</a>
+                      <a href="/account-profile">Mi Cuenta</a>
                     </li>
                     <li className="sub-menu-separator" />
                     <li>
                       <a href="/account">Suscripciones</a>
+                    </li>
+                    <li className="sub-menu-separator" />
+                    <li>
+                      <a onClick={this.handleLogout}>Salir</a>
                     </li>
                     <li className="sub-menu-separator" />
                   </ul>
@@ -116,7 +127,7 @@ class NavBar extends Component {
           </>
         );
       } else {
-        btnNavBar = (
+        navToolBar = (
           <>
             <div className="row">
               <div className="col-md-3 mr-3">
@@ -151,11 +162,15 @@ class NavBar extends Component {
                     </li>
                     <li className="sub-menu-separator" />
                     <li>
-                      <a href="/account">Mi Cuenta</a>
+                      <a href="/vendor-profile">Mi Cuenta</a>
                     </li>
                     <li className="sub-menu-separator" />
                     <li>
                       <a href="/account">Oportunidades</a>
+                    </li>
+                    <li className="sub-menu-separator" />
+                    <li>
+                      <a onClick={this.handleLogout}>Salir</a>
                     </li>
                     <li className="sub-menu-separator" />
                   </ul>
@@ -171,7 +186,7 @@ class NavBar extends Component {
         );
       }
     } else {
-      btnNavBar = (
+      navToolBar = (
         <>
           <Link to="/signin">
             <div className="btn btn-primary p">
@@ -188,14 +203,29 @@ class NavBar extends Component {
     return (
       <>
         <header className="navbar navbar-sticky">
-          {/* Search*/}
+          <form class="site-search" method="get">
+            <input
+              type="text"
+              name="site_search"
+              placeholder="Type to search..."
+              onClick={this.handleSearch}
+            />
+            <div class="search-tools">
+              <span class="clear-search">Clear</span>
+              <span class="close-search">
+                <i class="icon-cross"></i>
+              </span>
+            </div>
+          </form>
+          {/* Branding*/}
           <div className="site-branding">
             <div className="inner">
               {/* Off-Canvas Toggle (#shop-categories)*/}
               <a
                 className="offcanvas-toggle cats-toggle"
-                href="#shop-categories"
+                //href="#shop-categories"
                 data-toggle="offcanvas"
+                onClick={this.props.handleOpenOffCanvasMenu}
               />
               {/* Site Logo*/}
               <a className="site-logo" href="/">
@@ -206,29 +236,19 @@ class NavBar extends Component {
           {/* Main Navigation*/}
           <nav className="site-menu">
             <ul>
-              <li className="has-megamenu active">
+              <li>
                 <a href="/">
                   <span>Home</span>
                 </a>
               </li>
               <li>
-                <a href="/">
-                  <span>Hurry up!</span>
-                </a>
-              </li>
-              <li className="has-megamenu">
-                <a href="/">
-                  <span>Categorias</span>
-                </a>
-              </li>
-              <li>
-                <a href="/">
+                <a href="/aboutus">
                   <span>Quienes somos</span>
                 </a>
               </li>
               <li>
-                <a href="/">
-                  <span>FAQ</span>
+                <a href="/faqs">
+                  <span>FAQ's</span>
                 </a>
               </li>
             </ul>
@@ -236,7 +256,7 @@ class NavBar extends Component {
           {/* Toolbar*/}
           <div className="toolbar">
             <div className="inner">
-              <div className="tools">{btnNavBar}</div>
+              <div className="tools">{navToolBar}</div>
             </div>
           </div>
         </header>

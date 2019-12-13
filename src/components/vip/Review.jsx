@@ -32,12 +32,14 @@ class Review extends React.Component {
           <div className="comment">
             <div className="comment-body">
               <div className="comment-header d-flex flex-wrap justify-content-between">
-                <h4 className="comment-title">{"Review"}</h4>
+                <h4 className="comment-title">{"Gran Producto"}</h4>
                 <div className="mb-2">{this.creatStars()}</div>
               </div>
               <p className="comment-text">{this.props.review.description}</p>
               <div className="comment-footer">
-                <span className="comment-meta">{"Alguien genial"}</span>
+                <span className="comment-meta">
+                  {this.props.review.username}
+                </span>
               </div>
             </div>
           </div>

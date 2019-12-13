@@ -1,13 +1,14 @@
 import React from "react";
 import { get } from "https";
-//import "./tracking.scss";
+
+const stateIcon = ["pe-7s-map-2", "pe-7s-way"];
 
 class TrackingBar extends React.Component {
   renderFinalTrack() {}
 
   getState() {}
 
-  getDate(trackDate) {
+  getFor(trackDate) {
     const date = new Date(trackDate);
     const month = date.getMonth();
     const year = date.getFullYear();
@@ -15,18 +16,30 @@ class TrackingBar extends React.Component {
     const fecha = days + "/" + month + "/" + year;
     return fecha;
   }
+  getFormattedDate(date) {
+    date = new Date(date);
+    let year = date.getFullYear();
+    let month = (1 + date.getMonth()).toString().padStart(2, "0");
+    let day = date
+      .getDate()
+      .toString()
+      .padStart(2, "0");
+
+    return day + "/" + month + "/" + year;
+  }
 
   getAdressName(reciver) {
     if (reciver) {
       return reciver.address_name;
     } else {
-      return "Recibido";
+      return "Entregado al correo";
     }
   }
 
   isSubscriptionDelivered() {
-    const { subscription_status } = this.props.subscription;
-    if (subscription_status !== "FINISHED")
+    const { shipments } = this.props.subscription;
+    const finalShipment = shipments[shipments.length - 1];
+    if (finalShipment && finalShipment.shipment_status !== "delivered") {
       return (
         <div className="step">
           <div className="step-icon-wrap">
@@ -37,6 +50,33 @@ class TrackingBar extends React.Component {
           <h4 className="step-title">Recibido</h4>
         </div>
       );
+    } else {
+      return (
+        <div className="step completed">
+          <div className="step-icon-wrap">
+            <div className="step-icon">
+              <i className="pe-7s-home"></i>
+            </div>
+          </div>
+          <h4 className="step-title">Recibido</h4>
+          <h4 className="step-title">
+            {this.getFormattedDate(finalShipment.date_created)}
+          </h4>
+        </div>
+      );
+    }
+  }
+
+  translateStatus(status) {
+    if (status === "FINISHED") {
+      return "FINALIZADO";
+    } else if (status === "CANCELLED") {
+      return "CANCELADO";
+    } else if (status === "DELIVERING") {
+      return "EN CAMINO";
+    } else {
+      return "PENDIENTE";
+    }
   }
 
   render() {
@@ -45,6 +85,12 @@ class TrackingBar extends React.Component {
       subscription_id,
       subscription_status
     } = this.props.subscription;
+
+    var ind = 0;
+    var checkpoint_pending = "";
+    if (shipments.length > 1) {
+      checkpoint_pending = "completed";
+    }
 
     return (
       <div className="card mb-3">
@@ -59,19 +105,24 @@ class TrackingBar extends React.Component {
           <div className="w-100 text-center py-1 px-2">
             <span className="text-medium">
               Estado:
-              {subscription_status == "FINISHED" && (
-                <span style={{ fontWeight: "500", color: "green" }}>
-                  {subscription_status}
+              {subscription_status === "FINISHED" && (
+                <span style={{ fontWeight: "500", color: "#038858" }}>
+                  {this.translateStatus(subscription_status)}
                 </span>
               )}
-              {subscription_status == "IN_PROGRESS" && (
+              {subscription_status === "DELIVERING" && (
+                <span style={{ fontWeight: "500", color: "#c206e2" }}>
+                  {this.translateStatus(subscription_status)}
+                </span>
+              )}
+              {subscription_status === "IN_PROGRESS" && (
                 <span style={{ fontWeight: "500", color: "blue" }}>
-                  {subscription_status}
+                  {this.translateStatus(subscription_status)}
                 </span>
               )}
-              {subscription_status == "CANCELLED" && (
+              {subscription_status === "CANCELLED" && (
                 <span style={{ fontWeight: "500", color: "red" }}>
-                  {subscription_status}
+                  {this.translateStatus(subscription_status)}
                 </span>
               )}
             </span>
@@ -88,21 +139,41 @@ class TrackingBar extends React.Component {
               <h4 className="step-title">Envio Externo</h4>
             </div>
             {shipments.map(track => {
-              return (
-                <div className="step completed">
-                  <div className="step-icon-wrap">
-                    <div className="step-icon">
-                      <i className="pe-7s-way"></i>
+              if (
+                track.shipment_status !== "delivered" &&
+                track.shipment_status !== "pending"
+              ) {
+                ind = +1;
+                return (
+                  <div className="step completed">
+                    <div className="step-icon-wrap">
+                      <div className="step-icon">
+                        <i className={stateIcon[ind]}></i>
+                      </div>
                     </div>
+                    <h4 className="step-title">
+                      {this.getAdressName(track.receiver_address)}
+                    </h4>
+                    {/* <h4 className="step-title">
+                      {this.getDate(track.date_created)}
+                    </h4> */}
                   </div>
-                  <h4 className="step-title">
-                    {this.getAdressName(track.receiver_address)}
-                  </h4>
-                  <h4 className="step-title">
-                    {this.getDate(track.date_created)}
-                  </h4>
-                </div>
-              );
+                );
+              } else if (track.shipment_status !== "delivered") {
+                ind = +1;
+                return (
+                  <div className={`step ${checkpoint_pending}`}>
+                    <div className="step-icon-wrap">
+                      <div className="step-icon">
+                        <i className={stateIcon[ind]}></i>
+                      </div>
+                    </div>
+                    <h4 className="step-title">
+                      {this.getAdressName(track.receiver_address)}
+                    </h4>
+                  </div>
+                );
+              }
             })}
             {this.isSubscriptionDelivered()}
           </div>

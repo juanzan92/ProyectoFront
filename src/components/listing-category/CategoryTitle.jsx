@@ -8,7 +8,7 @@ class ListingCategoriesTitle extends React.Component {
   };
 
   render() {
-    const { title, category_name } = this.props;
+    const { category_name } = this.props;
     return (
       <div className="page-title">
         <div className="container">
@@ -19,10 +19,6 @@ class ListingCategoriesTitle extends React.Component {
             <ul className="breadcrumbs">
               <li>
                 <a href="/">Home</a>
-              </li>
-              <li className="separator">&nbsp;</li>
-              <li>
-                <a href="shop-grid-ls.html">Categorias</a>
               </li>
               <li className="separator">&nbsp;</li>
               <li>{category_name}</li>

@@ -5,6 +5,7 @@ import Review from "../../components/vip/Review";
 import ProductCard from "../../components/vip/ProductCard";
 import { Auth } from "aws-amplify";
 import Timer from "../../components/utils/Timer";
+import { Redirect } from "react-router-dom";
 
 class VIP extends React.Component {
   constructor(props) {
@@ -17,32 +18,28 @@ class VIP extends React.Component {
       quantityToBuy: 1,
       progress: 0,
       redirect_url: "",
-      user: null
+      user: null,
+      blockButton: true,
+      color: null
     };
-
+    this.getUsuario();
+    this.buscarItemTest();
     this.handleInputChange = this.handleInputChange.bind(this);
     this.pagar = this.pagar.bind(this);
-    this.getUsuario();
   }
 
   getUsuario() {
-    Auth.currentAuthenticatedUser({}).then(user1 => {
-      this.setState({
-        user: user1.attributes
-      });
-    });
-  }
-
-  componentDidMount() {
-    this.buscarItemTest();
-  }
-
-  componentDidUpdate() {
-    if (this.state.user) {
-      if (this.state.item && this.state.isLoading) {
-        this.getURLPago();
-      }
-    }
+    Auth.currentAuthenticatedUser({})
+      .then(user1 => {
+        this.setState({
+          user: user1.attributes
+        });
+      })
+      .catch(respones =>
+        this.setState({
+          user: false
+        })
+      );
   }
 
   handleInputChange(event) {
@@ -51,8 +48,10 @@ class VIP extends React.Component {
     const name = target.name;
 
     if (name === "quantityToBuy") {
-      this.getURLPago();
+      this.setState({ quantityToBuy: value });
+      this.getURLPago(value);
     }
+
     this.setState({
       [name]: value
     });
@@ -77,13 +76,13 @@ class VIP extends React.Component {
       .then(response => {
         this.calcularBarraProgreso();
         this.buscarReviews();
-        this.getURLPago();
+        this.getURLPago(1);
       });
   }
 
   buscarReviews() {
-    const url =
-      "http://localhost:8080/catalog/reviews/search?index_name=item_id&search_pattern=1234";
+    const id = `${this.state.item.item_id}`;
+    const url = `http://localhost:8080/catalog/reviews/search?index_name=item_id&search_pattern=${id}`;
     fetch(url)
       .then(response => {
         return response.json();
@@ -100,32 +99,45 @@ class VIP extends React.Component {
     var actualQuantity = this.state.item.stock;
     var vendido = initialQuantity - actualQuantity;
     this.setState({
-      progress: (vendido * 100) / initialQuantity
+      progress: ((vendido * 100) / initialQuantity).toFixed(2)
     });
   }
 
-  getURLPago() {
-    const url = "http://localhost:8080/mp/preferences"; //url backend
-    fetch(url, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({
-        item_id: this.state.item.item_id,
-        quantity: this.state.quantityToBuy,
-        consumer_username: "richiardo"
+  getColorFromItem() {
+    const { item } = this.state;
+
+    const attribute = item.attributes.find(
+      attribute => attribute.id === "Color"
+    );
+    return attribute["value"];
+  }
+
+  getURLPago(quantity) {
+    if (this.state.user) {
+      this.setState({ blockButton: true });
+      const url = "http://localhost:8080/mp/preferences";
+      fetch(url, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          item_id: this.state.item.item_id,
+          quantity: quantity,
+          consumer_username: this.state.user.nickname
+        })
       })
-    })
-      .then(response => {
-        return response.json();
-      })
-      .then(preferencia => {
-        this.setState({
-          redirect_url: preferencia.redirect_url,
-          isLoading: false
+        .then(response => {
+          return response.json();
+        })
+        .then(preferencia => {
+          this.setState({
+            redirect_url: preferencia.redirect_url,
+            blockButton: false,
+            isLoading: false
+          });
         });
-      });
+    }
   }
 
   pagar() {
@@ -154,11 +166,31 @@ class VIP extends React.Component {
     }
   }
 
-  render() {
-    const { item } = this.state;
-    const state = this.state;
+  renderRedirect = () => {
+    if (this.state.redirect) {
+      return <Redirect to="/signin" />;
+    }
+  };
 
-    if (item && state.reviews.length > 0) {
+  buildComboStock(stock) {
+    let arrayOutput = [];
+
+    for (var i = 0; i < stock; i++) {
+      arrayOutput.push(<option value={i + 1}>{i + 1}</option>);
+    }
+
+    return arrayOutput;
+  }
+
+  render() {
+    const { item, blockButton, user } = this.state;
+    const state = this.state;
+    var role = null;
+    if (user) {
+      role = user["custom:role"];
+    }
+
+    if (item) {
       return (
         <>
           <VIPTitle prop1={item.title} />
@@ -181,7 +213,7 @@ class VIP extends React.Component {
                     <div className="form-group">
                       <label htmlFor="color">Color</label>
                       <select className="form-control" id="color">
-                        <option>Gris</option>
+                        <option>{this.getColorFromItem()}</option>
                       </select>
                     </div>
                   </div>
@@ -195,11 +227,7 @@ class VIP extends React.Component {
                         onChange={this.handleInputChange}
                         value={this.state.quantityToBuy}
                         name={"quantityToBuy"}>
-                        <option value={1}>1</option>
-                        <option value={2}>2</option>
-                        <option value={3}>3</option>
-                        <option value={4}>4</option>
-                        <option value={5}>5</option>
+                        {this.buildComboStock(item.stock)}
                       </select>
                     </div>
                   </div>
@@ -235,25 +263,39 @@ class VIP extends React.Component {
                       </div>
                     </div>
                   </div>
-                  <div className="sp-buttons mt-2 mb-2">
-                    <button
-                      className="btn btn-outline-secondary btn-sm btn-wishlist"
-                      data-toggle="tooltip"
-                      title="Whishlist">
-                      <i className="icon-heart"></i>
-                    </button>
-                    <div
-                      className="btn btn-lg btn-secondary"
-                      onClick={this.pagar}>
-                      <a href={this.state.redirect_url}>
-                        Pagar con Mercado Pago
-                      </a>
+                  {user &&
+                  role === "consumer" &&
+                  item.item_status === "ACTIVE" ? (
+                    <div className="sp-buttons mt-2 mb-2">
+                      <div
+                        className="btn btn-lg btn-primary"
+                        onClick={this.pagar}
+                        disabled={blockButton}>
+                        <a
+                          href={this.state.redirect_url}
+                          style={{
+                            textDecoration: "none solid",
+                            color: "white"
+                          }}>
+                          Pagar con Mercado Pago
+                        </a>
+                      </div>
                     </div>
-                  </div>
+                  ) : !user ? (
+                    <a href="/signin">
+                      <div className="sp-buttons mt-2 mb-2">
+                        <div className="btn btn-lg btn-info">
+                          Ingresa y Compra
+                        </div>
+                      </div>
+                    </a>
+                  ) : null}
                 </div>
               </div>
               {/** descripcion */}
-              <div className="row padding-top-3x mb-3">
+              <div
+                className="row padding-top-3x mb-3"
+                style={{ width: "100%" }}>
                 <div className="col-lg-10 offset-lg-1">
                   <ul className="nav nav-tabs" role="tablist">
                     <li className="nav-item">

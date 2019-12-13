@@ -5,7 +5,6 @@ import wrapper from "../../components/Wrapper";
 import MainSlider from "../../components/home/Home-Main-Slider";
 import ReactSectionTopCategories from "../../components/home/ReactSectionTopCategories";
 import ReactSectionOfert from "../../components/home/ReactSectionOfert";
-import ReactSectionFeatureProducts from "../../components/home/ReactSectionFeatureProducts";
 
 class index extends React.Component {
   constructor(props) {
@@ -26,8 +25,7 @@ class index extends React.Component {
   }
 
   fetchCategories() {
-    const url =
-      "http://localhost:8080/catalog/categories/get_all";
+    const url = "http://localhost:8080/catalog/categories/get_all";
     fetch(url, {
       method: "GET",
       headers: {
@@ -44,10 +42,8 @@ class index extends React.Component {
   }
 
   filterTopCategories(json) {
-    json.pop();
-    json.pop();
     this.setState({
-      topCategories: json
+      topCategories: json.slice(0, 3)
     });
   }
 
@@ -94,8 +90,7 @@ class index extends React.Component {
   }
 
   buscarItemHurryUp() {
-    const url =
-      "http://localhost:8080/catalog/items/home/hurry_up/search";
+    const url = "http://localhost:8080/catalog/items/home/hurry_up/search";
     fetch(url, {
       method: "GET",
       headers: {
@@ -143,52 +138,47 @@ class index extends React.Component {
             item={this.state.featureItem}
             key={"feature-item"}
           />
-          {/* Featured Products Carousel*/}
 
-          <ReactSectionFeatureProducts
-            featureProducs={this.state.featureProducs}
-          />
           {/* Popular Brands*/}
           <section className="bg-faded padding-top-3x padding-bottom-3x">
             <div className="container">
-              <h3 className="text-center mb-30 pb-2">Marcas Populares</h3>
               <div
                 className="owl-carousel"
                 data-owl-carousel='{ "nav": false, "dots": false, "loop": true, "autoplay": true, "autoplayTimeout": 4000, "responsive": {"0":{"items":2}, "470":{"items":3},"630":{"items":4},"991":{"items":5},"1200":{"items":6}} }'>
                 <img
                   className="d-block w-110 opacity-75 m-auto"
-                  src="/img/brands/01.png"
+                  src="/img/brands/apple.png"
+                  alt="Apple"
+                />
+                <img
+                  className="d-block w-110 opacity-75 m-auto"
+                  src="/img/brands/adidas.png"
                   alt="Adidas"
                 />
                 <img
                   className="d-block w-110 opacity-75 m-auto"
-                  src="/img/brands/02.png"
-                  alt="Brooks"
+                  src="/img/brands/hp.png"
+                  alt="HP"
                 />
                 <img
                   className="d-block w-110 opacity-75 m-auto"
-                  src="/img/brands/03.png"
-                  alt="Valentino"
+                  src="/img/brands/chanel.png"
+                  alt="Chanel"
                 />
                 <img
                   className="d-block w-110 opacity-75 m-auto"
-                  src="/img/brands/04.png"
-                  alt="Nike"
+                  src="/img/brands/motorola.png"
+                  alt="Motorola"
                 />
                 <img
                   className="d-block w-110 opacity-75 m-auto"
-                  src="/img/brands/05.png"
-                  alt="Puma"
+                  src="/img/brands/chhc.png"
+                  alt="CH"
                 />
                 <img
                   className="d-block w-110 opacity-75 m-auto"
-                  src="/img/brands/06.png"
-                  alt="New Balance"
-                />
-                <img
-                  className="d-block w-110 opacity-75 m-auto"
-                  src="/img/brands/07.png"
-                  alt="Dior"
+                  src="/img/brands/lg.png"
+                  alt="LG"
                 />
               </div>
             </div>
@@ -199,45 +189,49 @@ class index extends React.Component {
               <div className="col-md-3 col-sm-6 text-center mb-30">
                 <img
                   className="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3"
-                  src="/img/services/01.png"
-                  alt="Shipping"
-                />
-                <h6>Envio a toda la Argentina</h6>
-                <p className="text-muted margin-bottom-none">
-                  Free shipping for all orders over $100
-                </p>
-              </div>
-              <div className="col-md-3 col-sm-6 text-center mb-30">
-                <img
-                  className="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3"
-                  src="/img/services/02.png"
-                  alt="Money Back"
-                />
-                <h6>Devolucion Gratuita </h6>
-                <p className="text-muted margin-bottom-none">
-                  Podes cancelar una compra y devolvemos tu dinero.
-                </p>
-              </div>
-              <div className="col-md-3 col-sm-6 text-center mb-30">
-                <img
-                  className="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3"
-                  src="/img/services/03.png"
+                  src="/img/services/collaboration.png"
                   alt="Support"
                 />
-                <h6>Soporte de Cliente</h6>
+                <h6>Colaboración</h6>
                 <p className="text-muted margin-bottom-none">
-                  Ofrecemos Soporte solo contactanos
+                  Accedé a precios increíbles participando en carteras de compra
+                  colectivas
                 </p>
               </div>
               <div className="col-md-3 col-sm-6 text-center mb-30">
                 <img
                   className="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3"
-                  src="/img/services/04.png"
-                  alt="Payment"
+                  src="/img/services/mercadopago.png"
+                  alt="Money Back"
                 />
                 <h6>Mercado Pago</h6>
                 <p className="text-muted margin-bottom-none">
-                  Transacciones seguras por MP
+                  Aprovechá todos los medios y promociones que ofrece Mercado
+                  Pago
+                </p>
+              </div>
+              <div className="col-md-3 col-sm-6 text-center mb-30">
+                <img
+                  className="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3"
+                  src="/img/services/mercadoenvios.png"
+                  alt="Shipping"
+                />
+                <h6>Mercado Envíos</h6>
+                <p className="text-muted margin-bottom-none">
+                  Recibí productos de todo el mundo directo a la puerta de tu
+                  casa
+                </p>
+              </div>
+              <div className="col-md-3 col-sm-6 text-center mb-30">
+                <img
+                  className="d-block w-90 img-thumbnail rounded-circle mx-auto mb-3"
+                  src="/img/services/refund.png"
+                  alt="Payment"
+                />
+                <h6>Devoluciones Gratuitas</h6>
+                <p className="text-muted margin-bottom-none">
+                  Cancelá en cualquier momento y recibí el dinero en tu cuenta
+                  de Mercado Pago
                 </p>
               </div>
             </div>

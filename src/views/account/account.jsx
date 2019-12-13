@@ -8,13 +8,14 @@ import { Auth } from "aws-amplify";
 import UserCard from "../../components/account/UserCard";
 import SuscriptionTable from "../../components/account/SuscriptionTable";
 import wrapper from "../../components/Wrapper";
+import BackOfficceGraph from "../../components/account/BackOfficceGraph";
 const Context = React.createContext();
 
 class UserAccount extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      isLoading: false,
+      isLoading: true,
       user: "",
       orders: []
     };
@@ -34,17 +35,19 @@ class UserAccount extends React.Component {
   componentDidUpdate() {
     const { user } = this.state;
 
-    if (this.state.user != "") {
+    if (this.state.user != "" && user.nickname !== "admin1") {
       const rol = user["custom:role"];
-      if (rol === "consumer" && this.state.orders.length == 0) {
+      if (rol === "consumer" && this.state.orders.length === 0) {
         this.fetchOrders();
       } else if (
         this.state.user != "" &&
         rol === "vendor" &&
-        this.state.orders.length == 0
+        this.state.orders.length === 0
       ) {
         this.fetchOportunities();
       }
+    } else if (this.state.isLoading != false) {
+      this.setState({ isLoading: false });
     }
   }
 
@@ -56,7 +59,8 @@ class UserAccount extends React.Component {
       })
       .then(myJson => {
         this.setState({
-          orders: myJson
+          orders: myJson,
+          isLoading: false
         });
       })
       .catch(e => console.log(e));
@@ -70,32 +74,55 @@ class UserAccount extends React.Component {
       })
       .then(myJson => {
         this.setState({
-          orders: myJson
+          orders: myJson,
+          isLoading: false
         });
       })
       .catch(e => console.log(e));
   }
 
   render() {
-    const { user, orders } = this.state;
+    const { user, orders, isLoading } = this.state;
     const selected = "suscripciones";
-    if (user && orders != orders.length > 0) {
+    if (user && orders && !isLoading) {
       if (user["custom:role"] === "consumer") {
-        return (
-          <Context.Provider value={selected}>
-            <AccountTitle />
-            <div className="container padding-bottom-3x mb-2">
-              <div className="row">
-                <UserCard
-                  user={user}
-                  orders={orders}
-                  selected="suscripciones"
-                />
-                <SuscriptionTable ordenes={orders} />
+        if (user.nickname === "admin1") {
+          return (
+            <>
+              <AccountTitle />
+              <div className="container padding-bottom-3x mb-2">
+                <div className="row">
+                  <UserCard
+                    user={user}
+                    orders={orders}
+                    selected="suscripciones"
+                  />
+                  <div className="col-lg-8">
+                    <BackOfficceGraph />
+                  </div>
+                </div>
               </div>
-            </div>
-          </Context.Provider>
-        );
+            </>
+          );
+        } else {
+          return (
+            <Context.Provider value={selected}>
+              <AccountTitle />
+              <div className="container padding-bottom-3x mb-2">
+                <div className="row">
+                  <UserCard
+                    user={user}
+                    orders={orders}
+                    selected="suscripciones"
+                  />
+                  <div className="col-lg-8">
+                    <SuscriptionTable ordenes={orders} />
+                  </div>
+                </div>
+              </div>
+            </Context.Provider>
+          );
+        }
       } else {
         return (
           <Context.Provider value={selected}>
@@ -107,7 +134,9 @@ class UserAccount extends React.Component {
                   orders={orders}
                   selected="oportunities"
                 />
-                <VendorSubscriptionTable items={orders} />
+                <div className="col-lg-8">
+                  <VendorSubscriptionTable items={orders} />
+                </div>
               </div>
             </div>
           </Context.Provider>

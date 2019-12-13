@@ -11,6 +11,8 @@ import ForgotPassword from "./views/login/ForgotPassword";
 import UploadOportunity from "./views/vendor/UploadOportunity";
 import splash_congrats from "./views/splash/splash_congrats";
 import notFound from "./views/notFound";
+import FAQs from "./views/us/FAQs";
+import AboutUs from "./views/us/AboutUs";
 import Account from "./views/account/account";
 import Subscription from "./views/suscription/subscription";
 import AccountDirections from "./views/account/account-directions";
@@ -20,6 +22,7 @@ import VendorAccountReporting from "./views/account/vendor-reporting";
 import VendorAccountDirection from "./views/account/vendor-directions";
 import VendorAccountOportunities from "./views/account/vendor-oportunities";
 import ListingCategory from "./views/listing-category/ListingCategories";
+import Categories from "./views/listing-category/Categories";
 
 class App extends Component {
   constructor(props) {
@@ -37,6 +40,7 @@ class App extends Component {
           <Route exact path="/signup" component={SignUp} />
           <Route exact path="/forgot-password" component={ForgotPassword} />
           <Route exact path="/vip/:item_id" component={vip} />
+          <Route exact path="/categorias" component={Categories} />
           <Route
             exact
             path="/category/:category_id"
@@ -62,6 +66,16 @@ class App extends Component {
             exact
             path="/vendor-profile"
             component={VendorAccountProfile}
+          />
+          <Route
+            exact
+            path="/faqs"
+            component={FAQs}
+          />
+          <Route
+            exact
+            path="/aboutus"
+            component={AboutUs}
           />
           <Route
             exact

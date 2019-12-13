@@ -21,7 +21,11 @@ class Timer extends React.Component {
     // this.setState({
     //   endDate: new Date(this.props.endDate)
     // });
-    this.startCountDown();
+    if (this.secondsRemaining > 0) {
+      this.startCountDown();
+    } else {
+      this.secondsRemaining = 0;
+    }
   }
 
   handleChange(event) {
